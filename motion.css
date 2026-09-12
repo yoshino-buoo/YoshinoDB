@@ -5,6 +5,11 @@
 .header {
   view-transition-name: site-header;
 }
+/* A header scrolled out of view must return with the incoming page. Keeping
+   it in the stationary layer would expose the scroll reset on frame one. */
+:root[data-scroll-transition] .header {
+  view-transition-name: none;
+}
 .listening-dock {
   view-transition-name: site-audio;
 }

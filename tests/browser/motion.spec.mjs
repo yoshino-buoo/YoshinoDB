@@ -453,3 +453,122 @@ test("the first shared-art frame is visually identical to the clicked cover", as
     "Clicking must not instantly overlay a differently cropped detail image",
   ).toBeLessThan(2);
 });
+
+for (const viewport of [
+  { width: 1366, height: 900 },
+  { width: 390, height: 844 },
+]) {
+  test(`scrolled cover navigation does not expose the header reset at ${viewport.width}px`, async ({
+    page,
+  }) => {
+    test.setTimeout(60000);
+    await page.setViewportSize(viewport);
+    await page.addInitScript(() => {
+      const start = document.startViewTransition.bind(document);
+      document.startViewTransition = (update) => {
+        const run = start(update);
+        run.ready.then(() => {
+          window.frozenHandoff = document
+            .getAnimations()
+            .filter((a) =>
+              a.effect?.pseudoElement?.includes("view-transition"),
+            );
+          window.frozenHandoff.forEach((a) => {
+            a.pause();
+            a.currentTime = 0;
+          });
+          window.handoffReady = true;
+        });
+        run.finished.then(() => (window.handoffFinished = true));
+        return run;
+      };
+    });
+    await ready(page, "songs");
+    for (const kind of [
+      "songs",
+      "videos",
+      "news",
+      "stories",
+      "units",
+      "timeline",
+      "cards",
+    ]) {
+      if (kind !== "songs") {
+        await page.evaluate((kind) => (location.hash = kind), kind);
+        await expect(page.locator(`.collection-${kind}`)).toBeVisible();
+      }
+      const covers = page.locator("#results .record-cover"),
+        cover = covers.nth(Math.min(8, (await covers.count()) - 1));
+      await cover.evaluate((el) =>
+        window.scrollTo({
+          top:
+            window.scrollY +
+            el.getBoundingClientRect().top +
+            el.clientHeight / 2 -
+            innerHeight / 2,
+          behavior: "instant",
+        }),
+      );
+      await page.evaluate(() => document.fonts.ready);
+      await page.waitForTimeout(1300);
+      const bounds = await cover.boundingBox(),
+        x = bounds.x + bounds.width / 2,
+        y = bounds.y + bounds.height / 2;
+      await page.mouse.move(x, y);
+      await page.waitForTimeout(250);
+      expect(
+        await page.evaluate(() => scrollY),
+        `${kind} must actually be scrolled`,
+      ).toBeGreaterThan(100);
+      const clip = {
+          x: 20,
+          y: 10,
+          width: Math.min(viewport.width - 40, 450),
+          height: 100,
+        },
+        before = await page.screenshot({ clip });
+      await page.evaluate(() => {
+        window.handoffReady = false;
+        window.handoffFinished = false;
+      });
+      // A physical click is essential: Locator.click can scroll again itself.
+      await page.mouse.click(x, y);
+      await page.waitForFunction(() => window.handoffReady);
+      const after = await page.screenshot({ clip });
+      const difference = await page.evaluate(
+        async (images) => {
+          const pixels = [];
+          for (const base64 of images) {
+            const img = await createImageBitmap(
+              await (await fetch(`data:image/png;base64,${base64}`)).blob(),
+            );
+            const canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+            pixels.push(ctx.getImageData(0, 0, img.width, img.height).data);
+            img.close();
+          }
+          return (
+            pixels[0].reduce(
+              (sum, v, i) => sum + Math.abs(v - pixels[1][i]),
+              0,
+            ) / pixels[0].length
+          );
+        },
+        [before.toString("base64"), after.toString("base64")],
+      );
+      expect(
+        difference,
+        `${kind}: resetting scroll must not reveal the page header ahead of the transition`,
+      ).toBeLessThan(0.3);
+      await page.evaluate(() => window.frozenHandoff.forEach((a) => a.play()));
+      await page.waitForFunction(() => window.handoffFinished);
+      expect(await page.evaluate(() => scrollY)).toBe(0);
+      await expect(page.locator("html")).not.toHaveAttribute(
+        "data-scroll-transition",
+      );
+    }
+  });
+}

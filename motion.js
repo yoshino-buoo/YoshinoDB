@@ -299,6 +299,7 @@ document.addEventListener("click", (event) => {
   };
 });
 function clearSharedArtwork() {
+  document.documentElement.removeAttribute("data-scroll-transition");
   document.querySelectorAll("[data-shared-art]").forEach((image) => {
     image.style.viewTransitionName = "";
     delete image.dataset.sharedArt;
@@ -365,6 +366,10 @@ export async function transitionPage(update) {
   frozen.forEach((animation) => animation.pause());
   snapshotActive = true;
   document.documentElement.dataset.transitioning = "true";
+  document.documentElement.toggleAttribute(
+    "data-scroll-transition",
+    scrollY > 1,
+  );
   source.style.viewTransitionName = "archive-art";
   source.dataset.sharedArt = "";
   const run = document.startViewTransition(async () => {
