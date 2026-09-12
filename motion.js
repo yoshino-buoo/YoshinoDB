@@ -1,3 +1,5 @@
+import { capturePage } from "./lib/page-snapshot.js";
+
 const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
 const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
 const observed = new Set();
@@ -5,7 +7,7 @@ let observer,
   transition,
   transitionSerial = 0,
   pendingCover;
-let indicatorObserver, gardenObserver, routeExit;
+let indicatorObserver, gardenObserver, routeExit, retiringPage;
 let snapshotActive = false;
 const resultTransitions = new WeakMap();
 let ambientPaused = false;
@@ -309,13 +311,10 @@ export async function transitionPage(update) {
   const serial = ++transitionSerial;
   transition?.skipTransition();
   const outgoing = document.querySelector("main");
-  const outgoingStyle = outgoing && getComputedStyle(outgoing);
-  const exitFrom = outgoingStyle && {
-    opacity: outgoingStyle.opacity,
-    translate: outgoingStyle.translate,
-    filter: outgoingStyle.filter,
-  };
-  routeExit?.cancel();
+  if (retiringPage) {
+    retiringPage.style.opacity = getComputedStyle(retiringPage).opacity;
+    routeExit?.cancel();
+  }
   clearSharedArtwork();
   const cover = pendingCover?.hash === location.hash ? pendingCover : null;
   const source = cover?.surface;
@@ -327,35 +326,31 @@ export async function transitionPage(update) {
     sourceBounds.bottom > 0 &&
     sourceBounds.top < innerHeight;
   if (reducedMotion()) {
+    retiringPage?.remove();
+    retiringPage = routeExit = null;
     snapshotActive = false;
     delete document.documentElement.dataset.transitioning;
     update();
     return;
   }
-  // Category navigation animates the live DOM; a frozen root snapshot would hide
-  // the scroll reveals playing behind it and expose them all at once at the end.
-  if (!share || !document.startViewTransition) {
+  // Crossfade the retained viewport over the incoming live entrance. Waiting for
+  // a full fade-out before rendering leaves a paper-only gap on every browser.
+  if (retiringPage || !share || !document.startViewTransition) {
     snapshotActive = false;
     delete document.documentElement.dataset.transitioning;
-    const main = document.querySelector("main");
-    if (main) {
-      routeExit = animate(
-        main,
-        [
-          exitFrom,
-          { opacity: 0, translate: "-24px -8px", filter: "blur(3px)" },
-        ],
-        {
-          duration: 170,
-          easing: "cubic-bezier(.55,0,1,.45)",
-          fill: "forwards",
-        },
-      );
-      await routeExit?.finished.catch(() => {});
-      if (serial !== transitionSerial) return;
-      routeExit = null;
-    }
+    const retained = capturePage(retiringPage);
+    retiringPage = retained;
     update();
+    routeExit = animate(retained, [{ opacity: 1 }, { opacity: 0 }], {
+      duration: 480,
+      delay: 100,
+      easing: "ease-in-out",
+      fill: "forwards",
+    });
+    await routeExit?.finished.catch(() => {});
+    if (serial !== transitionSerial) return;
+    retained?.remove();
+    retiringPage = routeExit = null;
     return;
   }
   // Capture the visible cover, including its crop and current hover pose.

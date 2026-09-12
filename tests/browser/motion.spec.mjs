@@ -367,6 +367,10 @@ for (const viewport of [
         await page.evaluate((kind) => (location.hash = kind), kind);
         await expect(page.locator(`.collection-${kind}`)).toBeVisible();
       }
+      // This test measures a native artwork handoff. Interrupted category
+      // navigation is covered separately by the retained-viewport regression.
+      await expect(page.locator("[data-route-retiring]")).toHaveCount(0);
+      await page.evaluate(() => (window.coverHandoffs = []));
       const cover = page.locator("#results .record-cover").first();
       await cover.hover();
       await page.waitForTimeout(110);
