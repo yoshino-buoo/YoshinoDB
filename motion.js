@@ -1,5 +1,6 @@
 import { capturePage } from "./lib/page-snapshot.js";
 import { stageTransitionScroll } from "./lib/transition-scroll.js";
+import { recordScroll } from "./lib/scroll-diagnostics.js";
 
 const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
 const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -311,6 +312,7 @@ function clearSharedArtwork() {
 }
 export async function transitionPage(update, { resetScroll = false } = {}) {
   const serial = ++transitionSerial;
+  recordScroll("route-start");
   transition?.skipTransition();
   settleScroll?.();
   settleScroll = null;
@@ -330,23 +332,27 @@ export async function transitionPage(update, { resetScroll = false } = {}) {
     sourceBounds.bottom > 0 &&
     sourceBounds.top < innerHeight;
   if (reducedMotion()) {
+    recordScroll("reduced-motion");
     retiringPage?.remove();
     retiringPage = routeExit = null;
     snapshotActive = false;
     delete document.documentElement.dataset.transitioning;
     update();
     if (resetScroll) window.scrollTo({ top: 0, behavior: "instant" });
+    recordScroll("finished-reduced");
     return;
   }
   // Crossfade the retained viewport over the incoming live entrance. Waiting for
   // a full fade-out before rendering leaves a paper-only gap on every browser.
   if (retiringPage || !share || !document.startViewTransition) {
+    recordScroll("crossfade");
     snapshotActive = false;
     delete document.documentElement.dataset.transitioning;
     const retained = capturePage(retiringPage);
     retiringPage = retained;
     update();
     if (resetScroll) window.scrollTo({ top: 0, behavior: "instant" });
+    recordScroll("crossfade-reset");
     routeExit = animate(retained, [{ opacity: 1 }, { opacity: 0 }], {
       duration: 480,
       delay: 100,
@@ -357,6 +363,7 @@ export async function transitionPage(update, { resetScroll = false } = {}) {
     if (serial !== transitionSerial) return;
     retained?.remove();
     retiringPage = routeExit = null;
+    recordScroll("finished-crossfade");
     return;
   }
   // Capture the visible cover, including its crop and current hover pose.
@@ -375,6 +382,7 @@ export async function transitionPage(update, { resetScroll = false } = {}) {
   source.dataset.sharedArt = "";
   let releaseScroll;
   const run = document.startViewTransition(async () => {
+    recordScroll("native-update");
     if (serial !== transitionSerial) return;
     if (resetScroll) {
       releaseScroll = stageTransitionScroll();
@@ -397,9 +405,11 @@ export async function transitionPage(update, { resetScroll = false } = {}) {
         ]);
     }
     prepareSnapshot();
+    recordScroll("native-updated");
   });
   transition = run;
   const finishScroll = () => {
+    recordScroll("settle");
     releaseScroll?.();
     if (settleScroll === releaseScroll) settleScroll = null;
   };
@@ -407,6 +417,7 @@ export async function transitionPage(update, { resetScroll = false } = {}) {
   run.finished
     .finally(() => {
       finishScroll();
+      recordScroll("finished");
       if (outgoing?.isConnected)
         frozen.forEach((animation) => animation.play());
       if (serial !== transitionSerial) return;
