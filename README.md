@@ -107,4 +107,4 @@ THE IDOLM@STER™ & ©Bandai Namco Entertainment Inc.
 
 分类切换直接对真实页面进行分层入场，筛选时列表高度平滑衔接。封面进入详情使用浏览器 View Transitions；捕获截图前会先固定可见内容，结束后才继续观察屏幕外的滚动入场，避免截图里隐藏的条目在转场结束时突然出现。入场使用独立的 `translate`／`rotate`／`scale` 属性，悬停使用 `transform`，两者不会覆盖。快速导航和卡面反向切换会取消前一次动画，并从当前画面继续。
 
-`npm run test:browser` 运行真实浏览器回归检查，覆盖转场截图与实际内容的一致性、快速分类与筛选、卡面反向切换、移动端双语布局及减少动态效果。macOS 优先使用已安装的 Chrome；没有 Chrome 时可先执行 `npx playwright install chromium`。GitHub Pages 发布前也会运行这些检查。
+`npm run test:browser` 运行真实浏览器回归检查，覆盖转场截图与实际内容的一致性、快速分类与筛选、卡面反向切换、移动端双语布局、减少动态效果与金线循环接缝。macOS 优先使用已安装的 Chrome；没有 Chrome 时可先执行 `npx playwright install chromium`。GitHub Pages 发布前也会运行这些检查。

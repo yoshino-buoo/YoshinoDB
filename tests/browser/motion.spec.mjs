@@ -200,3 +200,36 @@ test("mobile language changes and wrapped category controls keep their geometry"
   expect(geometry.error).toBeLessThan(1);
   expect(geometry.overflow).toBe(false);
 });
+
+test("gold threads actually travel and wrap at a complete dash period", async ({
+  page,
+}) => {
+  await ready(page);
+  for (const selector of [".trace-current", ".trace-second"]) {
+    const values = await page.locator(selector).evaluate(async (el) => {
+      const animation = el.getAnimations()[0];
+      animation.pause();
+      await animation.ready;
+      const duration = Number(animation.effect.getTiming().duration);
+      const read = async (time) => {
+        animation.currentTime = time;
+        await new Promise(requestAnimationFrame);
+        return parseFloat(getComputedStyle(el).strokeDashoffset);
+      };
+      const start = await read(0),
+        middle = await read(duration / 2);
+      const before = await read(duration - 1),
+        after = await read(duration + 1);
+      const period = getComputedStyle(el)
+        .strokeDasharray.split(",")
+        .reduce((sum, x) => sum + parseFloat(x), 0);
+      const seam = Math.abs(before - after) % period;
+      return {
+        travel: Math.abs(middle - start),
+        seam: Math.min(seam, period - seam),
+      };
+    });
+    expect(values.travel).toBeGreaterThan(100);
+    expect(values.seam).toBeLessThan(1);
+  }
+});
