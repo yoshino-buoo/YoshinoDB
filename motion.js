@@ -1,4 +1,5 @@
 import { capturePage } from "./lib/page-snapshot.js";
+import { stageTransitionScroll } from "./lib/transition-scroll.js";
 
 const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
 const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -8,6 +9,7 @@ let observer,
   transitionSerial = 0,
   pendingCover;
 let indicatorObserver, gardenObserver, routeExit, retiringPage;
+let settleScroll;
 let snapshotActive = false;
 const resultTransitions = new WeakMap();
 let ambientPaused = false;
@@ -307,9 +309,11 @@ function clearSharedArtwork() {
     delete image.dataset.sharedArt;
   });
 }
-export async function transitionPage(update) {
+export async function transitionPage(update, { resetScroll = false } = {}) {
   const serial = ++transitionSerial;
   transition?.skipTransition();
+  settleScroll?.();
+  settleScroll = null;
   const outgoing = document.querySelector("main");
   if (retiringPage) {
     retiringPage.style.opacity = getComputedStyle(retiringPage).opacity;
@@ -331,6 +335,7 @@ export async function transitionPage(update) {
     snapshotActive = false;
     delete document.documentElement.dataset.transitioning;
     update();
+    if (resetScroll) window.scrollTo({ top: 0, behavior: "instant" });
     return;
   }
   // Crossfade the retained viewport over the incoming live entrance. Waiting for
@@ -341,6 +346,7 @@ export async function transitionPage(update) {
     const retained = capturePage(retiringPage);
     retiringPage = retained;
     update();
+    if (resetScroll) window.scrollTo({ top: 0, behavior: "instant" });
     routeExit = animate(retained, [{ opacity: 1 }, { opacity: 0 }], {
       duration: 480,
       delay: 100,
@@ -367,8 +373,13 @@ export async function transitionPage(update) {
   );
   source.style.viewTransitionName = "archive-art";
   source.dataset.sharedArt = "";
+  let releaseScroll;
   const run = document.startViewTransition(async () => {
     if (serial !== transitionSerial) return;
+    if (resetScroll) {
+      releaseScroll = stageTransitionScroll();
+      settleScroll = releaseScroll;
+    }
     update();
     const target = document.querySelector(
       ".typed-entry .gallery-stage,.typed-entry .album-art,.typed-entry .inline-player,.typed-entry .story-art,.typed-entry .unit-art,.typed-entry .news-art,.typed-entry .milestone>img",
@@ -388,9 +399,18 @@ export async function transitionPage(update) {
     prepareSnapshot();
   });
   transition = run;
-  run.ready.catch(() => {});
+  const finishScroll = () => {
+    releaseScroll?.();
+    if (settleScroll === releaseScroll) settleScroll = null;
+  };
+  run.ready.then(() => {
+    // ready means captured, not necessarily presented. Give the transition
+    // layers a paint before changing the compositor's document scroll offset.
+    requestAnimationFrame(() => requestAnimationFrame(finishScroll));
+  }, finishScroll);
   run.finished
     .finally(() => {
+      finishScroll();
       if (outgoing?.isConnected)
         frozen.forEach((animation) => animation.play());
       if (serial !== transitionSerial) return;

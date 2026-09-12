@@ -95,6 +95,7 @@ for (const mode of [
       );
       const frameSize = width * height * 3,
         coverage = [];
+      let started = false;
       for (
         let offset = 0;
         offset + frameSize <= raw.length;
@@ -102,10 +103,11 @@ for (const mode of [
       ) {
         const marker = offset + (width + 1) * 3;
         // Allow the color conversion used by WebKit's recording.
-        if (
-          !(raw[marker] < 150 && raw[marker + 1] > 200 && raw[marker + 2] < 100)
-        )
-          continue;
+        if (raw[marker] < 150 && raw[marker + 1] > 200 && raw[marker + 2] < 100)
+          started = true;
+        // Once the click is located, keep every frame, even if a broken root
+        // snapshot makes the marker itself disappear.
+        if (!started) continue;
         let ink = 0,
           pixels = 0;
         // Exclude browser-independent header/marker and the persistent BGM dock.
@@ -138,6 +140,147 @@ for (const mode of [
       await context.close();
     }
   });
+}
+
+for (const width of [390, 820]) {
+  for (const entry of ["enamoral", "song-mirai-compass"]) {
+    test(`a delayed artwork snapshot never exposes the list top: ${entry} at ${width}px`, async ({
+      browser,
+    }, testInfo) => {
+      const viewport = { width, height: width === 390 ? 844 : 1180 };
+      const context = await browser.newContext({
+        viewport,
+        isMobile: true,
+        hasTouch: true,
+        recordVideo: {
+          dir: testInfo.outputPath("scroll-video"),
+          size: viewport,
+        },
+      });
+      try {
+        const page = await context.newPage();
+        await page.addInitScript(() => {
+          const start = document.startViewTransition.bind(document);
+          document.startViewTransition = (update) =>
+            start(async () => {
+              await update();
+              // Exercise the real rendering-suppression interval used while a new
+              // detail image decodes. Cached images normally make it too brief.
+              await new Promise((resolve) => setTimeout(resolve, 300));
+            });
+        });
+        await page.goto(`${testInfo.project.use.baseURL}/#songs`);
+        await expect(page.locator("#boot-screen")).toHaveCount(0);
+        await page.evaluate(() => document.fonts.ready);
+        const cover = page.locator(
+          `#results .record-cover[href="#entry/${entry}"]`,
+        );
+        await cover.evaluate((el) => {
+          const intro = document.querySelector(".music-shelf-intro");
+          scrollTo(
+            0,
+            Math.max(
+              scrollY + el.getBoundingClientRect().top - 320,
+              scrollY + intro.getBoundingClientRect().bottom + 40,
+            ),
+          );
+        });
+        await page.waitForTimeout(1400);
+        await page.evaluate(() => {
+          const intro = document.querySelector(".music-shelf-intro");
+          if (intro.getBoundingClientRect().bottom > 0)
+            throw Error("The list introduction must be outside the viewport");
+          intro.style.background = "#ff00ff";
+          const marker = document.createElement("div");
+          marker.style.cssText =
+            "position:fixed;top:0;left:0;width:40px;height:40px;z-index:2147483647;background:#0f0;pointer-events:none";
+          document.body.append(marker);
+        });
+        // Paint the recording marker before entering rendering suppression.
+        await page.waitForTimeout(80);
+        // The user's second recording follows the text link further down the list.
+        const link =
+          entry === "enamoral"
+            ? cover
+            : page.locator(`#results h3 a[href="#entry/${entry}"]`);
+        const bounds = await link.boundingBox();
+        await page.touchscreen.tap(
+          bounds.x + bounds.width / 2,
+          bounds.y + bounds.height / 2,
+        );
+        await page.waitForTimeout(1800);
+        expect(await page.evaluate(() => scrollY)).toBe(0);
+        const video = page.video();
+        await context.close();
+        const frameWidth = 195,
+          frameHeight = Math.round((195 * viewport.height) / viewport.width);
+        const raw = execFileSync(
+          ffmpeg,
+          [
+            "-v",
+            "error",
+            "-i",
+            await video.path(),
+            "-vf",
+            `scale=${frameWidth}:${frameHeight}`,
+            "-pix_fmt",
+            "rgb24",
+            "-f",
+            "rawvideo",
+            "pipe:1",
+          ],
+          { maxBuffer: 100 * 1024 * 1024 },
+        );
+        const frameBytes = frameWidth * frameHeight * 3;
+        let started = false;
+        const flashes = [];
+        const coverage = [];
+        for (
+          let offset = 0;
+          offset + frameBytes <= raw.length;
+          offset += frameBytes
+        ) {
+          const marker = offset + (195 + 1) * 3;
+          if (
+            raw[marker] < 150 &&
+            raw[marker + 1] > 200 &&
+            raw[marker + 2] < 100
+          )
+            started = true;
+          if (!started) continue;
+          let magenta = 0;
+          for (let i = offset; i < offset + frameBytes; i += 3)
+            if (raw[i] > 210 && raw[i + 1] < 60 && raw[i + 2] > 210) magenta++;
+          if (magenta > 100) flashes.push(offset / frameBytes);
+          let ink = 0,
+            pixels = 0;
+          for (
+            let y = Math.ceil((120 * frameWidth) / viewport.width);
+            y < frameHeight * 0.82;
+            y++
+          )
+            for (let x = 0; x < frameWidth; x++) {
+              const i = offset + (y * frameWidth + x) * 3;
+              if ((raw[i] + raw[i + 1] + raw[i + 2]) / 3 < 205) ink++;
+              pixels++;
+            }
+          coverage.push(ink / pixels);
+        }
+        expect(started, "Recording must include the transition").toBe(true);
+        expect(
+          flashes,
+          "The offscreen list introduction must never flash into view",
+        ).toEqual([]);
+        expect(coverage.length).toBeGreaterThan(35);
+        expect(
+          Math.min(...coverage),
+          "No frame may lose all page content",
+        ).toBeGreaterThan(0.008);
+      } finally {
+        await context.close();
+      }
+    });
+  }
 }
 
 test("retained viewport preserves scroll and settles after interrupted navigation", async ({

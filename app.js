@@ -402,10 +402,7 @@ document.querySelector(".skip").addEventListener("click", (e) => {
   document.querySelector("#main")?.focus();
 });
 window.addEventListener("hashchange", () => {
-  transitionPage(() => {
-    render();
-    window.scrollTo({ top: 0, behavior: "instant" });
-  });
+  transitionPage(() => render(), { resetScroll: true });
 });
 try {
   const loaded = await Promise.allSettled(
