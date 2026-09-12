@@ -310,7 +310,10 @@ function clearSharedArtwork() {
     delete image.dataset.sharedArt;
   });
 }
-export async function transitionPage(update, { resetScroll = false } = {}) {
+export async function transitionPage(
+  update,
+  { resetScroll = false, scrollPosition = resetScroll ? 0 : null } = {},
+) {
   const serial = ++transitionSerial;
   recordScroll("route-start");
   transition?.skipTransition();
@@ -338,7 +341,8 @@ export async function transitionPage(update, { resetScroll = false } = {}) {
     snapshotActive = false;
     delete document.documentElement.dataset.transitioning;
     update();
-    if (resetScroll) window.scrollTo({ top: 0, behavior: "instant" });
+    if (scrollPosition !== null)
+      window.scrollTo({ top: scrollPosition, behavior: "instant" });
     recordScroll("finished-reduced");
     return;
   }
@@ -351,7 +355,8 @@ export async function transitionPage(update, { resetScroll = false } = {}) {
     const retained = capturePage(retiringPage);
     retiringPage = retained;
     update();
-    if (resetScroll) window.scrollTo({ top: 0, behavior: "instant" });
+    if (scrollPosition !== null)
+      window.scrollTo({ top: scrollPosition, behavior: "instant" });
     recordScroll("crossfade-reset");
     routeExit = animate(retained, [{ opacity: 1 }, { opacity: 0 }], {
       duration: 480,
@@ -384,8 +389,8 @@ export async function transitionPage(update, { resetScroll = false } = {}) {
   const run = document.startViewTransition(async () => {
     recordScroll("native-update");
     if (serial !== transitionSerial) return;
-    if (resetScroll) {
-      releaseScroll = stageTransitionScroll();
+    if (scrollPosition !== null) {
+      releaseScroll = stageTransitionScroll(scrollPosition);
       settleScroll = releaseScroll;
     }
     update();
@@ -414,7 +419,7 @@ export async function transitionPage(update, { resetScroll = false } = {}) {
     if (settleScroll === releaseScroll) settleScroll = null;
   };
   run.ready.then(finishScroll, finishScroll);
-  run.finished
+  return run.finished
     .finally(() => {
       finishScroll();
       recordScroll("finished");

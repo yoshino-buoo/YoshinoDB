@@ -74,6 +74,10 @@ npm run build
 
 开发预览为 `http://127.0.0.1:5173/`。`npm run build` 先校验所有数据和本地图片，再生成 `dist/`。使用相对资源路径与 hash 路由，兼容 GitHub Pages 的 `/YoshinoDB/` 子路径；详情页刷新不会产生 404。
 
+发布只保留快速数据检查、构建，以及 Chromium / WebKit 上的核心功能检查：站点启动、中文切换、BGM 开关、编辑器加载、详情进入与返回、筛选和滚动位置恢复。`npm run build && npm run test:release` 直接检查构建产物的 `/YoshinoDB/` 子路径。复杂动画和逐帧截图检查保留在 `npm run test:browser`，按需手动运行，不阻塞日常发布。
+
+每次站内访问分别保存滚动位置与筛选条件。打开新条目从顶部开始；详情页的返回链接和浏览器 Back / Forward 恢复对应历史页面。直接打开的详情链接会返回所属分类。
+
 ```text
 app.js                         页面、语言、检索和 hash 路由
 editor.js / editor.css          分组表单、素材选择、导入、预览与发布包

@@ -4,6 +4,7 @@ import { createListening } from "./listening.js";
 import { directoryArt } from "./home-art.js";
 import { mountEditor } from "./editor.js";
 import { createContentViews } from "./content.js";
+import { createNavigation } from "./lib/navigation.js";
 import {
   revealContent,
   animatePage,
@@ -171,6 +172,14 @@ const content = createContentViews({
   onVideoStop: listening.videoStopped,
 });
 const detail = content.detail;
+const navigation = createNavigation({
+  captureView: () => {
+    const form = app.querySelector(".list-controls");
+    return form ? Object.fromEntries(new FormData(form)) : null;
+  },
+  render,
+  transition: transitionPage,
+});
 
 function home() {
   return `<section class="intro-grid"><div class="intro" data-ambient><div class="eyebrow"><span></span>YORITA YOSHINO · FAN ARCHIVE</div><h1>${t("<span>ご縁をたどる、</span><span>芳乃の記録。</span>", "<span>循着缘分，</span><span>与芳乃相遇。</span>")}</h1><p class="intro-copy">${t("歌に、物語に、ひとつひとつの出会いに。<br>依田芳乃の歩みを、ここに綴ってゆきます。", "歌声、故事，还有一次次的相遇。<br>把依田芳乃走过的足迹，珍藏于此。")}</p><form class="search-form" role="search"><span aria-hidden="true">⌕</span><input name="q" aria-label="${t("資料を検索", "搜索资料")}" placeholder="${t("カード、楽曲、コミュを探す…", "搜索卡片、歌曲、剧情…")}" autocomplete="off"><button>${t("検索", "搜索")}</button></form><a class="profile-link" href="#profile">${t("はじめまして、依田芳乃です", "初次见面，我是依田芳乃")} <span>→</span></a><div class="intro-bottom"><span>七月三日</span><i></i><span>${t("鹿児島から、あなたのもとへ。", "从鹿儿岛，来到你身边。")}</span></div></div><div class="portrait"><div class="ambient-garden" aria-hidden="true"><span class="garden-haze"></span><svg class="garden-traces" viewBox="0 0 600 650" fill="none"><path class="trace-base" d="M-30 433C114 556 493 535 551 301S374 50 230 167S185 459 629 510"/><path class="trace-current" d="M-30 433C114 556 493 535 551 301S374 50 230 167S185 459 629 510"/><path class="trace-second" d="M50 530C-12 333 273 74 473 154S596 561 177 501"/></svg><span class="garden-motes"><i></i><i></i><i></i><i></i><i></i><i></i></span></div><div class="portrait-disc"></div><div class="vertical-copy" aria-hidden="true">${t("よきご縁が、ありますように。", "愿美好的缘分，与你相伴。")}</div><div class="portrait-figure"><img src="${base}assets/yoshino.png" alt="${t("依田芳乃の公式立ち絵", "依田芳乃官方立绘")}" fetchpriority="high"></div><div class="portrait-label"><span>よりた よしの</span><strong>依田 芳乃</strong><small>CV. ${t("高田憂希", "高田忧希")}</small></div><button class="motion-toggle" data-motion-toggle aria-label="${t("ホームの動きを止める", "暂停首页动效")}" aria-pressed="false">Ⅱ</button><a class="art-credit" href="#sources">©Bandai Namco Entertainment Inc.</a></div></section><section class="archive-section" data-ambient>${sectionTitle("home", "EXPLORE THE ARCHIVE", false).replace(`<h2><small>EXPLORE THE ARCHIVE</small>${label("home")}</h2>`, `<h2><small>EXPLORE THE ARCHIVE</small>${t("芳乃をめぐる、あれこれ", "关于芳乃的点点滴滴")}</h2><span class="subtle">${t("気になるページから、よりみち。", "从感兴趣的一页开始漫步。")}</span>`)}<div class="directory">${["cards", "songs", "stories", "units", "videos", "timeline"].map((k, i) => `<a href="#${k}"><span class="directory-num">0${i + 1}</span><span class="directory-icon">${directoryArt(k)}</span><strong>${label(k)}</strong><small>${t(...{ cards: ["姿と装いの記録", "记录每一份姿态与装扮"], songs: ["歌声に耳をすませて", "聆听芳乃的歌声"], stories: ["言の葉をたどって", "寻访故事中的言语"], units: ["ともに紡ぐご縁", "一同编织的缘分"], videos: ["映像でもう一度", "在影像中再次相遇"], timeline: ["これまでの足あと", "回望一路的足迹"] }[k])}</small><span class="dir-arrow">↗</span></a>`).join("")}</div></section><div class="home-lower"><section class="home-news" data-ambient>${sectionTitle("news", "NEWS & NOTES")}<div class="records">${all()
@@ -263,7 +272,9 @@ function render(filterState = null) {
   );
   app.querySelector(".search-form")?.addEventListener("submit", (e) => {
     e.preventDefault();
-    location.hash = `search?q=${encodeURIComponent(new FormData(e.target).get("q"))}`;
+    navigation.go(
+      `#search?q=${encodeURIComponent(new FormData(e.target).get("q"))}`,
+    );
   });
   if (document.querySelector("#results")) {
     const form = document.querySelector(".list-controls");
@@ -352,6 +363,13 @@ function render(filterState = null) {
     update();
   }
   if (route === "editor") bindEditor();
+  if (entryId && navigation.backHash) {
+    const back = app.querySelector(".entry-heading>a");
+    if (back) {
+      back.href = navigation.backHash;
+      back.textContent = `← ${t("戻る", "返回")}`;
+    }
+  }
   content.bind(app);
   listening.bind(app);
   if (!booting) {
@@ -401,9 +419,6 @@ document.querySelector(".skip").addEventListener("click", (e) => {
   e.preventDefault();
   document.querySelector("#main")?.focus();
 });
-window.addEventListener("hashchange", () => {
-  transitionPage(() => render(), { resetScroll: true });
-});
 try {
   const loaded = await Promise.allSettled(
     ["catalog", "generated"].map((name) =>
@@ -426,12 +441,13 @@ try {
   } catch {
     /* The archive and BGM remain usable if preview metadata is unavailable. */
   }
-  render();
+  render(navigation.initialView);
   await openFirstPage(() => {
     booting = false;
     animatePage(document.querySelector("main"));
     revealContent(document.querySelector("main"));
   });
+  navigation.ready();
 } catch {
   failFirstPage();
   app.innerHTML = `<main class="prose"><h1>資料を読み込めませんでした / 资料加载失败</h1><p>ページを再読み込みしてください。 / 请重新加载页面。</p><button onclick="location.reload()">再読み込み / 重试</button></main>`;

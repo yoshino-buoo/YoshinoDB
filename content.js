@@ -175,7 +175,7 @@ export function createContentViews({
       news: newsDetail,
       timeline: timelineDetail,
     }[item.kind];
-    return `<div class="entry-heading"><a href="#${item.kind}">← ${label(item.kind)}</a><small>${item.kind.toUpperCase()}</small><h1>${title(item)}</h1></div><div class="typed-entry entry-${item.kind}" data-entry="${esc(item.id)}">${renderer(item)}${source(item)}</div>`;
+    return `<div class="entry-heading"><a data-detail-back href="#${item.kind}">← ${label(item.kind)}</a><small>${item.kind.toUpperCase()}</small><h1>${title(item)}</h1></div><div class="typed-entry entry-${item.kind}" data-entry="${esc(item.id)}">${renderer(item)}${source(item)}</div>`;
   }
   function overview(kind) {
     if (kind === "search") return "";

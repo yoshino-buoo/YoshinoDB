@@ -27,7 +27,11 @@ export default defineConfig({
     },
     {
       name: "webkit",
-      testMatch: "navigation-frames.spec.mjs",
+      testMatch: [
+        "navigation-frames.spec.mjs",
+        "navigation.spec.mjs",
+        "release-smoke.spec.mjs",
+      ],
       use: { browserName: "webkit" },
     },
   ],
