@@ -1,5 +1,7 @@
 import { validateCatalog, KINDS, isHttps } from "./lib/data.js";
 import { mountEditor } from "./editor.js";
+import { createContentViews } from "./content.js";
+import { revealContent, animatePage } from "./motion.js";
 const base = import.meta.env.BASE_URL;
 const app = document.querySelector("#app");
 const storage = {
@@ -47,6 +49,17 @@ const esc = (v) =>
 const label = (k) => (names[k] ? t(...names[k]) : k);
 const tagLabel = (k) =>
   ({
+    passion: t("パッション", "Passion"),
+    platinum: t("恒常", "常驻"),
+    limited: t("期間限定", "期间限定"),
+    fes: t("フェス", "FES"),
+    "fes-blanc": t("ブランフェス", "Blanc FES"),
+    "fes-noir": t("ノワールフェス", "Noir FES"),
+    dominant: t("ドミナント", "Dominant"),
+    "local-live": t("ローカル・LIVE", "本地扭蛋／LIVE"),
+    anime: t("アニメ", "动画"),
+    music: t("音楽", "音乐"),
+    live: t("ライブ", "演出"),
     deresute: t("デレステ", "星光舞台"),
     mobamas: t("デレマス", "页游"),
     solo: t("ソロ", "个人曲"),
@@ -123,36 +136,18 @@ function record(item) {
     .map((tag) => `<span>${esc(tagLabel(tag))}</span>`)
     .join("")}</div></div></article>`;
 }
-function detail(id) {
-  const item = all().find((x) => x.id === id);
-  if (!item)
-    return `<div class="empty"><h1>${t("記録が見つかりません", "找不到这条记录")}</h1><a href="#home">${label("home")} →</a></div>`;
-  document.title = tr(item.title) + " · YoshinoDB";
-  const related = all()
-    .filter(
-      (x) =>
-        x.id !== item.id &&
-        (x.source === item.source ||
-          (x.tags || []).some(
-            (tag) =>
-              (item.tags || []).includes(tag) &&
-              ![
-                "deresute",
-                "event",
-                "SR",
-                "SSR",
-                "youtube",
-                "unit",
-                "solo",
-                "preview",
-                "commu",
-                "zh",
-              ].includes(tag),
-          )),
-    )
-    .slice(0, 6);
-  return `<div class="page-title"><a href="#${item.kind}">← ${label(item.kind)}</a><small>${label(item.kind)}</small><h1>${esc(tr(item.title))}</h1></div><div class="detail-layout ${esc(item.kind)}">${item.image ? `<div class="detail-art ${item.image.endsWith("yoshino.png") ? "standing" : ""}">${(item.gallery || [{ image: item.image }]).map((art) => `<figure><img src="${base}${esc(art.image)}" alt="${esc(tr(item.title))}${art.label ? ` · ${esc(tr(art.label))}` : ""}">${art.label ? `<figcaption>${esc(tr(art.label))}</figcaption>` : ""}</figure>`).join("")}</div>` : ""}<div class="detail-copy"><span class="badge ${item.official ? "official" : "fan"}">${originLabel(item)}</span>${tr(item.description) ? `<p>${esc(tr(item.description))}</p>` : ""}<dl>${item.date ? `<div><dt>${tr(item.dateLabel) || t("日付", "日期")}</dt><dd>${item.date.replaceAll("-", ".")}</dd></div>` : ""}${item.rarity ? `<div><dt>${t("レアリティ", "稀有度")}</dt><dd>${esc(item.rarity)}</dd></div>` : ""}${item.game ? `<div><dt>${t("ゲーム", "游戏")}</dt><dd>${item.game === "deresute" ? t("スターライトステージ", "星光舞台") : esc(item.game)}</dd></div>` : ""}<div><dt>${t("出典", "来源")}</dt><dd>${esc(item.sourceName)}</dd></div>${(item.details || []).map((d) => `<div><dt>${esc(tr(d.label))}</dt><dd>${esc(tr(d.value))}</dd></div>`).join("")}</dl>${ext(item.source, item.kind === "videos" ? t("配信元で動画を見る", "前往原站观看视频") : t("詳しく見る", "查看详情"), "source-button")}${item.reference ? `<p>${ext(item.reference, t("関連する公式ページ", "相关官方页面"))}</p>` : ""}</div></div>${related.length ? `<section class="related"><h2>${t("つながる記録", "相关记录")}</h2>${related.map(record).join("")}</section>` : ""}`;
-}
+const content = createContentViews({
+  base,
+  t,
+  tr,
+  esc,
+  label,
+  tagLabel,
+  ext,
+  all,
+  record,
+});
+const detail = content.detail;
 
 function home() {
   return `<section class="intro-grid"><div class="intro"><div class="eyebrow"><span></span>YORITA YOSHINO · FAN ARCHIVE</div><h1>${t("<span>ご縁をたどる、</span><span>芳乃の記録。</span>", "<span>循着缘分，</span><span>与芳乃相遇。</span>")}</h1><p class="intro-copy">${t("歌に、物語に、ひとつひとつの出会いに。<br>依田芳乃の歩みを、ここに綴ってゆきます。", "歌声、故事，还有一次次的相遇。<br>把依田芳乃走过的足迹，珍藏于此。")}</p><form class="search-form" role="search"><span aria-hidden="true">⌕</span><input name="q" aria-label="${t("資料を検索", "搜索资料")}" placeholder="${t("カード、楽曲、コミュを探す…", "搜索卡片、歌曲、剧情…")}" autocomplete="off"><button>${t("検索", "搜索")}</button></form><a class="profile-link" href="#profile">${t("はじめまして、依田芳乃です", "初次见面，我是依田芳乃")} <span>→</span></a><div class="intro-bottom"><span>七月三日</span><i></i><span>${t("鹿児島から、あなたのもとへ。", "从鹿儿岛，来到你身边。")}</span></div></div><div class="portrait"><div class="portrait-disc"></div><div class="vertical-copy" aria-hidden="true">${t("よきご縁が、ありますように。", "愿美好的缘分，与你相伴。")}</div><img src="${base}assets/yoshino.png" alt="${t("依田芳乃の公式立ち絵", "依田芳乃官方立绘")}" fetchpriority="high"><div class="portrait-label"><span>よりた よしの</span><strong>依田 芳乃</strong><small>CV. ${t("高田憂希", "高田忧希")}</small></div><a class="art-credit" href="#sources">©Bandai Namco Entertainment Inc.</a></div></section><section class="archive-section">${sectionTitle("home", "EXPLORE THE ARCHIVE", false).replace(`<h2><small>EXPLORE THE ARCHIVE</small>${label("home")}</h2>`, `<h2><small>EXPLORE THE ARCHIVE</small>${t("芳乃をめぐる、あれこれ", "关于芳乃的点点滴滴")}</h2><span class="subtle">${t("気になるページから、よりみち。", "从感兴趣的一页开始漫步。")}</span>`)}<div class="directory">${["cards", "songs", "stories", "units", "videos", "timeline"].map((k, i) => `<a href="#${k}"><span class="directory-num">0${i + 1}</span><span class="directory-icon">${icon(k)}</span><strong>${label(k)}</strong><small>${t(...{ cards: ["姿と装いの記録", "记录每一份姿态与装扮"], songs: ["歌声に耳をすませて", "聆听芳乃的歌声"], stories: ["言の葉をたどって", "寻访故事中的言语"], units: ["ともに紡ぐご縁", "一同编织的缘分"], videos: ["映像でもう一度", "在影像中再次相遇"], timeline: ["これまでの足あと", "回望一路的足迹"] }[k])}</small><span class="dir-arrow">↗</span></a>`).join("")}</div></section><div class="home-lower"><section>${sectionTitle("news", "NEWS & NOTES")}<div class="records">${all()
@@ -167,11 +162,41 @@ function home() {
 function pageTitle(k, en, description = "") {
   return `<div class="page-title"><a href="#home">${label("home")}</a><small>${en}</small><h1>${label(k)}</h1>${description ? `<p>${description}</p>` : ""}</div>`;
 }
+const categoryFilters = {
+  songs: [
+    ["solo", "ソロ", "个人曲"],
+    ["unit", "ユニット・全体曲", "组合与全员曲"],
+    ["cover", "カバー", "翻唱"],
+  ],
+  stories: [
+    ["story", "ストーリー", "主线"],
+    ["event", "イベント", "活动"],
+    ["business", "営業", "营业"],
+    ["memory", "メモリアル・特訓", "回忆与特训"],
+    ["birthday", "誕生日・季節", "生日与季节"],
+  ],
+  videos: [
+    ["mv", "MV", "MV"],
+    ["preview", "試聴", "试听"],
+    ["commu", "コミュ", "剧情"],
+    ["voice", "ボイス", "语音"],
+    ["drama", "ドラマ", "广播剧"],
+  ],
+  news: [
+    ["goods", "グッズ", "周边"],
+    ["live", "ライブ", "演出"],
+    ["music", "音楽", "音乐"],
+    ["event", "イベント", "活动"],
+  ],
+};
 function listing(route) {
-  const q =
-    new URLSearchParams(location.hash.split("?")[1] || "").get("q") || "";
-  return `${pageTitle(route, route.toUpperCase())}<form class="list-controls" role="search"><input name="q" value="${esc(q)}" placeholder="${t("キーワードで絞り込む", "输入关键词筛选")}" aria-label="${t("キーワード", "关键词")}"><select name="origin" aria-label="${t("情報元", "来源类型")}"><option value="all">${t("すべての情報元", "全部来源")}</option><option value="official">${t("公式のみ", "仅官方")}</option><option value="fan">${t("有志資料", "粉丝资料")}</option></select>${route === "cards" ? `<select name="rarity" aria-label="${t("レアリティ", "稀有度")}"><option value="all">${t("すべてのレアリティ", "全部稀有度")}</option><option>SSR</option><option>SR</option></select>` : ""}<select name="sort" aria-label="${t("並び順", "排序")}"><option value="newest">${t("新しい順", "由新到旧")}</option><option value="oldest" ${route === "timeline" ? "selected" : ""}>${t("古い順", "由旧到新")}</option></select><button class="primary">${t("検索", "搜索")}</button></form><p class="result-count" aria-live="polite"></p><div id="results" class="records ${route === "cards" ? "card-grid" : route === "videos" ? "video-grid" : route === "timeline" ? "timeline-list" : ""}"></div>`;
+  const query = new URLSearchParams(location.hash.split("?")[1] || "");
+  const q = query.get("q") || "";
+  const filters = categoryFilters[route] || [];
+  const selected = query.get("tag") || "all";
+  return `<div class="collection-page collection-${route}">${pageTitle(route, route.toUpperCase())}${content.overview(route)}${filters.length ? `<div class="category-tabs" role="group" aria-label="${t("分類", "分类")}"><button data-filter-tag="all" aria-pressed="${selected === "all"}">${t("すべて", "全部")}</button>${filters.map(([tag, ja, zh]) => `<button data-filter-tag="${tag}" aria-pressed="${tag === selected}">${t(ja, zh)}</button>`).join("")}</div>` : ""}<form class="list-controls" role="search"><input type="hidden" name="tag" value="${esc(selected)}"><input type="hidden" name="year" value="${esc(query.get("year") || "")}"><input name="q" value="${esc(q)}" placeholder="${t("キーワードで絞り込む", "输入关键词筛选")}" aria-label="${t("キーワード", "关键词")}"><select name="origin" aria-label="${t("情報元", "来源类型")}"><option value="all">${t("すべての情報元", "全部来源")}</option><option value="official">${t("公式のみ", "仅官方")}</option><option value="fan">${t("ファン投稿・データベース", "粉丝投稿与资料库")}</option></select>${route === "cards" ? `<select name="rarity" aria-label="${t("レアリティ", "稀有度")}"><option value="all">${t("すべてのレアリティ", "全部稀有度")}</option><option>SSR</option><option>SR</option><option>N</option></select>` : ""}<select name="sort" aria-label="${t("並び順", "排序")}"><option value="newest">${t("新しい順", "由新到旧")}</option><option value="oldest" ${route === "timeline" ? "selected" : ""}>${t("古い順", "由旧到新")}</option></select><button class="primary">${t("検索", "搜索")}</button></form><p class="result-count" aria-live="polite"></p><div id="results" class="records ${{ cards: "card-grid", songs: "song-grid", units: "unit-grid", videos: "video-grid", timeline: "timeline-list", news: "news-list", stories: "story-list" }[route] || ""}"></div></div>`;
 }
+
 function profile() {
   return `${pageTitle("profile", "ABOUT YOSHINO")}<div class="profile-grid"><div class="profile-art"><img src="${base}assets/yoshino.png" alt="依田芳乃"></div><div><span class="eyebrow">YORITA YOSHINO</span><h2 class="profile-name">依田 芳乃</h2><p>${t("アイドルマスター シンデレラガールズ", "偶像大师 灰姑娘女孩")} · Passion</p><dl>${[
     [t("年齢", "年龄"), t("16歳", "16 岁")],
@@ -190,22 +215,26 @@ function profile() {
       "",
     )}</dl>${ext("https://cinderellagirls.idolmaster-official.jp/idol/yoshino/", t("公式プロフィール", "官方人物介绍"), "text-link")}</div></div>`;
 }
-function render() {
+function render(filterState = null) {
   let route = location.hash.slice(1).split("?")[0] || "home";
   const entryId = route.startsWith("entry/") ? route.slice(6) : null;
   if (!names[route] && route !== "search" && !entryId) route = "home";
   document.documentElement.lang = lang === "ja" ? "ja" : "zh-Hans";
   document.title = `${label(route)} · YoshinoDB`;
   app.innerHTML =
-    header(route) +
+    header(entryId ? all().find((x) => x.id === entryId)?.kind : route) +
     `<main id="main" tabindex="-1">${entryId ? detail(entryId) : route === "home" ? home() : route === "profile" ? profile() : route === "sources" ? sources() : route === "editor" ? editor() : listing(route)}</main>` +
     footer();
   app.querySelectorAll("[data-lang]").forEach(
     (b) =>
       (b.onclick = () => {
+        const activeForm = app.querySelector(".list-controls");
+        const filters = activeForm
+          ? Object.fromEntries(new FormData(activeForm))
+          : null;
         lang = b.dataset.lang;
         storage.set("yoshino-lang", lang);
-        render();
+        render(filters);
       }),
   );
   app.querySelector(".search-form")?.addEventListener("submit", (e) => {
@@ -214,7 +243,20 @@ function render() {
   });
   if (document.querySelector("#results")) {
     const form = document.querySelector(".list-controls");
+    if (filterState)
+      for (const [key, value] of Object.entries(filterState)) {
+        const field = form.elements.namedItem(key);
+        if (field) field.value = value;
+      }
     function update() {
+      document
+        .querySelectorAll("[data-filter-tag]")
+        .forEach((b) =>
+          b.setAttribute(
+            "aria-pressed",
+            String(b.dataset.filterTag === form.elements.tag.value),
+          ),
+        );
       let q = form.q.value.toLocaleLowerCase().trim();
       let items = all()
         .filter(
@@ -226,6 +268,10 @@ function render() {
                 .includes(q)) &&
             (form.origin.value === "all" ||
               x.official === (form.origin.value === "official")) &&
+            (form.elements.tag.value === "all" ||
+              (x.tags || []).includes(form.elements.tag.value)) &&
+            (!form.elements.year.value ||
+              x.date?.startsWith(form.elements.year.value)) &&
             (!form.rarity ||
               form.rarity.value === "all" ||
               x.rarity === form.rarity.value),
@@ -240,9 +286,32 @@ function render() {
         `${items.length} 条记录`,
       );
       document.querySelector("#results").innerHTML = items.length
-        ? items.map(record).join("")
+        ? content.renderList(items, route)
         : `<div class="empty"><span>◇</span><h2>${t("該当する記録がありません", "没有找到匹配的记录")}</h2><p>${t("別のキーワードをお試しください。資料の追加もお待ちしています。", "试试其他关键词，也欢迎补充资料。")}</p><a href="#editor">${label("editor")} →</a></div>`;
+      revealContent(document.querySelector("#results"));
     }
+    app.querySelectorAll("[data-filter-tag]").forEach(
+      (button) =>
+        (button.onclick = () => {
+          form.elements.tag.value = button.dataset.filterTag;
+          app
+            .querySelectorAll("[data-filter-tag]")
+            .forEach((b) =>
+              b.setAttribute(
+                "aria-pressed",
+                String(b.dataset.filterTag === button.dataset.filterTag),
+              ),
+            );
+          update();
+        }),
+    );
+    app.querySelectorAll("[data-rarity]").forEach(
+      (button) =>
+        (button.onclick = () => {
+          form.rarity.value = button.dataset.rarity;
+          update();
+        }),
+    );
     form.onsubmit = (e) => {
       e.preventDefault();
       update();
@@ -253,6 +322,9 @@ function render() {
     update();
   }
   if (route === "editor") bindEditor();
+  content.bind(app);
+  animatePage(document.querySelector("main"));
+  revealContent(document.querySelector("main"));
 }
 function sources() {
   return (

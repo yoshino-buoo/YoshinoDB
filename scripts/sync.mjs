@@ -91,22 +91,27 @@ const results = await Promise.allSettled(
   config.sources.map(async (source) => {
     const result = await syncSource(source);
     const items = [],
-      errors = [];
-    for (const item of result.items) {
+      warnings = [];
+    const retry = previous.items.filter(
+      (x) =>
+        x.sourceId === source.id &&
+        x.previewStatus === "pending" &&
+        !result.items.some((y) => y.source === x.source),
+    );
+    for (const item of [...result.items, ...retry]) {
       const old = previous.items.find(
         (x) => x.kind === item.kind && x.source === item.source,
       );
-      try {
-        items.push(await attachPreview(item, old));
-      } catch (error) {
-        errors.push(`${item.id}: ${error.message}`);
-      }
+      items.push(
+        await attachPreview(item, old, {
+          onWarning: (warning) => warnings.push(warning),
+        }),
+      );
     }
     return {
       ...result,
       items,
-      errors,
-      status: errors.length ? "error" : result.status,
+      warnings,
     };
   }),
 );
@@ -126,12 +131,12 @@ for (let i = 0; i < results.length; i++) {
     checkedAt: now,
     lastSuccess: status === "ok" ? now : (old?.lastSuccess ?? null),
     matches: items.length,
+    ...(result.status === "fulfilled" && result.value.warnings.length
+      ? { imageWarnings: result.value.warnings }
+      : {}),
     ...(status === "error"
       ? {
-          error: (result.status === "rejected"
-            ? result.reason.message
-            : result.value.errors.join("; ")
-          ).replace(/https?:\/\/\S+/g, "[source]"),
+          error: result.reason.message.replace(/https?:\/\/\S+/g, "[source]"),
         }
       : {}),
   });
@@ -157,6 +162,9 @@ for (const state of states)
     console.log(
       `::warning title=Source unavailable::${state.id}: ${state.error}`,
     );
+for (const state of states)
+  for (const warning of state.imageWarnings || [])
+    console.log(`::warning title=Preview pending::${warning}`);
 if (process.env.GITHUB_STEP_SUMMARY)
   await writeFile(
     process.env.GITHUB_STEP_SUMMARY,

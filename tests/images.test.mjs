@@ -48,21 +48,54 @@ test("thumbnail cache rejects HTML responses and leaves existing records intact 
   }
 });
 
-test("every published record and gallery image has valid image bytes", async () => {
+test("every provided preview and gallery image has valid image bytes", async () => {
   const { imageExtension } = await import("../scripts/images.mjs");
   for (const name of ["catalog", "generated"]) {
     const data = JSON.parse(await readFile(`public/data/${name}.json`, "utf8"));
     for (const item of data.items) {
-      assert.ok(item.image, `${item.id}: missing preview`);
       for (const image of [
         item.image,
         ...(item.gallery || []).map((x) => x.image),
-      ]) {
+      ].filter(Boolean)) {
         assert.ok(
           imageExtension(await readFile(`public/${image}`)),
           `${item.id}: invalid image`,
         );
       }
     }
+  }
+});
+
+test("new entries publish when thumbnails fail and can acquire the image on a later run", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "yoshino-pending-"));
+  try {
+    const item = {
+      id: "new-news",
+      title: { ja: "依田芳乃" },
+      imageSource: "https://i.ytimg.com/vi/KHOnP8fbrwo/hqdefault.jpg",
+    };
+    const pending = await attachPreview(item, null, {
+      root,
+      fetcher: async () => new Response("unavailable", { status: 503 }),
+    });
+    assert.equal(pending.id, item.id);
+    assert.equal(pending.previewStatus, "pending");
+    assert.equal(pending.image, undefined);
+    const bytes = await readFile("public/assets/video-inori.jpg");
+    const ready = await attachPreview(item, pending, {
+      root,
+      fetcher: async () => new Response(bytes),
+    });
+    assert.ok(ready.image);
+    assert.equal(ready.previewStatus, undefined);
+    const failedReplacement = await attachPreview(
+      { ...item, imageSource: item.imageSource + "?changed=1" },
+      ready,
+      { root, fetcher: async () => new Response("bad", { status: 500 }) },
+    );
+    assert.equal(failedReplacement.image, ready.image);
+    assert.equal(failedReplacement.previewStatus, "pending");
+  } finally {
+    await rm(root, { recursive: true, force: true });
   }
 });

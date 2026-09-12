@@ -11,6 +11,7 @@ const hosts = [
   "cinderellagirls.idolmaster-official.jp",
   "cinderella-library.idolmaster-official.jp",
   "idolmaster-official.jp",
+  "cmsapi-frontend.idolmaster-official.jp",
   "www.idolmaster-official.jp",
   "bandainamco-am.co.jp",
   "i0.hdslb.com",
@@ -66,6 +67,7 @@ export async function attachPreview(item, previous, options = {}) {
   const root = options.root || "public";
   if (
     previous?.image &&
+    previous.previewStatus !== "pending" &&
     (!item.imageSource || previous.imageSource === item.imageSource)
   ) {
     try {
@@ -79,5 +81,25 @@ export async function attachPreview(item, previous, options = {}) {
       /* Recover the missing file from the source below. */
     }
   }
-  return { ...item, image: await cacheImage(item.imageSource, options) };
+  try {
+    const result = {
+      ...item,
+      image: await cacheImage(item.imageSource, options),
+    };
+    delete result.previewStatus;
+    return result;
+  } catch (error) {
+    options.onWarning?.(`${item.id}: ${error.message}`);
+    const result = { ...item, previewStatus: "pending" };
+    delete result.image;
+    if (previous?.image) {
+      try {
+        await access(path.join(root, previous.image));
+        result.image = previous.image;
+      } catch {
+        /* The record still publishes without an image. */
+      }
+    }
+    return result;
+  }
 }
