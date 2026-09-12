@@ -234,7 +234,7 @@ test("mobile Chinese controls fit the viewport and the BGM switch works by keybo
   );
 });
 
-test("blocked autoplay waits for a trusted gesture and restores the saved BGM position", async ({
+test("blocked autoplay waits for a trusted gesture and a new visit ignores the old position", async ({
   page,
 }) => {
   await page.addInitScript(() => {
@@ -269,5 +269,48 @@ test("blocked autoplay waits for a trusted gesture and restores the saved BGM po
   await expect.poll(() => playing(page, "#bgm-audio")).toBe(true);
   expect(
     await page.locator("#bgm-audio").evaluate((el) => el.currentTime),
-  ).toBeGreaterThanOrEqual(42);
+  ).toBeLessThan(3);
+});
+
+test("preview play and pause accept held pointer clicks while BGM fades", async ({
+  page,
+}) => {
+  await ready(page, "entry/inori");
+  const toggle = page.locator("[data-preview-toggle]");
+  await toggle.click();
+  await expect.poll(() => playing(page, "#preview-audio")).toBe(true);
+  for (let i = 0; i < 4; i++) {
+    await toggle.click({ delay: 300 });
+    await expect(page.locator("#preview-audio")).toHaveJSProperty(
+      "paused",
+      true,
+    );
+    await toggle.click({ delay: 150 });
+    await expect.poll(() => playing(page, "#preview-audio")).toBe(true);
+  }
+});
+
+test("BGM fades handle early frame timestamps and refreshing starts the music at the beginning", async ({
+  page,
+}) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await page.addInitScript(() => {
+    const raf = requestAnimationFrame;
+    window.requestAnimationFrame = (callback) =>
+      raf((time) => callback(time - 20));
+  });
+  await ready(page);
+  await page.locator("main h1").click();
+  await expect.poll(() => playing(page, "#bgm-audio")).toBe(true);
+  await expect
+    .poll(() => page.locator("#bgm-audio").evaluate((el) => el.volume))
+    .toBeCloseTo(0.22, 2);
+  await page.locator("#bgm-audio").evaluate((el) => (el.currentTime = 80));
+  await page.reload();
+  await expect(page.locator("#boot-screen")).toHaveCount(0);
+  expect(
+    await page.locator("#bgm-audio").evaluate((el) => el.currentTime),
+  ).toBeLessThan(8);
+  expect(errors).toEqual([]);
 });

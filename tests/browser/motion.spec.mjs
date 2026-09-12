@@ -3,6 +3,7 @@ import { test, expect } from "@playwright/test";
 async function ready(page, route = "home") {
   await page.goto(`/#${route}`);
   await expect(page.locator("main h1")).toBeVisible();
+  await expect(page.locator("#boot-screen")).toHaveCount(0);
   await page.evaluate(() => document.fonts.ready);
 }
 
@@ -281,4 +282,174 @@ test("home drawings animate in view and the pause preference covers the whole pa
       .locator(".small-garden")
       .evaluate((el) => getComputedStyle(el, "::after").animationName),
   ).toBe("none");
+});
+
+test("timeline next links never lift unrelated artwork into an orphan snapshot", async ({
+  page,
+}) => {
+  await observeSnapshots(page);
+  await ready(page, "entry/history-20140528_1");
+  await page.waitForTimeout(1000);
+  for (let i = 0; i < 3; i++) {
+    const next = page.locator(".milestone-nav a").last();
+    const href = await next.getAttribute("href");
+    await next.click();
+    await expect(page.locator(".typed-entry")).toHaveAttribute(
+      "data-entry",
+      href.slice(7),
+    );
+    await page.waitForTimeout(1000);
+    expect(await page.evaluate(() => window.motionSnapshots.length)).toBe(0);
+    await expect(page.locator("[data-shared-art]")).toHaveCount(0);
+    expect(await page.evaluate(() => scrollY)).toBe(0);
+    expect(
+      await page
+        .locator(".milestone>img")
+        .evaluate((el) => Number(getComputedStyle(el).opacity)),
+    ).toBeGreaterThan(0.98);
+  }
+});
+
+for (const viewport of [
+  { width: 1280, height: 1000 },
+  { width: 390, height: 844 },
+]) {
+  test(`shared artwork preserves its cover geometry at ${viewport.width}px`, async ({
+    page,
+  }) => {
+    test.setTimeout(45000);
+    await page.setViewportSize(viewport);
+    await page.addInitScript(() => {
+      window.coverHandoffs = [];
+      document.addEventListener(
+        "click",
+        (event) => {
+          const a = event.target.closest?.('a[href^="#entry/"]');
+          if (!a) return;
+          const surface = a.closest(".record")?.querySelector(".record-cover");
+          if (surface)
+            window.clickedCover = surface.getBoundingClientRect().toJSON();
+        },
+        { capture: true },
+      );
+      const start = document.startViewTransition.bind(document);
+      document.startViewTransition = (update) => {
+        const source = document.querySelector("[data-shared-art]"),
+          sample = {
+            clicked: window.clickedCover,
+            source: source?.getBoundingClientRect().toJSON(),
+          };
+        window.coverHandoffs.push(sample);
+        const run = start(update);
+        run.ready.then(() => {
+          sample.target = document.querySelector("[data-shared-art]");
+          sample.captured = sample.target.getBoundingClientRect().toJSON();
+        });
+        run.finished.then(() => {
+          sample.landed = sample.target.getBoundingClientRect().toJSON();
+          delete sample.target;
+          sample.finished = true;
+        });
+        return run;
+      };
+    });
+    await ready(page, "songs");
+    for (const kind of [
+      "songs",
+      "cards",
+      "videos",
+      "news",
+      "stories",
+      "units",
+      "timeline",
+    ]) {
+      if (kind !== "songs") {
+        await page.evaluate((kind) => (location.hash = kind), kind);
+        await expect(page.locator(`.collection-${kind}`)).toBeVisible();
+      }
+      const cover = page.locator("#results .record-cover").first();
+      await cover.hover();
+      await page.waitForTimeout(110);
+      await cover.click();
+      await expect
+        .poll(() => page.evaluate(() => window.coverHandoffs.at(-1)?.finished))
+        .toBe(true);
+      const sample = await page.evaluate(() => window.coverHandoffs.at(-1));
+      for (const key of ["x", "y", "width", "height"]) {
+        expect(
+          Math.abs(sample.clicked[key] - sample.source[key]),
+          `source ${kind} ${key}`,
+        ).toBeLessThan(0.6);
+        expect(
+          Math.abs(sample.captured[key] - sample.landed[key]),
+          `landing ${kind} ${key}`,
+        ).toBeLessThan(0.6);
+      }
+    }
+  });
+}
+
+test("the first shared-art frame is visually identical to the clicked cover", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    const start = document.startViewTransition.bind(document);
+    document.startViewTransition = (update) => {
+      const run = start(update);
+      run.ready.then(() => {
+        window.snapshotAnimations = document
+          .getAnimations()
+          .filter((a) => a.effect?.pseudoElement?.includes("view-transition"));
+        window.snapshotAnimations.forEach((a) => {
+          a.pause();
+          a.currentTime = 0;
+        });
+        window.snapshotReady = true;
+      });
+      return run;
+    };
+  });
+  await ready(page, "songs");
+  const cover = page.locator("#results .record-cover").first();
+  await cover.hover();
+  await page.waitForTimeout(650);
+  const bounds = await cover.boundingBox(),
+    clip = {
+      x: Math.floor(bounds.x),
+      y: Math.floor(bounds.y),
+      width: Math.ceil(bounds.width),
+      height: Math.ceil(bounds.height),
+    };
+  const before = await page.screenshot({ clip });
+  await cover.click();
+  await page.waitForFunction(() => window.snapshotReady);
+  const after = await page.screenshot({ clip });
+  const difference = await page.evaluate(
+    async (images) => {
+      const pixels = [];
+      for (const base64 of images) {
+        const img = await createImageBitmap(
+          await (await fetch(`data:image/png;base64,${base64}`)).blob(),
+        );
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const context = canvas.getContext("2d");
+        context.drawImage(img, 0, 0);
+        pixels.push(context.getImageData(0, 0, img.width, img.height).data);
+        img.close();
+      }
+      return (
+        pixels[0].reduce(
+          (sum, value, i) => sum + Math.abs(value - pixels[1][i]),
+          0,
+        ) / pixels[0].length
+      );
+    },
+    [before.toString("base64"), after.toString("base64")],
+  );
+  expect(
+    difference,
+    "Clicking must not instantly overlay a differently cropped detail image",
+  ).toBeLessThan(2);
 });

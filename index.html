@@ -11,6 +11,7 @@
     <title>芳乃のよりみち帖 · YoshinoDB</title>
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/fonts/noto.css" />
+    <link rel="stylesheet" href="./loading.css" />
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./content.css" />
     <link rel="stylesheet" href="./motion.css" />
@@ -19,7 +20,41 @@
   </head>
   <body>
     <a class="skip" href="#main">本文へ / 跳至正文</a>
-    <div id="app"></div>
+    <div id="boot-screen" role="status" aria-live="polite">
+      <div class="boot-panel boot-panel-left" aria-hidden="true"></div>
+      <div class="boot-panel boot-panel-right" aria-hidden="true"></div>
+      <div class="boot-cover">
+        <div class="boot-spine" aria-hidden="true"></div>
+        <div class="boot-ornament" aria-hidden="true">
+          <span class="boot-orbit"></span
+          ><svg viewBox="0 0 160 160">
+            <circle class="boot-circle" cx="80" cy="80" r="66" />
+            <circle class="boot-progress" cx="80" cy="80" r="66" />
+            <path
+              class="boot-filigree"
+              d="M9 91A72 72 0 0 0 37 139M151 69A72 72 0 0 0 123 21"
+            />
+            <path
+              class="boot-diamond"
+              d="m25 25 3.5 5-3.5 5-3.5-5zM135 125l3.5 5-3.5 5-3.5-5z"
+            /></svg
+          ><span class="boot-seal">芳</span><i></i><i></i><i></i>
+        </div>
+        <div class="boot-copy">
+          <span>YOSHINO DB</span>
+          <p data-boot-label>手帖を開いています</p>
+          <small data-boot-detail>よきご縁が、ありますように。</small>
+        </div>
+      </div>
+    </div>
+    <div id="app" inert aria-busy="true"></div>
+    <noscript
+      ><style>
+        #boot-screen {
+          display: none;
+        }
+      </style></noscript
+    >
     <noscript
       >このサイトの資料検索には JavaScript が必要です。 / 请启用 JavaScript
       浏览资料。</noscript

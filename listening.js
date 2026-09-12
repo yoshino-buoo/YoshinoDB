@@ -43,7 +43,6 @@ export function createListening({ base, t, esc, onAudioStart }) {
     waitingForGesture = false,
     booted = false;
   let bgmEnabled = readStored("yoshino-bgm-enabled") !== "false";
-  let lastSavedAt = 0;
   const root = document.createElement("aside");
   root.className = "listening-dock";
   document.body.append(root);
@@ -51,7 +50,8 @@ export function createListening({ base, t, esc, onAudioStart }) {
     preview = document.createElement("audio");
   bgm.id = "bgm-audio";
   preview.id = "preview-audio";
-  bgm.preload = preview.preload = "none";
+  bgm.preload = "auto";
+  preview.preload = "none";
   bgm.loop = true;
   bgm.volume = 0.22;
   preview.volume = storedVolume("yoshino-preview-volume", 0.65);
@@ -91,7 +91,9 @@ export function createListening({ base, t, esc, onAudioStart }) {
     }
     if (audio === bgm) {
       cancelAnimationFrame(fadeFrame);
-      bgm.volume = 0;
+      // Start audibly so the browser can correctly allow or reject autoplay.
+      // A zero-volume start may resolve play(), then get paused on unmuting.
+      bgm.volume = 0.005;
     }
     if (audio.error) audio.load();
     if (audio.ended) audio.currentTime = 0;
@@ -109,8 +111,8 @@ export function createListening({ base, t, esc, onAudioStart }) {
         const began = performance.now();
         const fade = (now) => {
           if (s.serial !== serial || bgm.paused) return;
-          const progress = Math.min(1, (now - began) / 650);
-          bgm.volume = bgmVolume * (1 - (1 - progress) ** 2);
+          const progress = Math.max(0, Math.min(1, (now - began) / 650));
+          bgm.volume = 0.005 + (bgmVolume - 0.005) * (1 - (1 - progress) ** 2);
           if (progress < 1) fadeFrame = requestAnimationFrame(fade);
         };
         fadeFrame = requestAnimationFrame(fade);
@@ -163,30 +165,7 @@ export function createListening({ base, t, esc, onAudioStart }) {
 
   preview.addEventListener("pause", () => queueMicrotask(resumeBgm));
   preview.addEventListener("ended", () => queueMicrotask(resumeBgm));
-  bgm.addEventListener(
-    "loadedmetadata",
-    () => {
-      const position = Number(readStored("yoshino-bgm-position"));
-      if (
-        Number.isFinite(position) &&
-        position > 0 &&
-        position < bgm.duration - 1
-      )
-        bgm.currentTime = position;
-    },
-    { once: true },
-  );
-  const rememberPosition = () => {
-    if (bgm.currentTime > 0)
-      savePreference("yoshino-bgm-position", bgm.currentTime);
-  };
-  bgm.addEventListener("timeupdate", () => {
-    if (performance.now() - lastSavedAt > 5000) {
-      lastSavedAt = performance.now();
-      rememberPosition();
-    }
-  });
-  window.addEventListener("pagehide", rememberPosition);
+  // A new visit starts at the beginning; only the ON/OFF preference persists.
 
   function detail(item) {
     const track = tracks[item.id];
@@ -197,7 +176,7 @@ export function createListening({ base, t, esc, onAudioStart }) {
         : track.version === "master"
           ? "M@STER VERSION"
           : t("オリジナル音源", "原版音源");
-    return `<section class="song-listening" data-preview="${esc(item.id)}" aria-label="${t("楽曲の試聴", "歌曲试听")}"><div class="preview-top"><button class="preview-toggle" data-preview-toggle aria-label="${t("試聴を再生", "播放试听")}">${playIcon}</button><div><strong>${t("この歌に、耳をすませて", "听一听，这首歌")}</strong><small>${esc(version)} · ${t("試聴", "试听片段")}</small></div><span class="audio-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><div class="preview-progress"><output data-preview-time>0:00</output><input type="range" min="0" max="100" step="0.1" value="0" data-preview-seek aria-label="${t("試聴の再生位置", "试听进度")}" disabled><output data-preview-duration>—:—</output></div><div class="preview-bottom"><a class="itunes-badge" href="${esc(track.storeUrl)}" target="_blank" rel="noopener noreferrer"><img src="${base}assets/providers/itunes-${t("ja", "zh")}.svg" width="108" height="36" alt="${t("iTunes で購入", "在 iTunes 购买")}"></a><label class="preview-volume">${soundIcon}<input type="range" min="0" max="1" step="0.01" value="${preview.volume}" data-preview-volume aria-label="${t("試聴の音量", "试听音量")}"></label></div><small class="preview-credit">Preview provided courtesy of iTunes</small><p class="preview-status" role="status" aria-live="polite"></p></section>`;
+    return `<section class="song-listening" data-preview="${esc(item.id)}" aria-label="${t("楽曲の試聴", "歌曲试听")}"><div class="preview-top"><button class="preview-toggle" data-preview-toggle aria-label="${t("試聴を再生", "播放试听")}">${playIcon}${pauseIcon}</button><div><strong>${t("この歌に、耳をすませて", "听一听，这首歌")}</strong><small>${esc(version)} · ${t("試聴", "试听片段")}</small></div><span class="audio-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><div class="preview-progress"><output data-preview-time>0:00</output><input type="range" min="0" max="100" step="0.1" value="0" data-preview-seek aria-label="${t("試聴の再生位置", "试听进度")}" disabled><output data-preview-duration>—:—</output></div><div class="preview-bottom"><a class="itunes-badge" href="${esc(track.storeUrl)}" target="_blank" rel="noopener noreferrer"><img src="${base}assets/providers/itunes-${t("ja", "zh")}.svg" width="108" height="36" alt="${t("iTunes で購入", "在 iTunes 购买")}"></a><label class="preview-volume">${soundIcon}<input type="range" min="0" max="1" step="0.01" value="${preview.volume}" data-preview-volume aria-label="${t("試聴の音量", "试听音量")}"></label></div><small class="preview-credit">Preview provided courtesy of iTunes</small><p class="preview-status" role="status" aria-live="polite"></p></section>`;
   }
   function renderDock() {
     root.setAttribute("aria-label", t("背景音楽", "背景音乐"));
@@ -209,7 +188,6 @@ export function createListening({ base, t, esc, onAudioStart }) {
       waitingForGesture = false;
       if (bgmEnabled) resumeBgm();
       else {
-        rememberPosition();
         stop(bgm);
       }
       update();
@@ -231,8 +209,9 @@ export function createListening({ base, t, esc, onAudioStart }) {
     previewRoot.classList.toggle("is-playing", !preview.paused && !ps.pending);
     previewRoot.classList.toggle("is-loading", ps.pending);
     const toggleButton = previewRoot.querySelector("[data-preview-toggle]");
-    toggleButton.innerHTML =
-      !preview.paused || ps.pending ? pauseIcon : playIcon;
+    // Keep the pointer target stable across progress events and BGM fades.
+    // Replacing the SVG between pointerdown and pointerup cancels the click.
+    toggleButton.dataset.playing = String(!preview.paused || ps.pending);
     toggleButton.setAttribute(
       "aria-label",
       !preview.paused || ps.pending

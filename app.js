@@ -1,3 +1,4 @@
+import { openFirstPage, failFirstPage } from "./loading.js";
 import { validateCatalog, KINDS, isHttps, searchText } from "./lib/data.js";
 import { createListening } from "./listening.js";
 import { directoryArt } from "./home-art.js";
@@ -11,6 +12,7 @@ import {
 } from "./motion.js";
 const base = import.meta.env.BASE_URL;
 const app = document.querySelector("#app");
+let booting = true;
 const storage = {
   get(key) {
     try {
@@ -37,7 +39,7 @@ const names = {
   stories: ["コミュ", "剧情"],
   units: ["ユニット", "组合"],
   videos: ["動画", "视频"],
-  timeline: ["あゆみ", "芳乃足迹"],
+  timeline: ["あゆみ", "足迹"],
   news: ["お知らせ", "资讯"],
   sources: ["このサイトについて", "关于本站"],
   editor: ["資料を編集", "内容编辑"],
@@ -53,43 +55,48 @@ const esc = (v) =>
         c
       ],
   );
-const label = (k) => (names[k] ? t(...names[k]) : k);
-const tagLabel = (k) =>
-  ({
-    passion: t("パッション", "Passion"),
-    platinum: t("恒常", "常驻"),
-    limited: t("期間限定", "期间限定"),
-    fes: t("フェス", "FES"),
-    "fes-blanc": t("ブランフェス", "Blanc FES"),
-    "fes-noir": t("ノワールフェス", "Noir FES"),
-    dominant: t("ドミナント", "Dominant"),
-    "local-live": t("ローカル・LIVE", "本地扭蛋／LIVE"),
-    anime: t("アニメ", "动画"),
-    music: t("音楽", "音乐"),
-    live: t("ライブ", "演出"),
-    deresute: t("デレステ", "星光舞台"),
-    mobamas: t("デレマス", "页游"),
-    solo: t("ソロ", "个人曲"),
-    unit: t("ユニット", "组合"),
-    event: t("イベント", "活动"),
-    cover: t("カバー", "翻唱"),
-    preview: t("試聴", "试听"),
-    voice: t("ボイス", "语音"),
-    outfit: t("衣装", "服装"),
-    memory: t("メモリアル", "回忆剧情"),
-    business: t("営業", "营业剧情"),
-    game: t("ゲーム", "小游戏"),
-    goods: t("グッズ", "周边"),
-    birthday: t("誕生日", "生日"),
-    drama: t("ドラマ", "广播剧"),
-    commu: t("コミュ", "剧情"),
-    "cg-news": t("ニュース", "资讯"),
-    story: t("ストーリー", "主线"),
-    zh: t("中国語字幕", "中文字幕"),
-    mv: "MV",
-    youtube: "YouTube",
-    bilibili: "Bilibili",
-  })[k] || k;
+const label = (k, locale = lang) =>
+  names[k] ? names[k][locale === "ja" ? 0 : 1] : k;
+const tagLabel = (k, locale = lang) => {
+  const t = (ja, zh) => (locale === "ja" ? ja : zh);
+  return (
+    {
+      passion: t("パッション", "Passion"),
+      platinum: t("恒常", "常驻"),
+      limited: t("期間限定", "期间限定"),
+      fes: t("フェス", "FES"),
+      "fes-blanc": t("ブランフェス", "Blanc FES"),
+      "fes-noir": t("ノワールフェス", "Noir FES"),
+      dominant: t("ドミナント", "Dominant"),
+      "local-live": t("ローカル・LIVE", "本地扭蛋／LIVE"),
+      anime: t("アニメ", "动画"),
+      music: t("音楽", "音乐"),
+      live: t("ライブ", "演出"),
+      deresute: t("デレステ", "星光舞台"),
+      mobamas: t("デレマス", "页游"),
+      solo: t("ソロ", "个人曲"),
+      unit: t("ユニット", "组合"),
+      event: t("イベント", "活动"),
+      cover: t("カバー", "翻唱"),
+      preview: t("試聴", "试听"),
+      voice: t("ボイス", "语音"),
+      outfit: t("衣装", "服装"),
+      memory: t("メモリアル", "回忆剧情"),
+      business: t("営業", "营业剧情"),
+      game: t("ゲーム", "小游戏"),
+      goods: t("グッズ", "周边"),
+      birthday: t("誕生日", "生日"),
+      drama: t("ドラマ", "广播剧"),
+      commu: t("コミュ", "剧情"),
+      "cg-news": t("ニュース", "资讯"),
+      story: t("ストーリー", "主线"),
+      zh: t("中国語字幕", "中文字幕"),
+      mv: "MV",
+      youtube: "YouTube",
+      bilibili: "Bilibili",
+    }[k] || k
+  );
+};
 const arrow = '<span aria-hidden="true">↗</span>';
 const icon = (k) =>
   ({
@@ -347,8 +354,10 @@ function render(filterState = null) {
   if (route === "editor") bindEditor();
   content.bind(app);
   listening.bind(app);
-  animatePage(document.querySelector("main"));
-  revealContent(document.querySelector("main"));
+  if (!booting) {
+    animatePage(document.querySelector("main"));
+    revealContent(document.querySelector("main"));
+  }
 }
 function sources() {
   return (
@@ -374,10 +383,7 @@ function sources() {
 }
 
 function editor() {
-  return (
-    pageTitle("editor", "CONTENT EDITOR") +
-    `<div class="prose"><p>${t("資料を追加・編集し、JSON ファイルを保存できます。公開には GitHub 上の catalog.json を置き換えてコミットしてください。入力内容はこのブラウザー内だけで処理します。", "填写或修改资料后导出 JSON，再到 GitHub 替换 catalog.json 并提交即可更新网站。填写内容仅在本浏览器中处理。")}</p><p>${ext("https://github.com/yoshino-buoo/YoshinoDB/edit/main/public/data/catalog.json", t("GitHub で公開データを編集", "在 GitHub 编辑公开数据"), "text-link")}</p></div><div id="editor-ui"></div>`
-  );
+  return pageTitle("editor", "CONTENT EDITOR") + `<div id="editor-ui"></div>`;
 }
 function bindEditor() {
   mountEditor(document.querySelector("#editor-ui"), catalog, {
@@ -386,6 +392,8 @@ function bindEditor() {
     tr,
     esc,
     label,
+    tagLabel,
+    generated: generated.items,
   });
 }
 
@@ -402,7 +410,9 @@ window.addEventListener("hashchange", () => {
 try {
   const loaded = await Promise.allSettled(
     ["catalog", "generated"].map((name) =>
-      fetch(`${base}data/${name}.json`).then(async (r) => {
+      fetch(`${base}data/${name}.json`, {
+        signal: AbortSignal.timeout(12000),
+      }).then(async (r) => {
         if (!r.ok) throw Error(r.status);
         return validateCatalog(await r.json());
       }),
@@ -412,12 +422,20 @@ try {
   catalog = loaded[0].value;
   if (loaded[1].status === "fulfilled") generated = loaded[1].value;
   try {
-    const response = await fetch(`${base}data/listening.json`);
+    const response = await fetch(`${base}data/listening.json`, {
+      signal: AbortSignal.timeout(5000),
+    });
     if (response.ok) listening.setData(await response.json());
   } catch {
     /* The archive and BGM remain usable if preview metadata is unavailable. */
   }
   render();
+  await openFirstPage(() => {
+    booting = false;
+    animatePage(document.querySelector("main"));
+    revealContent(document.querySelector("main"));
+  });
 } catch {
+  failFirstPage();
   app.innerHTML = `<main class="prose"><h1>資料を読み込めませんでした / 资料加载失败</h1><p>ページを再読み込みしてください。 / 请重新加载页面。</p><button onclick="location.reload()">再読み込み / 重试</button></main>`;
 }

@@ -760,11 +760,17 @@
   height: 100%;
   border-bottom: 1px solid var(--line);
 }
-.related-tile img {
-  width: 90px;
+.related-art {
+  display: block;
+  flex: 0 0 90px;
   height: 68px;
+  overflow: hidden;
+}
+.related-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  flex: none;
   background: #eee8dc;
 }
 .related-tile span {
@@ -1127,8 +1133,8 @@ button:active,
     grid-template-columns: 1fr;
     gap: 7px;
   }
-  .related-tile img {
-    width: 105px;
+  .related-art {
+    flex-basis: 105px;
     height: 73px;
   }
   .news-article .entry-lead {

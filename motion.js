@@ -135,7 +135,7 @@ export function animatePage(main) {
       });
     main
       .querySelectorAll(
-        ".card-gallery,.album-art,.story-art,.unit-art,.inline-player,.news-art,.profile-art",
+        ".card-gallery,.album-art,.story-art,.unit-art,.inline-player,.news-art,.profile-art,.milestone>img",
       )
       .forEach((element) =>
         animate(
@@ -148,7 +148,9 @@ export function animatePage(main) {
         ),
       );
     main
-      .querySelectorAll(".entry-summary>*,.watch-info>*")
+      .querySelectorAll(
+        ".entry-summary>*,.watch-info>*,.milestone>time,.milestone>div,.milestone-nav",
+      )
       .forEach((element, index) =>
         animate(
           element,
@@ -278,11 +280,22 @@ document.addEventListener("click", (event) => {
     event.altKey
   )
     return;
+  const hash = anchor.getAttribute("href");
+  const record = anchor.closest("[data-entry]");
+  // Only lift artwork belonging to the destination record. Text-only next/prev
+  // links inside a detail page must not capture their parent record's artwork.
+  const image =
+    anchor.querySelector("img") ||
+    (record?.dataset.entry === hash.slice(7)
+      ? record.querySelector("img")
+      : null);
   pendingCover = {
-    hash: anchor.getAttribute("href"),
-    image:
-      anchor.closest("[data-entry]")?.querySelector("img") ||
-      anchor.querySelector("img"),
+    hash,
+    image,
+    surface:
+      image?.closest(
+        ".record-cover,.related-art,.music-shelf-intro>a,.news-feature>a",
+      ) || image,
   };
 });
 function clearSharedArtwork() {
@@ -303,13 +316,13 @@ export async function transitionPage(update) {
   };
   routeExit?.cancel();
   clearSharedArtwork();
-  const source =
-    pendingCover?.hash === location.hash ? pendingCover.image : null;
+  const cover = pendingCover?.hash === location.hash ? pendingCover : null;
+  const source = cover?.surface;
   pendingCover = null;
   const sourceBounds = source?.getBoundingClientRect();
   const share =
-    source?.complete &&
-    source.naturalWidth > 0 &&
+    cover?.image?.complete &&
+    cover.image.naturalWidth > 0 &&
     sourceBounds.bottom > 0 &&
     sourceBounds.top < innerHeight;
   if (reducedMotion()) {
@@ -344,6 +357,12 @@ export async function transitionPage(update) {
     update();
     return;
   }
+  // Capture the visible cover, including its crop and current hover pose.
+  // Freezing (not finishing) outgoing motion prevents a mid-entrance click from
+  // jumping to a different frame before the browser takes its snapshot.
+  cancelAnimationFrame(pointerFrame);
+  const frozen = outgoing?.getAnimations({ subtree: true }) || [];
+  frozen.forEach((animation) => animation.pause());
   snapshotActive = true;
   document.documentElement.dataset.transitioning = "true";
   source.style.viewTransitionName = "archive-art";
@@ -352,14 +371,17 @@ export async function transitionPage(update) {
     if (serial !== transitionSerial) return;
     update();
     const target = document.querySelector(
-      ".typed-entry .gallery-stage figure:not([hidden]) img,.typed-entry .album-art img,.typed-entry .video-poster img,.typed-entry .story-art,.typed-entry .unit-art,.typed-entry .news-art",
+      ".typed-entry .gallery-stage,.typed-entry .album-art,.typed-entry .inline-player,.typed-entry .story-art,.typed-entry .unit-art,.typed-entry .news-art,.typed-entry .milestone>img",
     );
     if (target) {
       target.style.viewTransitionName = "archive-art";
       target.dataset.sharedArt = "";
-      if (!target.complete)
+      const image = target.matches("img")
+        ? target
+        : target.querySelector("img");
+      if (image && !image.complete)
         await Promise.race([
-          target.decode().catch(() => {}),
+          image.decode().catch(() => {}),
           new Promise((resolve) => setTimeout(resolve, 180)),
         ]);
     }
@@ -369,6 +391,8 @@ export async function transitionPage(update) {
   run.ready.catch(() => {});
   run.finished
     .finally(() => {
+      if (outgoing?.isConnected)
+        frozen.forEach((animation) => animation.play());
       if (serial !== transitionSerial) return;
       clearSharedArtwork();
       delete document.documentElement.dataset.transitioning;
@@ -475,7 +499,7 @@ function clearPointer() {
 document.addEventListener(
   "pointermove",
   (event) => {
-    if (reducedMotion() || !finePointer.matches) return;
+    if (reducedMotion() || snapshotActive || !finePointer.matches) return;
     const surface = event.target.closest?.(
       ".record-cover,.album-art,.gallery-stage,.intro-grid",
     );

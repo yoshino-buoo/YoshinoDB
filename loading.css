@@ -1,0 +1,295 @@
+#boot-screen {
+  --boot-progress: 0;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  background: radial-gradient(
+    ellipse at 50% 40%,
+    #fffdf7,
+    #f7f2e7 65%,
+    #efe8da
+  );
+  color: #85454d;
+  transition: opacity 0.5s ease;
+}
+#boot-screen::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border: 1px solid #bea77233;
+  pointer-events: none;
+}
+#boot-screen.is-leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+.boot-ornament {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  display: grid;
+  place-items: center;
+}
+.boot-ornament svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+}
+.boot-circle {
+  stroke: #c6b58f38;
+  stroke-width: 0.7;
+}
+.boot-progress {
+  stroke: #b59b5e;
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-dasharray: 414.7;
+  stroke-dashoffset: calc(414.7 * (1 - var(--boot-progress)));
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transition: stroke-dashoffset 0.7s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+.boot-filigree {
+  stroke: #bda46a55;
+  stroke-width: 0.65;
+  stroke-linecap: round;
+}
+.boot-diamond {
+  stroke: #b99f6970;
+  stroke-width: 0.7;
+  fill: #f7f0de;
+}
+.boot-seal {
+  width: 60px;
+  height: 65px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #985159a0;
+  outline: 1px solid #98515932;
+  outline-offset: 5px;
+  border-radius: 18% 12% 16% 10%;
+  font:
+    400 36px/1 "Noto Serif JP",
+    "Hiragino Mincho ProN",
+    serif;
+  background: #89444b09;
+  animation: boot-breathe 2.8s ease-in-out infinite;
+}
+.boot-orbit {
+  position: absolute;
+  inset: 16px;
+  border: 1px solid transparent;
+  border-top-color: #ccb98155;
+  border-right-color: #ccb98122;
+  border-radius: 50%;
+  animation: boot-orbit 9s linear infinite;
+}
+.boot-ornament i {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #baa06b;
+  box-shadow: 0 0 12px #d4bd78;
+  top: 11px;
+  left: 78px;
+  animation: boot-mote 2.3s ease-in-out infinite alternate;
+}
+.boot-ornament i:nth-last-child(2) {
+  top: 121px;
+  left: 130px;
+  animation-delay: -1.3s;
+  width: 2px;
+  height: 2px;
+}
+.boot-ornament i:last-child {
+  top: 120px;
+  left: 27px;
+  animation-delay: -0.7s;
+  width: 2px;
+  height: 2px;
+}
+.boot-copy {
+  text-align: center;
+}
+.boot-copy > span {
+  font:
+    10px/1.5 Georgia,
+    serif;
+  color: #b39862;
+  letter-spacing: 0.3em;
+}
+.boot-copy p {
+  font: 400 17px/1.8 var(--serif, serif);
+  letter-spacing: 0.16em;
+  margin: 15px 0 10px;
+}
+.boot-copy small {
+  font: 11px/1.8 var(--serif, serif);
+  letter-spacing: 0.08em;
+  color: #9f927b;
+}
+@keyframes boot-breathe {
+  50% {
+    box-shadow: 0 0 30px #b3996118;
+    background: #89444b04;
+    scale: 0.97;
+  }
+}
+@keyframes boot-orbit {
+  to {
+    rotate: 360deg;
+  }
+}
+@keyframes boot-mote {
+  to {
+    opacity: 0.2;
+    translate: 0 -3px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #boot-screen {
+    transition: none;
+  }
+  .boot-ornament * {
+    animation: none !important;
+  }
+  .boot-progress {
+    transition: none;
+  }
+}
+/* The inner edges separate first; each page turns toward its outer binding. */
+#boot-screen {
+  background: transparent;
+  perspective: 4000px;
+  perspective-origin: 50% 50%;
+  overflow: hidden;
+  transition: none;
+}
+#boot-screen::before {
+  display: none;
+}
+.boot-panel {
+  position: absolute;
+  inset-block: 0;
+  width: 50%;
+  backface-visibility: hidden;
+  will-change: transform;
+  background: #f9f5ec;
+}
+.boot-panel::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border: 1px solid #bea77235;
+  pointer-events: none;
+}
+.boot-panel-left {
+  left: 0;
+  transform-origin: 0% 50%;
+  background: radial-gradient(
+    ellipse at 100% 40%,
+    #fffdf7,
+    #f9f5ec 70%,
+    #f1eadb
+  );
+}
+.boot-panel-right {
+  right: 0;
+  transform-origin: 100% 50%;
+  background: radial-gradient(ellipse at 0% 40%, #fffdf7, #f9f5ec 70%, #f1eadb);
+}
+.boot-panel-left::before {
+  right: 0;
+  border-right: 0;
+}
+.boot-panel-right::before {
+  left: 0;
+  border-left: 0;
+}
+.boot-cover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.boot-spine {
+  position: absolute;
+  inset-block: 18px;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(
+    transparent,
+    #ae936e12 18%,
+    #ae936e12 82%,
+    transparent
+  );
+}
+#boot-screen.is-leaving {
+  opacity: 1;
+}
+#boot-screen.is-leaving .boot-cover {
+  opacity: 0;
+}
+#boot-screen.is-leaving .boot-panel-left {
+  animation: boot-open-left 1.4s cubic-bezier(0.35, 0.72, 0.2, 1) both;
+  box-shadow: 18px 0 35px #4a342820;
+}
+#boot-screen.is-leaving .boot-panel-right {
+  animation: boot-open-right 1.4s cubic-bezier(0.35, 0.72, 0.2, 1) both;
+  box-shadow: -18px 0 35px #4a342820;
+}
+@keyframes boot-open-left {
+  0% {
+    transform: rotateY(0);
+    filter: brightness(1);
+    opacity: 1;
+  }
+  74% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotateY(-106deg);
+    filter: brightness(0.87);
+    opacity: 0;
+  }
+}
+@keyframes boot-open-right {
+  0% {
+    transform: rotateY(0);
+    filter: brightness(1);
+    opacity: 1;
+  }
+  74% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotateY(106deg);
+    filter: brightness(0.9);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #boot-screen.is-leaving {
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  #boot-screen.is-leaving .boot-panel {
+    animation: none;
+  }
+  .boot-cover {
+    transition: none;
+  }
+}

@@ -72,7 +72,7 @@ export function createContentViews({
         return list.length
           ? section(
               t("関連する", "相关") + label(kind),
-              `<div class="related-grid">${list.map((x) => `<article class="related-tile" data-entry="${esc(x.id)}">${link(x, image(x) + `<span><small>${label(x.kind)}</small><strong>${title(x)}</strong>${x.date ? `<time>${x.date.replaceAll("-", ".")}</time>` : ""}</span>`)}</article>`).join("")}</div>`,
+              `<div class="related-grid">${list.map((x) => `<article class="related-tile" data-entry="${esc(x.id)}">${link(x, (x.image ? `<span class="related-art">${image(x)}</span>` : "") + `<span><small>${label(x.kind)}</small><strong>${title(x)}</strong>${x.date ? `<time>${x.date.replaceAll("-", ".")}</time>` : ""}</span>`)}</article>`).join("")}</div>`,
             )
           : "";
       })

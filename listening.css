@@ -46,6 +46,7 @@
   box-shadow: 0 0 0 5px #85454d12;
 }
 .preview-toggle svg {
+  pointer-events: none;
   fill: currentColor;
   width: 21px;
   height: 21px;
@@ -318,4 +319,12 @@
 }
 .video-close:hover {
   color: var(--red);
+}
+
+.preview-toggle svg:last-child,
+.preview-toggle[data-playing="true"] svg:first-child {
+  display: none;
+}
+.preview-toggle[data-playing="true"] svg:last-child {
+  display: block;
 }
