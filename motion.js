@@ -5,7 +5,9 @@ let observer,
   transition,
   transitionSerial = 0,
   pendingCover;
-let indicatorObserver, gardenObserver;
+let indicatorObserver, gardenObserver, routeExit;
+let snapshotActive = false;
+const resultTransitions = new WeakMap();
 let ambientPaused = false;
 try {
   ambientPaused = localStorage.getItem("yoshino-ambient-paused") === "true";
@@ -47,7 +49,7 @@ export function animatePage(main) {
           {
             opacity: 0,
             clipPath: "inset(0 0 100% 0)",
-            transform: "translateY(24px)",
+            transform: "translateY(48px) rotate(2deg)",
           },
           {
             opacity: 1,
@@ -64,19 +66,19 @@ export function animatePage(main) {
         animate(
           element,
           [
-            { opacity: 0, transform: "translateY(15px)" },
+            { opacity: 0, transform: "translateY(28px)" },
             { opacity: 1, transform: "translateY(0)" },
           ],
           { duration: 1050, delay: 480 + index * 90 },
         ),
       );
     animate(
-      hero.querySelector(".portrait>img"),
+      hero.querySelector(".portrait-figure>img"),
       [
         {
           opacity: 0,
-          translate: "0 15px",
-          scale: "1.035",
+          translate: "35px 42px",
+          scale: "1.09",
           filter: "brightness(1.13)",
         },
         {
@@ -112,11 +114,25 @@ export function animatePage(main) {
     animate(
       main.querySelector(".page-title,.entry-heading"),
       [
-        { opacity: 0, transform: "translateY(14px)" },
-        { opacity: 1, transform: "translateY(0)" },
+        { opacity: 0, translate: "-28px 16px", filter: "blur(5px)" },
+        { opacity: 1, translate: "0 0", filter: "blur(0px)" },
       ],
-      { duration: 750 },
+      { duration: 850 },
     );
+    main
+      .querySelectorAll(
+        ".collection-page>.music-shelf-intro,.collection-page>.collection-stats,.collection-page>.story-paths,.collection-page>.video-intro,.collection-page>.category-tabs,.collection-page>.list-controls,.collection-page>.result-count",
+      )
+      .forEach((element, index) => {
+        animate(
+          element,
+          [
+            { opacity: 0, translate: "0 30px", filter: "blur(3px)" },
+            { opacity: 1, translate: "0 0", filter: "blur(0px)" },
+          ],
+          { duration: 800, delay: 70 + index * 65 },
+        );
+      });
     main
       .querySelectorAll(
         ".card-gallery,.album-art,.story-art,.unit-art,.inline-player,.news-art,.profile-art",
@@ -125,8 +141,8 @@ export function animatePage(main) {
         animate(
           element,
           [
-            { opacity: 0, transform: "translateY(18px) scale(.982)" },
-            { opacity: 1, transform: "translateY(0) scale(1)" },
+            { opacity: 0, translate: "0 32px", scale: ".96" },
+            { opacity: 1, translate: "0 0", scale: "1" },
           ],
           { duration: 1050, delay: 90 },
         ),
@@ -137,13 +153,40 @@ export function animatePage(main) {
         animate(
           element,
           [
-            { opacity: 0, transform: "translateY(12px)" },
-            { opacity: 1, transform: "translateY(0)" },
+            { opacity: 0, translate: "0 24px" },
+            { opacity: 1, translate: "0 0" },
           ],
           { duration: 850, delay: 170 + Math.min(index, 6) * 65 },
         ),
       );
   }
+}
+function revealElement(element, index = 0, instant = false) {
+  observer?.unobserve(element);
+  observed.delete(element);
+  element.classList.remove("reveal-pending");
+  element.classList.add("revealed");
+  if (instant || reducedMotion()) {
+    element.classList.add("reveal-still");
+    return;
+  }
+  const tile = element.matches(
+    ".cards,.videos,.units,.directory>a,.related-tile",
+  );
+  const horizontal = element.matches(".stories,.news,.timeline");
+  animate(
+    element,
+    [
+      {
+        opacity: 0,
+        translate: horizontal ? "32px 12px" : "0 54px",
+        scale: tile ? ".955" : "1",
+        rotate: tile ? "1 0 0 7deg" : "0deg",
+      },
+      { opacity: 1, translate: "0 0", scale: "1", rotate: "0deg" },
+    ],
+    { duration: tile ? 1000 : 850, delay: Math.min(index, 6) * 75 },
+  );
 }
 export function revealContent(root) {
   if (!root) return;
@@ -156,24 +199,17 @@ export function revealContent(root) {
     "IntersectionObserver" in window
       ? new IntersectionObserver(
           (entries) => {
-            const entering = entries
+            if (snapshotActive) return;
+            entries
               .filter((x) => x.isIntersecting)
               .sort(
                 (a, b) =>
                   a.boundingClientRect.top - b.boundingClientRect.top ||
                   a.boundingClientRect.left - b.boundingClientRect.left,
-              );
-            entering.forEach((entry, index) => {
-              entry.target.style.setProperty(
-                "--reveal-delay",
-                `${Math.min(index, 5) * 65}ms`,
-              );
-              entry.target.classList.add("revealed");
-              observer.unobserve(entry.target);
-              observed.delete(entry.target);
-            });
+              )
+              .forEach((entry, index) => revealElement(entry.target, index));
           },
-          { threshold: 0.04, rootMargin: "0px 0px 24px 0px" },
+          { threshold: 0.015, rootMargin: "0px 0px 45px 0px" },
         )
       : null;
   root
@@ -183,13 +219,52 @@ export function revealContent(root) {
     .forEach((element) => {
       if ("reveal" in element.dataset) return;
       element.dataset.reveal = "";
-      if (reducedMotion() || !observer) element.classList.add("revealed");
-      else {
-        observer.observe(element);
-        observed.add(element);
-      }
+      if (reducedMotion() || !observer) return revealElement(element, 0, true);
+      element.classList.add("reveal-pending");
+      observed.add(element);
+      if (!snapshotActive) observer.observe(element);
     });
   syncIndicators(document);
+}
+function prepareSnapshot() {
+  // Native view transitions capture a still image. Its visible content must already
+  // match the live page that will be uncovered at the end of the transition.
+  for (const element of observed) {
+    const rect = element.getBoundingClientRect();
+    if (rect.bottom > -60 && rect.top < innerHeight + 100)
+      revealElement(element, 0, true);
+  }
+}
+function resumeReveals() {
+  for (const element of observed) {
+    if (element.isConnected) observer?.observe(element);
+    else observed.delete(element);
+  }
+}
+export function transitionResults(container, update) {
+  const previousHeight = container.getBoundingClientRect().height;
+  resultTransitions.get(container)?.cancel();
+  container.style.overflow = "";
+  update();
+  if (reducedMotion() || !previousHeight) return;
+  const nextHeight = container.getBoundingClientRect().height;
+  if (Math.abs(previousHeight - nextHeight) < 1) return;
+  container.style.overflow = "clip";
+  const run = animate(
+    container,
+    [{ height: `${previousHeight}px` }, { height: `${nextHeight}px` }],
+    { duration: 650, fill: "none" },
+  );
+  if (!run) return;
+  resultTransitions.set(container, run);
+  run.finished
+    .finally(() => {
+      if (resultTransitions.get(container) === run) {
+        container.style.overflow = "";
+        resultTransitions.delete(container);
+      }
+    })
+    .catch(() => {});
 }
 
 // Capture only the clicked artwork. It travels from its shelf into the detail page.
@@ -210,61 +285,96 @@ document.addEventListener("click", (event) => {
       anchor.querySelector("img"),
   };
 });
-export function transitionPage(update) {
-  const serial = ++transitionSerial;
-  transition?.skipTransition();
+function clearSharedArtwork() {
   document.querySelectorAll("[data-shared-art]").forEach((image) => {
     image.style.viewTransitionName = "";
     delete image.dataset.sharedArt;
   });
+}
+export async function transitionPage(update) {
+  const serial = ++transitionSerial;
+  transition?.skipTransition();
+  const outgoing = document.querySelector("main");
+  const outgoingStyle = outgoing && getComputedStyle(outgoing);
+  const exitFrom = outgoingStyle && {
+    opacity: outgoingStyle.opacity,
+    translate: outgoingStyle.translate,
+    filter: outgoingStyle.filter,
+  };
+  routeExit?.cancel();
+  clearSharedArtwork();
   const source =
     pendingCover?.hash === location.hash ? pendingCover.image : null;
   pendingCover = null;
-  if (reducedMotion() || !document.startViewTransition) {
-    delete document.documentElement.dataset.transitioning;
-    update();
-    return;
-  }
   const sourceBounds = source?.getBoundingClientRect();
   const share =
     source?.complete &&
     source.naturalWidth > 0 &&
     sourceBounds.bottom > 0 &&
     sourceBounds.top < innerHeight;
-  if (share) {
-    source.style.viewTransitionName = "archive-art";
-    source.dataset.sharedArt = "";
-  }
-  document.documentElement.dataset.transitioning = "true";
-  const run = document.startViewTransition(async () => {
+  if (reducedMotion()) {
+    snapshotActive = false;
+    delete document.documentElement.dataset.transitioning;
     update();
-    const target = share
-      ? document.querySelector(
-          ".typed-entry .gallery-stage figure:not([hidden]) img,.typed-entry .album-art img,.typed-entry .video-poster img,.typed-entry .story-art,.typed-entry .unit-art,.typed-entry .news-art",
-        )
-      : null;
+    return;
+  }
+  // Category navigation animates the live DOM; a frozen root snapshot would hide
+  // the scroll reveals playing behind it and expose them all at once at the end.
+  if (!share || !document.startViewTransition) {
+    snapshotActive = false;
+    delete document.documentElement.dataset.transitioning;
+    const main = document.querySelector("main");
+    if (main) {
+      routeExit = animate(
+        main,
+        [
+          exitFrom,
+          { opacity: 0, translate: "-24px -8px", filter: "blur(3px)" },
+        ],
+        {
+          duration: 170,
+          easing: "cubic-bezier(.55,0,1,.45)",
+          fill: "forwards",
+        },
+      );
+      await routeExit?.finished.catch(() => {});
+      if (serial !== transitionSerial) return;
+      routeExit = null;
+    }
+    update();
+    return;
+  }
+  snapshotActive = true;
+  document.documentElement.dataset.transitioning = "true";
+  source.style.viewTransitionName = "archive-art";
+  source.dataset.sharedArt = "";
+  const run = document.startViewTransition(async () => {
+    if (serial !== transitionSerial) return;
+    update();
+    const target = document.querySelector(
+      ".typed-entry .gallery-stage figure:not([hidden]) img,.typed-entry .album-art img,.typed-entry .video-poster img,.typed-entry .story-art,.typed-entry .unit-art,.typed-entry .news-art",
+    );
     if (target) {
       target.style.viewTransitionName = "archive-art";
       target.dataset.sharedArt = "";
-      // A cached poster is usually ready immediately; never delay navigation for the network.
       if (!target.complete)
         await Promise.race([
           target.decode().catch(() => {}),
           new Promise((resolve) => setTimeout(resolve, 180)),
         ]);
     }
+    prepareSnapshot();
   });
   transition = run;
   run.ready.catch(() => {});
   run.finished
     .finally(() => {
       if (serial !== transitionSerial) return;
-      document.querySelectorAll("[data-shared-art]").forEach((image) => {
-        image.style.viewTransitionName = "";
-        delete image.dataset.sharedArt;
-      });
+      clearSharedArtwork();
       delete document.documentElement.dataset.transitioning;
+      snapshotActive = false;
       transition = null;
+      resumeReveals();
     })
     .catch(() => {});
 }
@@ -349,15 +459,21 @@ document.addEventListener("click", (event) => {
 // Pointer light uses CSS variables; there is no continuous JavaScript animation loop.
 let pointerFrame = 0,
   pointerSurface;
+function clearPointer() {
+  cancelAnimationFrame(pointerFrame);
+  pointerSurface?.classList.remove("pointer-lit");
+  pointerSurface?.style.setProperty("--garden-x", "0px");
+  pointerSurface?.style.setProperty("--garden-y", "0px");
+}
 document.addEventListener(
   "pointermove",
   (event) => {
     if (reducedMotion() || !finePointer.matches) return;
     const surface = event.target.closest?.(
-      ".record-cover,.album-art,.gallery-stage,.portrait",
+      ".record-cover,.album-art,.gallery-stage,.intro-grid",
     );
     if (surface !== pointerSurface) {
-      pointerSurface?.classList.remove("pointer-lit");
+      clearPointer();
       pointerSurface = surface;
     }
     cancelAnimationFrame(pointerFrame);
@@ -368,6 +484,8 @@ document.addEventListener(
       const bounds = surface.getBoundingClientRect();
       const px = Math.max(0, Math.min(1, (x - bounds.left) / bounds.width)),
         py = Math.max(0, Math.min(1, (y - bounds.top) / bounds.height));
+      surface.style.setProperty("--garden-x", `${(px - 0.5) * 32}px`);
+      surface.style.setProperty("--garden-y", `${(py - 0.5) * 22}px`);
       surface.style.setProperty("--light-x", `${px * 100}%`);
       surface.style.setProperty("--light-y", `${py * 100}%`);
       surface.style.setProperty("--tilt-x", `${(py - 0.5) * -3}deg`);
@@ -377,9 +495,7 @@ document.addEventListener(
   },
   { passive: true },
 );
-document.addEventListener("pointerleave", () =>
-  pointerSurface?.classList.remove("pointer-lit"),
-);
+document.addEventListener("pointerleave", clearPointer);
 preference.addEventListener("change", () => {
   gardenState();
   if (!reducedMotion()) return;
@@ -391,10 +507,10 @@ preference.addEventListener("change", () => {
       animation.cancel();
     }
   });
-  for (const element of observed) element.classList.add("revealed");
+  for (const element of observed) revealElement(element, 0, true);
   observer?.disconnect();
   observed.clear();
-  pointerSurface?.classList.remove("pointer-lit");
+  clearPointer();
 });
 export function switchArtwork(gallery, variant) {
   const panels = [...gallery.querySelectorAll("[data-variant-panel]")];
@@ -403,6 +519,13 @@ export function switchArtwork(gallery, variant) {
     (panel) => !panel.hidden && !panel.classList.contains("is-leaving"),
   );
   if (!next || current === next) return;
+  const appearance = (panel) => ({
+    opacity: getComputedStyle(panel).opacity,
+    transform: getComputedStyle(panel).transform,
+    filter: getComputedStyle(panel).filter,
+  });
+  const currentAppearance = current ? appearance(current) : null;
+  const nextAppearance = next.hidden ? null : appearance(next);
   panels.forEach((panel) => {
     panel.getAnimations().forEach((a) => a.cancel());
     panel.classList.remove("is-leaving");
@@ -414,10 +537,11 @@ export function switchArtwork(gallery, variant) {
     animate(
       next,
       [
-        {
+        nextAppearance || {
           opacity: 0,
-          transform: "translateX(12px) scale(1.055)",
-          filter: "brightness(1.1)",
+          transform:
+            "perspective(1200px) translateX(28px) rotateY(-9deg) scale(1.075)",
+          filter: "brightness(1.16)",
         },
         {
           opacity: 1,
@@ -430,8 +554,12 @@ export function switchArtwork(gallery, variant) {
     current
       .animate(
         [
-          { opacity: 1, transform: "translateX(0) scale(1)" },
-          { opacity: 0, transform: "translateX(-9px) scale(1.015)" },
+          currentAppearance,
+          {
+            opacity: 0,
+            transform:
+              "perspective(1200px) translateX(-25px) rotateY(7deg) scale(.985)",
+          },
         ],
         { duration: 700, easing: ease },
       )

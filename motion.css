@@ -79,11 +79,22 @@
 }
 
 /* The garden stays alive while the reader rests on the home page. */
-.portrait > img {
+.portrait-figure > img {
   animation: none;
 }
 .portrait-disc {
-  animation: none;
+  animation: disc-tide 11s ease-in-out infinite alternate;
+  transform-origin: 50% 70%;
+}
+.portrait-figure {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  transform-origin: 50% 78%;
+  animation: yoshino-breeze 8s ease-in-out infinite alternate;
+  translate: calc(var(--garden-x, 0px) * 0.3) calc(var(--garden-y, 0px) * 0.3);
+  transition: translate 1.5s var(--motion-ease);
 }
 .ambient-garden {
   position: absolute;
@@ -103,7 +114,7 @@
     radial-gradient(ellipse at 37% 35%, #fff7c58c, transparent 58%),
     radial-gradient(ellipse at 75% 67%, #ceb88730, transparent 63%);
   opacity: 0.55;
-  animation: garden-light 15s ease-in-out infinite alternate;
+  animation: garden-light 9s ease-in-out infinite alternate;
 }
 .garden-traces {
   position: absolute;
@@ -112,23 +123,26 @@
   height: 100%;
   overflow: visible;
   stroke: #b49a61;
-  stroke-width: 0.85;
+  stroke-width: 1.05;
 }
 .trace-base {
-  opacity: 0.22;
+  opacity: 0.32;
 }
 .trace-current {
   stroke: #b49859;
-  stroke-width: 1.25;
+  stroke-width: 1.8;
   stroke-dasharray: 180 1800;
   opacity: 0.75;
-  animation: water-thread 20s linear infinite;
+  --path-loop: 1980;
+  animation: water-thread 13s linear infinite;
+  filter: drop-shadow(0 0 3px #f0d792);
 }
 .trace-second {
   stroke: #c7af79;
   stroke-dasharray: 95 1550;
   opacity: 0.6;
-  animation: water-thread 27s linear infinite reverse;
+  --path-loop: 1650;
+  animation: water-thread 19s linear infinite reverse;
 }
 .garden-motes {
   position: absolute;
@@ -143,7 +157,7 @@
   border-radius: 75% 10% 70% 35%;
   background: linear-gradient(145deg, #e1c880, #b09b5c80);
   opacity: 0;
-  animation: garden-mote 15s ease-in-out infinite;
+  animation: garden-mote 11s ease-in-out infinite;
   --drift: 25px;
   --sway: -12px;
 }
@@ -231,27 +245,27 @@
   opacity: 0.55;
   cursor: default;
 }
-.ambient-paused .ambient-garden *,
-.ambient-offscreen .ambient-garden *,
-.motion-idle .ambient-garden * {
+.ambient-paused :is(.ambient-garden *, .portrait-figure, .portrait-disc),
+.ambient-offscreen :is(.ambient-garden *, .portrait-figure, .portrait-disc),
+.motion-idle :is(.ambient-garden *, .portrait-figure, .portrait-disc) {
   animation-play-state: paused !important;
 }
 @keyframes garden-light {
   from {
-    transform: translate(-9px, 4px) scale(0.95);
-    opacity: 0.4;
+    transform: translate(-28px, 15px) scale(0.88);
+    opacity: 0.35;
   }
   to {
-    transform: translate(12px, -11px) scale(1.055);
-    opacity: 0.78;
+    transform: translate(30px, -24px) scale(1.16);
+    opacity: 0.95;
   }
 }
 @keyframes water-thread {
   from {
-    stroke-dashoffset: 1900;
+    stroke-dashoffset: 0;
   }
   to {
-    stroke-dashoffset: -1800;
+    stroke-dashoffset: calc(var(--path-loop) * -1);
   }
 }
 @keyframes garden-mote {
@@ -271,7 +285,7 @@
   }
   100% {
     opacity: 0;
-    transform: translate(var(--drift), -116px) rotate(125deg);
+    transform: translate(var(--drift), -168px) rotate(125deg);
   }
 }
 
@@ -414,20 +428,37 @@
   transform: scale(1);
   opacity: 1;
 }
-[data-reveal] {
-  transform: translateY(22px);
+/* Scroll entrances use individual translate/rotate/scale in WAAPI. Hover owns
+   transform, so entering and pointing at the same card cannot overwrite it. */
+[data-reveal],
+[data-reveal].revealed {
+  opacity: 1;
+  transform: none;
   transition:
-    opacity 0.85s var(--motion-ease) var(--reveal-delay, 0ms),
-    transform 1.05s var(--motion-ease) var(--reveal-delay, 0ms);
+    box-shadow 0.5s ease,
+    border-color 0.4s ease,
+    transform 0.55s var(--motion-ease);
+}
+[data-reveal].reveal-pending {
+  opacity: 0;
 }
 .card-grid .record,
 .video-grid .record,
 .unit-grid .record {
   transition:
-    opacity 0.85s var(--motion-ease) var(--reveal-delay, 0ms),
-    transform 1.05s var(--motion-ease) var(--reveal-delay, 0ms),
-    box-shadow 0.65s ease,
-    border-color 0.4s ease;
+    box-shadow 0.5s ease,
+    border-color 0.4s ease,
+    transform 0.55s var(--motion-ease);
+}
+#results {
+  align-content: start;
+  perspective: 1500px;
+  perspective-origin: 50% 0;
+  overflow-anchor: none;
+}
+.directory,
+.related-grid {
+  perspective: 1400px;
 }
 .entry-section {
   position: relative;
@@ -447,6 +478,9 @@
 .entry-section.revealed:before {
   transform: scaleX(1);
 }
+.entry-section.reveal-still:before {
+  transition: none;
+}
 .directory > a:after {
   content: "";
   position: absolute;
@@ -463,7 +497,7 @@
   .garden-traces {
     stroke-width: 1;
   }
-  .garden-motes i:nth-child(n + 5) {
+  .garden-motes i:nth-child(n + 7) {
     display: none;
   }
   .motion-toggle {
@@ -496,5 +530,243 @@
   }
   .entry-section:before {
     transform: none;
+  }
+}
+
+/* Moving rings and broad reflected light make the still portrait feel like a
+   small sunlit garden. Each loop is closed at an identical visual frame. */
+.ambient-garden {
+  translate: var(--garden-x, 0px) var(--garden-y, 0px);
+  transition: translate 1.8s var(--motion-ease);
+}
+.garden-orbit {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid #bda46d54;
+  border-left-color: #c4a55b;
+  border-bottom-color: #dac58210;
+  pointer-events: none;
+  animation: orbit-turn 28s linear infinite;
+}
+.orbit-near {
+  inset: 12% 4% 18% 7%;
+  box-shadow: inset 3px 0 7px -6px #c4a55b;
+}
+.orbit-far {
+  inset: 20% 0 14% 14%;
+  border-color: #b9a9793b;
+  border-top-color: #c4a55bb3;
+  animation-duration: 38s;
+  animation-direction: reverse;
+}
+.garden-orbit i {
+  position: absolute;
+  top: 11%;
+  left: 13%;
+  width: 9px;
+  height: 9px;
+  background: #c1a264;
+  box-shadow: 0 0 16px 3px #f6df984f;
+  clip-path: polygon(
+    50% 0,
+    60% 39%,
+    100% 50%,
+    60% 60%,
+    50% 100%,
+    40% 60%,
+    0 50%,
+    40% 40%
+  );
+}
+.orbit-far i {
+  top: auto;
+  bottom: 12%;
+  left: auto;
+  right: 13%;
+  width: 6px;
+  height: 6px;
+}
+.garden-ripples {
+  position: absolute;
+  inset: 0;
+}
+.garden-ripples i {
+  position: absolute;
+  bottom: 9%;
+  left: 8%;
+  width: 84%;
+  height: 20%;
+  border: 1px solid #bba168;
+  border-radius: 50%;
+  opacity: 0;
+  animation: garden-ripple 8s cubic-bezier(0.2, 0.4, 0.2, 1) infinite;
+}
+.garden-ripples i:nth-child(2) {
+  animation-delay: -2.666s;
+}
+.garden-ripples i:nth-child(3) {
+  animation-delay: -5.333s;
+}
+.garden-lightbeam {
+  position: absolute;
+  top: -18%;
+  left: 15%;
+  width: 76%;
+  height: 128%;
+  background: linear-gradient(
+    100deg,
+    transparent 15%,
+    #f7e6a127 38%,
+    #fff5c570 48%,
+    #eee0ae12 58%,
+    transparent 70%
+  );
+  transform-origin: 50% 0;
+  animation: lightbeam-sway 12s ease-in-out infinite alternate;
+  mix-blend-mode: soft-light;
+}
+.garden-motes i:nth-child(7) {
+  left: 37%;
+  top: 83%;
+  --sway: 20px;
+  --drift: -35px;
+  animation-delay: -3s;
+  animation-duration: 15s;
+}
+.garden-motes i:nth-child(8) {
+  left: 66%;
+  top: 26%;
+  width: 4px;
+  height: 4px;
+  --sway: -16px;
+  --drift: 45px;
+  animation-delay: -8s;
+  animation-duration: 12s;
+}
+.garden-motes i:nth-child(9) {
+  left: 89%;
+  top: 71%;
+  width: 3px;
+  height: 5px;
+  --sway: -15px;
+  --drift: -35px;
+  animation-delay: -5s;
+  animation-duration: 16s;
+}
+.garden-motes i:nth-child(10) {
+  left: 11%;
+  top: 43%;
+  width: 3px;
+  height: 3px;
+  --sway: 15px;
+  --drift: 35px;
+  animation-delay: -10s;
+  animation-duration: 14s;
+}
+@keyframes orbit-turn {
+  from {
+    transform: rotate(-24deg);
+  }
+  to {
+    transform: rotate(336deg);
+  }
+}
+@keyframes garden-ripple {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.42;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+@keyframes lightbeam-sway {
+  from {
+    transform: rotate(-20deg) translateX(-35px);
+    opacity: 0.35;
+  }
+  to {
+    transform: rotate(8deg) translateX(25px);
+    opacity: 0.8;
+  }
+}
+@keyframes yoshino-breeze {
+  from {
+    transform: translate(-3px, 5px) rotate(-0.45deg);
+  }
+  to {
+    transform: translate(4px, -7px) rotate(0.45deg);
+  }
+}
+@keyframes disc-tide {
+  from {
+    transform: scale(0.98) rotate(-4deg);
+  }
+  to {
+    transform: scale(1.04) rotate(4deg);
+  }
+}
+.directory-icon {
+  display: inline-block;
+  transition:
+    transform 0.8s var(--motion-ease),
+    color 0.5s;
+}
+.directory > a {
+  overflow: hidden;
+}
+.directory > a:after {
+  background: linear-gradient(150deg, #d6be8126, #f9f1df33 55%, transparent);
+  transform: translateY(45%);
+  transition:
+    opacity 0.7s,
+    transform 0.9s var(--motion-ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .directory > a:hover .directory-icon {
+    transform: translateY(-7px) rotate(-7deg) scale(1.22);
+    color: var(--red);
+  }
+  .directory > a:hover:after {
+    transform: translateY(0);
+  }
+  .record:hover .record-cover.pointer-lit img {
+    transform: perspective(900px) rotateX(var(--tilt-x, 0deg))
+      rotateY(var(--tilt-y, 0deg)) scale(1.075);
+  }
+}
+@media (max-width: 760px) {
+  .orbit-near {
+    inset: 17% 1% 1% 1%;
+  }
+  .orbit-far {
+    inset: 23% -8% 5% 7%;
+  }
+  .garden-ripples i {
+    bottom: 2%;
+  }
+  .garden-orbit {
+    opacity: 0.75;
+  }
+  .portrait-figure {
+    animation-duration: 10s;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ambient-garden *,
+  .portrait-figure,
+  .portrait-disc {
+    animation: none !important;
+  }
+  .ambient-garden,
+  .portrait-figure {
+    translate: none;
+  }
+  [data-reveal].reveal-pending {
+    opacity: 1;
   }
 }

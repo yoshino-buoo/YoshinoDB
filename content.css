@@ -846,7 +846,7 @@ button:active,
 .portrait-disc {
   animation: quiet-light 16s ease-in-out infinite alternate;
 }
-.portrait > img {
+.portrait-figure > img {
   animation: portrait-arrival 1s var(--motion-ease) both;
 }
 .variant-tabs button {

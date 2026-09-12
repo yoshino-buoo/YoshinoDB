@@ -297,7 +297,7 @@ h1 {
   z-index: 0;
   opacity: 0.25;
 }
-.portrait > img {
+.portrait-figure > img {
   position: absolute;
   width: 530px;
   max-width: none;
@@ -749,7 +749,7 @@ footer p + p {
   .intro {
     padding-top: 72px;
   }
-  .portrait > img {
+  .portrait-figure > img {
     width: 555px;
     top: -108px;
   }
@@ -771,7 +771,7 @@ footer p + p {
   h1 {
     font-size: 42px;
   }
-  .portrait > img {
+  .portrait-figure > img {
     left: -26px;
   }
   .directory {
@@ -875,7 +875,7 @@ footer p + p {
     min-height: 0;
     pointer-events: none;
   }
-  .portrait > img {
+  .portrait-figure > img {
     width: 310px;
     left: 50%;
     transform: translateX(-50%);
@@ -1415,7 +1415,7 @@ footer p + p {
   .footer-top > div {
     font-size: 13px;
   }
-  .portrait > img {
+  .portrait-figure > img {
     width: 300px;
   }
   .collection-note {
@@ -1609,7 +1609,7 @@ footer p + p {
     overflow: hidden;
     margin: 0 -20px 0 0;
   }
-  .portrait > img {
+  .portrait-figure > img {
     width: 280px;
     top: -43px;
   }
@@ -1755,7 +1755,7 @@ footer p + p {
   .portrait {
     margin-right: -16px;
   }
-  .portrait > img {
+  .portrait-figure > img {
     width: 258px;
     top: -33px;
   }
