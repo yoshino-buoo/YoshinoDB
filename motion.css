@@ -13,6 +13,9 @@
 .listening-dock {
   view-transition-name: site-audio;
 }
+.site-rule {
+  view-transition-name: site-rule;
+}
 ::view-transition {
   pointer-events: none;
 }
@@ -32,6 +35,15 @@
 }
 ::view-transition-old(site-header),
 ::view-transition-old(site-audio) {
+  display: none;
+}
+::view-transition-group(site-rule) {
+  animation: none;
+  z-index: 3;
+  background: var(--red);
+}
+/* Paint this solid rule directly; it has no artwork to crossfade. */
+::view-transition-image-pair(site-rule) {
   display: none;
 }
 ::view-transition-group(archive-art) {

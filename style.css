@@ -19,10 +19,20 @@
 }
 body {
   margin: 0;
-  border-top: 4px solid var(--red);
+  border-top: 4px solid transparent;
   font-size: 16px;
   line-height: 1.8;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' opacity='.026' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+/* Keep the page-edge rule above the retiring viewport without pinning it when
+   the reader scrolls. The transparent body border preserves the page layout. */
+.site-rule {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: var(--red);
+  z-index: 40;
+  pointer-events: none;
 }
 a {
   color: inherit;
