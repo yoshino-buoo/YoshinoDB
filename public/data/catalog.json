@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-12",
+  "updatedAt": "2026-09-12T19:05:13.444Z",
   "items": [
     {
       "id": "inori",
@@ -12043,6 +12043,2919 @@
             }
           ]
         }
+      ]
+    },
+    {
+      "id": "mobamas-ddf7d3e8",
+      "kind": "cards",
+      "title": {
+        "ja": "依田芳乃",
+        "zh": "依田芳乃"
+      },
+      "description": {
+        "ja": "浅葱色の着物と黄色い包み。芳乃とのご縁が始まる、最初の一枚。",
+        "zh": "浅葱色和服与黄色包裹，与芳乃的缘分从这里开始。"
+      },
+      "date": "2014-05-27",
+      "dateLabel": {
+        "ja": "初登場",
+        "zh": "首次实装"
+      },
+      "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=ddf7d3e8d751523496c1bb75a1aa2124",
+      "sourceName": "デレマスDB",
+      "official": false,
+      "sources": [
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=ddf7d3e8d751523496c1bb75a1aa2124",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=3217691d80f41d408aa0def73b17b549",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://seesaawiki.jp/yoshino_yorita/d/%A5%AB%A1%BC%A5%C9%C6%FE%BC%EA%CA%FD%CB%A1",
+          "name": "依田芳乃情報wiki",
+          "official": false,
+          "fields": [
+            "releaseDate",
+            "acquisition"
+          ]
+        }
+      ],
+      "tags": [
+        "N",
+        "mobamas",
+        "passion",
+        "work"
+      ],
+      "rarity": "N",
+      "game": "mobamas",
+      "image": "assets/mobamas-ddf7d3e8-original-art.jpg",
+      "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l/ddf7d3e8d751523496c1bb75a1aa2124.jpg",
+      "gallery": [
+        {
+          "image": "assets/mobamas-ddf7d3e8-original-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l/ddf7d3e8d751523496c1bb75a1aa2124.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=ddf7d3e8d751523496c1bb75a1aa2124",
+          "label": {
+            "ja": "特訓前",
+            "zh": "特训前"
+          }
+        },
+        {
+          "image": "assets/mobamas-ddf7d3e8-evolved-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l/3217691d80f41d408aa0def73b17b549.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=3217691d80f41d408aa0def73b17b549",
+          "label": {
+            "ja": "特訓後",
+            "zh": "特训后"
+          }
+        }
+      ],
+      "card": {
+        "type": {
+          "ja": "パッション",
+          "zh": "Passion"
+        },
+        "acquisition": {
+          "ja": "お仕事",
+          "zh": "工作奖励"
+        },
+        "pool": "岡山エリア",
+        "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=ddf7d3e8d751523496c1bb75a1aa2124",
+        "mobamasStats": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "cost": 11,
+            "attack": 1180,
+            "defense": 1160
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "cost": 11,
+            "attack": 1416,
+            "defense": 1392
+          }
+        ],
+        "skills": []
+      },
+      "entities": []
+    },
+    {
+      "id": "mobamas-351c45b3",
+      "kind": "cards",
+      "title": {
+        "ja": "[T.B.チアーズ]依田芳乃",
+        "zh": "[T.B.チアーズ]依田芳乃"
+      },
+      "description": {
+        "ja": "白い水衣から、法螺貝を手にした涼やかな姿へ。夏の海に、ぶおーと響く音。",
+        "zh": "从洁白水衣换上清凉装束，举起法螺贝，向夏日的海面吹一声ぶおー。"
+      },
+      "date": "2014-08-12",
+      "dateLabel": {
+        "ja": "初登場",
+        "zh": "首次实装"
+      },
+      "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=351c45b33901b324a5a827d191de82f4",
+      "sourceName": "デレマスDB",
+      "official": false,
+      "sources": [
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=351c45b33901b324a5a827d191de82f4",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=d7d7bfee2160054f5bd522c3f2d212af",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://seesaawiki.jp/yoshino_yorita/d/%A5%AB%A1%BC%A5%C9%C6%FE%BC%EA%CA%FD%CB%A1",
+          "name": "依田芳乃情報wiki",
+          "official": false,
+          "fields": [
+            "releaseDate",
+            "acquisition"
+          ]
+        }
+      ],
+      "tags": [
+        "R",
+        "mobamas",
+        "passion",
+        "event"
+      ],
+      "rarity": "R",
+      "game": "mobamas",
+      "image": "assets/mobamas-351c45b3-original-art.jpg",
+      "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l/351c45b33901b324a5a827d191de82f4.jpg",
+      "gallery": [
+        {
+          "image": "assets/mobamas-351c45b3-original-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l/351c45b33901b324a5a827d191de82f4.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=351c45b33901b324a5a827d191de82f4",
+          "label": {
+            "ja": "特訓前",
+            "zh": "特训前"
+          }
+        },
+        {
+          "image": "assets/mobamas-351c45b3-evolved-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l/d7d7bfee2160054f5bd522c3f2d212af.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=d7d7bfee2160054f5bd522c3f2d212af",
+          "label": {
+            "ja": "特訓後",
+            "zh": "特训后"
+          }
+        }
+      ],
+      "card": {
+        "type": {
+          "ja": "パッション",
+          "zh": "Passion"
+        },
+        "acquisition": {
+          "ja": "イベント報酬",
+          "zh": "活动奖励"
+        },
+        "pool": "プロダクション対抗トークバトルショー in SUMMER",
+        "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=351c45b33901b324a5a827d191de82f4",
+        "mobamasStats": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "cost": 12,
+            "attack": 2620,
+            "defense": 1900
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "cost": 12,
+            "attack": 3144,
+            "defense": 2280
+          }
+        ],
+        "skills": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "name": "海鳴りのしらべ",
+            "effect": {
+              "ja": "全タイプのフロントメンバー及びバックメンバー上位1人の攻 ランダムで中~大アップ",
+              "zh": "全属性的前排成员及后排数值最高的 1 人，攻击随机中~大提升。"
+            }
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "name": "海鳴りのしらべ",
+            "effect": {
+              "ja": "全タイプのフロントメンバー及びバックメンバー上位1人の攻 大アップ",
+              "zh": "全属性的前排成员及后排数值最高的 1 人，攻击大提升。"
+            }
+          }
+        ]
+      },
+      "entities": [
+        "T.B.チアーズ"
+      ]
+    },
+    {
+      "id": "mobamas-fbb5477c",
+      "kind": "cards",
+      "title": {
+        "ja": "[湯浴みの踊子]依田芳乃",
+        "zh": "[湯浴みの踊子]依田芳乃"
+      },
+      "description": {
+        "ja": "湯けむりの向こうでひと休み。舞台では、鮮やかな袖がくるりとひるがえる。",
+        "zh": "在温泉水汽中歇一会儿，登上舞台后，鲜艳的衣袖随舞姿轻轻翻飞。"
+      },
+      "date": "2014-10-31",
+      "dateLabel": {
+        "ja": "初登場",
+        "zh": "首次实装"
+      },
+      "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=fbb5477c8bd9c2c96d1ab988bc13176a",
+      "sourceName": "デレマスDB",
+      "official": false,
+      "sources": [
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=fbb5477c8bd9c2c96d1ab988bc13176a",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=4774371e15f23136d1bd20eb453c9c17",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://seesaawiki.jp/yoshino_yorita/d/%A5%AB%A1%BC%A5%C9%C6%FE%BC%EA%CA%FD%CB%A1",
+          "name": "依田芳乃情報wiki",
+          "official": false,
+          "fields": [
+            "releaseDate",
+            "acquisition"
+          ]
+        }
+      ],
+      "tags": [
+        "SR",
+        "mobamas",
+        "passion",
+        "gacha"
+      ],
+      "rarity": "SR",
+      "game": "mobamas",
+      "image": "assets/mobamas-fbb5477c-original-art.jpg",
+      "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/fbb5477c8bd9c2c96d1ab988bc13176a.jpg",
+      "gallery": [
+        {
+          "image": "assets/mobamas-fbb5477c-original-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/fbb5477c8bd9c2c96d1ab988bc13176a.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=fbb5477c8bd9c2c96d1ab988bc13176a",
+          "label": {
+            "ja": "特訓前",
+            "zh": "特训前"
+          }
+        },
+        {
+          "image": "assets/mobamas-fbb5477c-evolved-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/4774371e15f23136d1bd20eb453c9c17.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=4774371e15f23136d1bd20eb453c9c17",
+          "label": {
+            "ja": "特訓後",
+            "zh": "特训后"
+          }
+        }
+      ],
+      "card": {
+        "type": {
+          "ja": "パッション",
+          "zh": "Passion"
+        },
+        "acquisition": {
+          "ja": "ガチャ",
+          "zh": "卡池"
+        },
+        "pool": "秋風温泉＆WONDERFUL M@GIC!!復刻ガチャ",
+        "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=fbb5477c8bd9c2c96d1ab988bc13176a",
+        "mobamasStats": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "cost": 20,
+            "attack": 4860,
+            "defense": 4880
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "cost": 20,
+            "attack": 5832,
+            "defense": 5856
+          }
+        ],
+        "skills": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "name": "あたたかな舞",
+            "effect": {
+              "ja": "全タイプのフロントメンバー及びバックメンバー上位1人の攻守 極大アップ",
+              "zh": "全属性的前排成员及后排数值最高的 1 人，攻击与防御極大提升。"
+            }
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "name": "あたたかな舞",
+            "effect": {
+              "ja": "全タイプのフロントメンバー及びバックメンバー上位1人の攻守 絶大アップ",
+              "zh": "全属性的前排成员及后排数值最高的 1 人，攻击与防御絶大提升。"
+            }
+          }
+        ]
+      },
+      "entities": [
+        "湯浴みの踊子"
+      ]
+    },
+    {
+      "id": "mobamas-959f6f75",
+      "kind": "cards",
+      "title": {
+        "ja": "[詩詠みの赤ずきん]依田芳乃",
+        "zh": "[詩詠みの赤ずきん]依田芳乃"
+      },
+      "description": {
+        "ja": "赤いずきんをかぶって、森の小さな仲間たちのもとへ。童話の景色に芳乃がとけこむ。",
+        "zh": "戴上红帽，走进森林里的小伙伴之间，芳乃也成为了童话的一部分。"
+      },
+      "date": "2015-04-09",
+      "dateLabel": {
+        "ja": "初登場",
+        "zh": "首次实装"
+      },
+      "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=959f6f75f20bd4127d4bf753ddbe6190",
+      "sourceName": "デレマスDB",
+      "official": false,
+      "sources": [
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=959f6f75f20bd4127d4bf753ddbe6190",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=680348a16a23bd1ab4b7a2bca513b4fb",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://seesaawiki.jp/yoshino_yorita/d/%A5%AB%A1%BC%A5%C9%C6%FE%BC%EA%CA%FD%CB%A1",
+          "name": "依田芳乃情報wiki",
+          "official": false,
+          "fields": [
+            "releaseDate",
+            "acquisition"
+          ]
+        }
+      ],
+      "tags": [
+        "SR",
+        "mobamas",
+        "passion",
+        "event"
+      ],
+      "rarity": "SR",
+      "game": "mobamas",
+      "image": "assets/mobamas-959f6f75-original-art.jpg",
+      "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/959f6f75f20bd4127d4bf753ddbe6190.jpg",
+      "gallery": [
+        {
+          "image": "assets/mobamas-959f6f75-original-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/959f6f75f20bd4127d4bf753ddbe6190.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=959f6f75f20bd4127d4bf753ddbe6190",
+          "label": {
+            "ja": "特訓前",
+            "zh": "特训前"
+          }
+        },
+        {
+          "image": "assets/mobamas-959f6f75-evolved-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/680348a16a23bd1ab4b7a2bca513b4fb.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=680348a16a23bd1ab4b7a2bca513b4fb",
+          "label": {
+            "ja": "特訓後",
+            "zh": "特训后"
+          }
+        }
+      ],
+      "card": {
+        "type": {
+          "ja": "パッション",
+          "zh": "Passion"
+        },
+        "acquisition": {
+          "ja": "イベント上位報酬",
+          "zh": "活动排名奖励"
+        },
+        "pool": "LIVEツアーカーニバル 御伽公演 ふれあい狼と小さな赤ずきんちゃん",
+        "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=959f6f75f20bd4127d4bf753ddbe6190",
+        "mobamasStats": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "cost": 21,
+            "attack": 6120,
+            "defense": 4480
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "cost": 21,
+            "attack": 7344,
+            "defense": 5376
+          }
+        ],
+        "skills": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "name": "森の聲",
+            "effect": {
+              "ja": "キュート・パッションのフロントメンバー及びバックメンバー上位3人の攻 極大アップ",
+              "zh": "Cute／Passion的前排成员及后排数值最高的 3 人，攻击極大提升。"
+            }
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "name": "森の聲",
+            "effect": {
+              "ja": "キュート・パッションのフロントメンバー及びバックメンバー上位3人の攻 絶大アップ",
+              "zh": "Cute／Passion的前排成员及后排数值最高的 3 人，攻击絶大提升。"
+            }
+          }
+        ]
+      },
+      "entities": [
+        "詩詠みの赤ずきん"
+      ]
+    },
+    {
+      "id": "mobamas-48168944",
+      "kind": "cards",
+      "title": {
+        "ja": "[ラブリーメイド]依田芳乃",
+        "zh": "[ラブリーメイド]依田芳乃"
+      },
+      "description": {
+        "ja": "お掃除姿も、フリルの衣装も、どこかおっとり。芳乃らしいおもてなしを。",
+        "zh": "无论拿起掸子，还是穿上荷叶边礼服，都带着芳乃特有的从容。"
+      },
+      "date": "2015-08-31",
+      "dateLabel": {
+        "ja": "初登場",
+        "zh": "首次实装"
+      },
+      "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=481689442ba6392b4f7f7c1abf423cb1",
+      "sourceName": "デレマスDB",
+      "official": false,
+      "sources": [
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=481689442ba6392b4f7f7c1abf423cb1",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=640c775e1aa6d19d4498c15ab3d52875",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://seesaawiki.jp/yoshino_yorita/d/%A5%AB%A1%BC%A5%C9%C6%FE%BC%EA%CA%FD%CB%A1",
+          "name": "依田芳乃情報wiki",
+          "official": false,
+          "fields": [
+            "releaseDate",
+            "acquisition"
+          ]
+        }
+      ],
+      "tags": [
+        "R",
+        "mobamas",
+        "passion",
+        "gacha"
+      ],
+      "rarity": "R",
+      "game": "mobamas",
+      "image": "assets/mobamas-48168944-original-art.jpg",
+      "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l/481689442ba6392b4f7f7c1abf423cb1.jpg",
+      "gallery": [
+        {
+          "image": "assets/mobamas-48168944-original-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l/481689442ba6392b4f7f7c1abf423cb1.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=481689442ba6392b4f7f7c1abf423cb1",
+          "label": {
+            "ja": "特訓前",
+            "zh": "特训前"
+          }
+        },
+        {
+          "image": "assets/mobamas-48168944-evolved-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l/640c775e1aa6d19d4498c15ab3d52875.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=640c775e1aa6d19d4498c15ab3d52875",
+          "label": {
+            "ja": "特訓後",
+            "zh": "特训后"
+          }
+        }
+      ],
+      "card": {
+        "type": {
+          "ja": "パッション",
+          "zh": "Passion"
+        },
+        "acquisition": {
+          "ja": "ガチャ",
+          "zh": "卡池"
+        },
+        "pool": "愛情いっぱい ラブリーメイド",
+        "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=481689442ba6392b4f7f7c1abf423cb1",
+        "mobamasStats": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "cost": 14,
+            "attack": 3280,
+            "defense": 2260
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "cost": 14,
+            "attack": 3936,
+            "defense": 2712
+          }
+        ],
+        "skills": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "name": "けがれ祓い",
+            "effect": {
+              "ja": "パッションのフロントメンバー及びバックメンバー上位2人の攻 特大アップ",
+              "zh": "Passion的前排成员及后排数值最高的 2 人，攻击特大提升。"
+            }
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "name": "けがれ祓い",
+            "effect": {
+              "ja": "パッションのフロントメンバー及びバックメンバー上位2人の攻 特大アップ",
+              "zh": "Passion的前排成员及后排数值最高的 2 人，攻击特大提升。"
+            }
+          }
+        ]
+      },
+      "entities": [
+        "ラブリーメイド"
+      ]
+    },
+    {
+      "id": "mobamas-3f57a6b1",
+      "kind": "cards",
+      "title": {
+        "ja": "[春光の少女]依田芳乃",
+        "zh": "[春光の少女]依田芳乃"
+      },
+      "description": {
+        "ja": "振袖に身を包み、新しい年を迎える芳乃。あたたかな春の光がよく似合う。",
+        "zh": "穿着振袖迎接新年的芳乃，与暖暖的春光格外相衬。"
+      },
+      "date": "2015-12-31",
+      "dateLabel": {
+        "ja": "初登場",
+        "zh": "首次实装"
+      },
+      "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=3f57a6b17e176fb96686d081f79e3231",
+      "sourceName": "デレマスDB",
+      "official": false,
+      "sources": [
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=3f57a6b17e176fb96686d081f79e3231",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=38f60f4a3ee2a8ada8fed10044b64ea4",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://seesaawiki.jp/yoshino_yorita/d/%A5%AB%A1%BC%A5%C9%C6%FE%BC%EA%CA%FD%CB%A1",
+          "name": "依田芳乃情報wiki",
+          "official": false,
+          "fields": [
+            "releaseDate",
+            "acquisition"
+          ]
+        }
+      ],
+      "tags": [
+        "SR",
+        "mobamas",
+        "passion",
+        "gacha"
+      ],
+      "rarity": "SR",
+      "game": "mobamas",
+      "image": "assets/mobamas-3f57a6b1-original-art.jpg",
+      "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/3f57a6b17e176fb96686d081f79e3231.jpg",
+      "gallery": [
+        {
+          "image": "assets/mobamas-3f57a6b1-original-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/3f57a6b17e176fb96686d081f79e3231.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=3f57a6b17e176fb96686d081f79e3231",
+          "label": {
+            "ja": "特訓前",
+            "zh": "特训前"
+          }
+        },
+        {
+          "image": "assets/mobamas-3f57a6b1-evolved-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/38f60f4a3ee2a8ada8fed10044b64ea4.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=38f60f4a3ee2a8ada8fed10044b64ea4",
+          "label": {
+            "ja": "特訓後",
+            "zh": "特训后"
+          }
+        }
+      ],
+      "card": {
+        "type": {
+          "ja": "パッション",
+          "zh": "Passion"
+        },
+        "acquisition": {
+          "ja": "ガチャ",
+          "zh": "卡池"
+        },
+        "pool": "新春あけおめ振袖",
+        "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=3f57a6b17e176fb96686d081f79e3231",
+        "mobamasStats": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "cost": 22,
+            "attack": 6840,
+            "defense": 4940
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "cost": 22,
+            "attack": 8208,
+            "defense": 5928
+          }
+        ],
+        "skills": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "name": "新春の祈り",
+            "effect": {
+              "ja": "パッションのフロントメンバー及びバックメンバー上位4~5人の攻 極大アップ",
+              "zh": "Passion的前排成员及后排数值最高的 4~5 人，攻击極大提升。"
+            }
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "name": "新春の祈り",
+            "effect": {
+              "ja": "パッションのフロントメンバー及びバックメンバー上位4~5人の攻 絶大アップ",
+              "zh": "Passion的前排成员及后排数值最高的 4~5 人，攻击絶大提升。"
+            }
+          }
+        ]
+      },
+      "entities": [
+        "春光の少女"
+      ]
+    },
+    {
+      "id": "mobamas-5bc53e5c",
+      "kind": "cards",
+      "title": {
+        "ja": "[ひと結び]依田芳乃",
+        "zh": "[ひと結び]依田芳乃"
+      },
+      "description": {
+        "ja": "花の季節に、そっと差し出される手。陽だまりから舞台へ、笑顔のご縁を結んで。",
+        "zh": "花开的时节，轻轻向你伸出手。从春日暖阳走向舞台，将笑容与缘分相连。"
+      },
+      "date": "2016-03-31",
+      "dateLabel": {
+        "ja": "初登場",
+        "zh": "首次实装"
+      },
+      "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=5bc53e5cbba34aff18f7009d50c17f0e",
+      "sourceName": "デレマスDB",
+      "official": false,
+      "sources": [
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=5bc53e5cbba34aff18f7009d50c17f0e",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=db65dbfc1d0326aaacab3176a4160e90",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://seesaawiki.jp/yoshino_yorita/d/%A5%AB%A1%BC%A5%C9%C6%FE%BC%EA%CA%FD%CB%A1",
+          "name": "依田芳乃情報wiki",
+          "official": false,
+          "fields": [
+            "releaseDate",
+            "acquisition"
+          ]
+        }
+      ],
+      "tags": [
+        "SR",
+        "mobamas",
+        "passion",
+        "event"
+      ],
+      "rarity": "SR",
+      "game": "mobamas",
+      "image": "assets/mobamas-5bc53e5c-original-art.jpg",
+      "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/5bc53e5cbba34aff18f7009d50c17f0e.jpg",
+      "gallery": [
+        {
+          "image": "assets/mobamas-5bc53e5c-original-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/5bc53e5cbba34aff18f7009d50c17f0e.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=5bc53e5cbba34aff18f7009d50c17f0e",
+          "label": {
+            "ja": "特訓前",
+            "zh": "特训前"
+          }
+        },
+        {
+          "image": "assets/mobamas-5bc53e5c-evolved-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/db65dbfc1d0326aaacab3176a4160e90.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=db65dbfc1d0326aaacab3176a4160e90",
+          "label": {
+            "ja": "特訓後",
+            "zh": "特训后"
+          }
+        }
+      ],
+      "card": {
+        "type": {
+          "ja": "パッション",
+          "zh": "Passion"
+        },
+        "acquisition": {
+          "ja": "イベント報酬",
+          "zh": "活动奖励"
+        },
+        "pool": "第20回ドリームLIVEフェスティバル",
+        "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=5bc53e5cbba34aff18f7009d50c17f0e",
+        "mobamasStats": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "cost": 15,
+            "attack": 3460,
+            "defense": 2940
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "cost": 15,
+            "attack": 4152,
+            "defense": 3528
+          }
+        ],
+        "skills": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "name": "春の誘い",
+            "effect": {
+              "ja": "全タイプのフロントメンバー及びバックメンバー上位1人の攻 特大アップ",
+              "zh": "全属性的前排成员及后排数值最高的 1 人，攻击特大提升。"
+            }
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "name": "春の誘い",
+            "effect": {
+              "ja": "全タイプのフロントメンバー及びバックメンバー上位1人の攻 極大アップ",
+              "zh": "全属性的前排成员及后排数值最高的 1 人，攻击極大提升。"
+            }
+          }
+        ]
+      },
+      "entities": [
+        "ひと結び"
+      ]
+    },
+    {
+      "id": "mobamas-10e4d889",
+      "kind": "cards",
+      "title": {
+        "ja": "[黄昏の映し人]依田芳乃",
+        "zh": "[黄昏の映し人]依田芳乃"
+      },
+      "description": {
+        "ja": "夕暮れの教室に、セーラー服の芳乃。特訓後は青空の下、歌声がまっすぐ広がる。",
+        "zh": "黄昏教室里的水手服，与蓝天下明朗的歌声，记录校园中不同的芳乃。"
+      },
+      "date": "2016-09-30",
+      "dateLabel": {
+        "ja": "初登場",
+        "zh": "首次实装"
+      },
+      "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=10e4d88969fd0d9e4b366ea9e3fccdb7",
+      "sourceName": "デレマスDB",
+      "official": false,
+      "sources": [
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=10e4d88969fd0d9e4b366ea9e3fccdb7",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=86045c8c5c85b81aa51156dbcdb0e1a5",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://seesaawiki.jp/yoshino_yorita/d/%A5%AB%A1%BC%A5%C9%C6%FE%BC%EA%CA%FD%CB%A1",
+          "name": "依田芳乃情報wiki",
+          "official": false,
+          "fields": [
+            "releaseDate",
+            "acquisition"
+          ]
+        }
+      ],
+      "tags": [
+        "SR",
+        "mobamas",
+        "passion",
+        "gacha"
+      ],
+      "rarity": "SR",
+      "game": "mobamas",
+      "image": "assets/mobamas-10e4d889-original-art.jpg",
+      "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/10e4d88969fd0d9e4b366ea9e3fccdb7.jpg",
+      "gallery": [
+        {
+          "image": "assets/mobamas-10e4d889-original-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/10e4d88969fd0d9e4b366ea9e3fccdb7.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=10e4d88969fd0d9e4b366ea9e3fccdb7",
+          "label": {
+            "ja": "特訓前",
+            "zh": "特训前"
+          }
+        },
+        {
+          "image": "assets/mobamas-10e4d889-evolved-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/86045c8c5c85b81aa51156dbcdb0e1a5.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=86045c8c5c85b81aa51156dbcdb0e1a5",
+          "label": {
+            "ja": "特訓後",
+            "zh": "特训后"
+          }
+        }
+      ],
+      "card": {
+        "type": {
+          "ja": "パッション",
+          "zh": "Passion"
+        },
+        "acquisition": {
+          "ja": "ガチャ",
+          "zh": "卡池"
+        },
+        "pool": "みんなでつくる♪ 秋の学園祭",
+        "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=10e4d88969fd0d9e4b366ea9e3fccdb7",
+        "mobamasStats": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "cost": 23,
+            "attack": 7200,
+            "defense": 5440
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "cost": 23,
+            "attack": 8640,
+            "defense": 6528
+          }
+        ],
+        "skills": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "name": "境界の音",
+            "effect": {
+              "ja": "クール・パッションのフロントメンバー及びバックメンバー上位5人の攻 ランダムで極大~絶大アップ",
+              "zh": "Cool／Passion的前排成员及后排数值最高的 5 人，攻击随机極大~絶大提升。"
+            }
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "name": "境界の音",
+            "effect": {
+              "ja": "クール・パッションのフロントメンバー及びバックメンバー上位5人の攻 ランダムで絶大~超絶アップ",
+              "zh": "Cool／Passion的前排成员及后排数值最高的 5 人，攻击随机絶大~超絶提升。"
+            }
+          }
+        ]
+      },
+      "entities": [
+        "黄昏の映し人"
+      ]
+    },
+    {
+      "id": "mobamas-eb7a09bb",
+      "kind": "cards",
+      "title": {
+        "ja": "[水影のうなさか]依田芳乃",
+        "zh": "[水影のうなさか]依田芳乃"
+      },
+      "description": {
+        "ja": "お食事中の素顔と、水辺で見せる静かなまなざし。夏のひとときに、ふたつの表情。",
+        "zh": "用餐时的可爱模样，与水边安静的目光，收藏同一个夏日里的两种神情。"
+      },
+      "date": "2017-06-30",
+      "dateLabel": {
+        "ja": "初登場",
+        "zh": "首次实装"
+      },
+      "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=eb7a09bbd02d7729ebdec293f5de5ea7",
+      "sourceName": "デレマスDB",
+      "official": false,
+      "sources": [
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=eb7a09bbd02d7729ebdec293f5de5ea7",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=9c72bae61a8d3f2451bec1ddac1ddd19",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://seesaawiki.jp/yoshino_yorita/d/%A5%AB%A1%BC%A5%C9%C6%FE%BC%EA%CA%FD%CB%A1",
+          "name": "依田芳乃情報wiki",
+          "official": false,
+          "fields": [
+            "releaseDate",
+            "acquisition"
+          ]
+        }
+      ],
+      "tags": [
+        "SR",
+        "mobamas",
+        "passion",
+        "gacha"
+      ],
+      "rarity": "SR",
+      "game": "mobamas",
+      "image": "assets/mobamas-eb7a09bb-original-art.jpg",
+      "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/eb7a09bbd02d7729ebdec293f5de5ea7.jpg",
+      "gallery": [
+        {
+          "image": "assets/mobamas-eb7a09bb-original-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/eb7a09bbd02d7729ebdec293f5de5ea7.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=eb7a09bbd02d7729ebdec293f5de5ea7",
+          "label": {
+            "ja": "特訓前",
+            "zh": "特训前"
+          }
+        },
+        {
+          "image": "assets/mobamas-eb7a09bb-evolved-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/9c72bae61a8d3f2451bec1ddac1ddd19.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=9c72bae61a8d3f2451bec1ddac1ddd19",
+          "label": {
+            "ja": "特訓後",
+            "zh": "特训后"
+          }
+        }
+      ],
+      "card": {
+        "type": {
+          "ja": "パッション",
+          "zh": "Passion"
+        },
+        "acquisition": {
+          "ja": "ガチャ",
+          "zh": "卡池"
+        },
+        "pool": "常夏の楽園…♪ユウワクの小悪魔水着ガチャ",
+        "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=eb7a09bbd02d7729ebdec293f5de5ea7",
+        "mobamasStats": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "cost": 24,
+            "attack": 7600,
+            "defense": 5920
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "cost": 24,
+            "attack": 9120,
+            "defense": 7104
+          }
+        ],
+        "skills": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "name": "まどわせの雫",
+            "effect": {
+              "ja": "クール・パッションのフロントメンバー及びバックメンバー上位5人の攻 絶大アップ",
+              "zh": "Cool／Passion的前排成员及后排数值最高的 5 人，攻击絶大提升。"
+            }
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "name": "まどわせの雫",
+            "effect": {
+              "ja": "クール・パッションのフロントメンバー及びバックメンバー上位5人の攻 超絶アップ",
+              "zh": "Cool／Passion的前排成员及后排数值最高的 5 人，攻击超絶提升。"
+            }
+          }
+        ]
+      },
+      "entities": [
+        "水影のうなさか"
+      ]
+    },
+    {
+      "id": "mobamas-273860e0",
+      "kind": "cards",
+      "title": {
+        "ja": "[6thアニバーサリー]依田芳乃",
+        "zh": "[6thアニバーサリー]依田芳乃"
+      },
+      "description": {
+        "ja": "お祝いの日も、まずは心をこめたご挨拶。華やかな舞台では、客席へ手を差し伸べて。",
+        "zh": "在庆祝的日子里郑重问候，再登上华丽舞台，向观众伸出手。"
+      },
+      "date": "2017-12-03",
+      "dateLabel": {
+        "ja": "初登場",
+        "zh": "首次实装"
+      },
+      "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=273860e0552c53d3cb0b753f05168ccc",
+      "sourceName": "デレマスDB",
+      "official": false,
+      "sources": [
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=273860e0552c53d3cb0b753f05168ccc",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=7fc5098f9c6cabab3b8a4d2fd6901253",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://seesaawiki.jp/yoshino_yorita/d/%A5%AB%A1%BC%A5%C9%C6%FE%BC%EA%CA%FD%CB%A1",
+          "name": "依田芳乃情報wiki",
+          "official": false,
+          "fields": [
+            "releaseDate",
+            "acquisition"
+          ]
+        }
+      ],
+      "tags": [
+        "SR",
+        "mobamas",
+        "passion",
+        "event"
+      ],
+      "rarity": "SR",
+      "game": "mobamas",
+      "image": "assets/mobamas-273860e0-original-art.jpg",
+      "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/273860e0552c53d3cb0b753f05168ccc.jpg",
+      "gallery": [
+        {
+          "image": "assets/mobamas-273860e0-original-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/273860e0552c53d3cb0b753f05168ccc.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=273860e0552c53d3cb0b753f05168ccc",
+          "label": {
+            "ja": "特訓前",
+            "zh": "特训前"
+          }
+        },
+        {
+          "image": "assets/mobamas-273860e0-evolved-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/7fc5098f9c6cabab3b8a4d2fd6901253.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=7fc5098f9c6cabab3b8a4d2fd6901253",
+          "label": {
+            "ja": "特訓後",
+            "zh": "特训后"
+          }
+        }
+      ],
+      "card": {
+        "type": {
+          "ja": "パッション",
+          "zh": "Passion"
+        },
+        "acquisition": {
+          "ja": "イベント・ギフトチャンス報酬",
+          "zh": "活动抽奖奖励"
+        },
+        "pool": "アイドルプロデュース the 6th Anniversary",
+        "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=273860e0552c53d3cb0b753f05168ccc",
+        "mobamasStats": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "cost": 17,
+            "attack": 3980,
+            "defense": 3860
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "cost": 17,
+            "attack": 4776,
+            "defense": 4632
+          }
+        ],
+        "skills": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "name": "メモリアルの舞",
+            "effect": {
+              "ja": "クール・パッションのフロントメンバー及びバックメンバー上位1人の攻守 特大アップ",
+              "zh": "Cool／Passion的前排成员及后排数值最高的 1 人，攻击与防御特大提升。"
+            }
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "name": "メモリアルの舞",
+            "effect": {
+              "ja": "クール・パッションのフロントメンバー及びバックメンバー上位1人の攻守 極大アップ",
+              "zh": "Cool／Passion的前排成员及后排数值最高的 1 人，攻击与防御極大提升。"
+            }
+          }
+        ]
+      },
+      "entities": [
+        "6thアニバーサリー"
+      ],
+      "relatedIds": [
+        "mobamas-09896f9f"
+      ],
+      "sections": [
+        {
+          "title": {
+            "ja": "ふたつのアニバーサリー",
+            "zh": "两种周年纪念卡"
+          },
+          "paragraphs": [
+            {
+              "ja": "通常版と「・S」版は表情と能力が異なるカード。「・S」版では特技チェンジを利用できる。",
+              "zh": "通常版与「・S」版的表情和能力不同，「・S」版可使用特技变更。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mobamas-09896f9f",
+      "kind": "cards",
+      "title": {
+        "ja": "[6thアニバーサリー・S]依田芳乃",
+        "zh": "[6thアニバーサリー・S]依田芳乃"
+      },
+      "description": {
+        "ja": "目を細めた笑顔が印象的な、もうひとつの記念カード。お祝いの気持ちを、いっそう晴れやかに。",
+        "zh": "眯起眼睛的笑容，是这张纪念卡的特别之处。把庆祝的心情笑得更加灿烂。"
+      },
+      "date": "2017-12-03",
+      "dateLabel": {
+        "ja": "初登場",
+        "zh": "首次实装"
+      },
+      "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=09896f9fa20e4cfe4b49ea0ccd7a87d6",
+      "sourceName": "デレマスDB",
+      "official": false,
+      "sources": [
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=09896f9fa20e4cfe4b49ea0ccd7a87d6",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=2bf14ba07faaf8d3d96c2a299db40c84",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://seesaawiki.jp/yoshino_yorita/d/%A5%AB%A1%BC%A5%C9%C6%FE%BC%EA%CA%FD%CB%A1",
+          "name": "依田芳乃情報wiki",
+          "official": false,
+          "fields": [
+            "releaseDate",
+            "acquisition"
+          ]
+        }
+      ],
+      "tags": [
+        "SR",
+        "mobamas",
+        "passion",
+        "event"
+      ],
+      "rarity": "SR",
+      "game": "mobamas",
+      "image": "assets/mobamas-09896f9f-original-art.jpg",
+      "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/09896f9fa20e4cfe4b49ea0ccd7a87d6.jpg",
+      "gallery": [
+        {
+          "image": "assets/mobamas-09896f9f-original-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/09896f9fa20e4cfe4b49ea0ccd7a87d6.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=09896f9fa20e4cfe4b49ea0ccd7a87d6",
+          "label": {
+            "ja": "特訓前",
+            "zh": "特训前"
+          }
+        },
+        {
+          "image": "assets/mobamas-09896f9f-evolved-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/2bf14ba07faaf8d3d96c2a299db40c84.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=2bf14ba07faaf8d3d96c2a299db40c84",
+          "label": {
+            "ja": "特訓後",
+            "zh": "特训后"
+          }
+        }
+      ],
+      "card": {
+        "type": {
+          "ja": "パッション",
+          "zh": "Passion"
+        },
+        "acquisition": {
+          "ja": "イベント・目標絆Lv報酬",
+          "zh": "活动羁绊等级奖励"
+        },
+        "pool": "アイドルプロデュース the 6th Anniversary",
+        "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=09896f9fa20e4cfe4b49ea0ccd7a87d6",
+        "mobamasStats": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "cost": 20,
+            "attack": 12250,
+            "defense": 10300
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "cost": 20,
+            "attack": 12250,
+            "defense": 10300
+          }
+        ],
+        "skills": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "name": "メモリアルの舞",
+            "effect": {
+              "ja": "特技チェンジで効果を変更できる。",
+              "zh": "可通过特技变更调整效果。"
+            }
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "name": "メモリアルの舞",
+            "effect": {
+              "ja": "特技チェンジで効果を変更できる。",
+              "zh": "可通过特技变更调整效果。"
+            }
+          }
+        ]
+      },
+      "entities": [
+        "6thアニバーサリー・S"
+      ],
+      "relatedIds": [
+        "mobamas-273860e0"
+      ],
+      "sections": [
+        {
+          "title": {
+            "ja": "ふたつのアニバーサリー",
+            "zh": "两种周年纪念卡"
+          },
+          "paragraphs": [
+            {
+              "ja": "通常版と「・S」版は表情と能力が異なるカード。「・S」版では特技チェンジを利用できる。",
+              "zh": "通常版与「・S」版的表情和能力不同，「・S」版可使用特技变更。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mobamas-6eec6216",
+      "kind": "cards",
+      "title": {
+        "ja": "[つはものの道]依田芳乃",
+        "zh": "[つはものの道]依田芳乃"
+      },
+      "description": {
+        "ja": "道場で薙刀を構える、凛とした姿。体操服の一枚には、ひと息ついた愛らしさも。",
+        "zh": "在道场持薙刀而立的凛然身姿，换上体操服后，又多了一份轻松可爱。"
+      },
+      "date": "2018-08-31",
+      "dateLabel": {
+        "ja": "初登場",
+        "zh": "首次实装"
+      },
+      "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=6eec6216f0ee6fd13a7c49ba8b9c7240",
+      "sourceName": "デレマスDB",
+      "official": false,
+      "sources": [
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=6eec6216f0ee6fd13a7c49ba8b9c7240",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=e053118e1d1317c1d96b24289f73c927",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://seesaawiki.jp/yoshino_yorita/d/%A5%AB%A1%BC%A5%C9%C6%FE%BC%EA%CA%FD%CB%A1",
+          "name": "依田芳乃情報wiki",
+          "official": false,
+          "fields": [
+            "releaseDate",
+            "acquisition"
+          ]
+        }
+      ],
+      "tags": [
+        "SR",
+        "mobamas",
+        "passion",
+        "gacha"
+      ],
+      "rarity": "SR",
+      "game": "mobamas",
+      "image": "assets/mobamas-6eec6216-original-art.jpg",
+      "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/6eec6216f0ee6fd13a7c49ba8b9c7240.jpg",
+      "gallery": [
+        {
+          "image": "assets/mobamas-6eec6216-original-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/6eec6216f0ee6fd13a7c49ba8b9c7240.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=6eec6216f0ee6fd13a7c49ba8b9c7240",
+          "label": {
+            "ja": "特訓前",
+            "zh": "特训前"
+          }
+        },
+        {
+          "image": "assets/mobamas-6eec6216-evolved-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/e053118e1d1317c1d96b24289f73c927.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=e053118e1d1317c1d96b24289f73c927",
+          "label": {
+            "ja": "特訓後",
+            "zh": "特训后"
+          }
+        }
+      ],
+      "card": {
+        "type": {
+          "ja": "パッション",
+          "zh": "Passion"
+        },
+        "acquisition": {
+          "ja": "ガチャ",
+          "zh": "卡池"
+        },
+        "pool": "天高く！輝け秋の運動会ガチャ",
+        "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=6eec6216f0ee6fd13a7c49ba8b9c7240",
+        "mobamasStats": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "cost": 25,
+            "attack": 7360,
+            "defense": 7320
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "cost": 25,
+            "attack": 8832,
+            "defense": 8784
+          }
+        ],
+        "skills": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "name": "なぎの心得",
+            "effect": {
+              "ja": "クール・パッションのフロントメンバー及びバックメンバー上位5人の攻守 超絶アップ",
+              "zh": "Cool／Passion的前排成员及后排数值最高的 5 人，攻击与防御超絶提升。"
+            }
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "name": "なぎの心得",
+            "effect": {
+              "ja": "クール・パッションのフロントメンバー及びバックメンバー上位5人の攻守 究極アップ",
+              "zh": "Cool／Passion的前排成员及后排数值最高的 5 人，攻击与防御究極提升。"
+            }
+          }
+        ]
+      },
+      "entities": [
+        "つはものの道"
+      ]
+    },
+    {
+      "id": "mobamas-191f20f4",
+      "kind": "cards",
+      "title": {
+        "ja": "[山眠るかみのくら]依田芳乃",
+        "zh": "[山眠るかみのくら]依田芳乃"
+      },
+      "description": {
+        "ja": "冬の夕日に頬を染め、湯気に手を添えて。雪の意匠をまとった舞台衣装も涼やか。",
+        "zh": "冬日夕阳染红脸颊，双手捧住一缕热气；雪花点缀的舞台服又带来清冽的美。"
+      },
+      "date": "2019-01-31",
+      "dateLabel": {
+        "ja": "初登場",
+        "zh": "首次实装"
+      },
+      "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=191f20f4f7bd7fc95cc0408902a3d642",
+      "sourceName": "デレマスDB",
+      "official": false,
+      "sources": [
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=191f20f4f7bd7fc95cc0408902a3d642",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=626d49bf0499cc6c50f47c5d3ab1ea2a",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://seesaawiki.jp/yoshino_yorita/d/%A5%AB%A1%BC%A5%C9%C6%FE%BC%EA%CA%FD%CB%A1",
+          "name": "依田芳乃情報wiki",
+          "official": false,
+          "fields": [
+            "releaseDate",
+            "acquisition"
+          ]
+        }
+      ],
+      "tags": [
+        "SR",
+        "mobamas",
+        "passion",
+        "event"
+      ],
+      "rarity": "SR",
+      "game": "mobamas",
+      "image": "assets/mobamas-191f20f4-original-art.jpg",
+      "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/191f20f4f7bd7fc95cc0408902a3d642.jpg",
+      "gallery": [
+        {
+          "image": "assets/mobamas-191f20f4-original-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/191f20f4f7bd7fc95cc0408902a3d642.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=191f20f4f7bd7fc95cc0408902a3d642",
+          "label": {
+            "ja": "特訓前",
+            "zh": "特训前"
+          }
+        },
+        {
+          "image": "assets/mobamas-191f20f4-evolved-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/626d49bf0499cc6c50f47c5d3ab1ea2a.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=626d49bf0499cc6c50f47c5d3ab1ea2a",
+          "label": {
+            "ja": "特訓後",
+            "zh": "特训后"
+          }
+        }
+      ],
+      "card": {
+        "type": {
+          "ja": "パッション",
+          "zh": "Passion"
+        },
+        "acquisition": {
+          "ja": "イベント上位報酬",
+          "zh": "活动排名奖励"
+        },
+        "pool": "ドリームLIVEフェスティバル ウィンターSP",
+        "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=191f20f4f7bd7fc95cc0408902a3d642",
+        "mobamasStats": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "cost": 25,
+            "attack": 8080,
+            "defense": 6340
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "cost": 25,
+            "attack": 9696,
+            "defense": 7608
+          }
+        ],
+        "skills": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "name": "和らぎの冬衣",
+            "effect": {
+              "ja": "全タイプのフロントメンバー及びバックメンバー上位5人の攻 超絶アップ",
+              "zh": "全属性的前排成员及后排数值最高的 5 人，攻击超絶提升。"
+            }
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "name": "和らぎの冬衣",
+            "effect": {
+              "ja": "全タイプのフロントメンバー及びバックメンバー上位5人の攻 究極アップ",
+              "zh": "全属性的前排成员及后排数值最高的 5 人，攻击究極提升。"
+            }
+          }
+        ]
+      },
+      "entities": [
+        "山眠るかみのくら"
+      ]
+    },
+    {
+      "id": "mobamas-dff760de",
+      "kind": "cards",
+      "title": {
+        "ja": "[めぐみの甘雨]依田芳乃",
+        "zh": "[めぐみの甘雨]依田芳乃"
+      },
+      "description": {
+        "ja": "紫陽花のそばで過ごす雨の日。緑の衣装に着替えた芳乃は、ちいさなお茶会へ。",
+        "zh": "在紫阳花旁度过雨天，再换上绿色礼服，赴一场小小的茶会。"
+      },
+      "date": "2019-06-10",
+      "dateLabel": {
+        "ja": "初登場",
+        "zh": "首次实装"
+      },
+      "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=dff760de08c9bb804006c63db0d17e31",
+      "sourceName": "デレマスDB",
+      "official": false,
+      "sources": [
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=dff760de08c9bb804006c63db0d17e31",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=db373c0d09c25ea3bc17eff111f4f45b",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://seesaawiki.jp/yoshino_yorita/d/%A5%AB%A1%BC%A5%C9%C6%FE%BC%EA%CA%FD%CB%A1",
+          "name": "依田芳乃情報wiki",
+          "official": false,
+          "fields": [
+            "releaseDate",
+            "acquisition"
+          ]
+        }
+      ],
+      "tags": [
+        "SR",
+        "mobamas",
+        "passion",
+        "gacha"
+      ],
+      "rarity": "SR",
+      "game": "mobamas",
+      "image": "assets/mobamas-dff760de-original-art.jpg",
+      "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/dff760de08c9bb804006c63db0d17e31.jpg",
+      "gallery": [
+        {
+          "image": "assets/mobamas-dff760de-original-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/dff760de08c9bb804006c63db0d17e31.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=dff760de08c9bb804006c63db0d17e31",
+          "label": {
+            "ja": "特訓前",
+            "zh": "特训前"
+          }
+        },
+        {
+          "image": "assets/mobamas-dff760de-evolved-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/db373c0d09c25ea3bc17eff111f4f45b.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=db373c0d09c25ea3bc17eff111f4f45b",
+          "label": {
+            "ja": "特訓後",
+            "zh": "特训后"
+          }
+        }
+      ],
+      "card": {
+        "type": {
+          "ja": "パッション",
+          "zh": "Passion"
+        },
+        "acquisition": {
+          "ja": "リミテッドガチャ",
+          "zh": "Limited 卡池"
+        },
+        "pool": "めぐみの甘雨",
+        "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=dff760de08c9bb804006c63db0d17e31",
+        "mobamasStats": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "cost": 25,
+            "attack": 7440,
+            "defense": 7200
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "cost": 25,
+            "attack": 8928,
+            "defense": 8640
+          }
+        ],
+        "skills": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "name": "よすがの鍵",
+            "effect": {
+              "ja": "クール・パッションのフロントメンバー及びバックメンバー上位5人の攻守 超絶アップ",
+              "zh": "Cool／Passion的前排成员及后排数值最高的 5 人，攻击与防御超絶提升。"
+            }
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "name": "よすがの鍵",
+            "effect": {
+              "ja": "クール・パッションのフロントメンバー及びバックメンバー上位5人の攻守 究極アップ",
+              "zh": "Cool／Passion的前排成员及后排数值最高的 5 人，攻击与防御究極提升。"
+            }
+          }
+        ]
+      },
+      "entities": [
+        "めぐみの甘雨"
+      ]
+    },
+    {
+      "id": "mobamas-0cf59e66",
+      "kind": "cards",
+      "title": {
+        "ja": "[いのりの六花]依田芳乃",
+        "zh": "[いのりの六花]依田芳乃"
+      },
+      "description": {
+        "ja": "雪の日のお出かけから、赤いドレスのクリスマスへ。冬のきらめきを集めた一組。",
+        "zh": "从雪日里的出游，到穿着红裙迎接圣诞，将冬天的闪亮时刻收在一起。"
+      },
+      "date": "2019-11-30",
+      "dateLabel": {
+        "ja": "初登場",
+        "zh": "首次实装"
+      },
+      "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=0cf59e662a887564aff3a0cb7a323297",
+      "sourceName": "デレマスDB",
+      "official": false,
+      "sources": [
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=0cf59e662a887564aff3a0cb7a323297",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=f3fb7c5fecf793bb45de1b12ea3a9f96",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://seesaawiki.jp/yoshino_yorita/d/%A5%AB%A1%BC%A5%C9%C6%FE%BC%EA%CA%FD%CB%A1",
+          "name": "依田芳乃情報wiki",
+          "official": false,
+          "fields": [
+            "releaseDate",
+            "acquisition"
+          ]
+        }
+      ],
+      "tags": [
+        "SR",
+        "mobamas",
+        "passion",
+        "gacha"
+      ],
+      "rarity": "SR",
+      "game": "mobamas",
+      "image": "assets/mobamas-0cf59e66-original-art.jpg",
+      "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/0cf59e662a887564aff3a0cb7a323297.jpg",
+      "gallery": [
+        {
+          "image": "assets/mobamas-0cf59e66-original-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/0cf59e662a887564aff3a0cb7a323297.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=0cf59e662a887564aff3a0cb7a323297",
+          "label": {
+            "ja": "特訓前",
+            "zh": "特训前"
+          }
+        },
+        {
+          "image": "assets/mobamas-0cf59e66-evolved-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/f3fb7c5fecf793bb45de1b12ea3a9f96.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=f3fb7c5fecf793bb45de1b12ea3a9f96",
+          "label": {
+            "ja": "特訓後",
+            "zh": "特训后"
+          }
+        }
+      ],
+      "card": {
+        "type": {
+          "ja": "パッション",
+          "zh": "Passion"
+        },
+        "acquisition": {
+          "ja": "ガチャ",
+          "zh": "卡池"
+        },
+        "pool": "8周年記念 クリスマスパーティーガチャ",
+        "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=0cf59e662a887564aff3a0cb7a323297",
+        "mobamasStats": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "cost": 26,
+            "attack": 8640,
+            "defense": 6640
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "cost": 26,
+            "attack": 10368,
+            "defense": 7968
+          }
+        ],
+        "skills": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "name": "つもりつもる奇跡",
+            "effect": {
+              "ja": "パッションのフロントメンバー及びバックメンバー上位5人の攻 究極アップ",
+              "zh": "Passion的前排成员及后排数值最高的 5 人，攻击究極提升。"
+            }
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "name": "つもりつもる奇跡",
+            "effect": {
+              "ja": "パッションのフロントメンバー及びバックメンバー上位5人の攻 究極アップ",
+              "zh": "Passion的前排成员及后排数值最高的 5 人，攻击究極提升。"
+            },
+            "extraEffect": {
+              "ja": "キュート・クールのフロントメンバー及びバックメンバー上位2人の攻 超絶アップ",
+              "zh": "Cute／Cool的前排成员及后排数值最高的 2 人，攻击超絶提升。"
+            }
+          }
+        ]
+      },
+      "entities": [
+        "いのりの六花"
+      ]
+    },
+    {
+      "id": "mobamas-90804b58",
+      "kind": "cards",
+      "title": {
+        "ja": "[闇照らすともしび]依田芳乃",
+        "zh": "[闇照らすともしび]依田芳乃"
+      },
+      "description": {
+        "ja": "浴衣姿で、夜の小さな光を見つめて。舞う袖と灯りが、暗がりをやさしく彩る。",
+        "zh": "穿着浴衣凝望夜里的微光，让翩飞的衣袖与灯火，轻轻照亮黑暗。"
+      },
+      "date": "2020-08-09",
+      "dateLabel": {
+        "ja": "初登場",
+        "zh": "首次实装"
+      },
+      "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=90804b58fc6485188db10c7231cbe449",
+      "sourceName": "デレマスDB",
+      "official": false,
+      "sources": [
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=90804b58fc6485188db10c7231cbe449",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=cd13da849fc3396216a25dfd5b4b7b4b",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://seesaawiki.jp/yoshino_yorita/d/%A5%AB%A1%BC%A5%C9%C6%FE%BC%EA%CA%FD%CB%A1",
+          "name": "依田芳乃情報wiki",
+          "official": false,
+          "fields": [
+            "releaseDate",
+            "acquisition"
+          ]
+        }
+      ],
+      "tags": [
+        "SR",
+        "mobamas",
+        "passion",
+        "event"
+      ],
+      "rarity": "SR",
+      "game": "mobamas",
+      "image": "assets/mobamas-90804b58-original-art.jpg",
+      "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/90804b58fc6485188db10c7231cbe449.jpg",
+      "gallery": [
+        {
+          "image": "assets/mobamas-90804b58-original-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/90804b58fc6485188db10c7231cbe449.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=90804b58fc6485188db10c7231cbe449",
+          "label": {
+            "ja": "特訓前",
+            "zh": "特训前"
+          }
+        },
+        {
+          "image": "assets/mobamas-90804b58-evolved-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/cd13da849fc3396216a25dfd5b4b7b4b.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=cd13da849fc3396216a25dfd5b4b7b4b",
+          "label": {
+            "ja": "特訓後",
+            "zh": "特训后"
+          }
+        }
+      ],
+      "card": {
+        "type": {
+          "ja": "パッション",
+          "zh": "Passion"
+        },
+        "acquisition": {
+          "ja": "イベント上位報酬",
+          "zh": "活动排名奖励"
+        },
+        "pool": "第5回ミュージックJAM",
+        "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=90804b58fc6485188db10c7231cbe449",
+        "mobamasStats": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "cost": 26,
+            "attack": 7700,
+            "defense": 7580
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "cost": 26,
+            "attack": 9240,
+            "defense": 9096
+          }
+        ],
+        "skills": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "name": "変わらぬ願い",
+            "effect": {
+              "ja": "クール・パッションのフロントメンバー及びバックメンバー上位5人の攻守 究極アップ",
+              "zh": "Cool／Passion的前排成员及后排数值最高的 5 人，攻击与防御究極提升。"
+            }
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "name": "変わらぬ願い",
+            "effect": {
+              "ja": "クール・パッションのフロントメンバー及びバックメンバー上位5人の攻守 究極アップ",
+              "zh": "Cool／Passion的前排成员及后排数值最高的 5 人，攻击与防御究極提升。"
+            },
+            "extraEffect": {
+              "ja": "パッションのフロントメンバー及びバックメンバー上位5人の攻守 極小アップ",
+              "zh": "Passion的前排成员及后排数值最高的 5 人，攻击与防御極小提升。"
+            }
+          }
+        ]
+      },
+      "entities": [
+        "闇照らすともしび"
+      ]
+    },
+    {
+      "id": "mobamas-0a4abfc7",
+      "kind": "cards",
+      "title": {
+        "ja": "[ことほぎの祈り]依田芳乃",
+        "zh": "[ことほぎの祈り]依田芳乃"
+      },
+      "description": {
+        "ja": "晴れ着で手を合わせ、新しい春に願いを。薄紅の衣装に花が咲く、華やかな舞姿。",
+        "zh": "身着盛装合掌，向新春许愿。淡红衣裙上的花朵，随着舞姿绽放。"
+      },
+      "date": "2020-12-26",
+      "dateLabel": {
+        "ja": "初登場",
+        "zh": "首次实装"
+      },
+      "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=0a4abfc7198e7e26465f165fada1b15e",
+      "sourceName": "デレマスDB",
+      "official": false,
+      "sources": [
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=0a4abfc7198e7e26465f165fada1b15e",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=6fa185302ff476ad1ed15c48648eb773",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://seesaawiki.jp/yoshino_yorita/d/%A5%AB%A1%BC%A5%C9%C6%FE%BC%EA%CA%FD%CB%A1",
+          "name": "依田芳乃情報wiki",
+          "official": false,
+          "fields": [
+            "releaseDate",
+            "acquisition"
+          ]
+        }
+      ],
+      "tags": [
+        "SR",
+        "mobamas",
+        "passion",
+        "gacha"
+      ],
+      "rarity": "SR",
+      "game": "mobamas",
+      "image": "assets/mobamas-0a4abfc7-original-art.jpg",
+      "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/0a4abfc7198e7e26465f165fada1b15e.jpg",
+      "gallery": [
+        {
+          "image": "assets/mobamas-0a4abfc7-original-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/0a4abfc7198e7e26465f165fada1b15e.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=0a4abfc7198e7e26465f165fada1b15e",
+          "label": {
+            "ja": "特訓前",
+            "zh": "特训前"
+          }
+        },
+        {
+          "image": "assets/mobamas-0a4abfc7-evolved-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/6fa185302ff476ad1ed15c48648eb773.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=6fa185302ff476ad1ed15c48648eb773",
+          "label": {
+            "ja": "特訓後",
+            "zh": "特训后"
+          }
+        }
+      ],
+      "card": {
+        "type": {
+          "ja": "パッション",
+          "zh": "Passion"
+        },
+        "acquisition": {
+          "ja": "プライズガチャ",
+          "zh": "Prize 卡池"
+        },
+        "pool": "新年に舞う夢思ふ振袖プライズガチャ",
+        "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=0a4abfc7198e7e26465f165fada1b15e",
+        "mobamasStats": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "cost": 26,
+            "attack": 7740,
+            "defense": 7560
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "cost": 26,
+            "attack": 9288,
+            "defense": 9072
+          }
+        ],
+        "skills": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "name": "春を呼ぶ舞",
+            "effect": {
+              "ja": "クール・パッションのフロントメンバー及びバックメンバー上位5人の攻守 究極アップ",
+              "zh": "Cool／Passion的前排成员及后排数值最高的 5 人，攻击与防御究極提升。"
+            }
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "name": "春を呼ぶ舞",
+            "effect": {
+              "ja": "クール・パッションのフロントメンバー及びバックメンバー上位5人の攻守 究極アップ",
+              "zh": "Cool／Passion的前排成员及后排数值最高的 5 人，攻击与防御究極提升。"
+            },
+            "extraEffect": {
+              "ja": "クール・パッションのフロントメンバー及びバックメンバー上位5人の攻守 極小アップ",
+              "zh": "Cool／Passion的前排成员及后排数值最高的 5 人，攻击与防御極小提升。"
+            }
+          }
+        ]
+      },
+      "entities": [
+        "ことほぎの祈り"
+      ]
+    },
+    {
+      "id": "mobamas-819d2565",
+      "kind": "cards",
+      "title": {
+        "ja": "[いつくし花笑み]依田芳乃",
+        "zh": "[いつくし花笑み]依田芳乃"
+      },
+      "description": {
+        "ja": "風に髪をなびかせる、白い夏服。花冠と赤い衣装では、物語の中のような佇まいに。",
+        "zh": "白色夏装与随风飘动的长发，换上花冠和红衣后，又如同走进了故事之中。"
+      },
+      "date": "2021-07-26",
+      "dateLabel": {
+        "ja": "初登場",
+        "zh": "首次实装"
+      },
+      "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=819d2565e40df085e1282cc35f706f35",
+      "sourceName": "デレマスDB",
+      "official": false,
+      "sources": [
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=819d2565e40df085e1282cc35f706f35",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=e2b2411955e74d2e89f205c3ba0fda3e",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://seesaawiki.jp/yoshino_yorita/d/%A5%AB%A1%BC%A5%C9%C6%FE%BC%EA%CA%FD%CB%A1",
+          "name": "依田芳乃情報wiki",
+          "official": false,
+          "fields": [
+            "releaseDate",
+            "acquisition"
+          ]
+        }
+      ],
+      "tags": [
+        "SR",
+        "mobamas",
+        "passion",
+        "event"
+      ],
+      "rarity": "SR",
+      "game": "mobamas",
+      "image": "assets/mobamas-819d2565-original-art.jpg",
+      "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/819d2565e40df085e1282cc35f706f35.jpg",
+      "gallery": [
+        {
+          "image": "assets/mobamas-819d2565-original-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/819d2565e40df085e1282cc35f706f35.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=819d2565e40df085e1282cc35f706f35",
+          "label": {
+            "ja": "特訓前",
+            "zh": "特训前"
+          }
+        },
+        {
+          "image": "assets/mobamas-819d2565-evolved-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/e2b2411955e74d2e89f205c3ba0fda3e.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=e2b2411955e74d2e89f205c3ba0fda3e",
+          "label": {
+            "ja": "特訓後",
+            "zh": "特训后"
+          }
+        }
+      ],
+      "card": {
+        "type": {
+          "ja": "パッション",
+          "zh": "Passion"
+        },
+        "acquisition": {
+          "ja": "イベント上位報酬",
+          "zh": "活动排名奖励"
+        },
+        "pool": "第57回プロダクションマッチフェスティバル",
+        "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=819d2565e40df085e1282cc35f706f35",
+        "mobamasStats": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "cost": 26,
+            "attack": 7780,
+            "defense": 7580
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "cost": 26,
+            "attack": 9336,
+            "defense": 9096
+          }
+        ],
+        "skills": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "name": "たまゆらの涼風",
+            "effect": {
+              "ja": "キュート・パッションのフロントメンバー及びバックメンバー上位5人の攻守 究極アップ",
+              "zh": "Cute／Passion的前排成员及后排数值最高的 5 人，攻击与防御究極提升。"
+            }
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "name": "たまゆらの涼風",
+            "effect": {
+              "ja": "キュート・パッションのフロントメンバー及びバックメンバー上位5人の攻守 究極アップ",
+              "zh": "Cute／Passion的前排成员及后排数值最高的 5 人，攻击与防御究極提升。"
+            },
+            "extraEffect": {
+              "ja": "パッションのフロントメンバー及びバックメンバー上位5人の攻守 極小アップ",
+              "zh": "Passion的前排成员及后排数值最高的 5 人，攻击与防御極小提升。"
+            }
+          }
+        ]
+      },
+      "entities": [
+        "いつくし花笑み"
+      ]
+    },
+    {
+      "id": "mobamas-926f3a43",
+      "kind": "cards",
+      "title": {
+        "ja": "[よろこびと巡り逢ふ]依田芳乃",
+        "zh": "[よろこびと巡り逢ふ]依田芳乃"
+      },
+      "description": {
+        "ja": "ヴェールの下から向ける笑顔と、白無垢の晴れ姿。ふたつの白に包まれた、よろこびの日。",
+        "zh": "头纱下的微笑与白无垢的盛装，让两种纯白珍藏同一天的喜悦。"
+      },
+      "date": "2022-05-31",
+      "dateLabel": {
+        "ja": "初登場",
+        "zh": "首次实装"
+      },
+      "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=926f3a4341f47bbfc65abe78dedaa3d8",
+      "sourceName": "デレマスDB",
+      "official": false,
+      "sources": [
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=926f3a4341f47bbfc65abe78dedaa3d8",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=3eeed8b28eda1331519bdb281aa27ede",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://seesaawiki.jp/yoshino_yorita/d/%A5%AB%A1%BC%A5%C9%C6%FE%BC%EA%CA%FD%CB%A1",
+          "name": "依田芳乃情報wiki",
+          "official": false,
+          "fields": [
+            "releaseDate",
+            "acquisition"
+          ]
+        }
+      ],
+      "tags": [
+        "SR",
+        "mobamas",
+        "passion",
+        "gacha"
+      ],
+      "rarity": "SR",
+      "game": "mobamas",
+      "image": "assets/mobamas-926f3a43-original-art.jpg",
+      "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/926f3a4341f47bbfc65abe78dedaa3d8.jpg",
+      "gallery": [
+        {
+          "image": "assets/mobamas-926f3a43-original-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/926f3a4341f47bbfc65abe78dedaa3d8.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=926f3a4341f47bbfc65abe78dedaa3d8",
+          "label": {
+            "ja": "特訓前",
+            "zh": "特训前"
+          }
+        },
+        {
+          "image": "assets/mobamas-926f3a43-evolved-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/3eeed8b28eda1331519bdb281aa27ede.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=3eeed8b28eda1331519bdb281aa27ede",
+          "label": {
+            "ja": "特訓後",
+            "zh": "特训后"
+          }
+        }
+      ],
+      "card": {
+        "type": {
+          "ja": "パッション",
+          "zh": "Passion"
+        },
+        "acquisition": {
+          "ja": "ガチャ",
+          "zh": "卡池"
+        },
+        "pool": "純白の幸せを貴方に ホワイトウエディングガチャ",
+        "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=926f3a4341f47bbfc65abe78dedaa3d8",
+        "mobamasStats": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "cost": 27,
+            "attack": 11540,
+            "defense": 4720
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "cost": 27,
+            "attack": 13848,
+            "defense": 5664
+          }
+        ],
+        "skills": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "name": "祝いの言の葉",
+            "effect": {
+              "ja": "全タイプのフロントメンバー及びバックメンバー上位5人の攻 究極+アップ",
+              "zh": "全属性的前排成员及后排数值最高的 5 人，攻击究極+提升。"
+            }
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "name": "祝いの言の葉",
+            "effect": {
+              "ja": "全タイプのフロントメンバー及びバックメンバー上位5人の攻 究極+アップ",
+              "zh": "全属性的前排成员及后排数值最高的 5 人，攻击究極+提升。"
+            },
+            "extraEffect": {
+              "ja": "パッションのフロントメンバー及びバックメンバー上位5人の攻 小アップ",
+              "zh": "Passion的前排成员及后排数值最高的 5 人，攻击小提升。"
+            }
+          }
+        ]
+      },
+      "entities": [
+        "よろこびと巡り逢ふ"
+      ]
+    },
+    {
+      "id": "mobamas-61f4b82b",
+      "kind": "cards",
+      "title": {
+        "ja": "[わだつみの導き手]依田芳乃",
+        "zh": "[わだつみの導き手]依田芳乃"
+      },
+      "description": {
+        "ja": "夕映えの海に白衣が揺れる。波を思わせる彩りをまとい、明るい舞台へと踏み出して。",
+        "zh": "白衣在夕照的海边轻轻摇曳，再披上如海浪般鲜艳的衣裙，迈向明亮的舞台。"
+      },
+      "date": "2022-10-25",
+      "dateLabel": {
+        "ja": "初登場",
+        "zh": "首次实装"
+      },
+      "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=61f4b82bd8474a41c43847c18e3a38e4",
+      "sourceName": "デレマスDB",
+      "official": false,
+      "sources": [
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=61f4b82bd8474a41c43847c18e3a38e4",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://imas.gamedbs.jp/cg/idol/detail/199?h=16d7f0b9de7baba7b8614ba80f7a205b",
+          "name": "デレマスDB",
+          "official": false,
+          "fields": [
+            "artwork",
+            "rarity",
+            "type",
+            "initialStats",
+            "skill"
+          ]
+        },
+        {
+          "url": "https://seesaawiki.jp/yoshino_yorita/d/%A5%AB%A1%BC%A5%C9%C6%FE%BC%EA%CA%FD%CB%A1",
+          "name": "依田芳乃情報wiki",
+          "official": false,
+          "fields": [
+            "releaseDate",
+            "acquisition"
+          ]
+        }
+      ],
+      "tags": [
+        "SR",
+        "mobamas",
+        "passion",
+        "gacha"
+      ],
+      "rarity": "SR",
+      "game": "mobamas",
+      "image": "assets/mobamas-61f4b82b-original-art.jpg",
+      "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/61f4b82bd8474a41c43847c18e3a38e4.jpg",
+      "gallery": [
+        {
+          "image": "assets/mobamas-61f4b82b-original-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/61f4b82bd8474a41c43847c18e3a38e4.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=61f4b82bd8474a41c43847c18e3a38e4",
+          "label": {
+            "ja": "特訓前",
+            "zh": "特训前"
+          }
+        },
+        {
+          "image": "assets/mobamas-61f4b82b-evolved-art.jpg",
+          "imageSource": "https://imas.gamedbs.jp/cg/image_sp/card/l_noframe/16d7f0b9de7baba7b8614ba80f7a205b.jpg",
+          "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=16d7f0b9de7baba7b8614ba80f7a205b",
+          "label": {
+            "ja": "特訓後",
+            "zh": "特训后"
+          }
+        }
+      ],
+      "card": {
+        "type": {
+          "ja": "パッション",
+          "zh": "Passion"
+        },
+        "acquisition": {
+          "ja": "カウントアップガチャ",
+          "zh": "Count Up 卡池"
+        },
+        "pool": "わだつみの導き手",
+        "source": "https://imas.gamedbs.jp/cg/idol/detail/199?h=61f4b82bd8474a41c43847c18e3a38e4",
+        "mobamasStats": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "cost": 27,
+            "attack": 8740,
+            "defense": 6900
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "cost": 27,
+            "attack": 10488,
+            "defense": 8280
+          }
+        ],
+        "skills": [
+          {
+            "label": {
+              "ja": "特訓前",
+              "zh": "特训前"
+            },
+            "name": "清めの儀",
+            "effect": {
+              "ja": "パッションのフロントメンバー及びバックメンバー上位5人の攻 究極+アップ",
+              "zh": "Passion的前排成员及后排数值最高的 5 人，攻击究極+提升。"
+            }
+          },
+          {
+            "label": {
+              "ja": "特訓後",
+              "zh": "特训后"
+            },
+            "name": "清めの儀",
+            "effect": {
+              "ja": "パッションのフロントメンバー及びバックメンバー上位5人の攻 究極+アップ",
+              "zh": "Passion的前排成员及后排数值最高的 5 人，攻击究極+提升。"
+            },
+            "extraEffect": {
+              "ja": "クールのフロントメンバー及びバックメンバー上位3人の攻 超絶アップ",
+              "zh": "Cool的前排成员及后排数值最高的 3 人，攻击超絶提升。"
+            }
+          }
+        ]
+      },
+      "entities": [
+        "わだつみの導き手"
       ]
     }
   ]

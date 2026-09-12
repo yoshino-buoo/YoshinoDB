@@ -74,6 +74,8 @@ const tagLabel = (k, locale = lang) => {
       music: t("音楽", "音乐"),
       live: t("ライブ", "演出"),
       deresute: t("デレステ", "星光舞台"),
+      gacha: t("ガチャ", "卡池"),
+      work: t("お仕事", "工作"),
       mobamas: t("デレマス", "页游"),
       solo: t("ソロ", "个人曲"),
       unit: t("ユニット", "组合"),
@@ -130,7 +132,8 @@ const all = () => [
       ),
   ),
 ];
-const count = (k) => all().filter((x) => x.kind === k).length;
+const count = (k) =>
+  all().filter((x) => x.kind === k && (k !== "cards" || x.game)).length;
 function header(route) {
   return `<header class="header"><a class="brand" href="#home"><span class="seal">芳</span><span><strong>${t("芳乃のよりみち帖", "芳乃的漫步手帖")}</strong><small>YOSHINO DB</small></span></a><nav aria-label="${t("メインナビゲーション", "主导航")}">${["home", "cards", "songs", "stories", "videos", "timeline"].map((k) => `<a href="#${k}" ${route === k ? 'aria-current="page"' : ""}>${label(k)}</a>`).join("")}</nav><div class="language" aria-label="Language"><button data-lang="ja" aria-pressed="${lang === "ja"}">日本語</button><span>/</span><button data-lang="zh" aria-pressed="${lang === "zh"}">简中</button></div></header>`;
 }
@@ -142,7 +145,7 @@ function sectionTitle(k, en, link = true) {
 }
 function record(item) {
   const image = item.image
-    ? `<a class="record-cover" href="#entry/${esc(item.id)}" tabindex="-1" aria-hidden="true"><img class="record-image ${item.image.endsWith("yoshino.png") ? "standing" : ""}" src="${base}${esc(item.image)}" alt="${esc(tr(item.title))}" loading="lazy" decoding="async"></a>`
+    ? `<a class="record-cover" href="#entry/${esc(item.id)}" tabindex="-1" aria-hidden="true"><img class="record-image ${item.game === "mobamas" ? "mobamas-art" : item.image.endsWith("yoshino.png") ? "standing" : ""}" src="${base}${esc(item.image)}" alt="${esc(tr(item.title))}" loading="lazy" decoding="async"></a>`
     : `<div class="record-icon" aria-hidden="true">${item.rarity ? esc(item.rarity) : icon(item.kind)}</div>`;
   return `<article class="record ${esc(item.kind)}" data-entry="${esc(item.id)}">${image}<div class="record-body"><div class="meta"><span class="badge ${item.official ? "official" : "fan"}">${originLabel(item)}</span><span>${esc(item.sourceName)}</span>${item.date ? `<time datetime="${esc(item.date)}">${esc(tr(item.dateLabel))} ${esc(item.date.replaceAll("-", "."))}</time>` : ""}</div><h3><a href="#entry/${esc(item.id)}">${esc(tr(item.title))}<span aria-hidden="true">→</span></a></h3>${tr(item.description) ? `<p>${esc(tr(item.description))}</p>` : ""}<div class="record-tags">${(
     item.tags || []
@@ -226,7 +229,22 @@ function listing(route) {
   const q = query.get("q") || "";
   const filters = categoryFilters[route] || [];
   const selected = query.get("tag") || "all";
-  return `<div class="collection-page collection-${route}">${pageTitle(route, route.toUpperCase())}${content.overview(route)}${filters.length ? `<div class="category-tabs" role="group" aria-label="${t("分類", "分类")}"><button data-filter-tag="all" aria-pressed="${selected === "all"}">${t("すべて", "全部")}</button>${filters.map(([tag, ja, zh]) => `<button data-filter-tag="${tag}" aria-pressed="${tag === selected}">${t(ja, zh)}</button>`).join("")}</div>` : ""}<form class="list-controls" role="search"><input type="hidden" name="tag" value="${esc(selected)}"><input type="hidden" name="year" value="${esc(query.get("year") || "")}"><input name="q" value="${esc(q)}" placeholder="${t("キーワードで絞り込む", "输入关键词筛选")}" aria-label="${t("キーワード", "关键词")}"><select name="origin" aria-label="${t("情報元", "来源类型")}"><option value="all">${t("すべての情報元", "全部来源")}</option><option value="official">${t("公式のみ", "仅官方")}</option><option value="fan">${t("ファン投稿・データベース", "粉丝投稿与资料库")}</option></select>${route === "cards" ? `<select name="rarity" aria-label="${t("レアリティ", "稀有度")}"><option value="all">${t("すべてのレアリティ", "全部稀有度")}</option><option>SSR</option><option>SR</option><option>N</option></select>` : ""}<select name="sort" aria-label="${t("並び順", "排序")}"><option value="newest">${t("新しい順", "由新到旧")}</option><option value="oldest" ${route === "timeline" ? "selected" : ""}>${t("古い順", "由旧到新")}</option></select><button class="primary">${t("検索", "搜索")}</button></form><p class="result-count" aria-live="polite"></p><div id="results" class="records ${{ cards: "card-grid", songs: "song-grid", units: "unit-grid", videos: "video-grid", timeline: "timeline-list", news: "news-list", stories: "story-list" }[route] || ""}"></div></div>`;
+  const game = query.get("game") === "mobamas" ? "mobamas" : "deresute";
+  const gameTabs =
+    route === "cards"
+      ? `<div class="card-game-tabs" role="group" aria-label="${t("ゲームを選ぶ", "选择游戏")}">${[
+          ["deresute", t("デレステ", "星光舞台"), "STARLIGHT STAGE"],
+          ["mobamas", t("モバマス", "灰姑娘女孩"), "CINDERELLA GIRLS"],
+        ]
+          .map(
+            ([value, name, en]) =>
+              `<button type="button" data-card-game="${value}" aria-pressed="${value === game}">${name}<small>${en}</small></button>`,
+          )
+          .join(
+            "",
+          )}</div><div data-card-overview>${content.overview("cards", game)}</div>`
+      : content.overview(route);
+  return `<div class="collection-page collection-${route}">${pageTitle(route, route.toUpperCase())}${gameTabs}${filters.length ? `<div class="category-tabs" role="group" aria-label="${t("分類", "分类")}"><button data-filter-tag="all" aria-pressed="${selected === "all"}">${t("すべて", "全部")}</button>${filters.map(([tag, ja, zh]) => `<button data-filter-tag="${tag}" aria-pressed="${tag === selected}">${t(ja, zh)}</button>`).join("")}</div>` : ""}<form class="list-controls" role="search">${route === "cards" ? `<input type="hidden" name="game" value="${game}">` : ""}<input type="hidden" name="tag" value="${esc(selected)}"><input type="hidden" name="year" value="${esc(query.get("year") || "")}"><input name="q" value="${esc(q)}" placeholder="${t("キーワードで絞り込む", "输入关键词筛选")}" aria-label="${t("キーワード", "关键词")}"><select name="origin" aria-label="${t("情報元", "来源类型")}"><option value="all">${t("すべての情報元", "全部来源")}</option><option value="official">${t("公式のみ", "仅官方")}</option><option value="fan">${t("ファン投稿・データベース", "粉丝投稿与资料库")}</option></select>${route === "cards" ? `<select name="rarity" aria-label="${t("レアリティ", "稀有度")}"><option value="all">${t("すべてのレアリティ", "全部稀有度")}</option><option>SSR</option><option>SR</option><option>R</option><option>N</option></select>` : ""}<select name="sort" aria-label="${t("並び順", "排序")}"><option value="newest">${t("新しい順", "由新到旧")}</option><option value="oldest" ${route === "timeline" ? "selected" : ""}>${t("古い順", "由旧到新")}</option></select><button class="primary">${t("検索", "搜索")}</button></form><p class="result-count" aria-live="polite"></p><div id="results" class="records ${{ cards: "card-grid", songs: "song-grid", units: "unit-grid", videos: "video-grid", timeline: "timeline-list", news: "news-list", stories: "story-list" }[route] || ""}"></div>${route === "cards" && all().some((x) => x.id === "outfit-official") ? `<p class="card-outfit-link"><a href="#entry/outfit-official">${t("公式ポータルの衣装を見る", "查看官方角色服装")} →</a></p>` : ""}</div>`;
 }
 
 function profile() {
@@ -284,7 +302,31 @@ function render(filterState = null) {
         if (field) field.value = value;
       }
     let resultsMounted = false;
+    let renderedGame;
     function update() {
+      if (route === "cards") {
+        const game =
+          form.elements.game.value === "mobamas" ? "mobamas" : "deresute";
+        form.elements.game.value = game;
+        if (renderedGame !== game) {
+          const rarity = form.rarity.value;
+          const choices =
+            game === "mobamas" ? ["SR", "R", "N"] : ["SSR", "SR", "N"];
+          form.rarity.innerHTML = `<option value="all">${t("すべてのレアリティ", "全部稀有度")}</option>${choices.map((r) => `<option>${r}</option>`).join("")}`;
+          form.rarity.value = choices.includes(rarity) ? rarity : "all";
+          app.querySelector("[data-card-overview]").innerHTML =
+            content.overview("cards", game);
+          app
+            .querySelectorAll("[data-card-game]")
+            .forEach((b) =>
+              b.setAttribute(
+                "aria-pressed",
+                String(b.dataset.cardGame === game),
+              ),
+            );
+          renderedGame = game;
+        }
+      }
       document
         .querySelectorAll("[data-filter-tag]")
         .forEach((b) =>
@@ -298,6 +340,7 @@ function render(filterState = null) {
         .filter(
           (x) =>
             (route === "search" || x.kind === route) &&
+            (route !== "cards" || x.game === form.elements.game.value) &&
             (!q || searchText(x).includes(q)) &&
             (form.origin.value === "all" ||
               x.official === (form.origin.value === "official")) &&
@@ -345,14 +388,22 @@ function render(filterState = null) {
           update();
         }),
     );
-    app.querySelectorAll("[data-rarity]").forEach(
-      (button) =>
-        (button.onclick = () => {
-          if (form.rarity.value === button.dataset.rarity) return;
-          form.rarity.value = button.dataset.rarity;
-          update();
-        }),
-    );
+    app.querySelectorAll("[data-card-game]").forEach((button) => {
+      button.onclick = () => {
+        if (form.elements.game.value === button.dataset.cardGame) return;
+        form.elements.game.value = button.dataset.cardGame;
+        form.rarity.value = "all";
+        update();
+      };
+    });
+    app
+      .querySelector("[data-card-overview]")
+      ?.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-rarity]");
+        if (!button || form.rarity.value === button.dataset.rarity) return;
+        form.rarity.value = button.dataset.rarity;
+        update();
+      });
     form.onsubmit = (e) => {
       e.preventDefault();
       update();

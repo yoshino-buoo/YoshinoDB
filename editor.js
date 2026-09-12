@@ -199,6 +199,7 @@ export function mountEditor(
   }
   function blocks(defs) {
     return defs
+      .filter((b) => !b.game || b.game === (working.game || "deresute"))
       .map(
         (b, i) =>
           `<details class="studio-block" ${!b.folded ? "open" : ""}><summary>${esc(translated(b.label))}</summary><div class="studio-fields">${b.fields.map((d) => field(d)).join("")}</div></details>`,
@@ -370,7 +371,10 @@ export function mountEditor(
             : "";
         input.removeAttribute("aria-invalid");
       });
-      input.addEventListener("change", list);
+      input.addEventListener("change", () => {
+        if (input.dataset.field === "game") renderPanel();
+        list();
+      });
     });
     panel.querySelectorAll("[data-add]").forEach(
       (button) =>

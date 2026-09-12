@@ -7,11 +7,23 @@ import {
   entryIssues,
   validateEditorCatalog,
   setPath,
+  newRecord,
 } from "../lib/editor-data.js";
 import { zipFiles } from "../lib/editor-assets.js";
 const catalog = JSON.parse(
   await readFile(new URL("../public/data/catalog.json", import.meta.url)),
 );
+
+test("cards must belong to a game so editor updates remain visible in the library", () => {
+  assert.equal(newRecord("cards").game, "deresute");
+  const item = structuredClone(catalog.items.find((x) => x.game === "mobamas"));
+  delete item.game;
+  assert.ok(entryIssues(item).some((x) => x.path === "game"));
+  assert.throws(
+    () => validateEditorCatalog({ version: 1, items: [item] }),
+    /game/,
+  );
+});
 
 test("the editor accepts every current detail shape without rewriting any data", () => {
   const before = JSON.stringify(catalog);

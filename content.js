@@ -39,7 +39,9 @@ export function createContentViews({
       : "";
   const tags = (item) =>
     `<div class="record-tags">${(item.tags || [])
-      .filter((x) => !["bilibili", "youtube", "SR", "SSR"].includes(x))
+      .filter(
+        (x) => !["bilibili", "youtube", "N", "R", "SR", "SSR"].includes(x),
+      )
       .map((x) => `<span>${esc(tagLabel(x))}</span>`)
       .join("")}</div>`;
   const description = (item) =>
@@ -98,18 +100,25 @@ export function createContentViews({
         ? [{ image: item.image }]
         : [];
     if (!images.length) return "";
-    return `<div class="card-gallery"><div class="gallery-stage ${item.image?.endsWith("yoshino.png") ? "standing" : ""}">${images.map((art, index) => `<figure data-variant-panel="${index}" ${index ? "hidden" : ""}><a href="${base}${esc(art.image)}" target="_blank" rel="noopener"><img src="${base}${esc(art.image)}" alt="${title(item)} ${esc(tr(art.label))}"></a></figure>`).join("")}</div>${images.length > 1 ? `<div class="variant-tabs" role="group" aria-label="${t("カードの姿", "卡面版本")}">${images.map((art, index) => `<button data-variant="${index}" aria-pressed="${index === 0}">${esc(tr(art.label) || String(index + 1))}</button>`).join("")}</div>` : ""}</div>`;
+    return `<div class="card-gallery"><div class="gallery-stage ${item.game === "mobamas" ? "mobamas-art" : item.image?.endsWith("yoshino.png") ? "standing" : ""}">${images.map((art, index) => `<figure data-variant-panel="${index}" ${index ? "hidden" : ""}><a href="${base}${esc(art.image)}" target="_blank" rel="noopener"><img src="${base}${esc(art.image)}" alt="${title(item)} ${esc(tr(art.label))}"></a></figure>`).join("")}</div>${images.length > 1 ? `<div class="variant-tabs" role="group" aria-label="${t("カードの姿", "卡面版本")}">${images.map((art, index) => `<button data-variant="${index}" aria-pressed="${index === 0}">${esc(tr(art.label) || String(index + 1))}</button>`).join("")}</div>` : ""}</div>`;
   }
-  function statTable(card) {
-    const versions = card.stats || [];
+  function statTable(card, mobamas = false) {
+    const versions = (mobamas ? card.mobamasStats : card.stats) || [];
     if (!versions.length) return "";
-    return `<div class="table-scroll"><table class="stats-table"><thead><tr><th>${t("ステータス", "能力值")}</th>${versions.map((v) => `<th>${esc(tr(v.label))}</th>`).join("")}</tr></thead><tbody>${[
-      ["life", "Life"],
-      ["vocal", "Vocal"],
-      ["dance", "Dance"],
-      ["visual", "Visual"],
-      ["total", t("合計", "合计")],
-    ]
+    return `<div class="table-scroll"><table class="stats-table"><thead><tr><th>${t("ステータス", "能力值")}</th>${versions.map((v) => `<th>${esc(tr(v.label))}</th>`).join("")}</tr></thead><tbody>${(mobamas
+      ? [
+          ["cost", t("コスト", "Cost")],
+          ["attack", t("初期攻", "初始攻击")],
+          ["defense", t("初期守", "初始防御")],
+        ]
+      : [
+          ["life", "Life"],
+          ["vocal", "Vocal"],
+          ["dance", "Dance"],
+          ["visual", "Visual"],
+          ["total", t("合計", "合计")],
+        ]
+    )
       .filter(([key]) => versions.some((v) => v[key] != null))
       .map(
         ([key, name]) =>
@@ -118,8 +127,25 @@ export function createContentViews({
       .join("")}</tbody></table></div>`;
   }
   function cardDetail(item) {
-    const c = item.card || {};
-    return `<div class="card-detail-top">${gallery(item)}<aside class="entry-summary"><span class="rarity-emblem">${esc(item.rarity || t("衣装", "服装"))}</span>${description(item)}${facts([...dateFact(item), [t("ゲーム", "游戏"), item.game === "deresute" ? t("スターライトステージ", "星光舞台") : item.game], [t("タイプ", "属性"), c.type], [t("入手方法", "获取方式"), c.acquisition], [t("登場ガシャ・イベント", "登场卡池／活动"), c.pool]])}${tags(item)}</aside></div><div class="entry-columns">${section(t("特技・センター効果", "特技与队长效果"), [c.skill?.name ? `<div class="skill-block"><small>${t("特技", "特技")}${c.skill.level ? ` · Lv.${c.skill.level}` : ""}</small><h3>${esc(tr(c.skill.name))}</h3><p>${esc(tr(c.skill.effect))}</p></div>` : "", c.center?.name ? `<div class="skill-block"><small>${t("センター効果", "队长效果")}</small><h3>${esc(tr(c.center.name))}</h3><p>${esc(tr(c.center.effect))}</p></div>` : ""].join(""))}${section(t("ステータス", "能力值"), c.stats?.length ? `<p class="stats-caption">${t("最大Lv・親愛度MAX", "最大等级・亲爱度 MAX")}</p>${statTable(c)}` : "")}</div>${extra(item)}${infoSections(item)}${related(item, ["stories", "videos", "songs"])}`;
+    const c = item.card || {},
+      mobamas = item.game === "mobamas";
+    const skills = mobamas
+      ? (c.skills || [])
+          .map(
+            (skill) =>
+              `<div class="skill-block"><small>${esc(tr(skill.label))}</small><h3>${esc(tr(skill.name))}</h3><p>${esc(tr(skill.effect))}</p>${skill.extraEffect ? `<p><small>${t("ダブル特技", "双重特技")}</small><br>${esc(tr(skill.extraEffect))}</p>` : ""}</div>`,
+          )
+          .join("")
+      : [
+          c.skill?.name
+            ? `<div class="skill-block"><small>${t("特技", "特技")}${c.skill.level ? ` · Lv.${c.skill.level}` : ""}</small><h3>${esc(tr(c.skill.name))}</h3><p>${esc(tr(c.skill.effect))}</p></div>`
+            : "",
+          c.center?.name
+            ? `<div class="skill-block"><small>${t("センター効果", "队长效果")}</small><h3>${esc(tr(c.center.name))}</h3><p>${esc(tr(c.center.effect))}</p></div>`
+            : "",
+        ].join("");
+    const stats = statTable(c, mobamas);
+    return `<div class="card-detail-top ${mobamas ? "card-detail-mobamas" : ""}">${gallery(item)}<aside class="entry-summary"><span class="rarity-emblem">${esc(item.rarity || t("衣装", "服装"))}</span>${description(item)}${facts([...dateFact(item), [t("ゲーム", "游戏"), item.game === "deresute" ? t("スターライトステージ", "星光舞台") : mobamas ? t("シンデレラガールズ（モバマス）", "灰姑娘女孩（原作）") : item.game], [t("タイプ", "属性"), c.type], [mobamas ? t("初登場時の入手", "首次登场时的获取方式") : t("入手方法", "获取方式"), c.acquisition], [t("登場ガシャ・イベント", "登场卡池／活动"), c.pool]])}${tags(item)}</aside></div><div class="entry-columns">${section(mobamas ? t("特技", "特技") : t("特技・センター効果", "特技与队长效果"), skills)}${section(t("ステータス", "能力值"), stats ? `<p class="stats-caption">${mobamas ? t("初期値・特訓ボーナスを含まない", "初始数值，不含特训继承加成") : t("最大Lv・親愛度MAX", "最大等级・亲爱度 MAX")}</p>${stats}` : "")}</div>${extra(item)}${infoSections(item)}${related(item, ["stories", "videos", "songs"])}`;
   }
   function musicDetail(item) {
     const music = item.music || {},
@@ -175,11 +201,13 @@ export function createContentViews({
       news: newsDetail,
       timeline: timelineDetail,
     }[item.kind];
-    return `<div class="entry-heading"><a data-detail-back href="#${item.kind}">← ${label(item.kind)}</a><small>${item.kind.toUpperCase()}</small><h1>${title(item)}</h1></div><div class="typed-entry entry-${item.kind}" data-entry="${esc(item.id)}">${renderer(item)}${source(item)}</div>`;
+    return `<div class="entry-heading"><a data-detail-back href="#${item.kind}${item.kind === "cards" && item.game ? `?game=${esc(item.game)}` : ""}">← ${label(item.kind)}</a><small>${item.kind.toUpperCase()}</small><h1>${title(item)}</h1></div><div class="typed-entry entry-${item.kind}" data-entry="${esc(item.id)}">${renderer(item)}${source(item)}</div>`;
   }
-  function overview(kind) {
+  function overview(kind, game) {
     if (kind === "search") return "";
-    const items = all().filter((x) => x.kind === kind),
+    const items = all().filter(
+        (x) => x.kind === kind && (kind !== "cards" || x.game === game),
+      ),
       latest = [...items]
         .filter((x) => x.date)
         .sort((a, b) => b.date.localeCompare(a.date));
@@ -188,7 +216,7 @@ export function createContentViews({
       return `<div class="music-shelf-intro">${solo ? link(solo, image(solo)) : ""}<div><small>YOSHINO'S DISCOGRAPHY</small><h2>${t("歌声をたどって", "循着歌声")}</h2><p>${t("ソロからユニットまで。", "从个人曲到组合曲。")}</p><div class="collection-stats"><span><strong>${items.length}</strong>${t("楽曲", "首歌曲")}</span><span><strong>${new Set(items.map((x) => x.music?.album?.catalogNumber).filter(Boolean)).size}</strong>${t("アルバム", "张唱片")}</span></div></div></div>`;
     }
     if (kind === "cards")
-      return `<div class="collection-stats card-stats">${["SSR", "SR", "N"]
+      return `<div class="collection-stats card-stats">${["SSR", "SR", "R", "N"]
         .map((r) => {
           const n = items.filter((x) => x.rarity === r).length;
           return n
@@ -197,7 +225,7 @@ export function createContentViews({
         })
         .join(
           "",
-        )}<span><strong>${items.filter((x) => x.gallery?.length > 1).length * 2}</strong>${t("特訓前・特訓後のイラスト", "张特训前后插画")}</span></div>`;
+        )}<span><strong>${items.reduce((sum, x) => sum + (x.gallery?.length || 0), 0)}</strong>${t("特訓前・特訓後のイラスト", "张特训前后插画")}</span></div>`;
     if (kind === "stories")
       return `<div class="story-paths">${[
         ["story", t("メインストーリー", "主线剧情")],

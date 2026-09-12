@@ -15,3 +15,5 @@ The source page states a prohibition on reproduction/republication; no permissiv
 THE IDOLM@STER™ & ©Bandai Namco Entertainment Inc.
 
 The complete per-image manifest is [manifest.json](manifest.json), including the original image URL and its source page. Bilibili posters belong to the corresponding uploads by 依田こころ; no creator avatar is used. Game card details include both original and evolved artwork when available. Scheduled thumbnails keep their original URL in `generated.json` under `imageSource`.
+
+Added 2026-09-13: all 20 paired Yoshino cards from the original Cinderella Girls (Mobamas), including the distinct 6th Anniversary · S variants. The 40 local `mobamas-*-art.jpg` files use the full portrait artwork from [デレマスDB](https://imas.gamedbs.jp/cg/idol/detail/199); frameless versions are used where available. Each individual asset and card page is recorded in `manifest.json`.
