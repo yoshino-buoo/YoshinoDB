@@ -2,6 +2,7 @@ import { readFile, writeFile, rename } from "node:fs/promises";
 import * as cheerio from "cheerio";
 import { mergeRecords, validateCatalog, isHttps } from "../lib/data.js";
 import { matches, parseFeed, parseCgNews, makeItem } from "./sync-lib.mjs";
+import { attachPreview } from "./images.mjs";
 const config = JSON.parse(await readFile("public/data/sources.json", "utf8"));
 const previous = validateCatalog(
   JSON.parse(await readFile("public/data/generated.json", "utf8")),
@@ -70,16 +71,45 @@ async function syncSource(source) {
       const item = makeItem(source, `日本コロムビア ${date} 更新`, url, date);
       item.title.zh = `日本哥伦比亚 ${date} 更新`;
       item.description = {
-        ja: `関連キーワード：${keywords.join("・")}。公式ニュース本文をご確認ください。`,
-        zh: `相关关键词：${keywords.join("、")}。请查看官方资讯原文。`,
+        ja: keywords.join("・"),
+        zh: keywords.join("、"),
       };
+      const image = page("img")
+        .toArray()
+        .find((el) => matches(page(el).attr("alt") || "", keywords));
+      const src = image
+        ? page(image).attr("src")
+        : page('meta[property="og:image"]').attr("content");
+      item.imageSource = src ? new URL(src, url).href : "";
       items.push(item);
     }
     return { status: "ok", items };
   }
   throw Error("Unsupported source type");
 }
-const results = await Promise.allSettled(config.sources.map(syncSource));
+const results = await Promise.allSettled(
+  config.sources.map(async (source) => {
+    const result = await syncSource(source);
+    const items = [],
+      errors = [];
+    for (const item of result.items) {
+      const old = previous.items.find(
+        (x) => x.kind === item.kind && x.source === item.source,
+      );
+      try {
+        items.push(await attachPreview(item, old));
+      } catch (error) {
+        errors.push(`${item.id}: ${error.message}`);
+      }
+    }
+    return {
+      ...result,
+      items,
+      errors,
+      status: errors.length ? "error" : result.status,
+    };
+  }),
+);
 const incoming = [],
   states = [];
 for (let i = 0; i < results.length; i++) {
@@ -97,7 +127,12 @@ for (let i = 0; i < results.length; i++) {
     lastSuccess: status === "ok" ? now : (old?.lastSuccess ?? null),
     matches: items.length,
     ...(status === "error"
-      ? { error: result.reason.message.replace(/https?:\/\/\S+/g, "[source]") }
+      ? {
+          error: (result.status === "rejected"
+            ? result.reason.message
+            : result.value.errors.join("; ")
+          ).replace(/https?:\/\/\S+/g, "[source]"),
+        }
       : {}),
   });
   console.log(`${source.id}: ${status}, ${items.length} matches`);

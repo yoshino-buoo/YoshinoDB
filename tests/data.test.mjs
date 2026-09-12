@@ -63,3 +63,26 @@ test("official news ignores navigation and reports source layout breakage", () =
   assert.equal(parseCgNews(html, source, ["芳乃"])[0].date, "2026-09-04");
   assert.throws(() => parseCgNews("<p>Captcha</p>", source, ["芳乃"]));
 });
+
+test("preview URLs are carried through official Atom and article parsing", () => {
+  const xml = `<feed><entry><title>依田芳乃</title><link rel="alternate" href="${item.source}"/><published>2017-02-24T00:00:00Z</published><media:group><media:thumbnail url="https://i.ytimg.com/vi/KHOnP8fbrwo/hqdefault.jpg"/></media:group></entry></feed>`;
+  assert.equal(
+    parseFeed(xml, source, ["芳乃"])[0].imageSource,
+    "https://i.ytimg.com/vi/KHOnP8fbrwo/hqdefault.jpg",
+  );
+  const html =
+    '<a class="top-news__link" href="https://idolmaster-official.jp/news/01_19791"><img src="https://cinderellagirls.idolmaster-official.jp/memopic11.png"><p class="top-news__title">依田芳乃</p><p class="top-news__date">2026.09.04</p></a>';
+  assert.equal(
+    parseCgNews(html, source, ["芳乃"])[0].imageSource,
+    "https://cinderellagirls.idolmaster-official.jp/memopic11.png",
+  );
+});
+
+test("gallery file paths cannot escape the assets directory", () => {
+  assert.throws(() =>
+    validateCatalog({
+      version: 1,
+      items: [{ ...item, gallery: [{ image: "assets/../../secret.jpg" }] }],
+    }),
+  );
+});

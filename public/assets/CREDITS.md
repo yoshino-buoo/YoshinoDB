@@ -1,6 +1,6 @@
 # Image sources / 素材出处
 
-Retrieved 2026-09-12. These are existing official images, not generated fan illustrations.
+Retrieved 2026-09-12. Official artwork, album covers, game artwork and video posters.
 
 | Local file | Source page | Original asset |
 | --- | --- | --- |
@@ -13,3 +13,5 @@ Retrieved 2026-09-12. These are existing official images, not generated fan illu
 The source page states a prohibition on reproduction/republication; no permissive reuse license was observed. Noncommercial fan-site attribution does not itself grant reuse permission. Rights remain with their respective owners. Use the repository's issue contact for correction/removal requests.
 
 THE IDOLM@STER™ & ©Bandai Namco Entertainment Inc.
+
+The complete per-image manifest is [manifest.json](manifest.json), including the original image URL and its source page. Bilibili posters belong to the corresponding uploads by 依田こころ; no creator avatar is used. Game card details include both original and evolved artwork when available. Scheduled thumbnails keep their original URL in `generated.json` under `imageSource`.

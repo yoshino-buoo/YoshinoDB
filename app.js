@@ -23,14 +23,14 @@ const names = {
   search: ["資料検索", "资料搜索"],
   home: ["よりみち帖", "首页"],
   profile: ["芳乃について", "认识芳乃"],
-  cards: ["カード・衣装", "卡片与服装"],
+  cards: ["カード・衣装", "卡面与服装"],
   songs: ["楽曲", "歌曲"],
   stories: ["コミュ", "剧情"],
   units: ["ユニット", "组合"],
   videos: ["動画", "视频"],
   timeline: ["あゆみ", "芳乃足迹"],
   news: ["お知らせ", "资讯"],
-  sources: ["出典・このサイト", "来源与本站"],
+  sources: ["このサイトについて", "关于本站"],
   editor: ["資料を編集", "内容编辑"],
 };
 const t = (ja, zh) => (lang === "ja" ? ja : zh);
@@ -87,6 +87,12 @@ const ext = (url, text, cls = "") =>
   !isHttps(url)
     ? `<span>${text}</span>`
     : `<a class="${cls}" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${text} ${arrow}</a>`;
+const originLabel = (item) =>
+  item.official
+    ? t("公式", "官方")
+    : item.source.includes("bilibili.com")
+      ? t("ファン動画", "粉丝视频")
+      : t("データベース", "资料库");
 const all = () => [
   ...catalog.items,
   ...generated.items.filter(
@@ -108,9 +114,9 @@ function sectionTitle(k, en, link = true) {
 }
 function record(item) {
   const image = item.image
-    ? `<img class="record-image ${item.image.endsWith("yoshino.png") ? "standing" : ""}" src="${base}${esc(item.image)}" alt="${esc(tr(item.title))}" loading="lazy">`
+    ? `<a class="record-cover" href="#entry/${esc(item.id)}" tabindex="-1" aria-hidden="true"><img class="record-image ${item.image.endsWith("yoshino.png") ? "standing" : ""}" src="${base}${esc(item.image)}" alt="${esc(tr(item.title))}" loading="lazy" decoding="async"></a>`
     : `<div class="record-icon" aria-hidden="true">${item.rarity ? esc(item.rarity) : icon(item.kind)}</div>`;
-  return `<article class="record ${esc(item.kind)}">${image}<div class="record-body"><div class="meta"><span class="badge ${item.official ? "official" : "fan"}">${item.official ? t("公式", "官方") : t("有志資料", "粉丝资料")}</span><span>${esc(item.sourceName)}</span>${item.date ? `<time datetime="${esc(item.date)}">${esc(tr(item.dateLabel))} ${esc(item.date.replaceAll("-", "."))}</time>` : ""}</div><h3><a href="#entry/${esc(item.id)}">${esc(tr(item.title))}<span aria-hidden="true">→</span></a></h3><p>${esc(tr(item.description))}</p><div class="record-tags">${(
+  return `<article class="record ${esc(item.kind)}">${image}<div class="record-body"><div class="meta"><span class="badge ${item.official ? "official" : "fan"}">${originLabel(item)}</span><span>${esc(item.sourceName)}</span>${item.date ? `<time datetime="${esc(item.date)}">${esc(tr(item.dateLabel))} ${esc(item.date.replaceAll("-", "."))}</time>` : ""}</div><h3><a href="#entry/${esc(item.id)}">${esc(tr(item.title))}<span aria-hidden="true">→</span></a></h3>${tr(item.description) ? `<p>${esc(tr(item.description))}</p>` : ""}<div class="record-tags">${(
     item.tags || []
   )
     .slice(0, 4)
@@ -145,18 +151,18 @@ function detail(id) {
           )),
     )
     .slice(0, 6);
-  return `<div class="page-title"><a href="#${item.kind}">← ${label(item.kind)}</a><small>${label(item.kind)}</small><h1>${esc(tr(item.title))}</h1></div><div class="detail-layout">${item.image ? `<div class="detail-art ${item.image.endsWith("yoshino.png") ? "standing" : ""}"><img src="${base}${esc(item.image)}" alt="${esc(tr(item.title))}"></div>` : ""}<div class="detail-copy"><span class="badge ${item.official ? "official" : "fan"}">${item.official ? t("公式資料", "官方资料") : t("有志資料・非公式", "粉丝资料・非官方")}</span><p>${esc(tr(item.description))}</p><dl>${item.date ? `<div><dt>${tr(item.dateLabel) || t("日付", "日期")}</dt><dd>${item.date.replaceAll("-", ".")}</dd></div>` : ""}${item.rarity ? `<div><dt>${t("レアリティ", "稀有度")}</dt><dd>${esc(item.rarity)}</dd></div>` : ""}${item.game ? `<div><dt>${t("ゲーム", "游戏")}</dt><dd>${item.game === "deresute" ? t("スターライトステージ", "星光舞台") : esc(item.game)}</dd></div>` : ""}<div><dt>${t("出典", "来源")}</dt><dd>${esc(item.sourceName)}</dd></div>${(item.details || []).map((d) => `<div><dt>${esc(tr(d.label))}</dt><dd>${esc(tr(d.value))}</dd></div>`).join("")}</dl>${ext(item.source, item.kind === "videos" ? t("配信元で動画を見る", "前往原站观看视频") : t("出典で詳しく読む", "查看原始资料"), "source-button")}${item.reference ? `<p>${ext(item.reference, t("掲載を確認した公式ページ", "核实视频的官方页面"))}</p>` : ""}<p class="collection-note">${t("リンク先の公開状況は配信元で変わることがあります。中国語の解説は非公式訳です。", "原始链接的公开状态可能随来源变化。中文说明为非官方翻译。")}</p></div></div>${related.length ? `<section class="related"><h2>${t("つながる記録", "相关记录")}</h2>${related.map(record).join("")}</section>` : ""}`;
+  return `<div class="page-title"><a href="#${item.kind}">← ${label(item.kind)}</a><small>${label(item.kind)}</small><h1>${esc(tr(item.title))}</h1></div><div class="detail-layout ${esc(item.kind)}">${item.image ? `<div class="detail-art ${item.image.endsWith("yoshino.png") ? "standing" : ""}">${(item.gallery || [{ image: item.image }]).map((art) => `<figure><img src="${base}${esc(art.image)}" alt="${esc(tr(item.title))}${art.label ? ` · ${esc(tr(art.label))}` : ""}">${art.label ? `<figcaption>${esc(tr(art.label))}</figcaption>` : ""}</figure>`).join("")}</div>` : ""}<div class="detail-copy"><span class="badge ${item.official ? "official" : "fan"}">${originLabel(item)}</span>${tr(item.description) ? `<p>${esc(tr(item.description))}</p>` : ""}<dl>${item.date ? `<div><dt>${tr(item.dateLabel) || t("日付", "日期")}</dt><dd>${item.date.replaceAll("-", ".")}</dd></div>` : ""}${item.rarity ? `<div><dt>${t("レアリティ", "稀有度")}</dt><dd>${esc(item.rarity)}</dd></div>` : ""}${item.game ? `<div><dt>${t("ゲーム", "游戏")}</dt><dd>${item.game === "deresute" ? t("スターライトステージ", "星光舞台") : esc(item.game)}</dd></div>` : ""}<div><dt>${t("出典", "来源")}</dt><dd>${esc(item.sourceName)}</dd></div>${(item.details || []).map((d) => `<div><dt>${esc(tr(d.label))}</dt><dd>${esc(tr(d.value))}</dd></div>`).join("")}</dl>${ext(item.source, item.kind === "videos" ? t("配信元で動画を見る", "前往原站观看视频") : t("詳しく見る", "查看详情"), "source-button")}${item.reference ? `<p>${ext(item.reference, t("関連する公式ページ", "相关官方页面"))}</p>` : ""}</div></div>${related.length ? `<section class="related"><h2>${t("つながる記録", "相关记录")}</h2>${related.map(record).join("")}</section>` : ""}`;
 }
 
 function home() {
-  return `<section class="intro-grid"><div class="intro"><div class="eyebrow"><span></span>YORITA YOSHINO · FAN ARCHIVE</div><h1>${t("ご縁をたどる、<br>芳乃の記録。", "循着缘分，<br>记录芳乃的点滴。")}</h1><p class="intro-copy">${t("歌に、物語に、ひとつひとつの出会いに。<br>依田芳乃の歩みを、ここに綴ってゆきます。", "歌声、故事，还有一次次的相遇。<br>把依田芳乃走过的足迹，珍藏于此。")}</p><form class="search-form" role="search"><span aria-hidden="true">⌕</span><input name="q" aria-label="${t("資料を検索", "搜索资料")}" placeholder="${t("カード、楽曲、コミュを探す…", "搜索卡片、歌曲、剧情…")}" autocomplete="off"><button>${t("検索", "搜索")}</button></form><a class="profile-link" href="#profile">${t("はじめまして、依田芳乃です", "初次见面，我是依田芳乃")} <span>→</span></a><div class="intro-bottom"><span>七月三日</span><i></i><span>${t("鹿児島から、あなたのもとへ。", "从鹿儿岛，来到你身边。")}</span></div></div><div class="portrait"><div class="portrait-disc"></div><div class="vertical-copy" aria-hidden="true">${t("よきご縁が、ありますように。", "愿美好的缘分，与你相伴。")}</div><img src="${base}assets/yoshino.png" alt="${t("依田芳乃の公式立ち絵", "依田芳乃官方立绘")}" fetchpriority="high"><div class="portrait-label"><span>よりた よしの</span><strong>依田 芳乃</strong><small>CV. ${t("高田憂希", "高田忧希")}</small></div><a class="art-credit" href="#sources">©Bandai Namco Entertainment Inc.</a></div></section><section class="archive-section">${sectionTitle("home", "EXPLORE THE ARCHIVE", false).replace(`<h2><small>EXPLORE THE ARCHIVE</small>${label("home")}</h2>`, `<h2><small>EXPLORE THE ARCHIVE</small>${t("芳乃をめぐる、あれこれ", "关于芳乃的点点滴滴")}</h2><span class="subtle">${t("気になるページから、よりみち。", "从感兴趣的一页开始漫步。")}</span>`)}<div class="directory">${["cards", "songs", "stories", "units", "videos", "timeline"].map((k, i) => `<a href="#${k}"><span class="directory-num">0${i + 1}</span><span class="directory-icon">${icon(k)}</span><strong>${label(k)}</strong><small>${t(...{ cards: ["姿と装いの記録", "记录每一份姿态与装扮"], songs: ["歌声に耳をすませて", "聆听芳乃的歌声"], stories: ["言の葉をたどって", "寻访故事中的言语"], units: ["ともに紡ぐご縁", "一同编织的缘分"], videos: ["映像でもう一度", "在影像中再次相遇"], timeline: ["これまでの足あと", "回望一路的足迹"] }[k])}</small><span class="dir-arrow">↗</span></a>`).join("")}</div></section><div class="home-lower"><section>${sectionTitle("news", "NEWS & NOTES")}<div class="records">${all()
+  return `<section class="intro-grid"><div class="intro"><div class="eyebrow"><span></span>YORITA YOSHINO · FAN ARCHIVE</div><h1>${t("<span>ご縁をたどる、</span><span>芳乃の記録。</span>", "<span>循着缘分，</span><span>与芳乃相遇。</span>")}</h1><p class="intro-copy">${t("歌に、物語に、ひとつひとつの出会いに。<br>依田芳乃の歩みを、ここに綴ってゆきます。", "歌声、故事，还有一次次的相遇。<br>把依田芳乃走过的足迹，珍藏于此。")}</p><form class="search-form" role="search"><span aria-hidden="true">⌕</span><input name="q" aria-label="${t("資料を検索", "搜索资料")}" placeholder="${t("カード、楽曲、コミュを探す…", "搜索卡片、歌曲、剧情…")}" autocomplete="off"><button>${t("検索", "搜索")}</button></form><a class="profile-link" href="#profile">${t("はじめまして、依田芳乃です", "初次见面，我是依田芳乃")} <span>→</span></a><div class="intro-bottom"><span>七月三日</span><i></i><span>${t("鹿児島から、あなたのもとへ。", "从鹿儿岛，来到你身边。")}</span></div></div><div class="portrait"><div class="portrait-disc"></div><div class="vertical-copy" aria-hidden="true">${t("よきご縁が、ありますように。", "愿美好的缘分，与你相伴。")}</div><img src="${base}assets/yoshino.png" alt="${t("依田芳乃の公式立ち絵", "依田芳乃官方立绘")}" fetchpriority="high"><div class="portrait-label"><span>よりた よしの</span><strong>依田 芳乃</strong><small>CV. ${t("高田憂希", "高田忧希")}</small></div><a class="art-credit" href="#sources">©Bandai Namco Entertainment Inc.</a></div></section><section class="archive-section">${sectionTitle("home", "EXPLORE THE ARCHIVE", false).replace(`<h2><small>EXPLORE THE ARCHIVE</small>${label("home")}</h2>`, `<h2><small>EXPLORE THE ARCHIVE</small>${t("芳乃をめぐる、あれこれ", "关于芳乃的点点滴滴")}</h2><span class="subtle">${t("気になるページから、よりみち。", "从感兴趣的一页开始漫步。")}</span>`)}<div class="directory">${["cards", "songs", "stories", "units", "videos", "timeline"].map((k, i) => `<a href="#${k}"><span class="directory-num">0${i + 1}</span><span class="directory-icon">${icon(k)}</span><strong>${label(k)}</strong><small>${t(...{ cards: ["姿と装いの記録", "记录每一份姿态与装扮"], songs: ["歌声に耳をすませて", "聆听芳乃的歌声"], stories: ["言の葉をたどって", "寻访故事中的言语"], units: ["ともに紡ぐご縁", "一同编织的缘分"], videos: ["映像でもう一度", "在影像中再次相遇"], timeline: ["これまでの足あと", "回望一路的足迹"] }[k])}</small><span class="dir-arrow">↗</span></a>`).join("")}</div></section><div class="home-lower"><section>${sectionTitle("news", "NEWS & NOTES")}<div class="records">${all()
     .filter((x) => x.kind === "news")
     .sort((a, b) => (b.date || "").localeCompare(a.date || ""))
     .slice(0, 3)
     .map(record)
     .join(
       "",
-    )}</div><p class="collection-note">${t("出典を確認できた情報から収録しています。網羅的な一覧ではありません。", "从已核实来源的资料开始收录，目前尚非完整资料库。")}</p></section><aside class="small-garden"><span class="eyebrow">A LITTLE DETOUR</span><h2>${t("ひと息、ぶおー。", "歇一会儿，ぶおー。")}</h2><p>${t("芳乃といっしょに、法螺貝の修行を。", "和芳乃一起，来一场法螺贝修行。")}</p>${ext("https://yoshino-buoo.github.io/buo-dojo/", t("ぶおー法螺貝道場へ", "前往法螺贝道场"), "garden-link")}<span class="garden-bottom">${t("ちいさな遊び場、大きなご縁。", "小小的游乐场，大大的缘分。")}</span></aside></div>`;
+    )}</div></section><aside class="small-garden"><span class="eyebrow">A LITTLE DETOUR</span><h2>${t("ひと息、ぶおー。", "歇一会儿，ぶおー。")}</h2><p>${t("芳乃といっしょに、法螺貝の修行を。", "和芳乃一起，来一场法螺贝修行。")}</p>${ext("https://yoshino-buoo.github.io/buo-dojo/", t("ぶおー法螺貝道場へ", "前往法螺贝道场"), "garden-link")}<span class="garden-bottom">${t("ちいさな遊び場、大きなご縁。", "小小的游乐场，大大的缘分。")}</span></aside></div>`;
 }
 function pageTitle(k, en, description = "") {
   return `<div class="page-title"><a href="#home">${label("home")}</a><small>${en}</small><h1>${label(k)}</h1>${description ? `<p>${description}</p>` : ""}</div>`;
@@ -164,7 +170,7 @@ function pageTitle(k, en, description = "") {
 function listing(route) {
   const q =
     new URLSearchParams(location.hash.split("?")[1] || "").get("q") || "";
-  return `${pageTitle(route, route.toUpperCase(), t("出典へつながる、芳乃の資料帖。", "每条资料，都能追溯到原始来源。"))}<form class="list-controls" role="search"><input name="q" value="${esc(q)}" placeholder="${t("キーワードで絞り込む", "输入关键词筛选")}" aria-label="${t("キーワード", "关键词")}"><select name="origin" aria-label="${t("情報元", "来源类型")}"><option value="all">${t("すべての情報元", "全部来源")}</option><option value="official">${t("公式のみ", "仅官方")}</option><option value="fan">${t("有志資料", "粉丝资料")}</option></select>${route === "cards" ? `<select name="rarity" aria-label="${t("レアリティ", "稀有度")}"><option value="all">${t("すべてのレアリティ", "全部稀有度")}</option><option>SSR</option><option>SR</option></select>` : ""}<select name="sort" aria-label="${t("並び順", "排序")}"><option value="newest">${t("新しい順", "由新到旧")}</option><option value="oldest" ${route === "timeline" ? "selected" : ""}>${t("古い順", "由旧到新")}</option></select><button class="primary">${t("検索", "搜索")}</button></form><p class="result-count" aria-live="polite"></p><div id="results" class="records ${route === "cards" ? "card-grid" : route === "videos" ? "video-grid" : route === "timeline" ? "timeline-list" : ""}"></div>`;
+  return `${pageTitle(route, route.toUpperCase())}<form class="list-controls" role="search"><input name="q" value="${esc(q)}" placeholder="${t("キーワードで絞り込む", "输入关键词筛选")}" aria-label="${t("キーワード", "关键词")}"><select name="origin" aria-label="${t("情報元", "来源类型")}"><option value="all">${t("すべての情報元", "全部来源")}</option><option value="official">${t("公式のみ", "仅官方")}</option><option value="fan">${t("有志資料", "粉丝资料")}</option></select>${route === "cards" ? `<select name="rarity" aria-label="${t("レアリティ", "稀有度")}"><option value="all">${t("すべてのレアリティ", "全部稀有度")}</option><option>SSR</option><option>SR</option></select>` : ""}<select name="sort" aria-label="${t("並び順", "排序")}"><option value="newest">${t("新しい順", "由新到旧")}</option><option value="oldest" ${route === "timeline" ? "selected" : ""}>${t("古い順", "由旧到新")}</option></select><button class="primary">${t("検索", "搜索")}</button></form><p class="result-count" aria-live="polite"></p><div id="results" class="records ${route === "cards" ? "card-grid" : route === "videos" ? "video-grid" : route === "timeline" ? "timeline-list" : ""}"></div>`;
 }
 function profile() {
   return `${pageTitle("profile", "ABOUT YOSHINO")}<div class="profile-grid"><div class="profile-art"><img src="${base}assets/yoshino.png" alt="依田芳乃"></div><div><span class="eyebrow">YORITA YOSHINO</span><h2 class="profile-name">依田 芳乃</h2><p>${t("アイドルマスター シンデレラガールズ", "偶像大师 灰姑娘女孩")} · Passion</p><dl>${[
@@ -250,8 +256,8 @@ function render() {
 }
 function sources() {
   return (
-    pageTitle("sources", "SOURCES & ABOUT") +
-    `<div class="prose"><h2>${t("ご縁を、少しずつ記録する。", "一点点记录，与芳乃相连的缘分。")}</h2><p>${t("プロフィール、楽曲、物語、映像を出典とともにまとめるファンアーカイブです。公開資料で確認できた項目を収録し、未確認の内容は掲載しません。中国語の説明は非公式訳です。作品名は原題を尊重しています。", "这是汇集人物、歌曲、故事和影像的粉丝资料档案。只收录能在公开来源核实的条目；中文说明为非官方翻译，作品名称保留原题。")}</p><h2>${t("情報元", "资料来源")}</h2>${[
+    pageTitle("sources", "ABOUT THIS LITTLE ARCHIVE") +
+    `<div class="prose"><h2>${t("ご縁を、少しずつ。", "把与芳乃的相遇，慢慢收藏。")}</h2><p>${t("好きな歌を聴き返したり、懐かしいコミュを開いたり。芳乃のことをもっと知りたい日に、ふらりと立ち寄れる場所です。", "重听一首喜欢的歌，翻开一段怀念的剧情。想多了解一点芳乃的时候，就来这里逛逛吧。")}</p><h2>${t("リンク", "一起逛逛")}</h2>${[
       [
         "シンデレラガールズ 公式サイト",
         "https://cinderellagirls.idolmaster-official.jp/idol/yoshino/",
@@ -263,17 +269,14 @@ function sources() {
       ["日本コロムビア", "https://columbia.jp/idolmaster/"],
       ["アイドルマスター ポータル", "https://idolmaster-official.jp/"],
       ["依田こころ · Bilibili", "https://space.bilibili.com/11748057"],
-      [
-        "SugarHeartDB · " + t("構成の参考", "结构参考"),
-        "https://nagomi-sugarheart.github.io/SugarHeartDB/",
-      ],
+      ["SugarHeartDB", "https://nagomi-sugarheart.github.io/SugarHeartDB/"],
     ]
       .map(([n, u]) => `<p>${ext(u, n)}</p>`)
-      .join(
-        "",
-      )}<h2>${t("画像・権利表記", "图像与版权")}</h2><p>${t("立ち絵の出典：シンデレラガールズ公式「依田芳乃」ページ。画像の権利は権利者に帰属します。本サイトの非営利表記は利用許諾を意味しません。削除・訂正のご連絡は下記の窓口へお願いします。", "立绘来源为灰姑娘女孩官方「依田芳乃」页面。图像版权归权利人所有，本站的非营利声明不等同于获得使用许可。如需删除或订正，请通过下方入口联系。")}</p>${ext("https://github.com/yoshino-buoo/YoshinoDB/issues/new/choose", t("訂正・お問い合わせ", "纠错与联系"))}<h2>${t("更新について", "关于更新")}</h2><p>${t("公式配信と記事のタイトル・日付・リンクを定期確認します。本文・動画本体は転載しません。情報元が取得できない場合は、以前の記録を保持します。", "定期检查官方视频和文章的标题、日期与链接。全文与视频文件不作转载；来源暂时不可用时保留已有记录。")}</p><p class="collection-note">${t("YouTube は直近の配信からキーワードで抽出するため、全動画を網羅するものではありません。Bilibili は手動追加、または管理者が設定したフィードを使用します。", "YouTube 按关键词筛选近期订阅内容，无法覆盖所有历史视频。Bilibili 使用手工收录，或由维护者配置订阅源。")}</p><div id="sync-status">${generated.sources.map((s) => `<p>${esc(s.name)} · ${s.status === "ok" ? t("確認済み", "检查成功") : s.status === "manual" ? t("手動で追加", "手工收录") : t("取得できませんでした・以前の記録を保持", "暂时无法获取，已保留原记录")} · ${esc((s.checkedAt || "").slice(0, 10))}</p>`).join("") || t("定期確認の初回実行前です。", "尚未首次运行定期检查。")}</div></div>`
+      .join("")}
+    <h2>${t("この手帖を育てる", "一起添上新的一页")}</h2><p>${t("好きなカードや動画、思い出のエピソード。おすすめや訂正をお待ちしています。", "喜欢的卡面、视频，或是难忘的小故事，都欢迎来补充。")}</p>${ext("https://github.com/yoshino-buoo/YoshinoDB/issues/new/choose", t("情報を寄せる", "补充内容"), "text-link")}</div>`
   );
 }
+
 function editor() {
   return (
     pageTitle("editor", "CONTENT EDITOR") +

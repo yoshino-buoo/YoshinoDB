@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&display=swap");
 :root {
   --paper: #faf8f2;
   --ink: #413d38;
@@ -1425,4 +1424,354 @@ footer p + p {
   .small-garden p {
     font-size: 14px;
   }
+}
+
+/* Chinese uses its own glyphs and spacing instead of inheriting Japanese typesetting. */
+:root:lang(zh-Hans) {
+  --serif: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  --sans:
+    "PingFang SC", "Microsoft YaHei", "Hiragino Kaku Gothic ProN", sans-serif;
+}
+:lang(zh-Hans) .brand strong,
+:lang(zh-Hans) h1,
+:lang(zh-Hans) .intro-copy,
+:lang(zh-Hans) .directory strong {
+  letter-spacing: 0.025em;
+}
+:lang(zh-Hans) .record h3 {
+  line-height: 1.65;
+}
+:lang(zh-Hans) .record p {
+  line-height: 1.85;
+}
+.intro,
+.portrait,
+.home-lower > *,
+.directory > a,
+.detail-copy {
+  min-width: 0;
+}
+.intro h1 span {
+  display: block;
+}
+.intro h1 {
+  font-size: clamp(32px, 4.6vw, 49px);
+}
+.header .brand strong,
+.badge,
+.meta time {
+  white-space: nowrap;
+}
+.meta > span:not(.badge) {
+  overflow-wrap: anywhere;
+}
+.record-cover {
+  display: block;
+  flex-shrink: 0;
+  width: 112px;
+  align-self: flex-start;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.record-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: #eee9de;
+}
+.record.videos .record-cover,
+.record.stories .record-cover,
+.record.timeline .record-cover {
+  width: 176px;
+}
+.record.videos .record-image,
+.record.stories .record-image,
+.record.timeline .record-image {
+  aspect-ratio: 16 / 9;
+}
+.record.news .record-cover {
+  width: 140px;
+}
+.record.news .record-image {
+  aspect-ratio: 4 / 3;
+}
+.record h3 a {
+  gap: 10px;
+  overflow-wrap: anywhere;
+}
+.record h3 a > span {
+  font-family: var(--sans);
+}
+.card-grid .record,
+.video-grid .record {
+  padding: 0 0 20px;
+  overflow: hidden;
+}
+.card-grid .record-body,
+.video-grid .record-body {
+  padding: 0 20px;
+}
+.card-grid .record-cover,
+.video-grid .record.videos .record-cover {
+  width: 100%;
+  border-radius: 0;
+}
+.card-grid .record-image {
+  height: auto;
+  aspect-ratio: 4 / 3;
+  background: #eee7db;
+}
+.card-grid .record-image.standing {
+  height: 240px;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: 50% 43%;
+}
+.video-grid .record-image {
+  object-fit: contain;
+}
+.card-grid .meta > span:not(.badge),
+.video-grid .meta > span:not(.badge) {
+  flex: 1 1 130px;
+}
+.detail-art {
+  width: min(44%, 480px);
+}
+.detail-layout.cards .detail-art {
+  width: min(48%, 520px);
+}
+.detail-layout.videos .detail-art,
+.detail-layout.stories .detail-art {
+  width: min(50%, 560px);
+}
+.detail-art img {
+  display: block;
+  height: auto;
+}
+.detail-copy dd {
+  overflow-wrap: anywhere;
+}
+.list-controls > * {
+  min-width: 0;
+}
+.directory small {
+  white-space: normal;
+}
+
+@media (max-width: 760px) {
+  .intro-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    overflow: visible;
+  }
+  .intro {
+    display: contents;
+  }
+  .intro .eyebrow {
+    grid-column: 1 / -1;
+    padding-top: 30px;
+  }
+  .intro h1 {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: end;
+    font-size: clamp(23px, 5.1vw, 36px);
+    line-height: 1.65;
+    letter-spacing: 0;
+    margin: 28px -20px 12px 0;
+  }
+  .intro h1 span {
+    white-space: nowrap;
+  }
+
+  .intro-copy {
+    grid-column: 1;
+    grid-row: 3;
+    font-size: 13px;
+    max-width: none;
+    line-height: 1.95;
+    margin: 0 0 18px;
+  }
+  .intro-copy br {
+    display: none;
+  }
+  .portrait {
+    grid-column: 2;
+    grid-row: 2 / 4;
+    position: relative;
+    width: auto;
+    height: auto;
+    min-height: 255px;
+    top: auto;
+    right: auto;
+    overflow: hidden;
+    margin: 0 -20px 0 0;
+  }
+  .portrait > img {
+    width: 280px;
+    top: -43px;
+  }
+  .portrait-disc {
+    width: 200px;
+    height: 200px;
+    left: 0;
+    top: 55px;
+  }
+  .search-form {
+    grid-column: 1 / -1;
+    width: 100%;
+    max-width: none;
+    margin: 12px 0 0;
+  }
+  .profile-link {
+    grid-column: 1 / -1;
+    margin-top: 16px;
+  }
+  .intro-bottom {
+    grid-column: 1 / -1;
+    margin: 22px 0 26px;
+    flex-wrap: wrap;
+  }
+  .intro-bottom i {
+    flex-grow: 0;
+  }
+  .record {
+    gap: 14px;
+  }
+  .record-cover {
+    width: 88px;
+  }
+  .record.videos .record-cover,
+  .record.stories .record-cover,
+  .record.timeline .record-cover {
+    width: 112px;
+  }
+  .record.news .record-cover {
+    width: 96px;
+  }
+  .record h3 {
+    font-size: 16px;
+  }
+  .record .meta {
+    gap: 6px;
+    font-size: 11px;
+  }
+  .record .meta time {
+    margin-left: 0;
+  }
+  .record p {
+    font-size: 13px;
+  }
+  .record-tags {
+    gap: 5px;
+    margin-top: 8px;
+  }
+  .record-tags span {
+    font-size: 11px;
+  }
+  .timeline-list .record {
+    margin-left: 4px;
+    padding-left: 18px;
+    flex-wrap: wrap;
+  }
+  .timeline-list .record.timeline .record-cover {
+    width: 100%;
+    max-width: 280px;
+  }
+  .timeline-list .record-body {
+    flex-basis: 100%;
+  }
+  .card-grid .record-cover,
+  .video-grid .record.videos .record-cover {
+    width: 100%;
+  }
+  .detail-art,
+  .detail-layout.cards .detail-art,
+  .detail-layout.videos .detail-art,
+  .detail-layout.stories .detail-art {
+    width: 100%;
+    max-width: 480px;
+  }
+  .list-controls {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .list-controls input {
+    grid-column: 1 / -1;
+    min-width: 0;
+    width: 100%;
+  }
+  .list-controls select {
+    width: 100%;
+  }
+  .list-controls button {
+    justify-self: stretch;
+  }
+  .page-title h1 {
+    font-size: 29px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+  .footer-top {
+    align-items: flex-start;
+  }
+}
+@media (max-width: 380px) {
+  .header {
+    padding-inline: 14px;
+    gap: 9px;
+  }
+  .header .brand {
+    gap: 8px;
+  }
+  .brand strong {
+    font-size: 14px;
+  }
+  .language {
+    gap: 5px;
+  }
+  .language button {
+    min-width: 0;
+  }
+  main {
+    padding-inline: 16px;
+  }
+  .record.stories {
+    flex-direction: column;
+  }
+  .record.stories .record-cover {
+    width: 100%;
+    max-width: 280px;
+  }
+  .intro h1 {
+    font-size: 23px;
+  }
+  .intro-copy {
+    font-size: 12px;
+  }
+  .portrait {
+    margin-right: -16px;
+  }
+  .portrait > img {
+    width: 258px;
+    top: -33px;
+  }
+}
+.detail-art figure {
+  margin: 0 0 24px;
+}
+.detail-art figcaption {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+}
+.draft-card > img {
+  display: block;
+  max-width: 320px;
+  width: 100%;
+  margin-bottom: 20px;
 }

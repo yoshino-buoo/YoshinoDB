@@ -4,7 +4,12 @@ for (const file of ["catalog", "generated"]) {
   const data = validateCatalog(
     JSON.parse(await readFile(`public/data/${file}.json`, "utf8")),
   );
-  for (const item of data.items)
-    if (item.image) await access(`public/${item.image}`);
-  console.log(`${file}: ${data.items.length} valid records`);
+  for (const item of data.items) {
+    if (!item.image) throw Error(`Preview image required: ${item.id}`);
+    await access(`public/${item.image}`);
+    for (const art of item.gallery || []) await access(`public/${art.image}`);
+  }
+  console.log(
+    `${file}: ${data.items.length} valid records, all previews present`,
+  );
 }

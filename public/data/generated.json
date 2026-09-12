@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastAttempt": "2026-09-12T08:56:16.620Z",
+  "lastAttempt": "2026-09-12T09:17:17.992Z",
   "items": [
     {
       "id": "auto-636315de522a08cb",
@@ -10,8 +10,8 @@
         "zh": ""
       },
       "description": {
-        "ja": "原文の見出しを掲載しています。詳しくは配信元をご覧ください。",
-        "zh": "标题保留原文，详情请查看原始来源。"
+        "ja": "",
+        "zh": ""
       },
       "date": "2026-09-04",
       "source": "https://idolmaster-official.jp/news/01_19791",
@@ -21,7 +21,9 @@
       "tags": [
         "cg-news"
       ],
-      "discoveredBy": "scheduled-sync"
+      "discoveredBy": "scheduled-sync",
+      "imageSource": "https://cinderellagirls.idolmaster-official.jp/E8Yb44QbFNGE/wp-content/uploads/2026/08/memopic11.png",
+      "image": "assets/memory-pict.png"
     }
   ],
   "sources": [
@@ -29,39 +31,39 @@
       "id": "cg-news",
       "name": "シンデレラガールズ 公式ニュース",
       "status": "ok",
-      "checkedAt": "2026-09-12T08:56:16.620Z",
-      "lastSuccess": "2026-09-12T08:56:16.620Z",
+      "checkedAt": "2026-09-12T09:17:17.992Z",
+      "lastSuccess": "2026-09-12T09:17:17.992Z",
       "matches": 1
     },
     {
       "id": "columbia-news",
       "name": "日本コロムビア 公式ニュース",
       "status": "ok",
-      "checkedAt": "2026-09-12T08:56:16.620Z",
-      "lastSuccess": "2026-09-12T08:56:16.620Z",
+      "checkedAt": "2026-09-12T09:17:17.992Z",
+      "lastSuccess": "2026-09-12T09:17:17.992Z",
       "matches": 0
     },
     {
       "id": "imas-youtube",
       "name": "アイドルマスターチャンネル",
       "status": "ok",
-      "checkedAt": "2026-09-12T08:56:16.620Z",
-      "lastSuccess": "2026-09-12T08:56:16.620Z",
+      "checkedAt": "2026-09-12T09:17:17.992Z",
+      "lastSuccess": "2026-09-12T09:17:17.992Z",
       "matches": 0
     },
     {
       "id": "columbia-youtube",
       "name": "日本コロムビア 公式YouTube",
       "status": "ok",
-      "checkedAt": "2026-09-12T08:56:16.620Z",
-      "lastSuccess": "2026-09-12T08:56:16.620Z",
+      "checkedAt": "2026-09-12T09:17:17.992Z",
+      "lastSuccess": "2026-09-12T09:17:17.992Z",
       "matches": 0
     },
     {
       "id": "kokoro-bilibili",
       "name": "依田こころ · Bilibili",
       "status": "manual",
-      "checkedAt": "2026-09-12T08:56:16.620Z",
+      "checkedAt": "2026-09-12T09:17:17.992Z",
       "lastSuccess": null,
       "matches": 0
     }

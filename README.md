@@ -88,3 +88,11 @@ scripts/validate.mjs            发布前检查
 このサイトは、株式会社バンダイナムコエンターテインメントおよび各関連企業・団体とは関係のない、非公式・非営利のファンサイトです。
 
 THE IDOLM@STER™ & ©Bandai Namco Entertainment Inc.
+
+## 预览图与字体维护
+
+所有发布条目都必须有 `image`，路径形如 `assets/example.jpg`。将图片上传到 `public/assets/`，再在内容编辑页填写这个路径；预览按钮可以检查图片。`imageSource` 保存原图网址，卡面可用 `gallery` 记录特训前后两张图。图片下载归档在本站，列表和详情不依赖第三方防盗链。素材清单见 `public/assets/manifest.json`。
+
+构建会阻止缺图、文件不存在和不安全路径的条目发布。同步任务会从 Atom/RSS 或官方资讯卡片提取封面并归档；抓不到封面的新条目会留在 Actions 的错误报告里，已有资料继续保留。后续可通过内容编辑补齐图片再收录。自动提交会同时包含 JSON 和新增图片。
+
+中文标题使用 Noto Serif SC，中文正文依次使用 PingFang SC、Microsoft YaHei；日文保留独立字体栈。Noto Serif JP/SC 的字重 400–700 和完整 Unicode 分片已部署到 `public/fonts/`，按页面实际文字加载，不依赖 Google Fonts 在线服务。字体授权见 `public/fonts/OFL.txt`。

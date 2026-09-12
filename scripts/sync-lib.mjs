@@ -24,10 +24,7 @@ export function makeItem(source, title, url, date, kind = "news") {
     id,
     kind,
     title: { ja: title, zh: "" },
-    description: {
-      ja: "原文の見出しを掲載しています。詳しくは配信元をご覧ください。",
-      zh: "标题保留原文，详情请查看原始来源。",
-    },
+    description: { ja: "", zh: "" },
     date,
     source: url,
     sourceName: source.name,
@@ -76,15 +73,25 @@ export function parseFeed(xml, source, keywords) {
     }
     const published = Date.parse(text(e.published || e.pubDate || e.updated));
     if (!Number.isFinite(published)) return [];
-    return [
-      makeItem(
-        source,
-        title,
-        url,
-        new Date(published).toISOString().slice(0, 10),
-        "videos",
-      ),
-    ];
+    const item = makeItem(
+      source,
+      title,
+      url,
+      new Date(published).toISOString().slice(0, 10),
+      "videos",
+    );
+    const thumbnail = array(
+      e["media:group"]?.["media:thumbnail"] || e["media:thumbnail"],
+    )
+      .map((m) => m?.["@_url"])
+      .find(isHttps);
+    const embedded = cheerio.load(description)("img").first().attr("src");
+    const enclosure = array(e.enclosure).find((m) =>
+      m?.["@_type"]?.startsWith("image/"),
+    )?.["@_url"];
+    item.imageSource =
+      thumbnail || (isHttps(embedded) ? embedded : enclosure) || "";
+    return [item];
   });
 }
 export function parseCgNews(html, source, keywords) {
@@ -107,6 +114,8 @@ export function parseCgNews(html, source, keywords) {
       !/^\d{4}-\d{2}-\d{2}$/.test(date)
     )
       return [];
-    return [makeItem(source, title, url, date)];
+    const item = makeItem(source, title, url, date);
+    item.imageSource = $(el).find("img").first().attr("src") || "";
+    return [item];
   });
 }
