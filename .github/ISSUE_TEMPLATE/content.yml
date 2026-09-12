@@ -1,0 +1,39 @@
+name: 資料の追加・訂正 / 补充与纠错
+description: 出典のある資料をお寄せください / 请提供可核实的来源
+title: "[資料] "
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 分類 / 分类
+      options:
+        [
+          カード・衣装 / 卡片与服装,
+          楽曲 / 歌曲,
+          コミュ / 剧情,
+          動画 / 视频,
+          年表 / 年表,
+          訂正・権利者連絡 / 纠错与权利人联系,
+        ]
+    validations:
+      required: true
+  - type: input
+    id: title
+    attributes:
+      label: タイトル / 标题
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: 出典URL / 来源网址
+      placeholder: https://
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: 追加・訂正の内容 / 补充或更正内容
+      description: 日本語・中文いずれでも構いません / 日语或中文均可
+    validations:
+      required: true

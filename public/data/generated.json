@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "lastAttempt": "2026-09-12T08:44:00.114Z",
+  "items": [
+    {
+      "id": "auto-636315de522a08cb",
+      "kind": "news",
+      "title": {
+        "ja": "※来週末まで！【シンデレラ】グッズシリーズ「Memory Pict.」第6弾:｡･:* 6th Pict.（小日向美穂・依田芳乃）の受注は9/13(日)まで！",
+        "zh": ""
+      },
+      "description": {
+        "ja": "原文の見出しを掲載しています。詳しくは配信元をご覧ください。",
+        "zh": "标题保留原文，详情请查看原始来源。"
+      },
+      "date": "2026-09-04",
+      "source": "https://idolmaster-official.jp/news/01_19791",
+      "sourceName": "シンデレラガールズ 公式ニュース",
+      "sourceId": "cg-news",
+      "official": true,
+      "tags": [
+        "cg-news"
+      ],
+      "discoveredBy": "scheduled-sync"
+    }
+  ],
+  "sources": [
+    {
+      "id": "cg-news",
+      "name": "シンデレラガールズ 公式ニュース",
+      "status": "ok",
+      "checkedAt": "2026-09-12T08:44:00.114Z",
+      "lastSuccess": "2026-09-12T08:44:00.114Z",
+      "matches": 1
+    },
+    {
+      "id": "columbia-news",
+      "name": "日本コロムビア 公式ニュース",
+      "status": "ok",
+      "checkedAt": "2026-09-12T08:44:00.114Z",
+      "lastSuccess": "2026-09-12T08:44:00.114Z",
+      "matches": 0
+    },
+    {
+      "id": "imas-youtube",
+      "name": "アイドルマスターチャンネル",
+      "status": "ok",
+      "checkedAt": "2026-09-12T08:44:00.114Z",
+      "lastSuccess": "2026-09-12T08:44:00.114Z",
+      "matches": 0
+    },
+    {
+      "id": "columbia-youtube",
+      "name": "日本コロムビア 公式YouTube",
+      "status": "ok",
+      "checkedAt": "2026-09-12T08:44:00.114Z",
+      "lastSuccess": "2026-09-12T08:44:00.114Z",
+      "matches": 0
+    },
+    {
+      "id": "kokoro-bilibili",
+      "name": "依田こころ · Bilibili",
+      "status": "manual",
+      "checkedAt": "2026-09-12T08:44:00.114Z",
+      "lastSuccess": null,
+      "matches": 0
+    }
+  ]
+}

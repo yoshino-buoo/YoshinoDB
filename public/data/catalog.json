@@ -1,0 +1,1593 @@
+{
+  "version": 1,
+  "updatedAt": "2026-09-12",
+  "items": [
+    {
+      "id": "inori",
+      "kind": "songs",
+      "title": {
+        "ja": "祈りの花",
+        "zh": "祈りの花"
+      },
+      "description": {
+        "ja": "依田芳乃のソロ曲。作詞・作曲・編曲：BNSI（トリ音）。",
+        "zh": "依田芳乃的个人曲。作词、作曲、编曲：BNSI（トリ音）。"
+      },
+      "date": "2017-03-15",
+      "dateLabel": {
+        "ja": "CD発売",
+        "zh": "CD 发售"
+      },
+      "tags": [
+        "solo",
+        "deresute"
+      ],
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20170315_1",
+      "sourceName": "シンデレラライブラリー",
+      "official": true
+    },
+    {
+      "id": "story51",
+      "kind": "stories",
+      "title": {
+        "ja": "ストーリーコミュ 第51話",
+        "zh": "主线剧情 第51话"
+      },
+      "description": {
+        "ja": "依田芳乃を中心としたストーリー。楽曲「祈りの花」とともに追加。",
+        "zh": "以依田芳乃为中心的主线故事，与歌曲《祈りの花》一同实装。"
+      },
+      "date": "2018-06-08",
+      "tags": [
+        "deresute",
+        "story"
+      ],
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20180608_2",
+      "sourceName": "シンデレラライブラリー",
+      "official": true
+    },
+    {
+      "id": "mirror2024",
+      "kind": "news",
+      "title": {
+        "ja": "「花霞のかぎろひ＋」パーソナルパブミラー",
+        "zh": "「花霞のかぎろひ＋」主题装饰镜"
+      },
+      "description": {
+        "ja": "公式ショップの商品告知。2024年12月5日公開。掲載の受注期間は終了しています。",
+        "zh": "官方商店商品公告，发布于 2024 年 12 月 5 日。原公告的预约期已结束。"
+      },
+      "date": "2024-12-05",
+      "tags": [
+        "goods"
+      ],
+      "source": "https://bandainamco-am.co.jp/chara_shop/idolmaster/NEWS/asobistore/202412051200.html",
+      "sourceName": "バンダイナムコ アミューズメント",
+      "official": true
+    },
+    {
+      "id": "kokoro-kaitan",
+      "kind": "videos",
+      "title": {
+        "ja": "【CGSS】双色芳乃「廻談詣り」",
+        "zh": "【CGSS】双色芳乃「廻談詣り」"
+      },
+      "description": {
+        "ja": "依田こころさんのMV投稿。原投稿のタイトルを掲載しています。",
+        "zh": "依田こころ投稿的 MV 展示。点击前往原投稿观看。"
+      },
+      "date": "2025-04-17",
+      "tags": [
+        "bilibili",
+        "mv"
+      ],
+      "source": "https://www.bilibili.com/video/BV1bm5Yz8EdL/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false
+    },
+    {
+      "id": "history-20140528_1",
+      "kind": "timeline",
+      "title": {
+        "ja": "岡山エリアで初登場",
+        "zh": "于冈山区域初登场"
+      },
+      "description": {
+        "ja": "乙倉悠貴とともに登場。公式ライブラリーの掲載日を記録しています。",
+        "zh": "与乙仓悠贵一同登场。此处采用官方资料库记载的日期。"
+      },
+      "date": "2014-05-28",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20140528_1",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "デレマス"
+      ]
+    },
+    {
+      "id": "history-20161116_2",
+      "kind": "timeline",
+      "title": {
+        "ja": "Take me☆Take you 発売",
+        "zh": "Take me☆Take you 发售"
+      },
+      "description": {
+        "ja": "第5回総選挙の選抜メンバーによるCD。芳乃が歌唱に参加。",
+        "zh": "第 5 次总选举选拔成员的 CD，芳乃参与演唱。"
+      },
+      "date": "2016-11-16",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20161116_2",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "CD"
+      ]
+    },
+    {
+      "id": "history-20170315_1",
+      "kind": "timeline",
+      "title": {
+        "ja": "ソロCD「CINDERELLA MASTER 048」発売",
+        "zh": "个人 CD「CINDERELLA MASTER 048」发售"
+      },
+      "description": {
+        "ja": "ソロ曲「祈りの花」を収録。",
+        "zh": "收录个人曲《祈りの花》。"
+      },
+      "date": "2017-03-15",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20170315_1",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "CD"
+      ]
+    },
+    {
+      "id": "history-20180608_2",
+      "kind": "timeline",
+      "title": {
+        "ja": "ストーリーコミュ第51話 追加",
+        "zh": "主线剧情第 51 话实装"
+      },
+      "description": {
+        "ja": "芳乃を中心とする物語と「祈りの花」がデレステに登場。",
+        "zh": "以芳乃为中心的故事与《祈りの花》加入星光舞台。"
+      },
+      "date": "2018-06-08",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20180608_2",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "デレステ"
+      ]
+    },
+    {
+      "id": "history-20181119_1",
+      "kind": "timeline",
+      "title": {
+        "ja": "山紫水明「Sunshine See May」",
+        "zh": "山紫水明「Sunshine See May」"
+      },
+      "description": {
+        "ja": "藤原肇と依田芳乃のユニットによるイベント。",
+        "zh": "藤原肇与依田芳乃组成的组合迎来主题活动。"
+      },
+      "date": "2018-11-19",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20181119_1",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "デレステ"
+      ]
+    },
+    {
+      "id": "history-20200720_1",
+      "kind": "timeline",
+      "title": {
+        "ja": "Sonoritia「太陽の絵の具箱」",
+        "zh": "Sonoritia「太陽の絵の具箱」"
+      },
+      "description": {
+        "ja": "緒方智絵里・依田芳乃・遊佐こずえ・佐城雪美が参加。",
+        "zh": "绪方智绘里、依田芳乃、游佐梢、佐城雪美参与。"
+      },
+      "date": "2020-07-20",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20200720_1",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "デレステ"
+      ]
+    },
+    {
+      "id": "history-20220819_1",
+      "kind": "timeline",
+      "title": {
+        "ja": "かくりよがたり「廻談詣り」",
+        "zh": "かくりよがたり「廻談詣り」"
+      },
+      "description": {
+        "ja": "白坂小梅とともにイベント「LIVE Infinity」に登場。",
+        "zh": "与白坂小梅一同参与 LIVE Infinity 活动。"
+      },
+      "date": "2022-08-19",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20220819_1",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "デレステ"
+      ]
+    },
+    {
+      "id": "history-20230321_1",
+      "kind": "timeline",
+      "title": {
+        "ja": "エフェメラ「ミライコンパス」",
+        "zh": "エフェメラ「ミライコンパス」"
+      },
+      "description": {
+        "ja": "5人のユニットによる春のイベント。",
+        "zh": "五人组合共同参与的春日主题活动。"
+      },
+      "date": "2023-03-21",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20230321_1",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "デレステ"
+      ]
+    },
+    {
+      "id": "history-20240616_1",
+      "kind": "timeline",
+      "title": {
+        "ja": "ConnecTrip! 石川公演",
+        "zh": "ConnecTrip! 石川公演"
+      },
+      "description": {
+        "ja": "かくりよがたりが出演。昼は「祈りの花」、夜は「日々あどべんちゃーなのでしてー」を披露。",
+        "zh": "かくりよがたり出演。日场演唱《祈りの花》，夜场演唱《日々あどべんちゃーなのでしてー》。"
+      },
+      "date": "2024-06-16",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20240616_1",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "イベント"
+      ]
+    },
+    {
+      "id": "sanshi",
+      "kind": "units",
+      "title": {
+        "ja": "山紫水明",
+        "zh": "山紫水明"
+      },
+      "description": {
+        "ja": "依田芳乃・藤原肇。関連楽曲：Sunshine See May。",
+        "zh": "依田芳乃、藤原肇。相关歌曲：Sunshine See May。"
+      },
+      "date": "",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20181119_1",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "Sunshine See May",
+        "unit"
+      ]
+    },
+    {
+      "id": "harugasumi",
+      "kind": "units",
+      "title": {
+        "ja": "春霞",
+        "zh": "春霞"
+      },
+      "description": {
+        "ja": "依田芳乃・小早川紗枝・道明寺歌鈴・浜口あやめ・脇山珠美。関連楽曲：桜の頃。",
+        "zh": "依田芳乃、小早川纱枝、道明寺歌铃、滨口菖蒲、胁山珠美。相关歌曲：桜の頃。"
+      },
+      "date": "",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20170228_2",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "桜の頃",
+        "unit"
+      ]
+    },
+    {
+      "id": "sonoritia",
+      "kind": "units",
+      "title": {
+        "ja": "Sonoritia",
+        "zh": "Sonoritia"
+      },
+      "description": {
+        "ja": "緒方智絵里・依田芳乃・遊佐こずえ・佐城雪美。関連楽曲：太陽の絵の具箱。",
+        "zh": "绪方智绘里、依田芳乃、游佐梢、佐城雪美。相关歌曲：太陽の絵の具箱。"
+      },
+      "date": "",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20200720_1",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "太陽の絵の具箱",
+        "unit"
+      ]
+    },
+    {
+      "id": "kakuriyo",
+      "kind": "units",
+      "title": {
+        "ja": "かくりよがたり",
+        "zh": "かくりよがたり"
+      },
+      "description": {
+        "ja": "依田芳乃・白坂小梅。関連楽曲：廻談詣り。",
+        "zh": "依田芳乃、白坂小梅。相关歌曲：廻談詣り。"
+      },
+      "date": "",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20220819_1",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "廻談詣り",
+        "unit"
+      ]
+    },
+    {
+      "id": "ephemera",
+      "kind": "units",
+      "title": {
+        "ja": "エフェメラ",
+        "zh": "エフェメラ"
+      },
+      "description": {
+        "ja": "望月聖・佐久間まゆ・緒方智絵里・依田芳乃・高森藍子。関連楽曲：ミライコンパス。",
+        "zh": "望月圣、佐久间麻由、绪方智绘里、依田芳乃、高森蓝子。相关歌曲：ミライコンパス。"
+      },
+      "date": "",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20230321_1",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "ミライコンパス",
+        "unit"
+      ]
+    },
+    {
+      "id": "commu-20170228_2",
+      "kind": "stories",
+      "title": {
+        "ja": "桜の頃 · イベントコミュ",
+        "zh": "樱花时节 · 活动剧情"
+      },
+      "description": {
+        "ja": "イベントの開催期間・参加アイドル・楽曲情報を公式記録からたどれます。",
+        "zh": "可通过官方记录查看活动时间、参与角色和歌曲信息。"
+      },
+      "date": "2017-02-28",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20170228_2",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "deresute",
+        "event",
+        "桜の頃"
+      ]
+    },
+    {
+      "id": "sr-20170228_2",
+      "kind": "cards",
+      "title": {
+        "ja": "［桜の頃］依田芳乃",
+        "zh": "［桜の頃］依田芳乃"
+      },
+      "description": {
+        "ja": "デレステのイベント報酬Sレア。特訓前・特訓後のカードが登場。",
+        "zh": "星光舞台活动奖励 SR，包含特训前后卡片。"
+      },
+      "date": "2017-02-28",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20170228_2",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "SR",
+        "deresute",
+        "event",
+        "桜の頃"
+      ],
+      "rarity": "SR",
+      "game": "deresute",
+      "dateLabel": {
+        "ja": "デレステ初登場",
+        "zh": "星光舞台初次实装"
+      }
+    },
+    {
+      "id": "commu-20181119_1",
+      "kind": "stories",
+      "title": {
+        "ja": "Sunshine See May · イベントコミュ",
+        "zh": "Sunshine See May · 活动剧情"
+      },
+      "description": {
+        "ja": "イベントの開催期間・参加アイドル・楽曲情報を公式記録からたどれます。",
+        "zh": "可通过官方记录查看活动时间、参与角色和歌曲信息。"
+      },
+      "date": "2018-11-19",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20181119_1",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "deresute",
+        "event",
+        "Sunshine See May"
+      ]
+    },
+    {
+      "id": "sr-20181119_1",
+      "kind": "cards",
+      "title": {
+        "ja": "［Sunshine See May］依田芳乃",
+        "zh": "［Sunshine See May］依田芳乃"
+      },
+      "description": {
+        "ja": "デレステのイベント報酬Sレア。特訓前・特訓後のカードが登場。",
+        "zh": "星光舞台活动奖励 SR，包含特训前后卡片。"
+      },
+      "date": "2018-11-19",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20181119_1",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "SR",
+        "deresute",
+        "event",
+        "Sunshine See May"
+      ],
+      "rarity": "SR",
+      "game": "deresute",
+      "dateLabel": {
+        "ja": "デレステ初登場",
+        "zh": "星光舞台初次实装"
+      }
+    },
+    {
+      "id": "commu-20200720_1",
+      "kind": "stories",
+      "title": {
+        "ja": "太陽の絵の具箱 · イベントコミュ",
+        "zh": "太阳的颜料盒 · 活动剧情"
+      },
+      "description": {
+        "ja": "イベントの開催期間・参加アイドル・楽曲情報を公式記録からたどれます。",
+        "zh": "可通过官方记录查看活动时间、参与角色和歌曲信息。"
+      },
+      "date": "2020-07-20",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20200720_1",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "deresute",
+        "event",
+        "太陽の絵の具箱"
+      ]
+    },
+    {
+      "id": "commu-20220819_1",
+      "kind": "stories",
+      "title": {
+        "ja": "廻談詣り · イベントコミュ",
+        "zh": "廻谈参拜 · 活动剧情"
+      },
+      "description": {
+        "ja": "イベントの開催期間・参加アイドル・楽曲情報を公式記録からたどれます。",
+        "zh": "可通过官方记录查看活动时间、参与角色和歌曲信息。"
+      },
+      "date": "2022-08-19",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20220819_1",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "deresute",
+        "event",
+        "廻談詣り"
+      ]
+    },
+    {
+      "id": "sr-20220819_1",
+      "kind": "cards",
+      "title": {
+        "ja": "［廻談詣り］依田芳乃",
+        "zh": "［廻談詣り］依田芳乃"
+      },
+      "description": {
+        "ja": "デレステのイベント報酬Sレア。特訓前・特訓後のカードが登場。",
+        "zh": "星光舞台活动奖励 SR，包含特训前后卡片。"
+      },
+      "date": "2022-08-19",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20220819_1",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "SR",
+        "deresute",
+        "event",
+        "廻談詣り"
+      ],
+      "rarity": "SR",
+      "game": "deresute",
+      "dateLabel": {
+        "ja": "デレステ初登場",
+        "zh": "星光舞台初次实装"
+      }
+    },
+    {
+      "id": "commu-20230321_1",
+      "kind": "stories",
+      "title": {
+        "ja": "ミライコンパス · イベントコミュ",
+        "zh": "未来指南针 · 活动剧情"
+      },
+      "description": {
+        "ja": "イベントの開催期間・参加アイドル・楽曲情報を公式記録からたどれます。",
+        "zh": "可通过官方记录查看活动时间、参与角色和歌曲信息。"
+      },
+      "date": "2023-03-21",
+      "source": "https://cinderella-library.idolmaster-official.jp/history/detail/?p=20230321_1",
+      "sourceName": "シンデレラライブラリー",
+      "official": true,
+      "tags": [
+        "deresute",
+        "event",
+        "ミライコンパス"
+      ]
+    },
+    {
+      "id": "song-sunshine",
+      "kind": "songs",
+      "title": {
+        "ja": "Sunshine See May",
+        "zh": "Sunshine See May"
+      },
+      "description": {
+        "ja": "依田芳乃・藤原肇。作詞：只野菜摘。作曲・編曲：滝澤俊輔・池田健仁。",
+        "zh": "依田芳乃、藤原肇。作词：只野菜摘；作曲与编曲：泷泽俊辅、池田健仁。"
+      },
+      "date": "2019-12-11",
+      "source": "https://cinderellagirls.idolmaster-official.jp/discography/cocc-17524/",
+      "sourceName": "シンデレラガールズ公式",
+      "official": true,
+      "tags": [
+        "unit",
+        "Sunshine See May"
+      ],
+      "dateLabel": {
+        "ja": "CD発売",
+        "zh": "CD 发售"
+      },
+      "image": "assets/sunshine.jpg"
+    },
+    {
+      "id": "video-sunshine",
+      "kind": "videos",
+      "title": {
+        "ja": "Sunshine See May · 公式試聴",
+        "zh": "Sunshine See May · 官方试听"
+      },
+      "description": {
+        "ja": "公式ディスコグラフィーで紹介されている試聴動画。",
+        "zh": "官方唱片目录中收录的试听视频。"
+      },
+      "date": "",
+      "source": "https://www.youtube.com/watch?v=TAOiUuyO7Ho",
+      "sourceName": "日本コロムビア · YouTube",
+      "official": true,
+      "tags": [
+        "youtube",
+        "preview",
+        "Sunshine See May"
+      ],
+      "reference": "https://cinderellagirls.idolmaster-official.jp/discography/cocc-17524/",
+      "image": "assets/sunshine.jpg"
+    },
+    {
+      "id": "song-sakura",
+      "kind": "songs",
+      "title": {
+        "ja": "桜の頃",
+        "zh": "桜の頃"
+      },
+      "description": {
+        "ja": "春霞の5人が歌唱。作詞：桜アス恵。作曲：隠田遼平。編曲：坪田修平。",
+        "zh": "春霞的五位成员演唱。作词：桜アス恵；作曲：隠田遼平；编曲：坪田修平。"
+      },
+      "date": "2018-03-14",
+      "source": "https://cinderellagirls.idolmaster-official.jp/discography/cocc-17155/",
+      "sourceName": "シンデレラガールズ公式",
+      "official": true,
+      "tags": [
+        "unit",
+        "桜の頃"
+      ],
+      "dateLabel": {
+        "ja": "CD発売",
+        "zh": "CD 发售"
+      },
+      "image": "assets/sakura.jpg"
+    },
+    {
+      "id": "video-sakura",
+      "kind": "videos",
+      "title": {
+        "ja": "桜の頃 · 公式試聴",
+        "zh": "桜の頃 · 官方试听"
+      },
+      "description": {
+        "ja": "公式ディスコグラフィーで紹介されている試聴動画。",
+        "zh": "官方唱片目录中收录的试听视频。"
+      },
+      "date": "",
+      "source": "https://www.youtube.com/watch?v=wSUc8HKXkpY",
+      "sourceName": "日本コロムビア · YouTube",
+      "official": true,
+      "tags": [
+        "youtube",
+        "preview",
+        "桜の頃"
+      ],
+      "reference": "https://cinderellagirls.idolmaster-official.jp/discography/cocc-17155/",
+      "image": "assets/sakura.jpg"
+    },
+    {
+      "id": "song-taiyo",
+      "kind": "songs",
+      "title": {
+        "ja": "太陽の絵の具箱",
+        "zh": "太陽の絵の具箱"
+      },
+      "description": {
+        "ja": "Sonoritiaの4人が歌唱。作詞・作曲・編曲：BNSI（トリ音）。",
+        "zh": "Sonoritia 的四位成员演唱。作词、作曲与编曲：BNSI（トリ音）。"
+      },
+      "date": "2020-10-07",
+      "source": "https://cinderellagirls.idolmaster-official.jp/discography/cocc-17832/",
+      "sourceName": "シンデレラガールズ公式",
+      "official": true,
+      "tags": [
+        "unit",
+        "太陽の絵の具箱"
+      ],
+      "dateLabel": {
+        "ja": "CD発売",
+        "zh": "CD 发售"
+      },
+      "image": "assets/taiyo.jpg"
+    },
+    {
+      "id": "video-taiyo",
+      "kind": "videos",
+      "title": {
+        "ja": "太陽の絵の具箱 · 公式試聴",
+        "zh": "太陽の絵の具箱 · 官方试听"
+      },
+      "description": {
+        "ja": "公式ディスコグラフィーで紹介されている試聴動画。",
+        "zh": "官方唱片目录中收录的试听视频。"
+      },
+      "date": "",
+      "source": "https://www.youtube.com/watch?v=CSA8t4IYtRQ",
+      "sourceName": "日本コロムビア · YouTube",
+      "official": true,
+      "tags": [
+        "youtube",
+        "preview",
+        "太陽の絵の具箱"
+      ],
+      "reference": "https://cinderellagirls.idolmaster-official.jp/discography/cocc-17832/",
+      "image": "assets/taiyo.jpg"
+    },
+    {
+      "id": "song-kaitan",
+      "kind": "songs",
+      "title": {
+        "ja": "廻談詣り",
+        "zh": "廻談詣り"
+      },
+      "description": {
+        "ja": "依田芳乃・白坂小梅。作詞：ミズノゲンキ。作曲・編曲：睦月周平。",
+        "zh": "依田芳乃、白坂小梅。作词：ミズノゲンキ；作曲与编曲：睦月周平。"
+      },
+      "date": "2023-06-14",
+      "source": "https://cinderellagirls.idolmaster-official.jp/discography/cocc-17987/",
+      "sourceName": "シンデレラガールズ公式",
+      "official": true,
+      "tags": [
+        "unit",
+        "廻談詣り"
+      ],
+      "dateLabel": {
+        "ja": "CD発売",
+        "zh": "CD 发售"
+      },
+      "image": "assets/kaitan.jpg"
+    },
+    {
+      "id": "video-kaitan",
+      "kind": "videos",
+      "title": {
+        "ja": "廻談詣り · 公式試聴",
+        "zh": "廻談詣り · 官方试听"
+      },
+      "description": {
+        "ja": "公式ディスコグラフィーで紹介されている試聴動画。",
+        "zh": "官方唱片目录中收录的试听视频。"
+      },
+      "date": "",
+      "source": "https://www.youtube.com/watch?v=Prxv2ni0s0A",
+      "sourceName": "日本コロムビア · YouTube",
+      "official": true,
+      "tags": [
+        "youtube",
+        "preview",
+        "廻談詣り"
+      ],
+      "reference": "https://cinderellagirls.idolmaster-official.jp/discography/cocc-17987/",
+      "image": "assets/kaitan.jpg"
+    },
+    {
+      "id": "video-inori",
+      "kind": "videos",
+      "title": {
+        "ja": "祈りの花 · 公式試聴",
+        "zh": "祈りの花 · 官方试听"
+      },
+      "description": {
+        "ja": "CINDERELLA MASTER 048 依田芳乃の公式試聴。",
+        "zh": "CINDERELLA MASTER 048 依田芳乃的官方试听。"
+      },
+      "date": "2017-02-24",
+      "source": "https://www.youtube.com/watch?v=KHOnP8fbrwo",
+      "sourceName": "日本コロムビア · YouTube",
+      "official": true,
+      "tags": [
+        "youtube",
+        "solo",
+        "祈りの花"
+      ]
+    },
+    {
+      "id": "kokoro-nagisa",
+      "kind": "videos",
+      "title": {
+        "ja": "【中字】［渚の夏乙女］依田芳乃 特訓コミュ",
+        "zh": "【中字】［渚の夏乙女］依田芳乃 特训剧情"
+      },
+      "description": {
+        "ja": "依田こころさんによる中国語字幕付きのファン投稿。",
+        "zh": "依田こころ制作的中文字幕剧情投稿。"
+      },
+      "date": "2022-08-04",
+      "source": "https://www.bilibili.com/video/BV1Ja411K7UR/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "zh",
+        "commu"
+      ]
+    },
+    {
+      "id": "kokoro-collection",
+      "kind": "stories",
+      "title": {
+        "ja": "芳乃コミュ 中国語字幕アーカイブ",
+        "zh": "芳乃剧情汉化合集"
+      },
+      "description": {
+        "ja": "依田こころさんの「芳乃剧情汉化」シリーズ。中国語字幕付きのコミュをまとめた公開リストです。",
+        "zh": "依田こころ的「芳乃剧情汉化」系列，集中收录中文字幕剧情视频。"
+      },
+      "date": "",
+      "source": "https://space.bilibili.com/11748057/lists/2423723?type=series",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "zh",
+        "commu"
+      ]
+    },
+    {
+      "id": "card-559",
+      "kind": "cards",
+      "title": {
+        "ja": "[わだつみの導き手]依田芳乃",
+        "zh": "[わだつみの導き手]依田芳乃"
+      },
+      "description": {
+        "ja": "デレステのSSRカード。入手履歴・能力値は有志データベースで確認できます。",
+        "zh": "星光舞台 SSR 卡片。可在粉丝数据库查看获取记录与能力值。"
+      },
+      "date": "2016-05-25",
+      "source": "https://imas.gamedbs.jp/cgss/card/detail/559/559",
+      "sourceName": "デレステDB · 有志資料",
+      "official": false,
+      "tags": [
+        "SSR",
+        "deresute"
+      ],
+      "rarity": "SSR",
+      "game": "deresute",
+      "dateLabel": {
+        "ja": "デレステ初登場",
+        "zh": "星光舞台初次实装"
+      }
+    },
+    {
+      "id": "card-823",
+      "kind": "cards",
+      "title": {
+        "ja": "[湯浴みの踊子]依田芳乃",
+        "zh": "[湯浴みの踊子]依田芳乃"
+      },
+      "description": {
+        "ja": "デレステのSRカード。入手履歴・能力値は有志データベースで確認できます。",
+        "zh": "星光舞台 SR 卡片。可在粉丝数据库查看获取记录与能力值。"
+      },
+      "date": "2016-10-31",
+      "source": "https://imas.gamedbs.jp/cgss/card/detail/823/823",
+      "sourceName": "デレステDB · 有志資料",
+      "official": false,
+      "tags": [
+        "SR",
+        "deresute"
+      ],
+      "rarity": "SR",
+      "game": "deresute",
+      "dateLabel": {
+        "ja": "デレステ初登場",
+        "zh": "星光舞台初次实装"
+      }
+    },
+    {
+      "id": "card-1529",
+      "kind": "cards",
+      "title": {
+        "ja": "[うたかたの結び手]依田芳乃",
+        "zh": "[うたかたの結び手]依田芳乃"
+      },
+      "description": {
+        "ja": "デレステのSSRカード。入手履歴・能力値は有志データベースで確認できます。",
+        "zh": "星光舞台 SSR 卡片。可在粉丝数据库查看获取记录与能力值。"
+      },
+      "date": "2018-06-30",
+      "source": "https://imas.gamedbs.jp/cgss/card/detail/1529/1529",
+      "sourceName": "デレステDB · 有志資料",
+      "official": false,
+      "tags": [
+        "SSR",
+        "deresute"
+      ],
+      "rarity": "SSR",
+      "game": "deresute",
+      "dateLabel": {
+        "ja": "デレステ初登場",
+        "zh": "星光舞台初次实装"
+      }
+    },
+    {
+      "id": "card-2017",
+      "kind": "cards",
+      "title": {
+        "ja": "[水影のうなさか]依田芳乃",
+        "zh": "[水影のうなさか]依田芳乃"
+      },
+      "description": {
+        "ja": "デレステのSRカード。入手履歴・能力値は有志データベースで確認できます。",
+        "zh": "星光舞台 SR 卡片。可在粉丝数据库查看获取记录与能力值。"
+      },
+      "date": "2019-07-31",
+      "source": "https://imas.gamedbs.jp/cgss/card/detail/2017/2017",
+      "sourceName": "デレステDB · 有志資料",
+      "official": false,
+      "tags": [
+        "SR",
+        "deresute"
+      ],
+      "rarity": "SR",
+      "game": "deresute",
+      "dateLabel": {
+        "ja": "デレステ初登場",
+        "zh": "星光舞台初次实装"
+      }
+    },
+    {
+      "id": "card-2661",
+      "kind": "cards",
+      "title": {
+        "ja": "[春光の少女]依田芳乃",
+        "zh": "[春光の少女]依田芳乃"
+      },
+      "description": {
+        "ja": "デレステのSRカード。入手履歴・能力値は有志データベースで確認できます。",
+        "zh": "星光舞台 SR 卡片。可在粉丝数据库查看获取记录与能力值。"
+      },
+      "date": "2021-01-04",
+      "source": "https://imas.gamedbs.jp/cgss/card/detail/2661/2661",
+      "sourceName": "デレステDB · 有志資料",
+      "official": false,
+      "tags": [
+        "SR",
+        "deresute"
+      ],
+      "rarity": "SR",
+      "game": "deresute",
+      "dateLabel": {
+        "ja": "デレステ初登場",
+        "zh": "星光舞台初次实装"
+      }
+    },
+    {
+      "id": "outfit-official",
+      "kind": "cards",
+      "title": {
+        "ja": "公式ポータル掲載衣装",
+        "zh": "官方门户展示服装"
+      },
+      "description": {
+        "ja": "公式プロフィールで紹介されている芳乃の衣装。",
+        "zh": "芳乃官方人物介绍页所展示的服装。"
+      },
+      "date": "",
+      "source": "https://cinderellagirls.idolmaster-official.jp/idol/yoshino/",
+      "sourceName": "シンデレラガールズ公式",
+      "official": true,
+      "tags": [
+        "outfit"
+      ],
+      "image": "assets/yoshino.png"
+    },
+    {
+      "id": "bili-BV1KS4y1V7Tf",
+      "kind": "videos",
+      "title": {
+        "ja": "メモリアルコミュ · 中国語字幕",
+        "zh": "【中字】依田芳乃个人回忆剧情"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "",
+      "source": "https://www.bilibili.com/video/BV1KS4y1V7Tf/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "memory"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "story-BV1KS4y1V7Tf",
+      "kind": "stories",
+      "title": {
+        "ja": "メモリアルコミュ · 中国語字幕",
+        "zh": "【中字】依田芳乃个人回忆剧情"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "",
+      "source": "https://www.bilibili.com/video/BV1KS4y1V7Tf/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "memory"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "bili-BV15r4y1a7nn",
+      "kind": "videos",
+      "title": {
+        "ja": "山紫水明の営業「水泉仙女-gold or silver?-」",
+        "zh": "【中字】山紫水明营业剧情『水泉仙女-gold or silver?-』"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "",
+      "source": "https://www.bilibili.com/video/BV15r4y1a7nn/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "business"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "story-BV15r4y1a7nn",
+      "kind": "stories",
+      "title": {
+        "ja": "山紫水明の営業「水泉仙女-gold or silver?-」",
+        "zh": "【中字】山紫水明营业剧情『水泉仙女-gold or silver?-』"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "",
+      "source": "https://www.bilibili.com/video/BV15r4y1a7nn/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "business"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "bili-BV1qN4y157S6",
+      "kind": "videos",
+      "title": {
+        "ja": "御伽公演 ふれあい狼と小さな赤ずきんちゃん",
+        "zh": "【中字】御伽公演 ふれあい狼と小さな赤ずきんちゃん(mobamas)"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "",
+      "source": "https://www.bilibili.com/video/BV1qN4y157S6/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "mobamas"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "story-BV1qN4y157S6",
+      "kind": "stories",
+      "title": {
+        "ja": "御伽公演 ふれあい狼と小さな赤ずきんちゃん",
+        "zh": "【中字】御伽公演 ふれあい狼と小さな赤ずきんちゃん(mobamas)"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "",
+      "source": "https://www.bilibili.com/video/BV1qN4y157S6/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "mobamas"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "bili-BV1KrYb6CEbS",
+      "kind": "videos",
+      "title": {
+        "ja": "ぶおー法螺貝道場 · ゲーム紹介",
+        "zh": "【総選挙2026】和芳乃一起吹赛博法螺贝的小游戏"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "",
+      "source": "https://www.bilibili.com/video/BV1KrYb6CEbS/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "game"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "bili-BV1vahF6MEWM",
+      "kind": "videos",
+      "title": {
+        "ja": "Memory Pict. · 小日向美穂＆依田芳乃",
+        "zh": "【小日向美穗/依田芳乃】Memory Pict. 11月告知动画"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "",
+      "source": "https://www.bilibili.com/video/BV1vahF6MEWM/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "goods"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "bili-BV1maKG6hEht",
+      "kind": "videos",
+      "title": {
+        "ja": "［縁結日和］カードボイス · 中国語字幕",
+        "zh": "【中字/CGSS】[縁結日和]依田芳乃 卡面语音"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "",
+      "source": "https://www.bilibili.com/video/BV1maKG6hEht/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "voice"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "bili-BV1aHTE6xEpN",
+      "kind": "videos",
+      "title": {
+        "ja": "［花霞のかぎろひ］カードボイス · 中国語字幕",
+        "zh": "【中字/CGSS】［花雾之春光］依田芳乃 卡面语音"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "",
+      "source": "https://www.bilibili.com/video/BV1aHTE6xEpN/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "voice"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "bili-BV1aYV86uE3U",
+      "kind": "videos",
+      "title": {
+        "ja": "「シンデレラNo.1」藤原肇＆依田芳乃",
+        "zh": "【CGSS】「シンデレラNo.1」藤原肇&依田芳乃 歌词动画"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "",
+      "source": "https://www.bilibili.com/video/BV1aYV86uE3U/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "mv"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "bili-BV1b14y1n7DJ",
+      "kind": "videos",
+      "title": {
+        "ja": "［わだつみの導き手］ボイス集",
+        "zh": "[わだつみの導き手]依田芳乃(mobamas版) 语音集"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "2022-11-26",
+      "source": "https://www.bilibili.com/video/BV1b14y1n7DJ/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "voice"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "bili-BV17g411R7Vi",
+      "kind": "videos",
+      "title": {
+        "ja": "［よろこびと巡り逢ふ］ボイス集",
+        "zh": "[よろこびと巡り逢ふ]依田芳乃 语音集"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "2022-05-31",
+      "source": "https://www.bilibili.com/video/BV17g411R7Vi/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "voice"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "bili-BV1JM4y1L7mo",
+      "kind": "videos",
+      "title": {
+        "ja": "［いつくし花笑み］ボイス集",
+        "zh": "[いつくし花笑み]依田芳乃 语音集"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "2021-08-13",
+      "source": "https://www.bilibili.com/video/BV1JM4y1L7mo/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "voice"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "bili-BV15y4y157AR",
+      "kind": "videos",
+      "title": {
+        "ja": "［ことほぎの祈り］ボイス集",
+        "zh": "[ことほぎの祈り]依田芳乃 语音集（モバマス版）"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "2021-08-21",
+      "source": "https://www.bilibili.com/video/BV15y4y157AR/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "voice"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "bili-BV1dPcnzPEu9",
+      "kind": "videos",
+      "title": {
+        "ja": "営業コミュ「力を合わせてSonoritia」",
+        "zh": "【中字/CGSS】Sonoritia营业剧情3［齐心协力Sonoritia］"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "",
+      "source": "https://www.bilibili.com/video/BV1dPcnzPEu9/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "business"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "story-BV1dPcnzPEu9",
+      "kind": "stories",
+      "title": {
+        "ja": "営業コミュ「力を合わせてSonoritia」",
+        "zh": "【中字/CGSS】Sonoritia营业剧情3［齐心协力Sonoritia］"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "",
+      "source": "https://www.bilibili.com/video/BV1dPcnzPEu9/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "business"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "bili-BV1VQcFzrEa5",
+      "kind": "videos",
+      "title": {
+        "ja": "「熱情エナモラル」イベントコミュ",
+        "zh": "【中字/CGSS】活动剧情［熱情エナモラル］"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "",
+      "source": "https://www.bilibili.com/video/BV1VQcFzrEa5/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "event"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "story-BV1VQcFzrEa5",
+      "kind": "stories",
+      "title": {
+        "ja": "「熱情エナモラル」イベントコミュ",
+        "zh": "【中字/CGSS】活动剧情［熱情エナモラル］"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "",
+      "source": "https://www.bilibili.com/video/BV1VQcFzrEa5/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "event"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "bili-BV1JNWvzgE4E",
+      "kind": "videos",
+      "title": {
+        "ja": "Passion jewelries! 004 · ボーナスドラマ",
+        "zh": "【中字】「熱情エナモラル」特典广播剧"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "2025-10-16",
+      "source": "https://www.bilibili.com/video/BV1JNWvzgE4E/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "drama"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "bili-BV1YZ421T73J",
+      "kind": "videos",
+      "title": {
+        "ja": "2021年の誕生日コミュ · 中国語字幕",
+        "zh": "【依田芳乃生誕祭/中字】mobamas芳乃生日剧情2021"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "2024-07-02",
+      "source": "https://www.bilibili.com/video/BV1YZ421T73J/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "birthday"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "story-BV1YZ421T73J",
+      "kind": "stories",
+      "title": {
+        "ja": "2021年の誕生日コミュ · 中国語字幕",
+        "zh": "【依田芳乃生誕祭/中字】mobamas芳乃生日剧情2021"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "2024-07-02",
+      "source": "https://www.bilibili.com/video/BV1YZ421T73J/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "birthday"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "bili-BV1Jz421a7GP",
+      "kind": "videos",
+      "title": {
+        "ja": "ぷちエピソード · 中国語字幕",
+        "zh": "【中字/mobamas】依田芳乃 迷你灰姑娘剧情"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "2024-05-27",
+      "source": "https://www.bilibili.com/video/BV1Jz421a7GP/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "mobamas"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "story-BV1Jz421a7GP",
+      "kind": "stories",
+      "title": {
+        "ja": "ぷちエピソード · 中国語字幕",
+        "zh": "【中字/mobamas】依田芳乃 迷你灰姑娘剧情"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "2024-05-27",
+      "source": "https://www.bilibili.com/video/BV1Jz421a7GP/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "mobamas"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "bili-BV1VATGzsELX",
+      "kind": "videos",
+      "title": {
+        "ja": "2025年6月 私服「青の一番星」",
+        "zh": "【CGSS】深蓝连衣裙芳乃「青の一番星」（2025年6月实装私服）"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "2025-06-07",
+      "source": "https://www.bilibili.com/video/BV1VATGzsELX/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "outfit"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "bili-BV1k15VzFEY3",
+      "kind": "videos",
+      "title": {
+        "ja": "2025年5月 私服「満願成就♪巫女の神頼み！」",
+        "zh": "【CGSS】中华风芳乃「満願成就♪巫女の神頼み！」（2025年5月实装私服）"
+      },
+      "description": {
+        "ja": "依田こころさんの公開投稿。日本語の見出しは本サイトで整理しています。",
+        "zh": "依田こころ的公开投稿，点击原始链接观看。日文标题为本站整理。"
+      },
+      "date": "2025-05-09",
+      "source": "https://www.bilibili.com/video/BV1k15VzFEY3/",
+      "sourceName": "依田こころ · Bilibili",
+      "official": false,
+      "tags": [
+        "bilibili",
+        "outfit"
+      ],
+      "verifiedAt": "2026-09-12"
+    },
+    {
+      "id": "hibi",
+      "kind": "songs",
+      "title": {
+        "ja": "日々あどべんちゃーなのでしてー",
+        "zh": "日々あどべんちゃーなのでしてー"
+      },
+      "description": {
+        "ja": "依田芳乃のソロ曲。作詞・作曲・編曲：山本真央樹。",
+        "zh": "依田芳乃的个人曲。作词、作曲与编曲：山本真央树。"
+      },
+      "date": "2021-11-17",
+      "dateLabel": {
+        "ja": "CD発売",
+        "zh": "CD 发售"
+      },
+      "source": "https://cinderellagirls.idolmaster-official.jp/discography/cocc-17842/",
+      "sourceName": "シンデレラガールズ公式",
+      "official": true,
+      "tags": [
+        "solo"
+      ]
+    },
+    {
+      "id": "enamoral",
+      "kind": "songs",
+      "title": {
+        "ja": "熱情エナモラル",
+        "zh": "熱情エナモラル"
+      },
+      "description": {
+        "ja": "依田芳乃・村上巴・佐藤心・夢見りあむ・久川凪。作詞：Orca。作曲・編曲：塩原大貴。",
+        "zh": "依田芳乃、村上巴、佐藤心、梦见璃亚梦、久川凪。作词：Orca；作曲与编曲：盐原大贵。"
+      },
+      "date": "2025-01-22",
+      "dateLabel": {
+        "ja": "CD発売",
+        "zh": "CD 发售"
+      },
+      "source": "https://cinderellagirls.idolmaster-official.jp/discography/cocx-42427/",
+      "sourceName": "シンデレラガールズ公式",
+      "official": true,
+      "tags": [
+        "unit",
+        "熱情エナモラル"
+      ]
+    },
+    {
+      "id": "hana",
+      "kind": "songs",
+      "title": {
+        "ja": "花",
+        "zh": "花"
+      },
+      "description": {
+        "ja": "依田芳乃のカバー曲。作詞：御徒町凧。作曲：森山直太朗。",
+        "zh": "依田芳乃演唱的翻唱曲。作词：御徒町凧；作曲：森山直太朗。"
+      },
+      "date": "2025-01-22",
+      "dateLabel": {
+        "ja": "CD発売",
+        "zh": "CD 发售"
+      },
+      "source": "https://cinderellagirls.idolmaster-official.jp/discography/cocx-42427/",
+      "sourceName": "シンデレラガールズ公式",
+      "official": true,
+      "tags": [
+        "cover",
+        "solo"
+      ]
+    },
+    {
+      "id": "mitomete",
+      "kind": "songs",
+      "title": {
+        "ja": "認めてくれなくたっていいよ",
+        "zh": "認めてくれなくたっていいよ"
+      },
+      "description": {
+        "ja": "Passion jewelries! 004の5人が歌唱。作詞：八城雄太。作曲・編曲：井上馨太。",
+        "zh": "Passion jewelries! 004 的五位成员演唱。作词：八城雄太；作曲与编曲：井上馨太。"
+      },
+      "date": "2025-01-22",
+      "dateLabel": {
+        "ja": "CD発売",
+        "zh": "CD 发售"
+      },
+      "source": "https://cinderellagirls.idolmaster-official.jp/discography/cocx-42427/",
+      "sourceName": "シンデレラガールズ公式",
+      "official": true,
+      "tags": [
+        "unit"
+      ]
+    }
+  ]
+}

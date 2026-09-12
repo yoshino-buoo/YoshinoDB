@@ -1,0 +1,10 @@
+{
+  "keywords": ["依田芳乃", "依田 芳乃", "よりたよしの", "Yorita Yoshino", "高田憂希", "山紫水明", "かくりよがたり", "Sonoritia", "祈りの花", "日々あどべんちゃーなのでしてー", "Sunshine See May", "廻談詣り"],
+  "sources": [
+    {"id":"cg-news","type":"cg-news","name":"シンデレラガールズ 公式ニュース","url":"https://cinderellagirls.idolmaster-official.jp/","official":true},
+    {"id":"columbia-news","type":"columbia-news","name":"日本コロムビア 公式ニュース","url":"https://columbia.jp/idolmaster/","official":true},
+    {"id":"imas-youtube","type":"youtube","name":"アイドルマスターチャンネル","url":"https://www.youtube.com/feeds/videos.xml?channel_id=UCe3uJZIjfYwNNR0S6W3GvEA","official":true},
+    {"id":"columbia-youtube","type":"youtube","name":"日本コロムビア 公式YouTube","url":"https://www.youtube.com/feeds/videos.xml?user=ColumbiaMusicJp","official":true},
+    {"id":"kokoro-bilibili","type":"bilibili-rss","name":"依田こころ · Bilibili","url":"https://space.bilibili.com/11748057","official":false}
+  ]
+}
