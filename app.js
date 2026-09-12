@@ -192,7 +192,7 @@ function home() {
     )}</div></section><aside class="small-garden" data-ambient><span class="eyebrow">A LITTLE DETOUR</span><h2>${t("ひと息、ぶおー。", "歇一会儿，ぶおー。")}</h2><p>${t("芳乃といっしょに、法螺貝の修行を。", "和芳乃一起，来一场法螺贝修行。")}</p>${ext("https://yoshino-buoo.github.io/buo-dojo/", t("ぶおー法螺貝道場へ", "前往法螺贝道场"), "garden-link")}<span class="garden-bottom">${t("ちいさな遊び場、大きなご縁。", "小小的游乐场，大大的缘分。")}</span></aside></div>`;
 }
 function pageTitle(k, en, description = "") {
-  return `<div class="page-title"><a href="#home">${label("home")}</a><small>${en}</small><h1>${label(k)}</h1>${description ? `<p>${description}</p>` : ""}</div>`;
+  return `<div class="page-title"><div class="page-title-row"><h1>${label(k)}</h1><small>${en}</small></div>${description ? `<p>${description}</p>` : ""}</div>`;
 }
 const categoryFilters = {
   songs: [

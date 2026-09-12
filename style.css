@@ -601,23 +601,25 @@ footer p + p {
 .page-title {
   padding: 45px 0 25px;
 }
-.page-title > a {
-  font-size: 13px;
-  color: var(--muted);
+.page-title-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 18px;
 }
-.page-title > small {
-  display: block;
+.page-title-row > small {
   color: var(--green);
   font-size: 11px;
   letter-spacing: 0.2em;
-  margin-top: 35px;
+  white-space: nowrap;
 }
 .page-title h1 {
   font-size: 38px;
-  margin: 7px 0 10px;
+  margin: 0;
 }
 .page-title p {
   color: var(--muted);
+  margin-top: 10px;
 }
 .list-controls {
   display: flex;
