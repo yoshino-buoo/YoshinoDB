@@ -69,7 +69,7 @@ export function createContentViews({
         return list.length
           ? section(
               t("関連する", "相关") + label(kind),
-              `<div class="related-grid">${list.map((x) => `<article class="related-tile">${link(x, image(x) + `<span><small>${label(x.kind)}</small><strong>${title(x)}</strong>${x.date ? `<time>${x.date.replaceAll("-", ".")}</time>` : ""}</span>`)}</article>`).join("")}</div>`,
+              `<div class="related-grid">${list.map((x) => `<article class="related-tile" data-entry="${esc(x.id)}">${link(x, image(x) + `<span><small>${label(x.kind)}</small><strong>${title(x)}</strong>${x.date ? `<time>${x.date.replaceAll("-", ".")}</time>` : ""}</span>`)}</article>`).join("")}</div>`,
             )
           : "";
       })
@@ -172,7 +172,7 @@ export function createContentViews({
       news: newsDetail,
       timeline: timelineDetail,
     }[item.kind];
-    return `<div class="entry-heading"><a href="#${item.kind}">← ${label(item.kind)}</a><small>${item.kind.toUpperCase()}</small><h1>${title(item)}</h1></div><div class="typed-entry entry-${item.kind}">${renderer(item)}${source(item)}</div>`;
+    return `<div class="entry-heading"><a href="#${item.kind}">← ${label(item.kind)}</a><small>${item.kind.toUpperCase()}</small><h1>${title(item)}</h1></div><div class="typed-entry entry-${item.kind}" data-entry="${esc(item.id)}">${renderer(item)}${source(item)}</div>`;
   }
   function overview(kind) {
     if (kind === "search") return "";

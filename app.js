@@ -1,7 +1,7 @@
-import { validateCatalog, KINDS, isHttps } from "./lib/data.js";
+import { validateCatalog, KINDS, isHttps, searchText } from "./lib/data.js";
 import { mountEditor } from "./editor.js";
 import { createContentViews } from "./content.js";
-import { revealContent, animatePage } from "./motion.js";
+import { revealContent, animatePage, transitionPage } from "./motion.js";
 const base = import.meta.env.BASE_URL;
 const app = document.querySelector("#app");
 const storage = {
@@ -129,7 +129,7 @@ function record(item) {
   const image = item.image
     ? `<a class="record-cover" href="#entry/${esc(item.id)}" tabindex="-1" aria-hidden="true"><img class="record-image ${item.image.endsWith("yoshino.png") ? "standing" : ""}" src="${base}${esc(item.image)}" alt="${esc(tr(item.title))}" loading="lazy" decoding="async"></a>`
     : `<div class="record-icon" aria-hidden="true">${item.rarity ? esc(item.rarity) : icon(item.kind)}</div>`;
-  return `<article class="record ${esc(item.kind)}">${image}<div class="record-body"><div class="meta"><span class="badge ${item.official ? "official" : "fan"}">${originLabel(item)}</span><span>${esc(item.sourceName)}</span>${item.date ? `<time datetime="${esc(item.date)}">${esc(tr(item.dateLabel))} ${esc(item.date.replaceAll("-", "."))}</time>` : ""}</div><h3><a href="#entry/${esc(item.id)}">${esc(tr(item.title))}<span aria-hidden="true">→</span></a></h3>${tr(item.description) ? `<p>${esc(tr(item.description))}</p>` : ""}<div class="record-tags">${(
+  return `<article class="record ${esc(item.kind)}" data-entry="${esc(item.id)}">${image}<div class="record-body"><div class="meta"><span class="badge ${item.official ? "official" : "fan"}">${originLabel(item)}</span><span>${esc(item.sourceName)}</span>${item.date ? `<time datetime="${esc(item.date)}">${esc(tr(item.dateLabel))} ${esc(item.date.replaceAll("-", "."))}</time>` : ""}</div><h3><a href="#entry/${esc(item.id)}">${esc(tr(item.title))}<span aria-hidden="true">→</span></a></h3>${tr(item.description) ? `<p>${esc(tr(item.description))}</p>` : ""}<div class="record-tags">${(
     item.tags || []
   )
     .slice(0, 4)
@@ -150,7 +150,7 @@ const content = createContentViews({
 const detail = content.detail;
 
 function home() {
-  return `<section class="intro-grid"><div class="intro"><div class="eyebrow"><span></span>YORITA YOSHINO · FAN ARCHIVE</div><h1>${t("<span>ご縁をたどる、</span><span>芳乃の記録。</span>", "<span>循着缘分，</span><span>与芳乃相遇。</span>")}</h1><p class="intro-copy">${t("歌に、物語に、ひとつひとつの出会いに。<br>依田芳乃の歩みを、ここに綴ってゆきます。", "歌声、故事，还有一次次的相遇。<br>把依田芳乃走过的足迹，珍藏于此。")}</p><form class="search-form" role="search"><span aria-hidden="true">⌕</span><input name="q" aria-label="${t("資料を検索", "搜索资料")}" placeholder="${t("カード、楽曲、コミュを探す…", "搜索卡片、歌曲、剧情…")}" autocomplete="off"><button>${t("検索", "搜索")}</button></form><a class="profile-link" href="#profile">${t("はじめまして、依田芳乃です", "初次见面，我是依田芳乃")} <span>→</span></a><div class="intro-bottom"><span>七月三日</span><i></i><span>${t("鹿児島から、あなたのもとへ。", "从鹿儿岛，来到你身边。")}</span></div></div><div class="portrait"><div class="portrait-disc"></div><div class="vertical-copy" aria-hidden="true">${t("よきご縁が、ありますように。", "愿美好的缘分，与你相伴。")}</div><img src="${base}assets/yoshino.png" alt="${t("依田芳乃の公式立ち絵", "依田芳乃官方立绘")}" fetchpriority="high"><div class="portrait-label"><span>よりた よしの</span><strong>依田 芳乃</strong><small>CV. ${t("高田憂希", "高田忧希")}</small></div><a class="art-credit" href="#sources">©Bandai Namco Entertainment Inc.</a></div></section><section class="archive-section">${sectionTitle("home", "EXPLORE THE ARCHIVE", false).replace(`<h2><small>EXPLORE THE ARCHIVE</small>${label("home")}</h2>`, `<h2><small>EXPLORE THE ARCHIVE</small>${t("芳乃をめぐる、あれこれ", "关于芳乃的点点滴滴")}</h2><span class="subtle">${t("気になるページから、よりみち。", "从感兴趣的一页开始漫步。")}</span>`)}<div class="directory">${["cards", "songs", "stories", "units", "videos", "timeline"].map((k, i) => `<a href="#${k}"><span class="directory-num">0${i + 1}</span><span class="directory-icon">${icon(k)}</span><strong>${label(k)}</strong><small>${t(...{ cards: ["姿と装いの記録", "记录每一份姿态与装扮"], songs: ["歌声に耳をすませて", "聆听芳乃的歌声"], stories: ["言の葉をたどって", "寻访故事中的言语"], units: ["ともに紡ぐご縁", "一同编织的缘分"], videos: ["映像でもう一度", "在影像中再次相遇"], timeline: ["これまでの足あと", "回望一路的足迹"] }[k])}</small><span class="dir-arrow">↗</span></a>`).join("")}</div></section><div class="home-lower"><section>${sectionTitle("news", "NEWS & NOTES")}<div class="records">${all()
+  return `<section class="intro-grid"><div class="intro"><div class="eyebrow"><span></span>YORITA YOSHINO · FAN ARCHIVE</div><h1>${t("<span>ご縁をたどる、</span><span>芳乃の記録。</span>", "<span>循着缘分，</span><span>与芳乃相遇。</span>")}</h1><p class="intro-copy">${t("歌に、物語に、ひとつひとつの出会いに。<br>依田芳乃の歩みを、ここに綴ってゆきます。", "歌声、故事，还有一次次的相遇。<br>把依田芳乃走过的足迹，珍藏于此。")}</p><form class="search-form" role="search"><span aria-hidden="true">⌕</span><input name="q" aria-label="${t("資料を検索", "搜索资料")}" placeholder="${t("カード、楽曲、コミュを探す…", "搜索卡片、歌曲、剧情…")}" autocomplete="off"><button>${t("検索", "搜索")}</button></form><a class="profile-link" href="#profile">${t("はじめまして、依田芳乃です", "初次见面，我是依田芳乃")} <span>→</span></a><div class="intro-bottom"><span>七月三日</span><i></i><span>${t("鹿児島から、あなたのもとへ。", "从鹿儿岛，来到你身边。")}</span></div></div><div class="portrait"><div class="ambient-garden" aria-hidden="true"><span class="garden-haze"></span><svg class="garden-traces" viewBox="0 0 600 650" fill="none"><path class="trace-base" d="M-30 433C114 556 493 535 551 301S374 50 230 167S185 459 629 510"/><path class="trace-current" d="M-30 433C114 556 493 535 551 301S374 50 230 167S185 459 629 510"/><path class="trace-second" d="M50 530C-12 333 273 74 473 154S596 561 177 501"/></svg><span class="garden-motes"><i></i><i></i><i></i><i></i><i></i><i></i></span></div><div class="portrait-disc"></div><div class="vertical-copy" aria-hidden="true">${t("よきご縁が、ありますように。", "愿美好的缘分，与你相伴。")}</div><img src="${base}assets/yoshino.png" alt="${t("依田芳乃の公式立ち絵", "依田芳乃官方立绘")}" fetchpriority="high"><div class="portrait-label"><span>よりた よしの</span><strong>依田 芳乃</strong><small>CV. ${t("高田憂希", "高田忧希")}</small></div><button class="motion-toggle" data-motion-toggle aria-label="${t("庭の動きを止める", "暂停庭院动效")}" aria-pressed="false">Ⅱ</button><a class="art-credit" href="#sources">©Bandai Namco Entertainment Inc.</a></div></section><section class="archive-section">${sectionTitle("home", "EXPLORE THE ARCHIVE", false).replace(`<h2><small>EXPLORE THE ARCHIVE</small>${label("home")}</h2>`, `<h2><small>EXPLORE THE ARCHIVE</small>${t("芳乃をめぐる、あれこれ", "关于芳乃的点点滴滴")}</h2><span class="subtle">${t("気になるページから、よりみち。", "从感兴趣的一页开始漫步。")}</span>`)}<div class="directory">${["cards", "songs", "stories", "units", "videos", "timeline"].map((k, i) => `<a href="#${k}"><span class="directory-num">0${i + 1}</span><span class="directory-icon">${icon(k)}</span><strong>${label(k)}</strong><small>${t(...{ cards: ["姿と装いの記録", "记录每一份姿态与装扮"], songs: ["歌声に耳をすませて", "聆听芳乃的歌声"], stories: ["言の葉をたどって", "寻访故事中的言语"], units: ["ともに紡ぐご縁", "一同编织的缘分"], videos: ["映像でもう一度", "在影像中再次相遇"], timeline: ["これまでの足あと", "回望一路的足迹"] }[k])}</small><span class="dir-arrow">↗</span></a>`).join("")}</div></section><div class="home-lower"><section>${sectionTitle("news", "NEWS & NOTES")}<div class="records">${all()
     .filter((x) => x.kind === "news")
     .sort((a, b) => (b.date || "").localeCompare(a.date || ""))
     .slice(0, 3)
@@ -262,10 +262,7 @@ function render(filterState = null) {
         .filter(
           (x) =>
             (route === "search" || x.kind === route) &&
-            (!q ||
-              JSON.stringify([x.title, x.description, x.tags])
-                .toLocaleLowerCase()
-                .includes(q)) &&
+            (!q || searchText(x).includes(q)) &&
             (form.origin.value === "all" ||
               x.official === (form.origin.value === "official")) &&
             (form.elements.tag.value === "all" ||
@@ -370,8 +367,10 @@ document.querySelector(".skip").addEventListener("click", (e) => {
   document.querySelector("#main")?.focus();
 });
 window.addEventListener("hashchange", () => {
-  render();
-  window.scrollTo({ top: 0 });
+  transitionPage(() => {
+    render();
+    window.scrollTo({ top: 0, behavior: "instant" });
+  });
 });
 try {
   const loaded = await Promise.allSettled(

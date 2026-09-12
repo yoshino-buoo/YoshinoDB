@@ -1,0 +1,500 @@
+/* Motion follows the site's paper, sunlight and water motifs. */
+:root {
+  --motion-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+.header {
+  view-transition-name: site-header;
+}
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-old(root) {
+  animation: page-leave 280ms ease-out both;
+}
+::view-transition-new(root) {
+  animation: page-arrive 650ms var(--motion-ease) both;
+}
+::view-transition-group(site-header),
+::view-transition-old(site-header),
+::view-transition-new(site-header) {
+  animation: none;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-group(archive-art) {
+  animation-duration: 850ms;
+  animation-timing-function: var(--motion-ease);
+  z-index: 2;
+}
+::view-transition-image-pair(archive-art) {
+  isolation: isolate;
+  box-shadow: 0 18px 48px #4d3c2920;
+  overflow: clip;
+}
+::view-transition-old(archive-art) {
+  animation: art-dissolve 550ms ease both;
+  mix-blend-mode: normal;
+}
+::view-transition-new(archive-art) {
+  animation: art-resolve 850ms var(--motion-ease) both;
+  mix-blend-mode: normal;
+}
+[data-shared-art] {
+  filter: none !important;
+  transform: none !important;
+}
+@keyframes page-leave {
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+@keyframes page-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes art-dissolve {
+  0%,
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes art-resolve {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* The garden stays alive while the reader rests on the home page. */
+.portrait > img {
+  animation: none;
+}
+.portrait-disc {
+  animation: none;
+}
+.ambient-garden {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.garden-haze {
+  position: absolute;
+  top: 15%;
+  left: 12%;
+  width: 78%;
+  height: 65%;
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse at 37% 35%, #fff7c58c, transparent 58%),
+    radial-gradient(ellipse at 75% 67%, #ceb88730, transparent 63%);
+  opacity: 0.55;
+  animation: garden-light 15s ease-in-out infinite alternate;
+}
+.garden-traces {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  stroke: #b49a61;
+  stroke-width: 0.85;
+}
+.trace-base {
+  opacity: 0.22;
+}
+.trace-current {
+  stroke: #b49859;
+  stroke-width: 1.25;
+  stroke-dasharray: 180 1800;
+  opacity: 0.75;
+  animation: water-thread 20s linear infinite;
+}
+.trace-second {
+  stroke: #c7af79;
+  stroke-dasharray: 95 1550;
+  opacity: 0.6;
+  animation: water-thread 27s linear infinite reverse;
+}
+.garden-motes {
+  position: absolute;
+  inset: 0;
+}
+.garden-motes i {
+  position: absolute;
+  left: 17%;
+  top: 72%;
+  width: 5px;
+  height: 8px;
+  border-radius: 75% 10% 70% 35%;
+  background: linear-gradient(145deg, #e1c880, #b09b5c80);
+  opacity: 0;
+  animation: garden-mote 15s ease-in-out infinite;
+  --drift: 25px;
+  --sway: -12px;
+}
+.garden-motes i:nth-child(2) {
+  left: 80%;
+  top: 55%;
+  width: 3px;
+  height: 3px;
+  animation-duration: 18s;
+  animation-delay: -8s;
+  --drift: -32px;
+  --sway: 15px;
+  box-shadow: 0 0 8px #dec996;
+}
+.garden-motes i:nth-child(3) {
+  left: 27%;
+  top: 39%;
+  width: 3px;
+  height: 5px;
+  animation-duration: 22s;
+  animation-delay: -13s;
+  --drift: 40px;
+  --sway: 9px;
+}
+.garden-motes i:nth-child(4) {
+  left: 78%;
+  top: 79%;
+  width: 4px;
+  height: 7px;
+  animation-duration: 19s;
+  animation-delay: -5s;
+  --drift: -25px;
+  --sway: -8px;
+}
+.garden-motes i:nth-child(5) {
+  left: 52%;
+  top: 88%;
+  width: 3px;
+  height: 3px;
+  animation-duration: 24s;
+  animation-delay: -17s;
+  --drift: -48px;
+  --sway: 19px;
+  box-shadow: 0 0 9px #e5d5aa;
+}
+.garden-motes i:nth-child(6) {
+  left: 15%;
+  top: 56%;
+  width: 2px;
+  height: 2px;
+  animation-duration: 17s;
+  animation-delay: -9s;
+  --drift: 30px;
+  --sway: 10px;
+}
+.motion-toggle {
+  position: absolute;
+  z-index: 3;
+  pointer-events: auto;
+  right: 10px;
+  bottom: 39px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: #fcf9f1a6;
+  color: #9c8d72;
+  border: 1px solid #c4b59075;
+  border-radius: 50%;
+  font-size: 11px;
+  line-height: 1;
+  backdrop-filter: blur(3px);
+}
+.motion-toggle:hover {
+  color: var(--red);
+  border-color: var(--red);
+  background: #fffaf0;
+}
+.motion-toggle:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 4px;
+}
+.motion-toggle:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.ambient-paused .ambient-garden *,
+.ambient-offscreen .ambient-garden *,
+.motion-idle .ambient-garden * {
+  animation-play-state: paused !important;
+}
+@keyframes garden-light {
+  from {
+    transform: translate(-9px, 4px) scale(0.95);
+    opacity: 0.4;
+  }
+  to {
+    transform: translate(12px, -11px) scale(1.055);
+    opacity: 0.78;
+  }
+}
+@keyframes water-thread {
+  from {
+    stroke-dashoffset: 1900;
+  }
+  to {
+    stroke-dashoffset: -1800;
+  }
+}
+@keyframes garden-mote {
+  0% {
+    opacity: 0;
+    transform: translate(0, 18px) rotate(-25deg);
+  }
+  20% {
+    opacity: 0.62;
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(var(--sway), -48px) rotate(55deg);
+  }
+  80% {
+    opacity: 0.38;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--drift), -116px) rotate(125deg);
+  }
+}
+
+/* Selection is a single moving ink shape, including wrapped rows on mobile. */
+.category-tabs,
+.variant-tabs {
+  position: relative;
+  isolation: isolate;
+}
+.selection-ink {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 30px;
+  background: linear-gradient(125deg, #985960, var(--red));
+  box-shadow:
+    inset 0 1px #ffffff25,
+    0 3px 10px #7f464515;
+}
+.ink-ready .selection-ink {
+  transition:
+    transform 0.55s var(--motion-ease),
+    width 0.55s var(--motion-ease),
+    height 0.55s var(--motion-ease);
+}
+.category-tabs button,
+.variant-tabs button {
+  position: relative;
+  z-index: 1;
+}
+.ink-ready button[aria-pressed="true"] {
+  background: transparent;
+  border-color: transparent;
+  animation: none;
+}
+.category-tabs button:not([aria-pressed="true"]):hover,
+.variant-tabs button:not([aria-pressed="true"]):hover {
+  background: #ede6d84d;
+  border-color: #c1ae8d;
+}
+
+/* More tactile artwork: directional light, shallow depth and a passing sheen. */
+.record-cover,
+.album-art,
+.gallery-stage {
+  position: relative;
+  isolation: isolate;
+}
+.record-cover:after,
+.album-art:after,
+.gallery-stage:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at var(--light-x, 50%) var(--light-y, 35%),
+    #fff8dc3d,
+    transparent 58%
+  );
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 0.65s ease;
+}
+.art-sheen {
+  position: absolute;
+  inset: -15% -5%;
+  z-index: 4;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 22%,
+    #fff9de0a 38%,
+    #fff6d342 48%,
+    #fffce475 50%,
+    #fff6d31c 56%,
+    transparent 70%
+  );
+}
+.gallery-stage figure {
+  transform-origin: center;
+}
+.gallery-stage figure.is-leaving {
+  z-index: 1;
+}
+.record-cover img {
+  transform-origin: center;
+}
+.record .record-cover img {
+  transition: transform 1s var(--motion-ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .pointer-lit:after {
+    opacity: 1;
+  }
+  .record:hover .record-cover.pointer-lit img {
+    transform: perspective(900px) rotateX(var(--tilt-x, 0deg))
+      rotateY(var(--tilt-y, 0deg)) scale(1.045);
+  }
+  .album-art.pointer-lit {
+    transform: perspective(1000px) rotateX(var(--tilt-x, 0deg))
+      rotateY(var(--tilt-y, 0deg)) translateY(-4px);
+  }
+  .card-grid .record:hover,
+  .video-grid .record:hover,
+  .unit-grid .record:hover {
+    box-shadow:
+      0 20px 36px -17px #63503840,
+      0 3px 10px #5f4c2410;
+    transform: translateY(-6px);
+    transition-delay: 0s;
+  }
+}
+.play-circle:before,
+.play-circle:after {
+  content: "";
+  position: absolute;
+  inset: -9px;
+  border-radius: 50%;
+  pointer-events: none;
+  border: 1px solid #fff6db66;
+  transform: scale(0.87);
+  opacity: 0;
+  transition:
+    transform 0.65s var(--motion-ease),
+    opacity 0.4s;
+}
+.play-circle:after {
+  inset: -17px;
+  border-color: #fff6db30;
+  transition-delay: 70ms;
+}
+.video-poster:hover .play-circle:before,
+.video-poster:hover .play-circle:after,
+.video-poster:focus-visible .play-circle:before {
+  transform: scale(1);
+  opacity: 1;
+}
+[data-reveal] {
+  transform: translateY(22px);
+  transition:
+    opacity 0.85s var(--motion-ease) var(--reveal-delay, 0ms),
+    transform 1.05s var(--motion-ease) var(--reveal-delay, 0ms);
+}
+.card-grid .record,
+.video-grid .record,
+.unit-grid .record {
+  transition:
+    opacity 0.85s var(--motion-ease) var(--reveal-delay, 0ms),
+    transform 1.05s var(--motion-ease) var(--reveal-delay, 0ms),
+    box-shadow 0.65s ease,
+    border-color 0.4s ease;
+}
+.entry-section {
+  position: relative;
+}
+.entry-section:before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 72px;
+  height: 1px;
+  background: linear-gradient(90deg, #a78951, #c4b28a00);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.4s var(--motion-ease) 0.2s;
+}
+.entry-section.revealed:before {
+  transform: scaleX(1);
+}
+.directory > a:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(125deg, #c6b58d0d, transparent 55%);
+  opacity: 0;
+  transition: opacity 0.7s;
+  pointer-events: none;
+}
+.directory > a:hover:after {
+  opacity: 1;
+}
+@media (max-width: 760px) {
+  .garden-traces {
+    stroke-width: 1;
+  }
+  .garden-motes i:nth-child(n + 5) {
+    display: none;
+  }
+  .motion-toggle {
+    right: 10px;
+    top: 8px;
+    bottom: auto;
+    width: 32px;
+    height: 32px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+  .ambient-garden * {
+    animation: none !important;
+  }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+  .selection-ink {
+    transition: none !important;
+  }
+  .record:hover .record-cover.pointer-lit img,
+  .album-art.pointer-lit {
+    transform: none;
+  }
+  .entry-section:before {
+    transform: none;
+  }
+}
