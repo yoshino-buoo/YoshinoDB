@@ -70,6 +70,17 @@ test("detail Back preserves song filters, sort order and position", async ({
   await open(page, "#songs");
   await page.locator('[data-filter-tag="unit"]').click();
   await page.locator('[name="sort"]').selectOption("oldest");
+  // Measure the list's final scroll range, not the last pixel of its animated
+  // filter resize (the browser clamps a bottom position as that range shrinks).
+  await page
+    .locator("#results")
+    .evaluate((results) =>
+      Promise.all(
+        results
+          .getAnimations()
+          .map((animation) => animation.finished.catch(() => {})),
+      ),
+    );
   const ids = await page
     .locator("#results [data-entry]")
     .evaluateAll((rows) => rows.map((row) => row.dataset.entry));
