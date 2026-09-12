@@ -10,6 +10,9 @@ export function createContentViews({
   ext,
   all,
   record,
+  musicPreview = () => "",
+  onVideoStart = () => {},
+  onVideoStop = () => {},
 }) {
   const title = (item) => esc(tr(item.title));
   const link = (item, text = title(item)) =>
@@ -126,7 +129,7 @@ export function createContentViews({
       (x) => x.kind === "videos",
     );
     const tracks = album.tracks || [];
-    return `<div class="music-detail-top"><div class="album-art">${image(item)}<span>${esc(album.catalogNumber || "CINDERELLA GIRLS")}</span></div><div class="entry-summary"><span class="entry-kicker">${(item.tags || []).includes("cover") ? t("カバー曲", "翻唱曲") : (item.tags || []).includes("solo") ? t("ソロ曲", "个人曲") : t("ユニット・全体曲", "组合与全员曲")}</span>${description(item)}${facts([[t("歌唱", "演唱"), music.performers], [t("作詞", "作词"), credits.lyricists], [t("作曲", "作曲"), credits.composers], [t("編曲", "编曲"), credits.arrangers], ...dateFact(item)])}${media.length ? `<a class="source-button" href="#entry/${esc(media[0].id)}">▷ ${t("映像・試聴を見る", "观看 MV／试听")}</a>` : ""}</div></div>${album.title ? section(t("収録アルバム", "收录唱片"), `<div class="album-heading"><h3>${esc(album.title)}</h3><span>${esc(album.catalogNumber || "")} · ${esc(album.releaseDate || item.date)}</span></div>${tracks.length ? `<ol class="track-list">${tracks.map((track, i) => `<li class="${Number(track.number) === Number(album.trackNumber) ? "current-track" : ""}"><span class="track-number">${String(track.number || i + 1).padStart(2, "0")}</span><span>${esc(track.title)}</span>${Number(track.number) === Number(album.trackNumber) ? `<small>${t("この楽曲", "本曲")}</small>` : ""}</li>`).join("")}</ol>` : ""}`) : ""}${extra(item)}${infoSections(item)}${related(item, ["videos", "units", "stories", "news"])}`;
+    return `<div class="music-detail-top"><div class="album-art">${image(item)}<span>${esc(album.catalogNumber || "CINDERELLA GIRLS")}</span></div><div class="entry-summary"><span class="entry-kicker">${(item.tags || []).includes("cover") ? t("カバー曲", "翻唱曲") : (item.tags || []).includes("solo") ? t("ソロ曲", "个人曲") : t("ユニット・全体曲", "组合与全员曲")}</span>${description(item)}${musicPreview(item)}${facts([[t("歌唱", "演唱"), music.performers], [t("作詞", "作词"), credits.lyricists], [t("作曲", "作曲"), credits.composers], [t("編曲", "编曲"), credits.arrangers], ...dateFact(item)])}${media.length ? `<a class="source-button" href="#entry/${esc(media[0].id)}">▷ ${t("映像・試聴を見る", "观看 MV／试听")}</a>` : ""}</div></div>${album.title ? section(t("収録アルバム", "收录唱片"), `<div class="album-heading"><h3>${esc(album.title)}</h3><span>${esc(album.catalogNumber || "")} · ${esc(album.releaseDate || item.date)}</span></div>${tracks.length ? `<ol class="track-list">${tracks.map((track, i) => `<li class="${Number(track.number) === Number(album.trackNumber) ? "current-track" : ""}"><span class="track-number">${String(track.number || i + 1).padStart(2, "0")}</span><span>${esc(track.title)}</span>${Number(track.number) === Number(album.trackNumber) ? `<small>${t("この楽曲", "本曲")}</small>` : ""}</li>`).join("")}</ol>` : ""}`) : ""}${extra(item)}${infoSections(item)}${related(item, ["videos", "units", "stories", "news"])}`;
   }
   function videoDetail(item) {
     const video = item.video || {};
@@ -244,6 +247,19 @@ export function createContentViews({
     const item = all().find((x) => x.id === id);
     const url = item && embedUrl(item.source, page);
     if (!url || !element) return;
+    onVideoStart();
+    element.dataset.videoId = id;
+    if (!element.nextElementSibling?.matches("[data-close-video]")) {
+      const close = document.createElement("button");
+      close.dataset.closeVideo = "";
+      close.className = "video-close";
+      close.textContent = t("動画を閉じる ×", "收起视频 ×");
+      close.onclick = () => {
+        stopVideos();
+        onVideoStop();
+      };
+      element.after(close);
+    }
     clearTimeout(playerTimers.get(element));
     const platform = item.source.includes("bilibili.com")
       ? "Bilibili"
@@ -310,5 +326,21 @@ export function createContentViews({
       }),
     );
   }
-  return { detail, overview, renderList, bind };
+  function stopVideos() {
+    document
+      .querySelectorAll(".inline-player[data-video-id]")
+      .forEach((element) => {
+        const item = all().find((x) => x.id === element.dataset.videoId);
+        if (!item) return;
+        clearTimeout(playerTimers.get(element));
+        const template = document.createElement("template");
+        template.innerHTML = player(item);
+        const replacement = template.content.firstElementChild;
+        if (element.nextElementSibling?.matches("[data-close-video]"))
+          element.nextElementSibling.remove();
+        element.replaceWith(replacement);
+        bind(replacement);
+      });
+  }
+  return { detail, overview, renderList, bind, stopVideos };
 }

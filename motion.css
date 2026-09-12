@@ -114,7 +114,7 @@
     radial-gradient(ellipse at 37% 35%, #fff7c58c, transparent 58%),
     radial-gradient(ellipse at 75% 67%, #ceb88730, transparent 63%);
   opacity: 0.55;
-  animation: garden-light 9s ease-in-out infinite alternate;
+  animation: garden-light 15s ease-in-out infinite alternate;
 }
 .garden-traces {
   position: absolute;
@@ -123,26 +123,25 @@
   height: 100%;
   overflow: visible;
   stroke: #b49a61;
-  stroke-width: 1.05;
+  stroke-width: 0.85;
 }
 .trace-base {
-  opacity: 0.32;
+  opacity: 0.22;
 }
 .trace-current {
   stroke: #b49859;
-  stroke-width: 1.8;
+  stroke-width: 1.25;
   stroke-dasharray: 180 1800;
   opacity: 0.75;
   --path-loop: 1980px;
-  animation: water-thread 13s linear infinite;
-  filter: drop-shadow(0 0 3px #f0d792);
+  animation: water-thread 20s linear infinite;
 }
 .trace-second {
   stroke: #c7af79;
   stroke-dasharray: 95 1550;
   opacity: 0.6;
   --path-loop: 1645px;
-  animation: water-thread 19s linear infinite reverse;
+  animation: water-thread 27s linear infinite reverse;
 }
 .garden-motes {
   position: absolute;
@@ -157,7 +156,7 @@
   border-radius: 75% 10% 70% 35%;
   background: linear-gradient(145deg, #e1c880, #b09b5c80);
   opacity: 0;
-  animation: garden-mote 11s ease-in-out infinite;
+  animation: garden-mote 15s ease-in-out infinite;
   --drift: 25px;
   --sway: -12px;
 }
@@ -252,12 +251,12 @@
 }
 @keyframes garden-light {
   from {
-    transform: translate(-28px, 15px) scale(0.88);
+    transform: translate(-12px, 7px) scale(0.94);
     opacity: 0.35;
   }
   to {
-    transform: translate(30px, -24px) scale(1.16);
-    opacity: 0.95;
+    transform: translate(15px, -12px) scale(1.08);
+    opacity: 0.7;
   }
 }
 @keyframes water-thread {
@@ -533,173 +532,16 @@
   }
 }
 
-/* Moving rings and broad reflected light make the still portrait feel like a
-   small sunlit garden. Each loop is closed at an identical visual frame. */
 .ambient-garden {
   translate: var(--garden-x, 0px) var(--garden-y, 0px);
   transition: translate 1.8s var(--motion-ease);
 }
-.garden-orbit {
-  position: absolute;
-  border-radius: 50%;
-  border: 1px solid #bda46d54;
-  border-left-color: #c4a55b;
-  border-bottom-color: #dac58210;
-  pointer-events: none;
-  animation: orbit-turn 28s linear infinite;
-}
-.orbit-near {
-  inset: 12% 4% 18% 7%;
-  box-shadow: inset 3px 0 7px -6px #c4a55b;
-}
-.orbit-far {
-  inset: 20% 0 14% 14%;
-  border-color: #b9a9793b;
-  border-top-color: #c4a55bb3;
-  animation-duration: 38s;
-  animation-direction: reverse;
-}
-.garden-orbit i {
-  position: absolute;
-  top: 11%;
-  left: 13%;
-  width: 9px;
-  height: 9px;
-  background: #c1a264;
-  box-shadow: 0 0 16px 3px #f6df984f;
-  clip-path: polygon(
-    50% 0,
-    60% 39%,
-    100% 50%,
-    60% 60%,
-    50% 100%,
-    40% 60%,
-    0 50%,
-    40% 40%
-  );
-}
-.orbit-far i {
-  top: auto;
-  bottom: 12%;
-  left: auto;
-  right: 13%;
-  width: 6px;
-  height: 6px;
-}
-.garden-ripples {
-  position: absolute;
-  inset: 0;
-}
-.garden-ripples i {
-  position: absolute;
-  bottom: 9%;
-  left: 8%;
-  width: 84%;
-  height: 20%;
-  border: 1px solid #bba168;
-  border-radius: 50%;
-  opacity: 0;
-  animation: garden-ripple 8s cubic-bezier(0.2, 0.4, 0.2, 1) infinite;
-}
-.garden-ripples i:nth-child(2) {
-  animation-delay: -2.666s;
-}
-.garden-ripples i:nth-child(3) {
-  animation-delay: -5.333s;
-}
-.garden-lightbeam {
-  position: absolute;
-  top: -18%;
-  left: 15%;
-  width: 76%;
-  height: 128%;
-  background: linear-gradient(
-    100deg,
-    transparent 15%,
-    #f7e6a127 38%,
-    #fff5c570 48%,
-    #eee0ae12 58%,
-    transparent 70%
-  );
-  transform-origin: 50% 0;
-  animation: lightbeam-sway 12s ease-in-out infinite alternate;
-  mix-blend-mode: soft-light;
-}
-.garden-motes i:nth-child(7) {
-  left: 37%;
-  top: 83%;
-  --sway: 20px;
-  --drift: -35px;
-  animation-delay: -3s;
-  animation-duration: 15s;
-}
-.garden-motes i:nth-child(8) {
-  left: 66%;
-  top: 26%;
-  width: 4px;
-  height: 4px;
-  --sway: -16px;
-  --drift: 45px;
-  animation-delay: -8s;
-  animation-duration: 12s;
-}
-.garden-motes i:nth-child(9) {
-  left: 89%;
-  top: 71%;
-  width: 3px;
-  height: 5px;
-  --sway: -15px;
-  --drift: -35px;
-  animation-delay: -5s;
-  animation-duration: 16s;
-}
-.garden-motes i:nth-child(10) {
-  left: 11%;
-  top: 43%;
-  width: 3px;
-  height: 3px;
-  --sway: 15px;
-  --drift: 35px;
-  animation-delay: -10s;
-  animation-duration: 14s;
-}
-@keyframes orbit-turn {
-  from {
-    transform: rotate(-24deg);
-  }
-  to {
-    transform: rotate(336deg);
-  }
-}
-@keyframes garden-ripple {
-  0% {
-    transform: scale(0.4);
-    opacity: 0;
-  }
-  20% {
-    opacity: 0.42;
-  }
-  100% {
-    transform: scale(1.3);
-    opacity: 0;
-  }
-}
-@keyframes lightbeam-sway {
-  from {
-    transform: rotate(-20deg) translateX(-35px);
-    opacity: 0.35;
-  }
-  to {
-    transform: rotate(8deg) translateX(25px);
-    opacity: 0.8;
-  }
-}
 @keyframes yoshino-breeze {
   from {
-    transform: translate(-3px, 5px) rotate(-0.45deg);
+    transform: translate(-2px, 3px) rotate(-0.2deg);
   }
   to {
-    transform: translate(4px, -7px) rotate(0.45deg);
+    transform: translate(2px, -4px) rotate(0.2deg);
   }
 }
 @keyframes disc-tide {
@@ -740,18 +582,6 @@
   }
 }
 @media (max-width: 760px) {
-  .orbit-near {
-    inset: 17% 1% 1% 1%;
-  }
-  .orbit-far {
-    inset: 23% -8% 5% 7%;
-  }
-  .garden-ripples i {
-    bottom: 2%;
-  }
-  .garden-orbit {
-    opacity: 0.75;
-  }
   .portrait-figure {
     animation-duration: 10s;
   }

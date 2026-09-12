@@ -24,6 +24,7 @@ jobs:
       - run: npm run sync
         env:
           BILIBILI_FEED_URL: ${{ secrets.BILIBILI_FEED_URL }}
+      - run: npm run sync:music
       - run: npm test
       - run: npm run build
       - name: Commit checked data and explicitly dispatch Pages
@@ -32,7 +33,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add public/data/generated.json public/assets/
+          git add public/data/generated.json public/data/listening.json public/assets/
           if ! git diff --cached --quiet; then
             git commit -m 'data: refresh official sources'
             git push

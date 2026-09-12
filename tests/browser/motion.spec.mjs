@@ -13,7 +13,11 @@ async function observeSnapshots(page) {
     if (!document.startViewTransition) return;
     const original = document.startViewTransition.bind(document);
     const visible = () =>
-      [...document.querySelectorAll("[data-reveal]")].filter((el) => {
+      [
+        ...document.querySelectorAll(
+          "[data-reveal],.entry-summary>*,.album-art",
+        ),
+      ].filter((el) => {
         const r = el.getBoundingClientRect();
         return r.top < innerHeight && r.bottom > 0;
       });
@@ -232,4 +236,49 @@ test("gold threads actually travel and wrap at a complete dash period", async ({
     expect(values.travel).toBeGreaterThan(100);
     expect(values.seam).toBeLessThan(1);
   }
+});
+
+test("home drawings animate in view and the pause preference covers the whole page", async ({
+  page,
+}) => {
+  await ready(page);
+  await page.locator(".small-garden").scrollIntoViewIfNeeded();
+  await page.waitForTimeout(1200);
+  const shell = page.locator(".small-garden");
+  expect(
+    await shell.evaluate(
+      (el) => getComputedStyle(el, "::after").animationPlayState,
+    ),
+  ).toBe("running");
+  const before = await shell.evaluate(
+    (el) => getComputedStyle(el, "::after").transform,
+  );
+  await page.waitForTimeout(350);
+  expect(
+    await shell.evaluate((el) => getComputedStyle(el, "::after").transform),
+  ).not.toBe(before);
+  await page.locator("[data-motion-toggle]").click();
+  await page.locator(".small-garden").scrollIntoViewIfNeeded();
+  expect(
+    await shell.evaluate(
+      (el) => getComputedStyle(el, "::after").animationPlayState,
+    ),
+  ).toBe("paused");
+  expect(
+    await page
+      .locator(".icon-note")
+      .evaluate((el) => getComputedStyle(el).animationPlayState),
+  ).toBe("paused");
+  await page.reload();
+  await expect(page.locator("[data-motion-toggle]")).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(page.locator("[data-motion-toggle]")).toBeDisabled();
+  expect(
+    await page
+      .locator(".small-garden")
+      .evaluate((el) => getComputedStyle(el, "::after").animationName),
+  ).toBe("none");
 });

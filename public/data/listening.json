@@ -1,0 +1,150 @@
+{
+  "provider": "iTunes Search API",
+  "country": "jp",
+  "tracks": {
+    "inori": {
+      "trackId": 1440572064,
+      "title": "祈りの花",
+      "artist": "依田芳乃 (CV: 高田憂希)",
+      "album": "THE IDOLM@STER CINDERELLA MASTER 046 047 048 乙倉悠貴 松永涼 依田芳乃",
+      "version": "original",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/54/ee/40/54ee4063-439d-8365-1de9-e7fa1f21f87a/mzaf_296537343585985723.plus.aac.p.m4a",
+      "storeUrl": "https://music.apple.com/jp/album/%E7%A5%88%E3%82%8A%E3%81%AE%E8%8A%B1/1440572054?i=1440572064&uo=4&app=itunes"
+    },
+    "hibi": {
+      "trackId": 1670048683,
+      "title": "日々あどべんちゃーなのでしてー (GAME VERSION)",
+      "artist": "依田芳乃 (CV: 高田憂希)",
+      "album": "THE IDOLM@STER CINDERELLA GIRLS STARLIGHT MASTER GOLD RUSH! SERIES GAME VERSION SONG COLLECTION",
+      "version": "game",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/da/3c/1d/da3c1d56-880e-9578-cff4-85249e91b199/mzaf_7576482666117456831.plus.aac.p.m4a",
+      "storeUrl": "https://music.apple.com/jp/album/%E6%97%A5%E3%80%85%E3%81%82%E3%81%A9%E3%81%B9%E3%82%93%E3%81%A1%E3%82%83%E3%83%BC%E3%81%AA%E3%81%AE%E3%81%A7%E3%81%97%E3%81%A6%E3%83%BC-game-version/1670048671?i=1670048683&uo=4&app=itunes"
+    },
+    "song-sunshine": {
+      "trackId": 1444715123,
+      "title": "Sunshine See May (M@STER VERSION)",
+      "artist": "依田芳乃 (CV: 高田憂希) & 藤原肇 (CV: 鈴木みのり)",
+      "album": "Sunshine See May (M@STER VERSION) - Single",
+      "version": "master",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview128/v4/9a/0c/44/9a0c446e-329e-965e-4d03-1c444e086a2d/mzaf_8120104777081822848.plus.aac.p.m4a",
+      "storeUrl": "https://music.apple.com/jp/album/sunshine-see-may-m-ster-version/1444715121?i=1444715123&uo=4&app=itunes"
+    },
+    "song-sakura": {
+      "trackId": 1431646630,
+      "title": "桜の頃 (M@STER VERSION)",
+      "artist": "依田芳乃 (CV: 高田憂希), 小早川紗枝 (CV: 立花理香), 道明寺歌鈴 (CV: 新田ひより), 浜口あやめ (CV: 田澤茉純) & 脇山珠美 (CV: 嘉山未紗)",
+      "album": "THE IDOLM@STER CINDERELLA GIRLS STARLIGHT MASTER 15 桜の頃",
+      "version": "master",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview128/v4/37/f4/83/37f483ba-5991-fea0-1a7b-a7e6f83476b1/mzaf_5541510050142298006.plus.aac.p.m4a",
+      "storeUrl": "https://music.apple.com/jp/album/%E6%A1%9C%E3%81%AE%E9%A0%83-m-ster-version/1431646629?i=1431646630&uo=4&app=itunes"
+    },
+    "song-taiyo": {
+      "trackId": 1533630809,
+      "title": "太陽の絵の具箱 (M@STER VERSION)",
+      "artist": "緒方智絵里 (CV: 大空直美), 依田芳乃 (CV: 高田憂希), 遊佐こずえ (CV: 花谷麻妃) & 佐城雪美 (CV: 中澤ミナ)",
+      "album": "THE IDOLM@STER CINDERELLA GIRLS STARLIGHT MASTER GOLD RUSH! 02 太陽の絵の具箱",
+      "version": "master",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview114/v4/86/e4/a7/86e4a708-11fb-1975-2e3a-b6dc933afc2f/mzaf_2292910226165059971.plus.aac.p.m4a",
+      "storeUrl": "https://music.apple.com/jp/album/%E5%A4%AA%E9%99%BD%E3%81%AE%E7%B5%B5%E3%81%AE%E5%85%B7%E7%AE%B1-m-ster-version/1533630808?i=1533630809&uo=4&app=itunes"
+    },
+    "song-kaitan": {
+      "trackId": 1656343275,
+      "title": "廻談詣り (M@STER VERSION)",
+      "artist": "依田芳乃 (CV: 高田憂希) & 白坂小梅 (CV: 桜咲千依)",
+      "album": "廻談詣り (M@STER VERSION) - Single",
+      "version": "master",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview112/v4/51/97/50/51975004-e75b-4461-9bec-ce5f95035a8f/mzaf_16970625894775479315.plus.aac.p.m4a",
+      "storeUrl": "https://music.apple.com/jp/album/%E5%BB%BB%E8%AB%87%E8%A9%A3%E3%82%8A-m-ster-version/1656343273?i=1656343275&uo=4&app=itunes"
+    },
+    "enamoral": {
+      "trackId": 1787525467,
+      "title": "熱情エナモラル",
+      "artist": "依田芳乃 (CV: 高田憂希), 村上巴 (CV: 花井美春), 佐藤心 (CV: 花守ゆみり), 夢見りあむ (CV: 星希成奏) & 久川凪 (CV: 立花日菜)",
+      "album": "THE IDOLM@STER CINDERELLA MASTER Passion jewelries! 004",
+      "version": "original",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/69/53/43/695343e8-2ae3-faa9-5b0d-051e3c2d1261/mzaf_7675136323983694223.plus.aac.p.m4a",
+      "storeUrl": "https://music.apple.com/jp/album/%E7%86%B1%E6%83%85%E3%82%A8%E3%83%8A%E3%83%A2%E3%83%A9%E3%83%AB/1787525466?i=1787525467&uo=4&app=itunes"
+    },
+    "hana": {
+      "trackId": 1787525472,
+      "title": "花",
+      "artist": "依田芳乃 (CV: 高田憂希)",
+      "album": "THE IDOLM@STER CINDERELLA MASTER Passion jewelries! 004",
+      "version": "original",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/5c/ac/08/5cac0886-87d4-4c29-ddb5-49b39ca2bbdd/mzaf_7245721151359709703.plus.aac.p.m4a",
+      "storeUrl": "https://music.apple.com/jp/album/%E8%8A%B1/1787525466?i=1787525472&uo=4&app=itunes"
+    },
+    "mitomete": {
+      "trackId": 1787525473,
+      "title": "認めてくれなくたっていいよ",
+      "artist": "依田芳乃 (CV: 高田憂希), 村上巴 (CV: 花井美春), 佐藤心 (CV: 花守ゆみり), 夢見りあむ (CV: 星希成奏) & 久川凪 (CV: 立花日菜)",
+      "album": "THE IDOLM@STER CINDERELLA MASTER Passion jewelries! 004",
+      "version": "original",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/50/63/4f/50634f70-11e9-e9f6-772b-6481c7196e1d/mzaf_4534683129170368517.plus.aac.p.m4a",
+      "storeUrl": "https://music.apple.com/jp/album/%E8%AA%8D%E3%82%81%E3%81%A6%E3%81%8F%E3%82%8C%E3%81%AA%E3%81%8F%E3%81%9F%E3%81%A3%E3%81%A6%E3%81%84%E3%81%84%E3%82%88/1787525466?i=1787525473&uo=4&app=itunes"
+    },
+    "song-take-me": {
+      "trackId": 1444267525,
+      "title": "Take me☆Take you",
+      "artist": "THE IDOLM@STER CINDERELLA GIRLS!! (高垣楓、三船美優、森久保乃々、島村卯月、安部菜々、前川みく、依田芳乃、本田未央、佐藤心)",
+      "album": "Take me☆Take you",
+      "version": "original",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview128/v4/55/8a/4e/558a4e55-2f80-af91-3464-71c4b0e1203a/mzaf_4045590055589296702.plus.aac.p.m4a",
+      "storeUrl": "https://music.apple.com/jp/album/take-me-take-you/1444267524?i=1444267525&uo=4&app=itunes"
+    },
+    "song-kimi-soba": {
+      "trackId": 1444267526,
+      "title": "キミのそばでずっと",
+      "artist": "THE IDOLM@STER CINDERELLA GIRLS for BEST 5! (島村卯月、高垣楓、三船美優、森久保乃々、依田芳乃)",
+      "album": "Take me☆Take you",
+      "version": "original",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview118/v4/22/fc/1a/22fc1af3-feaa-5bb9-4b9a-2679c288e11e/mzaf_2328084004244076392.plus.aac.p.m4a",
+      "storeUrl": "https://music.apple.com/jp/album/%E3%82%AD%E3%83%9F%E3%81%AE%E3%81%9D%E3%81%B0%E3%81%A7%E3%81%9A%E3%81%A3%E3%81%A8/1444267524?i=1444267526&uo=4&app=itunes"
+    },
+    "song-snow-love": {
+      "trackId": 1543658331,
+      "title": "Snow*Love",
+      "artist": "市原仁奈 (CV: 久野美咲), 及川雫 (CV: のぐちゆり), 大槻唯 (CV: 山下七海), 高森藍子 (CV: 金子有希) & 依田芳乃 (CV: 高田憂希)",
+      "album": "THE IDOLM@STER CINDERELLA GIRLS LITTLE STARS! Snow*Love",
+      "version": "original",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview124/v4/d8/12/81/d81281a4-2e66-0f9d-dc2a-c1f476eaf3fe/mzaf_13869660533212728783.plus.aac.p.m4a",
+      "storeUrl": "https://music.apple.com/jp/album/snow-love/1543658330?i=1543658331&uo=4&app=itunes"
+    },
+    "song-mirai-compass": {
+      "trackId": 1677043230,
+      "title": "ミライコンパス (M@STER VERSION)",
+      "artist": "望月聖 (CV: 原 涼子), 佐久間まゆ (CV: 牧野由依), 緒方智絵里 (CV: 大空直美), 依田芳乃 (CV: 高田憂希) & 高森藍子 (CV: 金子有希)",
+      "album": "ミライコンパス (M@STER VERSION) - Single",
+      "version": "master",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/a1/5a/c4/a15ac423-f612-8aad-b46d-4aa34935b3df/mzaf_13690065165652811048.plus.aac.p.m4a",
+      "storeUrl": "https://music.apple.com/jp/album/%E3%83%9F%E3%83%A9%E3%82%A4%E3%82%B3%E3%83%B3%E3%83%91%E3%82%B9-m-ster-version/1677043229?i=1677043230&uo=4&app=itunes"
+    },
+    "song-pajamajama": {
+      "trackId": 1706774001,
+      "title": "パジャマジャマ",
+      "artist": "依田芳乃 (CV: 高田憂希), 辻野あかり (CV: 梅澤めぐ), 島村卯月 (CV: 大橋彩香), 神谷奈緒 (CV: 松井恵理子) & 佐久間まゆ (CV: 牧野由依)",
+      "album": "パジャマジャマ - Single",
+      "version": "original",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/a3/8a/f9/a38af90e-f3b8-5c6c-041c-dad593aae7b5/mzaf_8357222971291562807.plus.aac.p.m4a",
+      "storeUrl": "https://music.apple.com/jp/album/%E3%83%91%E3%82%B8%E3%83%A3%E3%83%9E%E3%82%B8%E3%83%A3%E3%83%9E/1706773998?i=1706774001&uo=4&app=itunes"
+    },
+    "song-fantasia": {
+      "trackId": 1761953429,
+      "title": "Fantasia for the Girls (M@STER VERSION)",
+      "artist": "久川颯 (CV: 長江里加), イヴ・サンタクロース (CV: 松永あかね), 白雪千夜 (CV: 関口理咲), 神谷奈緒 (CV: 松井恵理子), 藤原肇 (CV: 鈴木みのり), 依田芳乃 (CV: 高田憂希), 赤城みりあ (CV: 黒沢ともよ), 星輝子 (CV: 松田颯水) & 小早川紗枝 (CV: 立花理香)",
+      "album": "Fantasia for the Girls (M@STER VERSION) - Single",
+      "version": "master",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/b8/ce/54/b8ce5432-d40b-21d4-02be-7d1b9b9354b6/mzaf_6762025405813402149.plus.aac.p.m4a",
+      "storeUrl": "https://music.apple.com/jp/album/fantasia-for-the-girls-m-ster-version/1761953428?i=1761953429&uo=4&app=itunes"
+    },
+    "song-kaze-naritai": {
+      "trackId": 1481813037,
+      "title": "風になりたい",
+      "artist": "依田芳乃 (CV: 高田憂希) & 藤原肇 (CV: 鈴木みのり)",
+      "album": "風になりたい - Single",
+      "version": "original",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview113/v4/5f/a6/40/5fa640e4-6e8a-b310-3051-3e55dabd6695/mzaf_11597415302539965649.plus.aac.p.m4a",
+      "storeUrl": "https://music.apple.com/jp/album/%E9%A2%A8%E3%81%AB%E3%81%AA%E3%82%8A%E3%81%9F%E3%81%84/1481812731?i=1481813037&uo=4&app=itunes"
+    }
+  }
+}

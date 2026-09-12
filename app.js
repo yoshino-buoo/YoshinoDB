@@ -1,4 +1,6 @@
 import { validateCatalog, KINDS, isHttps, searchText } from "./lib/data.js";
+import { createListening } from "./listening.js";
+import { directoryArt } from "./home-art.js";
 import { mountEditor } from "./editor.js";
 import { createContentViews } from "./content.js";
 import {
@@ -141,6 +143,12 @@ function record(item) {
     .map((tag) => `<span>${esc(tagLabel(tag))}</span>`)
     .join("")}</div></div></article>`;
 }
+const listening = createListening({
+  base,
+  t,
+  esc,
+  onAudioStart: () => content.stopVideos(),
+});
 const content = createContentViews({
   base,
   t,
@@ -151,18 +159,21 @@ const content = createContentViews({
   ext,
   all,
   record,
+  musicPreview: listening.detail,
+  onVideoStart: listening.videoStarted,
+  onVideoStop: listening.videoStopped,
 });
 const detail = content.detail;
 
 function home() {
-  return `<section class="intro-grid"><div class="intro"><div class="eyebrow"><span></span>YORITA YOSHINO · FAN ARCHIVE</div><h1>${t("<span>ご縁をたどる、</span><span>芳乃の記録。</span>", "<span>循着缘分，</span><span>与芳乃相遇。</span>")}</h1><p class="intro-copy">${t("歌に、物語に、ひとつひとつの出会いに。<br>依田芳乃の歩みを、ここに綴ってゆきます。", "歌声、故事，还有一次次的相遇。<br>把依田芳乃走过的足迹，珍藏于此。")}</p><form class="search-form" role="search"><span aria-hidden="true">⌕</span><input name="q" aria-label="${t("資料を検索", "搜索资料")}" placeholder="${t("カード、楽曲、コミュを探す…", "搜索卡片、歌曲、剧情…")}" autocomplete="off"><button>${t("検索", "搜索")}</button></form><a class="profile-link" href="#profile">${t("はじめまして、依田芳乃です", "初次见面，我是依田芳乃")} <span>→</span></a><div class="intro-bottom"><span>七月三日</span><i></i><span>${t("鹿児島から、あなたのもとへ。", "从鹿儿岛，来到你身边。")}</span></div></div><div class="portrait"><div class="ambient-garden" aria-hidden="true"><span class="garden-haze"></span><svg class="garden-traces" viewBox="0 0 600 650" fill="none"><path class="trace-base" d="M-30 433C114 556 493 535 551 301S374 50 230 167S185 459 629 510"/><path class="trace-current" d="M-30 433C114 556 493 535 551 301S374 50 230 167S185 459 629 510"/><path class="trace-second" d="M50 530C-12 333 273 74 473 154S596 561 177 501"/></svg><span class="garden-orbit orbit-near"><i></i></span><span class="garden-orbit orbit-far"><i></i></span><span class="garden-ripples"><i></i><i></i><i></i></span><span class="garden-lightbeam"></span><span class="garden-motes"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div><div class="portrait-disc"></div><div class="vertical-copy" aria-hidden="true">${t("よきご縁が、ありますように。", "愿美好的缘分，与你相伴。")}</div><div class="portrait-figure"><img src="${base}assets/yoshino.png" alt="${t("依田芳乃の公式立ち絵", "依田芳乃官方立绘")}" fetchpriority="high"></div><div class="portrait-label"><span>よりた よしの</span><strong>依田 芳乃</strong><small>CV. ${t("高田憂希", "高田忧希")}</small></div><button class="motion-toggle" data-motion-toggle aria-label="${t("庭の動きを止める", "暂停庭院动效")}" aria-pressed="false">Ⅱ</button><a class="art-credit" href="#sources">©Bandai Namco Entertainment Inc.</a></div></section><section class="archive-section">${sectionTitle("home", "EXPLORE THE ARCHIVE", false).replace(`<h2><small>EXPLORE THE ARCHIVE</small>${label("home")}</h2>`, `<h2><small>EXPLORE THE ARCHIVE</small>${t("芳乃をめぐる、あれこれ", "关于芳乃的点点滴滴")}</h2><span class="subtle">${t("気になるページから、よりみち。", "从感兴趣的一页开始漫步。")}</span>`)}<div class="directory">${["cards", "songs", "stories", "units", "videos", "timeline"].map((k, i) => `<a href="#${k}"><span class="directory-num">0${i + 1}</span><span class="directory-icon">${icon(k)}</span><strong>${label(k)}</strong><small>${t(...{ cards: ["姿と装いの記録", "记录每一份姿态与装扮"], songs: ["歌声に耳をすませて", "聆听芳乃的歌声"], stories: ["言の葉をたどって", "寻访故事中的言语"], units: ["ともに紡ぐご縁", "一同编织的缘分"], videos: ["映像でもう一度", "在影像中再次相遇"], timeline: ["これまでの足あと", "回望一路的足迹"] }[k])}</small><span class="dir-arrow">↗</span></a>`).join("")}</div></section><div class="home-lower"><section>${sectionTitle("news", "NEWS & NOTES")}<div class="records">${all()
+  return `<section class="intro-grid"><div class="intro" data-ambient><div class="eyebrow"><span></span>YORITA YOSHINO · FAN ARCHIVE</div><h1>${t("<span>ご縁をたどる、</span><span>芳乃の記録。</span>", "<span>循着缘分，</span><span>与芳乃相遇。</span>")}</h1><p class="intro-copy">${t("歌に、物語に、ひとつひとつの出会いに。<br>依田芳乃の歩みを、ここに綴ってゆきます。", "歌声、故事，还有一次次的相遇。<br>把依田芳乃走过的足迹，珍藏于此。")}</p><form class="search-form" role="search"><span aria-hidden="true">⌕</span><input name="q" aria-label="${t("資料を検索", "搜索资料")}" placeholder="${t("カード、楽曲、コミュを探す…", "搜索卡片、歌曲、剧情…")}" autocomplete="off"><button>${t("検索", "搜索")}</button></form><a class="profile-link" href="#profile">${t("はじめまして、依田芳乃です", "初次见面，我是依田芳乃")} <span>→</span></a><div class="intro-bottom"><span>七月三日</span><i></i><span>${t("鹿児島から、あなたのもとへ。", "从鹿儿岛，来到你身边。")}</span></div></div><div class="portrait"><div class="ambient-garden" aria-hidden="true"><span class="garden-haze"></span><svg class="garden-traces" viewBox="0 0 600 650" fill="none"><path class="trace-base" d="M-30 433C114 556 493 535 551 301S374 50 230 167S185 459 629 510"/><path class="trace-current" d="M-30 433C114 556 493 535 551 301S374 50 230 167S185 459 629 510"/><path class="trace-second" d="M50 530C-12 333 273 74 473 154S596 561 177 501"/></svg><span class="garden-motes"><i></i><i></i><i></i><i></i><i></i><i></i></span></div><div class="portrait-disc"></div><div class="vertical-copy" aria-hidden="true">${t("よきご縁が、ありますように。", "愿美好的缘分，与你相伴。")}</div><div class="portrait-figure"><img src="${base}assets/yoshino.png" alt="${t("依田芳乃の公式立ち絵", "依田芳乃官方立绘")}" fetchpriority="high"></div><div class="portrait-label"><span>よりた よしの</span><strong>依田 芳乃</strong><small>CV. ${t("高田憂希", "高田忧希")}</small></div><button class="motion-toggle" data-motion-toggle aria-label="${t("ホームの動きを止める", "暂停首页动效")}" aria-pressed="false">Ⅱ</button><a class="art-credit" href="#sources">©Bandai Namco Entertainment Inc.</a></div></section><section class="archive-section" data-ambient>${sectionTitle("home", "EXPLORE THE ARCHIVE", false).replace(`<h2><small>EXPLORE THE ARCHIVE</small>${label("home")}</h2>`, `<h2><small>EXPLORE THE ARCHIVE</small>${t("芳乃をめぐる、あれこれ", "关于芳乃的点点滴滴")}</h2><span class="subtle">${t("気になるページから、よりみち。", "从感兴趣的一页开始漫步。")}</span>`)}<div class="directory">${["cards", "songs", "stories", "units", "videos", "timeline"].map((k, i) => `<a href="#${k}"><span class="directory-num">0${i + 1}</span><span class="directory-icon">${directoryArt(k)}</span><strong>${label(k)}</strong><small>${t(...{ cards: ["姿と装いの記録", "记录每一份姿态与装扮"], songs: ["歌声に耳をすませて", "聆听芳乃的歌声"], stories: ["言の葉をたどって", "寻访故事中的言语"], units: ["ともに紡ぐご縁", "一同编织的缘分"], videos: ["映像でもう一度", "在影像中再次相遇"], timeline: ["これまでの足あと", "回望一路的足迹"] }[k])}</small><span class="dir-arrow">↗</span></a>`).join("")}</div></section><div class="home-lower"><section class="home-news" data-ambient>${sectionTitle("news", "NEWS & NOTES")}<div class="records">${all()
     .filter((x) => x.kind === "news")
     .sort((a, b) => (b.date || "").localeCompare(a.date || ""))
     .slice(0, 3)
     .map(record)
     .join(
       "",
-    )}</div></section><aside class="small-garden"><span class="eyebrow">A LITTLE DETOUR</span><h2>${t("ひと息、ぶおー。", "歇一会儿，ぶおー。")}</h2><p>${t("芳乃といっしょに、法螺貝の修行を。", "和芳乃一起，来一场法螺贝修行。")}</p>${ext("https://yoshino-buoo.github.io/buo-dojo/", t("ぶおー法螺貝道場へ", "前往法螺贝道场"), "garden-link")}<span class="garden-bottom">${t("ちいさな遊び場、大きなご縁。", "小小的游乐场，大大的缘分。")}</span></aside></div>`;
+    )}</div></section><aside class="small-garden" data-ambient><span class="eyebrow">A LITTLE DETOUR</span><h2>${t("ひと息、ぶおー。", "歇一会儿，ぶおー。")}</h2><p>${t("芳乃といっしょに、法螺貝の修行を。", "和芳乃一起，来一场法螺贝修行。")}</p>${ext("https://yoshino-buoo.github.io/buo-dojo/", t("ぶおー法螺貝道場へ", "前往法螺贝道场"), "garden-link")}<span class="garden-bottom">${t("ちいさな遊び場、大きなご縁。", "小小的游乐场，大大的缘分。")}</span></aside></div>`;
 }
 function pageTitle(k, en, description = "") {
   return `<div class="page-title"><a href="#home">${label("home")}</a><small>${en}</small><h1>${label(k)}</h1>${description ? `<p>${description}</p>` : ""}</div>`;
@@ -228,7 +239,7 @@ function render(filterState = null) {
   document.title = `${label(route)} · YoshinoDB`;
   app.innerHTML =
     header(entryId ? all().find((x) => x.id === entryId)?.kind : route) +
-    `<main id="main" tabindex="-1">${entryId ? detail(entryId) : route === "home" ? home() : route === "profile" ? profile() : route === "sources" ? sources() : route === "editor" ? editor() : listing(route)}</main>` +
+    `<main id="main" tabindex="-1" class="${route === "home" ? "home-page" : ""}">${entryId ? detail(entryId) : route === "home" ? home() : route === "profile" ? profile() : route === "sources" ? sources() : route === "editor" ? editor() : listing(route)}</main>` +
     footer();
   app.querySelectorAll("[data-lang]").forEach(
     (b) =>
@@ -335,6 +346,7 @@ function render(filterState = null) {
   }
   if (route === "editor") bindEditor();
   content.bind(app);
+  listening.bind(app);
   animatePage(document.querySelector("main"));
   revealContent(document.querySelector("main"));
 }
@@ -357,7 +369,7 @@ function sources() {
     ]
       .map(([n, u]) => `<p>${ext(u, n)}</p>`)
       .join("")}
-    <h2>${t("この手帖を育てる", "一起添上新的一页")}</h2><p>${t("好きなカードや動画、思い出のエピソード。おすすめや訂正をお待ちしています。", "喜欢的卡面、视频，或是难忘的小故事，都欢迎来补充。")}</p>${ext("https://github.com/yoshino-buoo/YoshinoDB/issues/new/choose", t("情報を寄せる", "补充内容"), "text-link")}</div>`
+    <h2>${t("この場所に流れる音楽", "陪伴漫步的音乐")}</h2><p>日々あどべんちゃーなのでしてー · ${t("オリジナル・カラオケ", "原版伴奏")}<br>THE IDOLM@STER CINDERELLA GIRLS STARLIGHT MASTER GOLD RUSH! 12 パ・リ・ラ</p><p>${ext("https://cinderellagirls.idolmaster-official.jp/discography/cocc-17842/", t("CD のページへ", "唱片介绍"))}<br>℗ NIPPON COLUMBIA CO., LTD.</p><h2>${t("この手帖を育てる", "一起添上新的一页")}</h2><p>${t("好きなカードや動画、思い出のエピソード。おすすめや訂正をお待ちしています。", "喜欢的卡面、视频，或是难忘的小故事，都欢迎来补充。")}</p>${ext("https://github.com/yoshino-buoo/YoshinoDB/issues/new/choose", t("情報を寄せる", "补充内容"), "text-link")}</div>`
   );
 }
 
@@ -399,6 +411,12 @@ try {
   if (loaded[0].status !== "fulfilled") throw Error("Catalog unavailable");
   catalog = loaded[0].value;
   if (loaded[1].status === "fulfilled") generated = loaded[1].value;
+  try {
+    const response = await fetch(`${base}data/listening.json`);
+    if (response.ok) listening.setData(await response.json());
+  } catch {
+    /* The archive and BGM remain usable if preview metadata is unavailable. */
+  }
   render();
 } catch {
   app.innerHTML = `<main class="prose"><h1>資料を読み込めませんでした / 资料加载失败</h1><p>ページを再読み込みしてください。 / 请重新加载页面。</p><button onclick="location.reload()">再読み込み / 重试</button></main>`;

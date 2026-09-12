@@ -1,4 +1,5 @@
 import { readFile, access } from "node:fs/promises";
+import { validateListening } from "../lib/listening.js";
 import { validateCatalog } from "../lib/data.js";
 const items = [];
 for (const file of ["catalog", "generated"]) {
@@ -23,3 +24,17 @@ for (const item of items) {
   ])
     if (!ids.has(id)) throw Error(`Broken relation: ${item.id} → ${id}`);
 }
+
+const previews = validateListening(
+  JSON.parse(await readFile("public/data/listening.json", "utf8")),
+);
+for (const id of Object.keys(previews.tracks)) {
+  if (!items.some((x) => x.id === id && x.kind === "songs"))
+    throw Error(`Unknown preview song: ${id}`);
+}
+await access("public/audio/hibi-instrumental.m4a");
+for (const lang of ["ja", "zh"])
+  await access(`public/assets/providers/itunes-${lang}.svg`);
+console.log(
+  `listening: ${Object.keys(previews.tracks).length} song previews, BGM available`,
+);

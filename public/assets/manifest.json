@@ -893,5 +893,15 @@
     "image": "assets/BV1yT411M7Uu.webp",
     "imageSource": "https://i2.hdslb.com/bfs/archive/4bc73ff0960991320c236580f4396f5446755c63.jpg@672w_378h_1c.webp",
     "source": "https://www.bilibili.com/video/BV1yT411M7Uu/"
+  },
+  {
+    "image": "assets/providers/itunes-ja.svg",
+    "imageSource": "https://tools.applemediaservices.com/api/badges/get-it-on-itunes/badge/ja-jp?size=250x83",
+    "source": "https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html"
+  },
+  {
+    "image": "assets/providers/itunes-zh.svg",
+    "imageSource": "https://tools.applemediaservices.com/api/badges/get-it-on-itunes/badge/zh-cn?size=250x83",
+    "source": "https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html"
   }
 ]

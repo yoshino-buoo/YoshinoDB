@@ -1,0 +1,350 @@
+/* The motion lives in the drawings and light, leaving the text easy to read. */
+.intro .eyebrow > span {
+  position: relative;
+  overflow: visible;
+}
+.intro .eyebrow > span::after {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  top: -2px;
+  left: 0;
+  background: #b29c6c;
+  transform: rotate(45deg);
+  animation: greeting-seed 12s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+.intro h1 > span:last-child {
+  position: relative;
+}
+.intro h1 > span:last-child::after {
+  content: "";
+  position: absolute;
+  left: 0.04em;
+  bottom: -0.09em;
+  width: 1.25em;
+  height: 2px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #85454d20, #a88755, #85454d20);
+  transform-origin: left;
+  animation: ink-breath 9s ease-in-out infinite;
+}
+.search-form {
+  position: relative;
+  transition:
+    border-color 0.45s,
+    box-shadow 0.6s;
+}
+.search-form::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 12px;
+  right: 12px;
+  height: 1px;
+  pointer-events: none;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: linear-gradient(90deg, #ab9361, #85454d, #ab936100);
+  transition: transform 0.8s var(--motion-ease);
+}
+.search-form:focus-within {
+  border-color: #b5a078;
+  box-shadow: 0 4px 22px #a48d6014;
+}
+.search-form:focus-within::after {
+  transform: scaleX(1);
+}
+.search-form > span {
+  transition: rotate 0.6s var(--motion-ease);
+}
+.search-form:focus-within > span {
+  rotate: -18deg;
+}
+.profile-link > span,
+.garden-link > span,
+.section-heading a > span {
+  display: inline-block;
+  transition: transform 0.65s var(--motion-ease);
+}
+.profile-link:is(:hover, :focus-visible) > span,
+.section-heading a:is(:hover, :focus-visible) > span {
+  transform: translateX(6px);
+}
+.garden-link:is(:hover, :focus-visible) > span {
+  transform: translate(3px, -3px);
+}
+.directory > a {
+  --icon-phase: 0s;
+}
+.directory > a:nth-child(2) {
+  --icon-phase: -3s;
+}
+.directory > a:nth-child(3) {
+  --icon-phase: -6s;
+}
+.directory > a:nth-child(4) {
+  --icon-phase: -9s;
+}
+.directory > a:nth-child(5) {
+  --icon-phase: -12s;
+}
+.directory > a:nth-child(6) {
+  --icon-phase: -15s;
+}
+.directory-icon {
+  display: block;
+  margin: 0 0 13px;
+  line-height: 0;
+}
+.directory-drawing {
+  width: 52px;
+  height: 52px;
+  overflow: visible;
+}
+.directory-drawing g,
+.directory-drawing path {
+  transform-box: view-box;
+  transform-origin: 32px 32px;
+  animation-delay: var(--icon-phase);
+}
+.icon-card-back {
+  fill: #f5eddd;
+  animation: card-fan-back 18s ease-in-out infinite;
+}
+.icon-card-front {
+  fill: #fffaf0;
+  animation: card-fan-front 18s ease-in-out infinite;
+}
+.icon-staff {
+  opacity: 0.22;
+}
+.icon-note {
+  animation: note-lilt 18s ease-in-out infinite;
+}
+.icon-page {
+  fill: #f8f0e0;
+  transform-origin: 32px 32px;
+  animation: page-turn 18s ease-in-out infinite;
+}
+.icon-member {
+  animation: members-gather 18s ease-in-out infinite;
+  --gather: 3px;
+}
+.icon-member-right {
+  --gather: -3px;
+}
+.icon-member-center {
+  fill: #fffaf0;
+}
+.icon-play {
+  fill: #b99b5b25;
+  animation: play-light 18s ease-in-out infinite;
+}
+.icon-clock {
+  animation: clock-look 18s ease-in-out infinite;
+}
+.directory-drawing :is(g, path) {
+  animation-delay: var(--icon-phase);
+}
+.directory > a:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: -4px;
+}
+.directory > a:focus-visible::after {
+  opacity: 1;
+  transform: none;
+}
+.home-news .section-heading {
+  position: relative;
+}
+.home-news .section-heading::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  height: 1px;
+  width: min(180px, 40%);
+  opacity: 0.6;
+  background: linear-gradient(90deg, transparent, #a58b52, transparent);
+  animation: news-signal 14s ease-in-out infinite;
+}
+.home-news .record-cover img {
+  transform-origin: 50% 45%;
+}
+.small-garden {
+  overflow: hidden;
+  isolation: isolate;
+}
+.small-garden::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 280px;
+  height: 280px;
+  top: -90px;
+  right: -80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fffbdfb0, #e2e9d800 70%);
+  animation: detour-light 13s ease-in-out infinite alternate;
+}
+@keyframes greeting-seed {
+  0%,
+  12%,
+  100% {
+    translate: 0;
+    opacity: 0.45;
+  }
+  45%,
+  58% {
+    translate: 25px;
+    opacity: 1;
+  }
+}
+@keyframes ink-breath {
+  0%,
+  100% {
+    opacity: 0.35;
+    scale: 0.9 1;
+  }
+  50% {
+    opacity: 0.85;
+    scale: 1.06 1;
+  }
+}
+@keyframes card-fan-back {
+  0%,
+  38%,
+  100% {
+    transform: rotate(-5deg);
+  }
+  12%,
+  24% {
+    transform: translate(-3px, -2px) rotate(-16deg);
+  }
+}
+@keyframes card-fan-front {
+  0%,
+  38%,
+  100% {
+    transform: rotate(3deg);
+  }
+  12%,
+  24% {
+    transform: translate(3px, 0) rotate(9deg);
+  }
+}
+@keyframes note-lilt {
+  0%,
+  36%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  10%,
+  24% {
+    transform: translateY(-4px) rotate(-6deg);
+  }
+  17% {
+    transform: translateY(1px) rotate(3deg);
+  }
+}
+@keyframes page-turn {
+  0%,
+  38%,
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  15% {
+    transform: scaleX(-0.55);
+    opacity: 0.8;
+  }
+  26% {
+    transform: scaleX(0.8);
+  }
+}
+@keyframes members-gather {
+  0%,
+  40%,
+  100% {
+    transform: translateX(0);
+  }
+  18% {
+    transform: translateX(var(--gather));
+  }
+}
+@keyframes play-light {
+  0%,
+  40%,
+  100% {
+    transform: scale(1);
+    fill: #b99b5b25;
+  }
+  18% {
+    transform: scale(1.18);
+    fill: #85454d65;
+  }
+}
+@keyframes clock-look {
+  0%,
+  38%,
+  100% {
+    transform: rotate(0);
+  }
+  18% {
+    transform: rotate(90deg);
+  }
+}
+@keyframes news-signal {
+  0%,
+  15%,
+  100% {
+    translate: 0;
+    opacity: 0;
+  }
+  35% {
+    opacity: 0.75;
+  }
+  70% {
+    translate: 150px;
+    opacity: 0;
+  }
+}
+@keyframes detour-light {
+  to {
+    transform: translate(-100px, 75px) scale(1.2);
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .directory > a:hover .directory-icon {
+    transform: translateY(-4px) scale(1.08);
+  }
+}
+@media (max-width: 760px) {
+  .directory-drawing {
+    width: 43px;
+    height: 43px;
+  }
+}
+/* A single pause preference covers the whole home page, including pseudo-elements. */
+.home-page.ambient-paused *,
+.home-page.ambient-paused *::before,
+.home-page.ambient-paused *::after,
+.home-page .ambient-offscreen *,
+.home-page .ambient-offscreen *::before,
+.home-page .ambient-offscreen *::after,
+.home-page .ambient-offscreen::before,
+.home-page .ambient-offscreen::after,
+.motion-idle .home-page *,
+.motion-idle .home-page *::before,
+.motion-idle .home-page *::after {
+  animation-play-state: paused !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-page *,
+  .home-page *::before,
+  .home-page *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

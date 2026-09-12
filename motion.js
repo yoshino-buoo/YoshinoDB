@@ -402,7 +402,9 @@ function gardenState() {
   const portrait = document.querySelector(".portrait");
   if (!portrait) return;
   const paused = ambientPaused || reducedMotion();
-  portrait.classList.toggle("ambient-paused", paused);
+  document
+    .querySelector(".home-page")
+    ?.classList.toggle("ambient-paused", paused);
   const button = portrait.querySelector("[data-motion-toggle]");
   if (button) {
     button.setAttribute("aria-pressed", String(paused));
@@ -415,11 +417,11 @@ function gardenState() {
           : "システム設定で動きを停止中"
         : paused
           ? zh
-            ? "开启庭院动效"
-            : "庭の動きを再開"
+            ? "开启首页动效"
+            : "ホームの動きを再開"
           : zh
-            ? "暂停庭院动效"
-            : "庭の動きを止める",
+            ? "暂停首页动效"
+            : "ホームの動きを止める",
     );
     button.title = button.getAttribute("aria-label");
     button.textContent = paused ? "▷" : "Ⅱ";
@@ -437,12 +439,17 @@ function bindMotion(main) {
       .forEach((group) => indicatorObserver.observe(group));
   }
   gardenState();
-  const portrait = main?.querySelector(".portrait");
-  if (portrait && "IntersectionObserver" in window) {
-    gardenObserver = new IntersectionObserver(([entry]) =>
-      portrait.classList.toggle("ambient-offscreen", !entry.isIntersecting),
-    );
-    gardenObserver.observe(portrait);
+  if ("IntersectionObserver" in window) {
+    gardenObserver = new IntersectionObserver((entries) => {
+      for (const entry of entries)
+        entry.target.classList.toggle(
+          "ambient-offscreen",
+          !entry.isIntersecting,
+        );
+    });
+    main
+      ?.querySelectorAll(".portrait,[data-ambient]")
+      .forEach((zone) => gardenObserver.observe(zone));
   }
 }
 document.addEventListener("visibilitychange", () =>

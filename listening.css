@@ -1,0 +1,321 @@
+.song-listening {
+  margin: 23px 0 25px;
+  padding: 19px 20px 13px;
+  border: 1px solid #d9ccaf;
+  border-radius: 5px;
+  background: linear-gradient(130deg, #fffdf7, #f4eddc6b);
+}
+.preview-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.preview-top > div {
+  flex: 1;
+  min-width: 0;
+}
+.preview-top strong {
+  display: block;
+  font: 500 16px/1.6 var(--serif);
+  letter-spacing: 0.06em;
+}
+.preview-top small {
+  display: block;
+  margin-top: 3px;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+.preview-toggle {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: #fffaf0;
+  width: 43px;
+  height: 43px;
+  padding: 0;
+  border: 1px solid #85454d;
+  background: var(--red);
+  border-radius: 50%;
+  transition:
+    box-shadow 0.35s,
+    background 0.35s;
+}
+.preview-toggle:hover {
+  background: #6e333c;
+  box-shadow: 0 0 0 5px #85454d12;
+}
+.preview-toggle svg {
+  fill: currentColor;
+  width: 21px;
+  height: 21px;
+}
+.preview-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+.preview-progress output {
+  font-size: 10px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  min-width: 26px;
+}
+.preview-progress output:last-child {
+  text-align: right;
+}
+.song-listening input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 18px;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  background: transparent;
+  box-shadow: none;
+  accent-color: var(--red);
+}
+.preview-progress input {
+  flex: 1;
+  width: 100%;
+}
+.song-listening input[type="range"]::-webkit-slider-runnable-track {
+  height: 2px;
+  border-radius: 2px;
+  background: #cec2ad;
+}
+.song-listening [data-preview-seek]::-webkit-slider-runnable-track {
+  background: linear-gradient(
+    90deg,
+    var(--red) var(--played, 0%),
+    #cec2ad var(--played, 0%)
+  );
+}
+.song-listening input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 9px;
+  height: 9px;
+  margin-top: -3.5px;
+  border-radius: 50%;
+  background: var(--red);
+  border: 2px solid #faf5e8;
+  box-shadow: 0 0 0 1px #bba98b;
+}
+.song-listening input[type="range"]::-moz-range-track::-moz-range-track {
+  height: 2px;
+  background: #cec2ad;
+}
+.song-listening input[type="range"]::-moz-range-thumb::-moz-range-thumb {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--red);
+  border: 2px solid #faf5e8;
+}
+.song-listening input:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.preview-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 9px;
+}
+.itunes-badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  padding: 5px 0;
+}
+.itunes-badge img {
+  display: block;
+  width: 108px;
+  height: 36px;
+}
+.preview-volume {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.preview-volume > svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  color: #8d806b;
+}
+.preview-volume > input {
+  width: 63px;
+}
+.preview-credit {
+  display: block;
+  font-size: 9px;
+  line-height: 1.6;
+  color: #807767;
+  letter-spacing: 0.025em;
+  margin: 4px 0 0;
+}
+.preview-status {
+  font-size: 12px;
+  color: var(--red);
+  line-height: 1.8;
+  margin: 7px 0 0;
+}
+.preview-status:empty {
+  display: none;
+}
+.audio-bars {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  gap: 3px;
+  color: #b09b71;
+}
+.audio-bars i {
+  width: 2px;
+  height: 5px;
+  background: currentColor;
+  border-radius: 2px;
+}
+.is-playing .audio-bars i {
+  animation: audio-bar 0.85s ease-in-out infinite alternate;
+}
+.is-playing .audio-bars i:nth-child(2) {
+  animation-delay: -0.35s;
+  animation-duration: 0.6s;
+}
+.is-playing .audio-bars i:nth-child(3) {
+  animation-delay: -0.7s;
+  animation-duration: 0.95s;
+}
+.is-playing .audio-bars i:nth-child(4) {
+  animation-delay: -0.15s;
+  animation-duration: 0.7s;
+}
+.is-loading .preview-toggle {
+  animation: audio-wait 1s ease-in-out infinite alternate;
+}
+.listening-dock {
+  position: fixed;
+  z-index: 35;
+  right: max(22px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  color: var(--ink);
+  font-family: var(--sans);
+}
+.bgm-switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 38px;
+  padding: 6px 12px;
+  color: #998871;
+  border: 1px solid #cdbd9fa3;
+  border-radius: 22px;
+  background: #fffaf0ed;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 3px 18px #64503312;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  transition:
+    color 0.3s,
+    border-color 0.3s;
+}
+.bgm-switch[aria-checked="true"] {
+  color: var(--red);
+}
+.bgm-switch:hover {
+  border-color: #a38c69;
+}
+.bgm-switch .audio-bars {
+  height: 18px;
+  color: inherit;
+  gap: 2px;
+}
+.bgm-switch-track {
+  width: 22px;
+  height: 12px;
+  padding: 2px;
+  border-radius: 9px;
+  background: #c7bdac;
+  transition: background 0.3s;
+}
+.bgm-switch-track i {
+  display: block;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  background: #fffaf0;
+  transition: translate 0.3s var(--motion-ease);
+}
+.bgm-switch[aria-checked="true"] .bgm-switch-track {
+  background: var(--red);
+}
+.bgm-switch[aria-checked="true"] .bgm-switch-track i {
+  translate: 10px 0;
+}
+.listening-dock button:focus-visible,
+.song-listening button:focus-visible,
+.song-listening a:focus-visible,
+.listening-dock input:focus-visible,
+.song-listening input:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 4px;
+}
+@keyframes audio-bar {
+  to {
+    height: 18px;
+  }
+}
+@keyframes audio-wait {
+  to {
+    opacity: 0.5;
+  }
+}
+@media (max-width: 760px) {
+  .listening-dock {
+    right: 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+  }
+  .song-listening {
+    padding: 16px;
+  }
+  .preview-top strong {
+    font-size: 15px;
+  }
+  footer {
+    padding-bottom: 78px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .listening-dock *,
+  .song-listening * {
+    animation: none !important;
+    transition: none !important;
+  }
+  .is-playing .audio-bars i {
+    height: 12px;
+  }
+  .is-playing .audio-bars i:nth-child(2n) {
+    height: 18px;
+  }
+}
+.motion-idle .audio-bars i {
+  animation-play-state: paused;
+}
+.video-close {
+  display: block;
+  margin: 8px 0 0 auto;
+  padding: 5px 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+}
+.video-close:hover {
+  color: var(--red);
+}

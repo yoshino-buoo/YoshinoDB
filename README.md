@@ -31,12 +31,25 @@
 | 偶像大师官方 YouTube | 公共 Atom 订阅             | 近期条目中标题或说明匹配关键词的视频               |
 | 日本哥伦比亚 YouTube | 公共 Atom 订阅             | 同上                                               |
 | 依田こころ Bilibili  | 已核实原投稿链接；可选 RSS | 默认手工更新；可配置维护者有权使用的订阅源         |
+| Apple iTunes         | 官方 Search / Lookup API  | 每日刷新已核实的 16 首歌曲的试听地址和商店链接      |
 
 关键词和官方入口位于 `public/data/sources.json`。抓取数据保存在独立的 `public/data/generated.json`，不会覆盖人工整理的 `catalog.json`。自动条目的中文标题为空时显示日文标题。相同来源和分类的人工条目优先显示，可在保留自动同步的同时补充中文说明。
 
 每个来源单独报告状态。网络错误、反爬验证或页面结构变化时保留已有条目；无匹配的新视频是有效结果，不是抓取失败。更新采用规范化 URL 去重和原子写入。同步后的工作流显式触发 Pages，因为 `GITHUB_TOKEN` 提交本身不会触发另一个 push 工作流。
 
 订阅只覆盖近期数据，不保证补全历史、检测全部删除或漏掉关键词之外的关联。GitHub 定时任务可能延迟，仓库长期无活动时也可能暂停，需要在 Actions 恢复。来源状态保存在 generated.json，并在 Actions 运行日志中显示。
+
+### 歌曲试听与 BGM
+
+歌曲详情的试听通过 [iTunes Search API](https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html) 提供，包含直接购买链接、Apple 官方商店标识和音源署名。音频从 Apple CDN 直接流式播放，不下载到仓库、不缓存音乐文件、不循环试听片段，也不把试听当作全站 BGM。离开歌曲页时停止试听；同一歌曲切换中日文保留播放位置。
+
+`config/listening.json` 保存人工核实的歌曲 ID 对应关系。新收录歌曲不会猜测匹配同名音源：确认 Apple 曲目链接中的数字 ID 后加入此文件，再运行 `npm run sync:music`。脚本一次批量查询并核对歌名、演唱者和版本，将结果写入 `public/data/listening.json`。接口故障保留已有数据；单首撤下时保留上次地址和可用的商店入口，不影响歌曲条目的收录。当前《日々あどべんちゃーなのでしてー》为 GAME VERSION 试听，《桜の風》保留官方视频入口。
+
+背景音乐使用维护者提供的《日々あどべんちゃーなのでしてー（オリジナル・カラオケ）》完整音频（5:37），来自 2021 年唱片《STARLIGHT MASTER GOLD RUSH! 12 パ・リ・ラ》。原 Ogg 文件转为 AAC / M4A，并移除文件附带元数据，保存在 `public/audio/hibi-instrumental.m4a`，以兼容 Safari 等浏览器。著作权归相关权利人所有。
+
+右下角只有一个 BGM 开关，默认开启、自动循环，音量固定为轻柔的 22%。浏览器允许时自动播放；被有声自动播放策略拦截时，在第一次点击页面或按 Enter／空格后启动。跨站内页面连续播放，刷新恢复记录的播放位置。手动关闭会保存在浏览器，之后的点击、刷新和媒体结束都不会擅自重新开启。歌曲试听期间暂停 BGM，试听暂停、结束或载入失败后恢复；视频展开期间暂停 BGM，收起视频或离开该页后恢复。替换背景音乐时更新音频文件以及关于本站中的曲目信息。
+
+首页的标题细节、分类插画、资讯栏与小游戏区域的柔光均有独立动效。暂停按钮控制整个首页，离屏区域暂停循环，并遵循系统的“减少动态效果”设置。
 
 ### Bilibili 的具体情况
 
@@ -66,6 +79,10 @@ style.css                      和风主题与响应式布局
 lib/data.js                    共享数据校验、合并规则
 public/data/catalog.json       人工核实的双语资料
 public/data/generated.json     自动更新结果与各来源健康状态
+public/data/listening.json     官方歌曲试听地址与商店链接
+config/listening.json          人工核实的音乐平台曲目 ID
+listening.js / listening.css   BGM、试听与音视频互斥
+home-art.js / home-motion.css  首页分类插画和环境动效
 public/data/sources.json       抓取来源、关键词
 public/assets/                 官方立绘、唱片封面及出处说明
 scripts/sync.mjs                定时数据同步
