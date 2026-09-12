@@ -403,11 +403,7 @@ export async function transitionPage(update, { resetScroll = false } = {}) {
     releaseScroll?.();
     if (settleScroll === releaseScroll) settleScroll = null;
   };
-  run.ready.then(() => {
-    // ready means captured, not necessarily presented. Give the transition
-    // layers a paint before changing the compositor's document scroll offset.
-    requestAnimationFrame(() => requestAnimationFrame(finishScroll));
-  }, finishScroll);
+  run.ready.then(finishScroll, finishScroll);
   run.finished
     .finally(() => {
       finishScroll();
