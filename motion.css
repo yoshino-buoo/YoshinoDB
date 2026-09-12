@@ -141,7 +141,7 @@
   stroke: #c7af79;
   stroke-dasharray: 95 1550;
   opacity: 0.6;
-  --path-loop: 1650px;
+  --path-loop: 1645px;
   animation: water-thread 19s linear infinite reverse;
 }
 .garden-motes {
