@@ -1,14 +1,5 @@
 // Small line drawings share the archive's ink and paper palette. Their moving
 // parts are separate from the entrance transforms on the containing links.
-export function homeBlossoms() {
-  const petal =
-    '<path d="M0 1C-1.6-3-3.2-10-1.8-15C-1.3-17 0-19 0-19S1.3-17 1.8-15C3.2-10 1.6-3 0 1Z"/>';
-  const flower = [0, 72, 144, 216, 288]
-    .map((angle) => `<g transform="rotate(${angle})">${petal}</g>`)
-    .join("");
-  return `<div class="home-blossoms" aria-hidden="true">${Array.from({ length: 6 }, (_, i) => `<span class="blossom-course blossom-course-${i + 1}" data-ambient><span class="blossom-fall"><span class="blossom-sway"><svg class="blossom-drawing" viewBox="-20 -20 40 40" focusable="false">${flower}</svg></span></span></span>`).join("")}</div>`;
-}
-
 export function directoryArt(kind) {
   const drawings = {
     cards: `<g class="icon-card-back"><rect x="12" y="9" width="29" height="39" rx="3"/></g><g class="icon-card-front"><rect x="22" y="16" width="29" height="39" rx="3"/><path d="M27 43l7-9 6 5 6-9M28 49h17"/><circle cx="32" cy="27" r="3"/></g>`,
