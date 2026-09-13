@@ -126,7 +126,7 @@ export function animatePage(main) {
     );
     main
       .querySelectorAll(
-        ".collection-page>.music-shelf-intro,.collection-page>.collection-stats,.collection-page>.story-paths,.collection-page>.video-intro,.collection-page>.category-tabs,.collection-page>.list-controls,.collection-page>.result-count",
+        ".collection-page>.music-shelf-intro,.collection-page>.collection-stats,.collection-page>.story-paths,.collection-page>.video-intro,.collection-page>.category-tabs,.collection-page>.list-controls,.collection-page>.result-count,.collection-page>.card-results-bar",
       )
       .forEach((element, index) => {
         animate(
@@ -402,7 +402,8 @@ export async function transitionPage(
       target.dataset.sharedArt = "";
       const image = target.matches("img")
         ? target
-        : target.querySelector("img");
+        : target.querySelector("[data-variant-panel]:not([hidden]) img") ||
+          target.querySelector("img");
       if (image && !image.complete)
         await Promise.race([
           image.decode().catch(() => {}),

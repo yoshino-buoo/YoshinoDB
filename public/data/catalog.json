@@ -2587,15 +2587,6 @@
             "ja": "特訓後",
             "zh": "特训后"
           }
-        },
-        {
-          "image": "assets/card-3303-event-art.jpg",
-          "imageSource": "https://patchwiki.biligame.com/images/imascg/a/aa/mrbj81jlq3nhv892ab3lxfhz019sfj2.png",
-          "source": "https://wiki.biligame.com/imascg/依田芳乃",
-          "label": {
-            "ja": "イベント期間限定の姿",
-            "zh": "活动期间限定差分"
-          }
         }
       ],
       "card": {
@@ -3269,21 +3260,7 @@
             ]
           }
         ]
-      },
-      "sections": [
-        {
-          "title": {
-            "ja": "もう一つの境内",
-            "zh": "另一个庭院"
-          },
-          "paragraphs": [
-            {
-              "ja": "イベント開催中には、特訓前のイラストにもう一人の姿が重なる特別な差分が表示された。図集の「イベント期間限定の姿」で見比べられる。",
-              "zh": "活动期间，特训前卡面曾显示多出另一道身影的特殊差分，可在图集的「活动期间限定差分」中对照查看。"
-            }
-          ]
-        }
-      ]
+      }
     },
     {
       "id": "commu-20230321_1",

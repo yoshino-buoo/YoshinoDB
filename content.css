@@ -22,6 +22,35 @@
   background: var(--line);
   flex: 1;
 }
+.card-results-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 18px 0;
+}
+.card-results-bar .result-count {
+  flex: 1;
+  margin: 0;
+}
+.card-art-toggle {
+  display: inline-flex;
+  flex-shrink: 0;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+}
+.card-art-toggle button {
+  padding: 4px 9px;
+  border-radius: 16px;
+  font-size: 11px;
+  line-height: 1.4;
+  background: transparent;
+  color: var(--muted);
+}
+.card-art-toggle button[aria-pressed="true"] {
+  background: var(--red);
+  color: var(--paper);
+}
 .collection-stats {
   display: flex;
   gap: 34px;

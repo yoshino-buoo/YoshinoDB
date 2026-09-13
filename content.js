@@ -2,6 +2,7 @@ import { switchArtwork } from "./motion.js";
 import { relatedRecords, embedUrl } from "./lib/relations.js";
 import { renderVoiceGuide } from "./lib/voice-guide.js";
 import { renderPetitIdol } from "./lib/petit-idol.js";
+import { cardArtwork } from "./lib/card-art.js";
 export function createContentViews({
   base,
   t,
@@ -12,6 +13,7 @@ export function createContentViews({
   ext,
   all,
   record,
+  cardVariant = () => 0,
   musicPreview = () => "",
   onVideoStart = () => {},
   onVideoStop = () => {},
@@ -21,10 +23,12 @@ export function createContentViews({
     renderVoiceGuide(item.voiceGuide, { t, tr, esc, ext });
   const link = (item, text = title(item)) =>
     `<a href="#entry/${esc(item.id)}">${text}</a>`;
-  const image = (item, cls = "") =>
-    item.image
-      ? `<img class="${cls}" src="${base}${esc(item.image)}" alt="${title(item)}" loading="lazy">`
+  const image = (item, cls = "") => {
+    const artwork = cardArtwork(item, cardVariant()).image;
+    return artwork
+      ? `<img class="${cls}" src="${base}${esc(artwork)}" alt="${title(item)}" loading="lazy">`
       : "";
+  };
   const localized = (value) =>
     Array.isArray(value) ? value.map(tr).join(t("・", "、")) : tr(value);
   const facts = (rows) =>
@@ -104,7 +108,8 @@ export function createContentViews({
         ? [{ image: item.image }]
         : [];
     if (!images.length) return "";
-    return `<div class="card-gallery"><div class="gallery-stage ${item.game === "mobamas" ? "mobamas-art" : item.image?.endsWith("yoshino.png") ? "standing" : ""}">${images.map((art, index) => `<figure data-variant-panel="${index}" ${index ? "hidden" : ""}><a href="${base}${esc(art.image)}" target="_blank" rel="noopener"><img src="${base}${esc(art.image)}" alt="${title(item)} ${esc(tr(art.label))}"></a></figure>`).join("")}</div>${images.length > 1 ? `<div class="variant-tabs" role="group" aria-label="${t("カードの姿", "卡面版本")}">${images.map((art, index) => `<button data-variant="${index}" aria-pressed="${index === 0}">${esc(tr(art.label) || String(index + 1))}</button>`).join("")}</div>` : ""}</div>`;
+    const selected = cardArtwork(item, cardVariant()).index;
+    return `<div class="card-gallery"><div class="gallery-stage ${item.game === "mobamas" ? "mobamas-art" : item.image?.endsWith("yoshino.png") ? "standing" : ""}">${images.map((art, index) => `<figure data-variant-panel="${index}" ${index !== selected ? "hidden" : ""}><a href="${base}${esc(art.image)}" target="_blank" rel="noopener"><img src="${base}${esc(art.image)}" alt="${title(item)} ${esc(tr(art.label))}"></a></figure>`).join("")}</div>${images.length > 1 ? `<div class="variant-tabs" role="group" aria-label="${t("カードの姿", "卡面版本")}">${images.map((art, index) => `<button data-variant="${index}" aria-pressed="${index === selected}">${esc(tr(art.label) || String(index + 1))}</button>`).join("")}</div>` : ""}</div>`;
   }
   function statTable(card, mobamas = false) {
     const versions = (mobamas ? card.mobamasStats : card.stats) || [];

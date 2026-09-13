@@ -104,10 +104,12 @@ test("profile and card voice scenes render in both languages and open in the edi
   await page.goto("./#entry/sr-20220819_1");
   await expect(page.locator(".voice-stage")).toHaveCount(2);
   await expect(page.locator(".voice-links a")).toHaveCount(72);
-  await page.locator('[data-variant="2"]').click();
-  await expect(page.locator('[data-variant-panel="2"] img')).toBeVisible();
+  await expect(page.locator("[data-variant]")).toHaveCount(2);
+  await expect(page.locator("[data-variant-panel]")).toHaveCount(2);
+  await page.locator('[data-variant="1"]').click();
+  await expect(page.locator('[data-variant-panel="1"] img')).toBeVisible();
   expect(
-    await page.locator('[data-variant-panel="2"] img').evaluate(async (i) => {
+    await page.locator('[data-variant-panel="1"] img').evaluate(async (i) => {
       await i.decode();
       return i.naturalWidth;
     }),
@@ -123,6 +125,101 @@ test("profile and card voice scenes render in both languages and open in the edi
     page.locator(".studio-preview-content .profile-connections"),
   ).toBeVisible();
   expect(errors).toEqual([]);
+});
+
+test("compact card art preference persists and opens both games on the clicked artwork", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("./#cards");
+  await expect(page.locator("#boot-screen")).toHaveCount(0, { timeout: 15000 });
+  const catalog = await (
+    await page.request.get(new URL("data/catalog.json", page.url()).href)
+  ).json();
+  const toggle = page.locator(".card-art-toggle");
+  await expect(page.locator('[data-card-art="0"]')).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
+  await toggle.scrollIntoViewIfNeeded();
+  const size = await toggle.boundingBox();
+  const count = await page.locator(".result-count").boundingBox();
+  expect(size.height).toBeLessThanOrEqual(32);
+  expect(size.width).toBeLessThanOrEqual(125);
+  expect(
+    Math.abs(size.y + size.height / 2 - count.y - count.height / 2),
+  ).toBeLessThan(2);
+  await page.locator('[data-card-art="1"]').click();
+
+  for (const game of ["deresute", "mobamas"]) {
+    await page.locator(`[data-card-game="${game}"]`).click();
+    const first = page.locator("#results .record").first();
+    const id = await first.getAttribute("data-entry");
+    const item = catalog.items.find((item) => item.id === id);
+    expect(item.game).toBe(game);
+    const cover = first.locator(".record-cover img");
+    const expected = new URL(item.gallery[1].image, page.url()).href;
+    await expect(cover).toHaveJSProperty("src", expected);
+    // Capture the very first rendered gallery, before any entrance animation.
+    await page.evaluate(() => {
+      window.firstCardPanel = null;
+      const observer = new MutationObserver(() => {
+        const panel = document.querySelector(
+          ".card-gallery [data-variant-panel]:not([hidden])",
+        );
+        if (!panel) return;
+        window.firstCardPanel = {
+          index: panel.dataset.variantPanel,
+          src: panel.querySelector("img").src,
+        };
+        observer.disconnect();
+      });
+      observer.observe(document.querySelector("#app"), {
+        childList: true,
+        subtree: true,
+      });
+    });
+    await cover.click();
+    await expect(page.locator('[data-variant-panel="1"]')).toBeVisible();
+    await expect
+      .poll(() => page.evaluate(() => window.firstCardPanel))
+      .toEqual({ index: "1", src: expected });
+    await expect(page.locator('[data-variant="1"]')).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    // A temporary choice inside a detail should not overwrite the list default.
+    await page.locator('[data-variant="0"]').click();
+    await expect(page.locator('[data-variant-panel="0"]')).toBeVisible();
+    await page.goBack();
+    await expect(page.locator('[data-card-art="1"]')).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    await expect(cover).toHaveJSProperty("src", expected);
+  }
+  await page.locator('[data-lang="zh"]').click();
+  await expect(toggle).toContainText("特训后");
+  await page.reload();
+  await expect(page.locator('[data-card-art="1"]')).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  await page.locator('[data-card-art="0"]').click();
+  const first = page.locator("#results .record").first();
+  const id = await first.getAttribute("data-entry");
+  const item = catalog.items.find((item) => item.id === id);
+  await expect(first.locator("img")).toHaveJSProperty(
+    "src",
+    new URL(item.gallery[0].image, page.url()).href,
+  );
+  await first.locator(".record-cover").click();
+  await expect(page.locator('[data-variant-panel="0"]')).toBeVisible();
 });
 
 test("petit costume switches decoded poses, pauses offscreen and works in the editor", async ({
