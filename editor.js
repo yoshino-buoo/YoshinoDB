@@ -173,7 +173,7 @@ export function mountEditor(
     if (def.type === "rows")
       return `<div class="studio-rows studio-wide" data-rows="${esc(path)}"><div class="studio-row-heading"><h3>${esc(name)} <small>${value?.length || 0}</small></h3><button type="button" data-add="${esc(path)}" ${path === "gallery" && value?.length >= 10 ? "disabled" : ""}>＋ ${t("追加", "添加")}</button></div>${(value || []).map((row, i) => `<fieldset class="studio-row" data-row="${esc(path)}.${i}"><legend>${esc(name)} ${String(i + 1).padStart(2, "0")}</legend><div class="studio-row-actions"><button type="button" data-move="${esc(path)}" data-index="${i}" data-direction="-1" ${!i ? "disabled" : ""} aria-label="${t("上へ", "上移")}">↑</button><button type="button" data-move="${esc(path)}" data-index="${i}" data-direction="1" ${i === value.length - 1 ? "disabled" : ""} aria-label="${t("下へ", "下移")}">↓</button><button type="button" data-remove="${esc(path)}" data-index="${i}">${t("削除", "移除")}</button></div><div class="studio-fields">${def.fields.map((d) => field(d, `${path}.${i}`)).join("")}</div></fieldset>`).join("")}${!value?.length ? `<p class="studio-hint">${t("必要なときに追加できます。", "需要时点击添加。")}</p>` : ""}</div>`;
     if (def.type === "image")
-      return `<div class="studio-image-field studio-wide" data-field-group="${esc(path)}"><label>${esc(name)}${control("text", value, 'placeholder="assets/example.jpg"')}</label><div class="studio-image-choice"><div class="studio-image-preview" data-image-for="${esc(path)}">${value ? `<img src="${esc(assetURL(value))}" alt="${esc(name)}">` : `<span>${t("画像なし", "暂无图片")}</span>`}</div><div><button type="button" data-pick-image="${esc(path)}">${t("画像ライブラリ", "从素材库选择")}</button><button type="button" data-upload-image="${esc(path)}">${t("画像をアップロード", "上传新图片")}</button><p class="studio-hint">${t("PNG / JPG / WebP・8 MBまで。新しい画像は公開用パッケージに同梱します。", "PNG / JPG / WebP，最大 8 MB。新图片会随发布包一起导出。")}</p></div></div></div>`;
+      return `<div class="studio-image-field studio-wide" data-field-group="${esc(path)}"><label>${esc(name)}${control("text", value, 'placeholder="assets/example.jpg"')}</label><div class="studio-image-choice"><div class="studio-image-preview" data-image-for="${esc(path)}">${value ? `<img src="${esc(assetURL(value))}" alt="${esc(name)}">` : `<span>${t("画像なし", "暂无图片")}</span>`}</div><div><button type="button" data-pick-image="${esc(path)}">${t("画像ライブラリ", "从素材库选择")}</button><button type="button" data-upload-image="${esc(path)}">${t("画像をアップロード", "上传新图片")}</button><p class="studio-hint">${t("PNG / JPG / WebP（スタンプは GIF も可）・8 MBまで。新しい画像は公開用パッケージに同梱します。", "PNG / JPG / WebP（贴纸另支持 GIF），最大 8 MB。新图片会随发布包一起导出。")}</p></div></div></div>`;
     if (def.type === "relations")
       return `<div class="studio-wide" data-field-group="${esc(path)}"><h3>${esc(name)}</h3><div class="studio-linked">${(
         value || []
@@ -546,7 +546,7 @@ export function mountEditor(
     );
     const library = new Map();
     for (const entry of items())
-      for (const art of [entry, ...(entry.gallery || [])])
+      for (const art of recordImages(entry))
         if (art.image)
           library.set(art.image, { ...art, name: tr(entry.title) });
     for (const [image, art] of pendingImages)
@@ -557,7 +557,12 @@ export function mountEditor(
       modal.querySelector(".studio-asset-grid").innerHTML = [
         ...library.values(),
       ]
-        .filter((a) => `${a.name} ${a.image}`.toLowerCase().includes(q))
+        .filter(
+          (a) =>
+            (path.startsWith("profile.stickers.") ||
+              !a.image.endsWith(".gif")) &&
+            `${a.name} ${a.image}`.toLowerCase().includes(q),
+        )
         .map(
           (a) =>
             `<button type="button" data-asset="${esc(a.image)}"><img loading="lazy" src="${esc(assetURL(a.image))}" alt=""><strong>${esc(a.name || a.image)}</strong><small>${esc(a.image)}</small></button>`,
@@ -578,7 +583,7 @@ export function mountEditor(
       for (const art of await response.json())
         if (
           !library.has(art.image) &&
-          /^assets\/[\w.-]+\.(png|jpg|jpeg|webp)$/.test(art.image)
+          /^assets\/[\w.-]+\.(png|jpg|jpeg|webp|gif)$/.test(art.image)
         )
           library.set(art.image, art);
       draw();
@@ -587,15 +592,18 @@ export function mountEditor(
   async function uploadImage(path) {
     const input = document.createElement("input");
     input.type = "file";
-    input.accept = "image/png,image/jpeg,image/webp";
+    const formats = [
+      "image/png",
+      "image/jpeg",
+      "image/webp",
+      ...(path.startsWith("profile.stickers.") ? ["image/gif"] : []),
+    ];
+    input.accept = formats.join(",");
     input.onchange = async () => {
       const file = input.files[0];
       if (!file) return;
       try {
-        if (
-          !["image/png", "image/jpeg", "image/webp"].includes(file.type) ||
-          file.size > 8_000_000
-        )
+        if (!formats.includes(file.type) || file.size > 8_000_000)
           throw Error(
             t(
               "PNG / JPG / WebP、8 MB以内の画像を選んでください。",
@@ -608,6 +616,7 @@ export function mountEditor(
             "image/png": "png",
             "image/jpeg": "jpg",
             "image/webp": "webp",
+            "image/gif": "gif",
           }[file.type],
           image = `assets/upload-${crypto.randomUUID()}.${extension}`;
         const stored = { path: image, name: file.name, blob: file };

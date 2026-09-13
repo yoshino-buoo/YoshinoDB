@@ -85,7 +85,7 @@ test("profile and card voice scenes render in both languages and open in the edi
   await expect(
     page.locator(".profile-connections .profile-connection"),
   ).toHaveCount(10);
-  await expect(page.locator(".voice-links a")).toHaveCount(28);
+  await expect(page.locator(".voice-links a")).toHaveCount(29);
   await page.locator('[data-lang="zh"]').click();
   await expect(page.locator(".profile-reading")).toContainText(
     "2014 年 5 月 28 日",
@@ -101,6 +101,28 @@ test("profile and card voice scenes render in both languages and open in the edi
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
+  await expect(page.locator(".profile-stickers .profile-sticker")).toHaveCount(
+    14,
+  );
+  await expect(page.locator("yoshino-sticker")).toHaveCount(8);
+  await expect(page.locator("[data-voice-src]")).toHaveCount(29);
+  await expect(page.locator(".voice-translation")).toHaveCount(16);
+  const sticker = page.locator("yoshino-sticker").first();
+  await sticker.scrollIntoViewIfNeeded();
+  await expect(sticker).toHaveAttribute("data-running", "true");
+  const gif = sticker.locator("img");
+  await expect
+    .poll(() => gif.evaluate((i) => i.complete && i.naturalWidth > 0))
+    .toBe(true);
+  await sticker.locator("[data-sticker-motion]").click();
+  await expect(sticker).toHaveAttribute("data-running", "false");
+  await expect(gif).toHaveAttribute("src", /^data:image\/png/);
+  await sticker.locator("[data-sticker-motion]").click();
+  await expect(gif).toHaveAttribute("src", /\.gif$/);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(sticker).toHaveAttribute("data-running", "false");
+  await expect(gif).toHaveAttribute("src", /^data:image\/png/);
+  await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.goto("./#entry/sr-20220819_1");
   await expect(page.locator(".voice-stage")).toHaveCount(2);
   await expect(page.locator(".voice-links a")).toHaveCount(72);
@@ -120,6 +142,7 @@ test("profile and card voice scenes render in both languages and open in the edi
   await page.locator('[data-tab="details"]').click();
   await expect(page.locator("#edit-panel")).toContainText("伙伴与缘分");
   await expect(page.locator("#edit-panel")).toContainText("话语与声音");
+  await expect(page.locator("#edit-panel")).toContainText("贴纸与动图");
   await page.locator("[data-editor-preview]").click();
   await expect(
     page.locator(".studio-preview-content .profile-connections"),

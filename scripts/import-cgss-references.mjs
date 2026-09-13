@@ -16,7 +16,7 @@ const catalog = JSON.parse(await readFile(catalogPath, "utf8"));
 const manifestPath = "public/assets/manifest.json";
 const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
 const files = (await readdir(root))
-  .filter((file) => file.endsWith(".html"))
+  .filter((file) => /^[［\[].+\.html$/.test(file))
   .sort();
 const imported = new Set(),
   assets = new Map(),

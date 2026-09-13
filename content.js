@@ -2,6 +2,7 @@ import { switchArtwork } from "./motion.js";
 import { relatedRecords, embedUrl } from "./lib/relations.js";
 import { renderCardCommu } from "./lib/card-commu.js";
 import { renderVoiceGuide } from "./lib/voice-guide.js";
+import { renderProfileStickers } from "./lib/profile-stickers.js";
 import { renderPetitIdol } from "./lib/petit-idol.js";
 import { cardArtwork } from "./lib/card-art.js";
 export function createContentViews({
@@ -161,7 +162,7 @@ export function createContentViews({
     if (!item) return "";
     const attribution = item.attribution;
     const connections = item.profile?.connections || [];
-    return `<div class="profile-grid"><div class="profile-art"><img src="${base}${esc(item.image || "assets/yoshino.png")}" alt="依田芳乃"></div><div><span class="eyebrow">YORITA YOSHINO</span><h2 class="profile-name">依田 芳乃</h2><p>${t("アイドルマスター シンデレラガールズ", "偶像大师 灰姑娘女孩")} · Passion</p><p class="profile-intro">${esc(tr(item.description))}</p>${extra(item)}${item.reference ? ext(item.reference, t("公式プロフィール", "官方人物介绍"), "text-link") : ""}</div></div><div class="profile-reading">${infoSections(item)}${section(t("結んできたご縁", "一路结下的缘分"), `<div class="profile-connections">${connections.map((c) => `<article class="profile-connection"><h3>${c.entryId ? `<a href="#entry/${esc(c.entryId)}">${esc(tr(c.name))} ↗</a>` : esc(tr(c.name))}</h3><small>${esc(tr(c.members))}</small><p>${esc(tr(c.description))}</p></article>`).join("")}</div>`)}${voices(item)}${related(item, ["songs"])}${attribution ? `<div class="profile-attribution">${ext(attribution.url, esc(attribution.name))}<span>${esc(tr(attribution.note))}</span>${ext(attribution.licenseUrl, esc(attribution.license))}</div>` : ""}</div>`;
+    return `<div class="profile-grid"><div class="profile-art"><img src="${base}${esc(item.image || "assets/yoshino.png")}" alt="依田芳乃"></div><div><span class="eyebrow">YORITA YOSHINO</span><h2 class="profile-name">依田 芳乃</h2><p>${t("アイドルマスター シンデレラガールズ", "偶像大师 灰姑娘女孩")} · Passion</p><p class="profile-intro">${esc(tr(item.description))}</p>${extra(item)}${item.reference ? ext(item.reference, t("公式プロフィール", "官方人物介绍"), "text-link") : ""}</div></div><div class="profile-reading">${infoSections(item)}${section(t("結んできたご縁", "一路结下的缘分"), `<div class="profile-connections">${connections.map((c) => `<article class="profile-connection"><h3>${c.entryId ? `<a href="#entry/${esc(c.entryId)}">${esc(tr(c.name))} ↗</a>` : esc(tr(c.name))}</h3><small>${esc(tr(c.members))}</small><p>${esc(tr(c.description))}</p></article>`).join("")}</div>`)}${voices(item)}${renderProfileStickers(item.profile?.stickers, { base, t, tr, esc, ext })}${related(item, ["songs"])}${attribution ? `<div class="profile-attribution">${ext(attribution.url, esc(attribution.name))}<span>${esc(tr(attribution.note))}</span>${ext(attribution.licenseUrl, esc(attribution.license))}</div>` : ""}</div>`;
   }
   function musicDetail(item) {
     const music = item.music || {},

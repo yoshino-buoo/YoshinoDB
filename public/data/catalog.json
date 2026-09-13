@@ -35806,32 +35806,166 @@
               "zh": "与歌铃、朋组成的三人组合。芳乃和歌铃还同属春霞，围绕和风氛围与不可思议运气的缘分，也在不同成员编排中继续延伸。"
             }
           }
+        ],
+        "stickers": [
+          {
+            "group": "mobamas",
+            "label": {
+              "ja": "スタンプ 1",
+              "zh": "贴纸 1"
+            },
+            "image": "assets/sticker-cg-stamp218.png",
+            "source": "https://wiki.biligame.com/imascg/%E6%96%87%E4%BB%B6:CG_stamp218.png",
+            "width": 266,
+            "height": 220
+          },
+          {
+            "group": "mobamas",
+            "label": {
+              "ja": "スタンプ 2",
+              "zh": "贴纸 2"
+            },
+            "image": "assets/sticker-yorita-yoshino-stamp1.png",
+            "source": "https://wiki.biligame.com/imascg/%E6%96%87%E4%BB%B6:Yorita_Yoshino_Stamp1.png",
+            "width": 266,
+            "height": 220
+          },
+          {
+            "group": "mobamas",
+            "label": {
+              "ja": "スタンプ 3",
+              "zh": "贴纸 3"
+            },
+            "image": "assets/sticker-yorita-yoshino-stamp2.png",
+            "source": "https://wiki.biligame.com/imascg/%E6%96%87%E4%BB%B6:Yorita_Yoshino_Stamp2.png",
+            "width": 266,
+            "height": 220
+          },
+          {
+            "group": "mobamas",
+            "label": {
+              "ja": "ローディング 1",
+              "zh": "过场动画 1"
+            },
+            "image": "assets/sticker-yoshino-loading-1.gif",
+            "source": "https://wiki.biligame.com/imascg/%E6%96%87%E4%BB%B6:Yoshino_Loading_1.gif",
+            "width": 204,
+            "height": 204
+          },
+          {
+            "group": "mobamas",
+            "label": {
+              "ja": "ローディング 2",
+              "zh": "过场动画 2"
+            },
+            "image": "assets/sticker-yoshino-loading-2.gif",
+            "source": "https://wiki.biligame.com/imascg/%E6%96%87%E4%BB%B6:Yoshino_Loading_2.gif",
+            "width": 204,
+            "height": 204
+          },
+          {
+            "group": "mobamas",
+            "label": {
+              "ja": "ローディング 3",
+              "zh": "过场动画 3"
+            },
+            "image": "assets/sticker-yoshino-loading-3.gif",
+            "source": "https://wiki.biligame.com/imascg/%E6%96%87%E4%BB%B6:Yoshino_Loading_3.gif",
+            "width": 204,
+            "height": 204
+          },
+          {
+            "group": "mobamas",
+            "label": {
+              "ja": "ローディング 4",
+              "zh": "过场动画 4"
+            },
+            "image": "assets/sticker-yoshino-loading-4.gif",
+            "source": "https://wiki.biligame.com/imascg/%E6%96%87%E4%BB%B6:Yoshino_Loading_4.gif",
+            "width": 204,
+            "height": 204
+          },
+          {
+            "group": "mobamas",
+            "label": {
+              "ja": "ローディング 5",
+              "zh": "过场动画 5"
+            },
+            "image": "assets/sticker-yoshino-loading-5.gif",
+            "source": "https://wiki.biligame.com/imascg/%E6%96%87%E4%BB%B6:Yoshino_Loading_5.gif",
+            "width": 204,
+            "height": 204
+          },
+          {
+            "group": "mobamas",
+            "label": {
+              "ja": "ローディング 6",
+              "zh": "过场动画 6"
+            },
+            "image": "assets/sticker-yoshino-loading-6.gif",
+            "source": "https://wiki.biligame.com/imascg/%E6%96%87%E4%BB%B6:Yoshino_Loading_6.gif",
+            "width": 204,
+            "height": 204
+          },
+          {
+            "group": "deresute",
+            "label": {
+              "ja": "スタンプ 1",
+              "zh": "贴纸 1"
+            },
+            "image": "assets/sticker-cgss-stamp107.png",
+            "source": "https://wiki.biligame.com/imascg/%E6%96%87%E4%BB%B6:CGSS_stamp107.png",
+            "width": 110,
+            "height": 110
+          },
+          {
+            "group": "deresute",
+            "label": {
+              "ja": "ローディング 1",
+              "zh": "过场动画 1"
+            },
+            "image": "assets/sticker-yoshino-stamp-1.png",
+            "source": "https://wiki.biligame.com/imascg/%E6%96%87%E4%BB%B6:Yoshino_Stamp_1.png",
+            "width": 412,
+            "height": 434
+          },
+          {
+            "group": "deresute",
+            "label": {
+              "ja": "ローディング 2",
+              "zh": "过场动画 2"
+            },
+            "image": "assets/sticker-yoshino-stamp-2.png",
+            "source": "https://wiki.biligame.com/imascg/%E6%96%87%E4%BB%B6:Yoshino_Stamp_2.png",
+            "width": 405,
+            "height": 437
+          },
+          {
+            "group": "line",
+            "label": {
+              "ja": "スタンプ 1",
+              "zh": "贴纸 1"
+            },
+            "image": "assets/sticker-yoshino-line1.gif",
+            "source": "https://wiki.biligame.com/imascg/%E6%96%87%E4%BB%B6:Yoshino_LINE1.gif",
+            "width": 312,
+            "height": 300
+          },
+          {
+            "group": "line",
+            "label": {
+              "ja": "スタンプ 2",
+              "zh": "贴纸 2"
+            },
+            "image": "assets/sticker-yoshino-line2.gif",
+            "source": "https://wiki.biligame.com/imascg/%E6%96%87%E4%BB%B6:Yoshino_LINE2.gif",
+            "width": 254,
+            "height": 300
+          }
         ]
       },
       "voiceGuide": {
         "source": "https://wiki.biligame.com/imascg/依田芳乃#CGSS公共台词语音",
-        "excerpts": [
-          {
-            "label": {
-              "ja": "ルームでの自己紹介",
-              "zh": "小屋里的自我介绍"
-            },
-            "text": {
-              "ja": "わたくし依田は芳乃でしてー",
-              "zh": "我姓依田，名芳乃—"
-            }
-          },
-          {
-            "label": {
-              "ja": "アロマのそばで",
-              "zh": "香薰旁"
-            },
-            "text": {
-              "ja": "ぼーっとしまするー…",
-              "zh": "就这样放空一会儿—…"
-            }
-          }
-        ],
         "stages": [
           {
             "label": {
@@ -35839,6 +35973,26 @@
               "zh": "通用语音"
             },
             "groups": [
+              {
+                "label": {
+                  "ja": "はじめまして",
+                  "zh": "初次见面"
+                },
+                "clips": [
+                  {
+                    "label": {
+                      "ja": "自己紹介",
+                      "zh": "自我介绍"
+                    },
+                    "file": "CGSS-INTRODUCE-Yoshino.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/e/e5/oosuatat88fswouivi2w41w2lesl390.mp3",
+                    "text": {
+                      "ja": "わたくし依田は芳乃と申しましてー、\n昔から依田の家はかんなぎや拝み屋の血筋だったと言われておりますー。\nそれゆえにー、そなたのこころにわたくしのこころが呼ばれたのでしょうー",
+                      "zh": "我姓依田，名芳乃ー，\n自古便有依田家承袭巫祝与祈祷師之血统的说法ー。\n所以ー，就是阁下的心在呼唤着我的心吧ー"
+                    }
+                  }
+                ]
+              },
               {
                 "label": {
                   "ja": "ホームのひとこと",
@@ -35850,63 +36004,108 @@
                       "ja": "朝のあいさつ",
                       "zh": "早晨问候"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-1-01.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-1-01.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/9/9f/nbohn87owvh0fzv6zyw6uq7jt24ntk2.mp3",
+                    "text": {
+                      "ja": "ずいぶんと遅い目覚めでしてー、今日のよき日は始まっていますよー",
+                      "zh": "真是相当晚的醒来呢ー，今天的好日子已经开始了哟ー"
+                    }
                   },
                   {
                     "label": {
                       "ja": "昼のあいさつ",
                       "zh": "午间问候"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-1-02.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-1-02.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/1/14/he44qut60tmjdi0rahdciv3qtllp69u.mp3",
+                    "text": {
+                      "ja": "お昼でしてー。食はおのれを形作る大切な力ですよー",
+                      "zh": "是中午了呢ー。食物是塑造自身的重要力量哟ー"
+                    }
                   },
                   {
                     "label": {
                       "ja": "深夜のあいさつ",
                       "zh": "深夜问候"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-1-03.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-1-03.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/a/aa/gd8n146n4ezj1qrwf47n6vzjlz0jlwd.mp3",
+                    "text": {
+                      "ja": "夜遅くまで精が出ますねー、わたくしもご一緒しましょうかー",
+                      "zh": "直到深夜都精力充沛呢ー，妾身也一起陪伴吧ー"
+                    }
                   },
                   {
                     "label": {
                       "ja": "スタミナ全快",
                       "zh": "体力已满"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-1-04.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-1-04.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/7/7c/fyewy15h66zih21v6szpl1xll75qpab.mp3",
+                    "text": {
+                      "ja": "光に満ちているのでしてー\nLIVEに行くのが吉でしょうー",
+                      "zh": "充满了光芒呢ー\n去参加LIVE应该是吉兆吧ー"
+                    }
                   },
                   {
                     "label": {
                       "ja": "新しいコミュ",
                       "zh": "新剧情提醒"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-1-05.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-1-05.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/3/3f/rwak641k054hgewx5v69chj71s10lfa.mp3",
+                    "text": {
+                      "ja": "ちひろさんが呼んでおられるのでしてーお早くーお早くー",
+                      "zh": "千寻小姐在呼唤着呢ー快点ー快点ー"
+                    }
                   },
                   {
                     "label": {
                       "ja": "同僚申請",
                       "zh": "同僚申请"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-1-06.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-1-06.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/f/f9/ddqn5jqy7tpb5p1hsnrkc61lacu0exn.mp3",
+                    "text": {
+                      "ja": "隣人と手をとりてー、さすれば輪を広げられるでしょうー",
+                      "zh": "与邻人携手ー，如此便能扩展圈子吧ー"
+                    }
                   },
                   {
                     "label": {
                       "ja": "イベント開催中",
                       "zh": "活动进行中"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-1-07.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-1-07.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/c/c6/j2zyvs91z600sk8ul0lqp7hm4d9828n.mp3",
+                    "text": {
+                      "ja": "いべんと…？魂を感じますー。行ってみたいのでしてー",
+                      "zh": "活动…？能感受到灵魂呢ー。妾身想去看看呢ー"
+                    }
                   },
                   {
                     "label": {
                       "ja": "プレゼント",
                       "zh": "礼物盒"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-1-08.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-1-08.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/4/41/ssxsqtmkyduyn5y0o7m6te5iw0fcefr.mp3",
+                    "text": {
+                      "ja": "こころのこもった贈り物ならばー開けて確かめるがよいでしょうー",
+                      "zh": "如果是饱含心意的礼物ー，打开确认为好呢ー"
+                    }
                   },
                   {
                     "label": {
                       "ja": "しばらく操作しない時",
                       "zh": "待机"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-1-09.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-1-09.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/a/a1/k1nap3r7v1xrd1f9xtxn86up2iesk2k.mp3",
+                    "text": {
+                      "ja": "ふーむ…何かにとらわれている様子…これは悪しき気…",
+                      "zh": "嗯ー…似乎被什么束缚着…这是恶气…"
+                    }
                   }
                 ]
               },
@@ -35921,42 +36120,72 @@
                       "ja": "ベッド",
                       "zh": "床类家具"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-3-01.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-3-01.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/f/f9/qjq6ev73sdkjqagabu3j8mszpnlsmjv.mp3",
+                    "text": {
+                      "ja": "癒しをたまわりますようにー",
+                      "zh": "愿能赐予治愈呢ー"
+                    }
                   },
                   {
                     "label": {
                       "ja": "アロマ",
                       "zh": "香薰类家具"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-3-02.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-3-02.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/8/86/cjims1t2esj16b4vwxbfibojxd97kyb.mp3",
+                    "text": {
+                      "ja": "ぼーっとしまするー…",
+                      "zh": "变得飘飘然呢ー…"
+                    }
                   },
                   {
                     "label": {
                       "ja": "ぬいぐるみ",
                       "zh": "玩偶类家具"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-3-03.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-3-03.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/e/e6/0j178agj8ay612wh6fv2tkh0mlug70n.mp3",
+                    "text": {
+                      "ja": "愛らしきはーよきかなーよきかなー",
+                      "zh": "可爱之物ー真是好呢ー真是好呢ー"
+                    }
                   },
                   {
                     "label": {
                       "ja": "ドレッサー",
                       "zh": "梳妆台"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-3-04.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-3-04.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/b/b0/l3ggo9wkmvvgf5d4de9w746kxk9fbul.mp3",
+                    "text": {
+                      "ja": "笑顔が美しいのでしてー",
+                      "zh": "笑容真美呢ー"
+                    }
                   },
                   {
                     "label": {
                       "ja": "ランニングマシン",
                       "zh": "跑步机"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-3-05.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-3-05.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/6/67/86imqypv4l1ih2674rhwrhkrmbnwesp.mp3",
+                    "text": {
+                      "ja": "ふむ…まいりましょうー",
+                      "zh": "嗯…我们出发吧ー"
+                    }
                   },
                   {
                     "label": {
                       "ja": "ルーム待機",
                       "zh": "小屋待机"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-3-06.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-3-06.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/5/5e/mgavw2l7b50o2eoj3xo59xdvddy6u8m.mp3",
+                    "text": {
+                      "ja": "わたくし依田は芳乃でしてー",
+                      "zh": "妾身依田芳乃是也ー"
+                    }
                   }
                 ]
               },
@@ -35971,70 +36200,80 @@
                       "ja": "FULL COMBO",
                       "zh": "FULL COMBO"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-2-02.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-2-02.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/d/d7/etxxllpzletavle68pqh7wcu8zc2pmq.mp3"
                   },
                   {
                     "label": {
                       "ja": "スコア S",
                       "zh": "得分 S"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-2-03.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-2-03.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/8/89/gnbfaa5m7os0tnp78a2ok8eww581osh.mp3"
                   },
                   {
                     "label": {
                       "ja": "スコア A",
                       "zh": "得分 A"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-2-04.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-2-04.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/3/37/cppi47u1qbkmmkqpbt54c9a6ais50gz.mp3"
                   },
                   {
                     "label": {
                       "ja": "スコア B",
                       "zh": "得分 B"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-2-05.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-2-05.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/7/7d/le1dihpt10rpt7iuimve2edi9cj5bw7.mp3"
                   },
                   {
                     "label": {
                       "ja": "スコア C",
                       "zh": "得分 C"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-2-06.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-2-06.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/5/56/q13nxb97zwtnyxpo7og3kppcshpqyti.mp3"
                   },
                   {
                     "label": {
                       "ja": "スコア C 未満",
                       "zh": "得分 C 以下"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-2-07.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-2-07.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/c/c5/6fwtkcdvrdgr1a7qhrumjm96zp4vrzf.mp3"
                   },
                   {
                     "label": {
                       "ja": "LIVE失敗",
                       "zh": "LIVE 失败"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-2-01.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-2-01.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/8/8d/t7puemaj3xbd2rpz6lqcltv0t8e8n0t.mp3"
                   },
                   {
                     "label": {
                       "ja": "プロデューサーLvアップ",
                       "zh": "制作人升级"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-2-08.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-2-08.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/6/65/fx5h4umnekz5zkf9bfdjlgr3o90nnf0.mp3"
                   },
                   {
                     "label": {
                       "ja": "レッスン",
                       "zh": "课程"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-4-04.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-4-04.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/2/2c/edazuew0toyrytgqacom4ddxctgs7yi.mp3"
                   },
                   {
                     "label": {
                       "ja": "スターレッスン",
                       "zh": "星级课程"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-4-05.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-4-05.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/a/a8/kkbgaev8qwemprlsd5zt2t0nptxs3l4.mp3"
                   }
                 ]
               },
@@ -36049,21 +36288,24 @@
                       "ja": "名前",
                       "zh": "自称"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-4-02.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-4-02.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/d/df/8pwkxpub71stht6r4nv50k0ach78st2.mp3"
                   },
                   {
                     "label": {
                       "ja": "プロデューサーの呼び方",
                       "zh": "制作人称呼"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-4-03.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-4-03.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/6/60/nd1z73k5jrqpilk7p4owyyvhlkubrhf.mp3"
                   },
                   {
                     "label": {
                       "ja": "タイトルコール",
                       "zh": "游戏标题"
                     },
-                    "file": "CGSS-CommonVoice-Yoshino-4-12.mp3"
+                    "file": "CGSS-CommonVoice-Yoshino-4-12.mp3",
+                    "audio": "https://patchwiki.biligame.com/images/imascg/0/07/h7a0bhelj1n8pb5t0zv5dmco0y9mqs1.mp3"
                   }
                 ]
               }

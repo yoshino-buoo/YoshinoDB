@@ -390,3 +390,98 @@
     gap: 8px;
   }
 }
+
+.sticker-group + .sticker-group {
+  margin-top: 42px;
+}
+.sticker-group > h3 {
+  color: var(--green);
+  font-size: 16px;
+  font-weight: 500;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--line);
+}
+.sticker-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+.profile-sticker {
+  position: relative;
+  min-width: 0;
+  margin: 0;
+  padding-top: 14px;
+}
+.sticker-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 190px;
+  padding: 10px;
+}
+.sticker-art img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 170px;
+  object-fit: contain;
+}
+.profile-sticker figcaption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+  line-height: 1.6;
+  padding: 12px 2px;
+  color: var(--muted);
+}
+.profile-sticker figcaption .text-link {
+  font-size: 11px;
+  white-space: nowrap;
+}
+.profile-sticker yoshino-sticker {
+  display: block;
+}
+.sticker-motion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 5px 10px;
+  margin: 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: transparent;
+  color: var(--green);
+  font-size: 10px;
+  cursor: pointer;
+}
+.sticker-motion [data-sticker-state] {
+  font-size: 9px;
+  letter-spacing: 0.04em;
+}
+.sticker-motion[aria-pressed="false"] {
+  color: var(--muted);
+}
+@media (max-width: 700px) {
+  .sticker-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .sticker-art {
+    height: 156px;
+    padding: 5px;
+  }
+  .sticker-art img {
+    max-height: 145px;
+  }
+}
+.profile-sticker {
+  display: flex;
+  flex-direction: column;
+}
+.profile-sticker figcaption {
+  margin-top: auto;
+}
