@@ -52,6 +52,7 @@ test("card games stay separate and return to the selected game's filters", async
     count("mobamas"),
   );
   await expect(records).toHaveCount(count("mobamas"));
+  await expect(page.locator(".result-count")).toHaveText("20 組 · 40 枚");
   await page.locator('[data-rarity="R"]').click();
   await expect(records).toHaveCount(count("mobamas", "R"));
   const art = records.first().locator(".record-cover");
@@ -71,4 +72,55 @@ test("card games stay separate and return to the selected game's filters", async
   await page.locator('[data-card-game="deresute"]').click();
   await expect(records).toHaveCount(count("deresute"));
   await expect(page.locator('[name="rarity"]')).toHaveValue("all");
+});
+
+test("profile and card voice scenes render in both languages and open in the editor", async ({
+  page,
+}) => {
+  const errors = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("./#profile");
+  await expect(page.locator("#boot-screen")).toHaveCount(0, { timeout: 15000 });
+  await expect(
+    page.locator(".profile-connections .profile-connection"),
+  ).toHaveCount(8);
+  await expect(page.locator(".voice-links a")).toHaveCount(28);
+  await page.locator('[data-lang="zh"]').click();
+  await expect(page.locator(".profile-reading")).toContainText(
+    "2014 年 5 月 28 日",
+  );
+  await page.locator(".voice-group summary").first().click();
+  await expect(page.locator(".voice-links a").first()).toBeVisible();
+  await expect(page.locator(".voice-links a").first()).toHaveAttribute(
+    "href",
+    /^https:\/\/wiki\.biligame\.com\/imascg\//,
+  );
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  await page.goto("./#entry/sr-20220819_1");
+  await expect(page.locator(".voice-stage")).toHaveCount(2);
+  await expect(page.locator(".voice-links a")).toHaveCount(72);
+  await page.locator('[data-variant="2"]').click();
+  await expect(page.locator('[data-variant-panel="2"] img')).toBeVisible();
+  expect(
+    await page.locator('[data-variant-panel="2"] img').evaluate(async (i) => {
+      await i.decode();
+      return i.naturalWidth;
+    }),
+  ).toBe(1280);
+  await page.goto("./#editor");
+  await page.locator("[data-category]").selectOption("profile");
+  await page.locator('[data-select="profile-yoshino"]').click();
+  await page.locator('[data-tab="details"]').click();
+  await expect(page.locator("#edit-panel")).toContainText("伙伴与缘分");
+  await expect(page.locator("#edit-panel")).toContainText("话语与声音");
+  await page.locator("[data-editor-preview]").click();
+  await expect(
+    page.locator(".studio-preview-content .profile-connections"),
+  ).toBeVisible();
+  expect(errors).toEqual([]);
 });

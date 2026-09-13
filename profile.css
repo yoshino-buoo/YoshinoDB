@@ -1,0 +1,210 @@
+.profile-intro {
+  max-width: 45ch;
+  color: var(--muted);
+  line-height: 1.95;
+}
+.profile-reading {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.profile-reading > .entry-section > p {
+  max-width: 68ch;
+  line-height: 2;
+}
+.profile-reading .entry-section > h2 {
+  line-height: 1.6;
+  text-wrap: balance;
+}
+.profile-connections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 36px;
+}
+.profile-connection {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line);
+}
+.profile-connection h3 {
+  font-size: 21px;
+  margin: 0 0 8px;
+  line-height: 1.5;
+}
+.profile-connection small {
+  display: block;
+  color: var(--green);
+  line-height: 1.8;
+}
+.profile-connection p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.9;
+  margin-bottom: 0;
+}
+.profile-attribution {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 18px;
+  margin-top: 60px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+.voice-guide-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+.voice-guide-heading small {
+  color: var(--green);
+  font-size: 11px;
+  letter-spacing: 0.17em;
+}
+.voice-guide-heading h2 {
+  margin: 8px 0 0;
+}
+.voice-guide-heading > a {
+  font-size: 13px;
+}
+.voice-stages {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 38px;
+  align-items: start;
+}
+.voice-stage:only-child {
+  grid-column: 1 / -1;
+}
+.voice-stage header {
+  padding: 4px 0 4px 18px;
+  border-left: 2px solid #b7a279;
+  margin-bottom: 22px;
+}
+.voice-stage header > span {
+  display: block;
+  color: var(--green);
+  font-size: 12px;
+  margin-bottom: 9px;
+}
+.voice-stage h3 {
+  margin: 0;
+  font-size: 23px;
+  line-height: 1.6;
+}
+.voice-story > small {
+  font-size: 11px;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+}
+.voice-story p {
+  line-height: 1.95;
+  font-size: 15px;
+  margin: 12px 0 18px;
+}
+.voice-group {
+  border-bottom: 1px solid var(--line);
+  padding: 0;
+}
+.voice-group summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 12px 0;
+  cursor: pointer;
+  list-style: none;
+}
+.voice-group summary::-webkit-details-marker {
+  display: none;
+}
+.voice-group summary > span:first-child {
+  flex: 1;
+}
+.voice-group summary small {
+  font-size: 11px;
+  color: var(--muted);
+}
+.voice-disclosure {
+  font-size: 17px;
+  color: var(--green);
+}
+.voice-group[open] .voice-disclosure {
+  transform: rotate(45deg);
+}
+.voice-group > p {
+  font-size: 14px;
+  line-height: 1.95;
+  margin-top: 0;
+}
+.voice-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+  gap: 6px 12px;
+}
+.voice-links a {
+  display: block;
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--green);
+  padding: 10px 12px;
+  border-radius: 3px;
+  background: rgb(91 124 112 / 5%);
+}
+.voice-links a:hover {
+  background: rgb(91 124 112 / 11%);
+}
+.voice-excerpts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-bottom: 36px;
+}
+.voice-excerpts figure {
+  margin: 0;
+  padding: 22px 0;
+}
+.voice-excerpts blockquote {
+  margin: 0 0 14px;
+  font-family: "Noto Serif JP", "Hiragino Mincho ProN", serif;
+  color: var(--red);
+  font-size: 23px;
+  line-height: 1.8;
+}
+.voice-excerpts p {
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+.voice-excerpts figcaption {
+  color: var(--muted);
+  font-size: 12px;
+}
+@media (max-width: 700px) {
+  .profile-connections,
+  .voice-stages,
+  .voice-excerpts {
+    grid-template-columns: 1fr;
+  }
+  .voice-stages {
+    gap: 42px;
+  }
+  .voice-excerpts {
+    gap: 0;
+  }
+  .voice-stage h3 {
+    font-size: 21px;
+  }
+  .voice-guide-heading {
+    align-items: start;
+  }
+  .profile-reading .entry-section > h2 {
+    font-size: 24px;
+  }
+}

@@ -248,22 +248,7 @@ function listing(route) {
 }
 
 function profile() {
-  return `${pageTitle("profile", "ABOUT YOSHINO")}<div class="profile-grid"><div class="profile-art"><img src="${base}assets/yoshino.png" alt="依田芳乃"></div><div><span class="eyebrow">YORITA YOSHINO</span><h2 class="profile-name">依田 芳乃</h2><p>${t("アイドルマスター シンデレラガールズ", "偶像大师 灰姑娘女孩")} · Passion</p><dl>${[
-    [t("年齢", "年龄"), t("16歳", "16 岁")],
-    [t("誕生日", "生日"), t("7月3日 · かに座", "7 月 3 日 · 巨蟹座")],
-    [t("身長 / 体重", "身高 / 体重"), "151 cm / 40 kg"],
-    [t("血液型", "血型"), "O"],
-    [t("出身地", "出身地"), t("鹿児島", "鹿儿岛")],
-    ["CV", t("高田憂希", "高田忧希")],
-    [
-      t("趣味", "兴趣"),
-      t("悩み事解決・石ころ集め・失せ物探し", "解决烦恼、收集石头、寻找失物"),
-    ],
-  ]
-    .map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`)
-    .join(
-      "",
-    )}</dl>${ext("https://cinderellagirls.idolmaster-official.jp/idol/yoshino/", t("公式プロフィール", "官方人物介绍"), "text-link")}</div></div>`;
+  return `${pageTitle("profile", "ABOUT YOSHINO")}${content.profile()}`;
 }
 function render(filterState = null) {
   let route = location.hash.slice(1).split("?")[0] || "home";
@@ -359,10 +344,17 @@ function render(filterState = null) {
         );
       const results = document.querySelector("#results");
       const paint = () => {
-        document.querySelector(".result-count").textContent = t(
-          `${items.length} 件の記録`,
-          `${items.length} 条记录`,
+        const illustrations = items.reduce(
+          (n, x) => n + (x.gallery?.length || 0),
+          0,
         );
+        document.querySelector(".result-count").textContent =
+          route === "cards"
+            ? t(
+                `${items.length} 組 · ${illustrations} 枚`,
+                `${items.length} 组 · ${illustrations} 张`,
+              )
+            : t(`${items.length} 件の記録`, `${items.length} 条记录`);
         document.querySelector("#results").innerHTML = items.length
           ? content.renderList(items, route)
           : `<div class="empty"><span>◇</span><h2>${t("該当する記録がありません", "没有找到匹配的记录")}</h2><p>${t("別のキーワードをお試しください。資料の追加もお待ちしています。", "试试其他关键词，也欢迎补充资料。")}</p><a href="#editor">${label("editor")} →</a></div>`;

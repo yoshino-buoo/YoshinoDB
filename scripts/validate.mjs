@@ -21,6 +21,7 @@ for (const item of items) {
   for (const id of [
     ...(item.relatedIds || []),
     ...(item.story?.chapters || []).map((x) => x.entryId).filter(Boolean),
+    ...(item.profile?.connections || []).map((x) => x.entryId).filter(Boolean),
   ])
     if (!ids.has(id)) throw Error(`Broken relation: ${item.id} → ${id}`);
 }

@@ -1,5 +1,6 @@
 import { switchArtwork } from "./motion.js";
 import { relatedRecords, embedUrl } from "./lib/relations.js";
+import { renderVoiceGuide } from "./lib/voice-guide.js";
 export function createContentViews({
   base,
   t,
@@ -15,6 +16,8 @@ export function createContentViews({
   onVideoStop = () => {},
 }) {
   const title = (item) => esc(tr(item.title));
+  const voices = (item) =>
+    renderVoiceGuide(item.voiceGuide, { t, tr, esc, ext });
   const link = (item, text = title(item)) =>
     `<a href="#entry/${esc(item.id)}">${text}</a>`;
   const image = (item, cls = "") =>
@@ -145,7 +148,13 @@ export function createContentViews({
             : "",
         ].join("");
     const stats = statTable(c, mobamas);
-    return `<div class="card-detail-top ${mobamas ? "card-detail-mobamas" : ""}">${gallery(item)}<aside class="entry-summary"><span class="rarity-emblem">${esc(item.rarity || t("衣装", "服装"))}</span>${description(item)}${facts([...dateFact(item), [t("ゲーム", "游戏"), item.game === "deresute" ? t("スターライトステージ", "星光舞台") : mobamas ? t("シンデレラガールズ（モバマス）", "灰姑娘女孩（原作）") : item.game], [t("タイプ", "属性"), c.type], [mobamas ? t("初登場時の入手", "首次登场时的获取方式") : t("入手方法", "获取方式"), c.acquisition], [t("登場ガシャ・イベント", "登场卡池／活动"), c.pool]])}${tags(item)}</aside></div><div class="entry-columns">${section(mobamas ? t("特技", "特技") : t("特技・センター効果", "特技与队长效果"), skills)}${section(t("ステータス", "能力值"), stats ? `<p class="stats-caption">${mobamas ? t("初期値・特訓ボーナスを含まない", "初始数值，不含特训继承加成") : t("最大Lv・親愛度MAX", "最大等级・亲爱度 MAX")}</p>${stats}` : "")}</div>${extra(item)}${infoSections(item)}${related(item, ["stories", "videos", "songs"])}`;
+    return `<div class="card-detail-top ${mobamas ? "card-detail-mobamas" : ""}">${gallery(item)}<aside class="entry-summary"><span class="rarity-emblem">${esc(item.rarity || t("衣装", "服装"))}</span>${description(item)}${facts([...dateFact(item), [t("ゲーム", "游戏"), item.game === "deresute" ? t("スターライトステージ", "星光舞台") : mobamas ? t("シンデレラガールズ（モバマス）", "灰姑娘女孩（原作）") : item.game], [t("タイプ", "属性"), c.type], [mobamas ? t("初登場時の入手", "首次登场时的获取方式") : t("入手方法", "获取方式"), c.acquisition], [t("登場ガシャ・イベント", "登场卡池／活动"), c.pool]])}${tags(item)}</aside></div><div class="entry-columns">${section(mobamas ? t("特技", "特技") : t("特技・センター効果", "特技与队长效果"), skills)}${section(t("ステータス", "能力值"), stats ? `<p class="stats-caption">${mobamas ? t("初期値・特訓ボーナスを含まない", "初始数值，不含特训继承加成") : t("最大Lv・親愛度MAX", "最大等级・亲爱度 MAX")}</p>${stats}` : "")}</div>${extra(item)}${infoSections(item)}${voices(item)}${related(item, ["stories", "videos", "songs"])}`;
+  }
+  function profile(item = all().find((x) => x.kind === "profile")) {
+    if (!item) return "";
+    const attribution = item.attribution;
+    const connections = item.profile?.connections || [];
+    return `<div class="profile-grid"><div class="profile-art"><img src="${base}${esc(item.image || "assets/yoshino.png")}" alt="依田芳乃"></div><div><span class="eyebrow">YORITA YOSHINO</span><h2 class="profile-name">依田 芳乃</h2><p>${t("アイドルマスター シンデレラガールズ", "偶像大师 灰姑娘女孩")} · Passion</p><p class="profile-intro">${esc(tr(item.description))}</p>${extra(item)}${item.reference ? ext(item.reference, t("公式プロフィール", "官方人物介绍"), "text-link") : ""}</div></div><div class="profile-reading">${infoSections(item)}${section(t("結んできたご縁", "一路结下的缘分"), `<div class="profile-connections">${connections.map((c) => `<article class="profile-connection"><h3>${c.entryId ? `<a href="#entry/${esc(c.entryId)}">${esc(tr(c.name))} ↗</a>` : esc(tr(c.name))}</h3><small>${esc(tr(c.members))}</small><p>${esc(tr(c.description))}</p></article>`).join("")}</div>`)}${voices(item)}${related(item, ["songs"])}${attribution ? `<div class="profile-attribution">${ext(attribution.url, esc(attribution.name))}<span>${esc(tr(attribution.note))}</span>${ext(attribution.licenseUrl, esc(attribution.license))}</div>` : ""}</div>`;
   }
   function musicDetail(item) {
     const music = item.music || {},
@@ -200,6 +209,7 @@ export function createContentViews({
       videos: videoDetail,
       news: newsDetail,
       timeline: timelineDetail,
+      profile,
     }[item.kind];
     return `<div class="entry-heading"><a data-detail-back href="#${item.kind}${item.kind === "cards" && item.game ? `?game=${esc(item.game)}` : ""}">← ${label(item.kind)}</a><small>${item.kind.toUpperCase()}</small><h1>${title(item)}</h1></div><div class="typed-entry entry-${item.kind}" data-entry="${esc(item.id)}">${renderer(item)}${source(item)}</div>`;
   }
@@ -225,7 +235,7 @@ export function createContentViews({
         })
         .join(
           "",
-        )}<span><strong>${items.reduce((sum, x) => sum + (x.gallery?.length || 0), 0)}</strong>${t("特訓前・特訓後のイラスト", "张特训前后插画")}</span></div>`;
+        )}<span><strong>${items.reduce((sum, x) => sum + (x.gallery?.length || 0), 0)}</strong>${t("カードイラスト", "张卡面插画")}</span></div>`;
     if (kind === "stories")
       return `<div class="story-paths">${[
         ["story", t("メインストーリー", "主线剧情")],
@@ -370,5 +380,5 @@ export function createContentViews({
         bind(replacement);
       });
   }
-  return { detail, overview, renderList, bind, stopVideos };
+  return { detail, profile, overview, renderList, bind, stopVideos };
 }
