@@ -1,4 +1,5 @@
 import { validateListening } from "./lib/listening.js";
+import { isWikiAudio } from "./lib/voice-guide.js";
 
 const playIcon =
   '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7z"/></svg>';
@@ -36,6 +37,7 @@ const savePreference = (key, value) => {
 export function createListening({ base, t, esc, onAudioStart }) {
   let tracks = {},
     previewRoot = null,
+    voiceRoot = null,
     previewId = null,
     previewVersion = "";
   let fadeFrame = 0,
@@ -47,20 +49,25 @@ export function createListening({ base, t, esc, onAudioStart }) {
   root.className = "listening-dock";
   document.body.append(root);
   const bgm = document.createElement("audio"),
-    preview = document.createElement("audio");
+    preview = document.createElement("audio"),
+    voice = document.createElement("audio");
   bgm.id = "bgm-audio";
   preview.id = "preview-audio";
+  voice.id = "voice-audio";
   bgm.preload = "auto";
   preview.preload = "none";
+  voice.preload = "none";
+  voice.volume = 0.85;
   bgm.loop = true;
   bgm.volume = 0.22;
   preview.volume = storedVolume("yoshino-preview-volume", 0.65);
   bgm.src = `${base}audio/hibi-instrumental.m4a`;
   // Media nodes live outside the route renderer. Only the BGM continues on navigation.
-  document.body.append(bgm, preview);
+  document.body.append(bgm, preview, voice);
   const state = new Map([
     [bgm, { serial: 0, pending: false, error: false, timer: 0 }],
     [preview, { serial: 0, pending: false, error: false, timer: 0 }],
+    [voice, { serial: 0, pending: false, error: false, timer: 0 }],
   ]);
   const bgmVolume = bgm.volume;
 
@@ -77,15 +84,16 @@ export function createListening({ base, t, esc, onAudioStart }) {
     stop(audio);
     state.get(audio).error = true;
     update();
-    if (audio === preview) queueMicrotask(resumeBgm);
+    if (audio !== bgm) queueMicrotask(resumeBgm);
   }
   async function start(audio) {
     const s = state.get(audio),
       serial = ++s.serial;
     s.error = false;
     s.pending = true;
-    if (audio === preview) stop(bgm);
-    if (audio === preview) {
+    if (audio !== bgm) {
+      stop(bgm);
+      stop(audio === voice ? preview : voice);
       videoActive = false;
       onAudioStart();
     }
@@ -136,6 +144,8 @@ export function createListening({ base, t, esc, onAudioStart }) {
       waitingForGesture ||
       !preview.paused ||
       state.get(preview).pending ||
+      !voice.paused ||
+      state.get(voice).pending ||
       !bgm.paused ||
       state.get(bgm).pending ||
       state.get(bgm).error
@@ -146,10 +156,10 @@ export function createListening({ base, t, esc, onAudioStart }) {
   function toggle(audio) {
     if (!audio.paused || state.get(audio).pending) {
       stop(audio);
-      if (audio === preview) resumeBgm();
+      if (audio !== bgm) resumeBgm();
     } else start(audio);
   }
-  for (const audio of [bgm, preview]) {
+  for (const audio of [bgm, preview, voice]) {
     for (const event of [
       "timeupdate",
       "durationchange",
@@ -163,8 +173,10 @@ export function createListening({ base, t, esc, onAudioStart }) {
     audio.addEventListener("error", () => failed(audio));
   }
 
-  preview.addEventListener("pause", () => queueMicrotask(resumeBgm));
-  preview.addEventListener("ended", () => queueMicrotask(resumeBgm));
+  for (const audio of [preview, voice]) {
+    audio.addEventListener("pause", () => queueMicrotask(resumeBgm));
+    audio.addEventListener("ended", () => queueMicrotask(resumeBgm));
+  }
   // A new visit starts at the beginning; only the ON/OFF preference persists.
 
   function detail(item) {
@@ -205,6 +217,30 @@ export function createListening({ base, t, esc, onAudioStart }) {
     button.title = bgmEnabled
       ? t("BGM をオフにする", "关闭背景音乐")
       : t("BGM をオンにする", "开启背景音乐");
+    if (voiceRoot?.isConnected) {
+      const vs = state.get(voice);
+      const playing = !voice.paused || vs.pending;
+      const voiceButton = voiceRoot.querySelector("[data-voice-src]");
+      voiceButton.setAttribute("aria-pressed", String(playing));
+      voiceButton.setAttribute(
+        "aria-label",
+        `${playing ? t("一時停止", "暂停") : t("再生", "播放")} · ${voiceButton.textContent.trim()}`,
+      );
+      voiceRoot.classList.toggle("is-loading", vs.pending);
+      voiceRoot.querySelector(".voice-time").textContent = Number.isFinite(
+        voice.duration,
+      )
+        ? `${time(voice.currentTime)} / ${time(voice.duration)}`
+        : "";
+      voiceRoot.querySelector(".voice-status").textContent = vs.error
+        ? t(
+            "音声を読み込めませんでした。Wiki でもお聴きいただけます。",
+            "语音暂时无法载入，也可以打开 Wiki 收听。",
+          )
+        : vs.pending
+          ? t("読み込み中…", "正在加载…")
+          : "";
+    }
     if (!previewRoot?.isConnected) return;
     previewRoot.classList.toggle("is-playing", !preview.paused && !ps.pending);
     previewRoot.classList.toggle("is-loading", ps.pending);
@@ -240,6 +276,26 @@ export function createListening({ base, t, esc, onAudioStart }) {
         : "";
   }
   function bind(container) {
+    // A route/language render retires the previous clip, never the BGM node.
+    stop(voice);
+    voiceRoot = null;
+    voice.removeAttribute("src");
+    voice.load();
+    state.get(voice).error = false;
+    container.querySelectorAll("[data-voice-src]").forEach((button) => {
+      button.onclick = () => {
+        const src = button.dataset.voiceSrc;
+        if (!isWikiAudio(src)) return;
+        const nextRoot = button.closest(".voice-clip");
+        if (voiceRoot !== nextRoot || voice.getAttribute("src") !== src) {
+          stop(voice);
+          voiceRoot = nextRoot;
+          voice.src = src;
+          state.get(voice).error = false;
+        }
+        toggle(voice);
+      };
+    });
     const next = container.querySelector("[data-preview]");
     if ((next?.dataset.preview || null) !== previewId) {
       stop(preview);
@@ -303,6 +359,7 @@ export function createListening({ base, t, esc, onAudioStart }) {
       videoActive = true;
       stop(bgm);
       stop(preview);
+      stop(voice);
     },
     videoStopped() {
       videoActive = false;

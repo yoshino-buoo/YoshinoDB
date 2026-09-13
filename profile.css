@@ -218,3 +218,175 @@
     font-size: 24px;
   }
 }
+
+/* A quiet reading layout; audio controls keep their nodes stable while playing. */
+.voice-clip {
+  min-width: 0;
+  padding: 8px 0 18px;
+  border-bottom: 1px solid var(--line);
+}
+.voice-clip:last-child {
+  border-bottom: 0;
+}
+.voice-translation,
+.commu-dialogue .commu-translation {
+  color: var(--muted);
+  font-size: 14px;
+}
+.voice-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 40px;
+}
+.voice-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 6px 14px 6px 9px;
+  color: var(--green);
+  background: rgb(91 124 112 / 4%);
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: left;
+  cursor: pointer;
+}
+.voice-toggle:hover,
+.voice-toggle[aria-pressed="true"] {
+  background: rgb(91 124 112 / 11%);
+}
+.voice-toggle svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+  flex: none;
+  pointer-events: none;
+}
+.voice-toggle span {
+  pointer-events: none;
+}
+.voice-pause-icon {
+  display: none;
+}
+.voice-toggle[aria-pressed="true"] .voice-play-icon {
+  display: none;
+}
+.voice-toggle[aria-pressed="true"] .voice-pause-icon {
+  display: initial;
+}
+.voice-time {
+  color: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.voice-controls .voice-file {
+  margin-left: auto;
+  padding: 8px 0 8px 8px;
+  background: transparent;
+  white-space: nowrap;
+}
+.voice-status {
+  display: block;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-top: 8px;
+}
+.voice-status:empty {
+  display: none;
+}
+.voice-clip.is-loading .voice-toggle {
+  border-color: var(--green);
+}
+.commu-links {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+.commu-script {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 6px 0;
+}
+.commu-dialogue {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr);
+  gap: 24px;
+  padding: 23px 0;
+  border-bottom: 1px solid var(--line);
+}
+.commu-dialogue h3 {
+  margin: 0;
+  font: inherit;
+  font-size: 13px;
+  line-height: 2.2;
+  color: var(--red);
+}
+.commu-dialogue p {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 2.1;
+  font-size: 16px;
+}
+.commu-dialogue .commu-translation {
+  margin-top: 14px;
+}
+.theater-number {
+  color: var(--green);
+  font-size: 13px;
+}
+.theater-panels {
+  display: grid;
+  gap: 30px;
+  max-width: 820px;
+  margin: 0 auto;
+}
+.theater-panels figure {
+  margin: 0;
+}
+.theater-panels img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+}
+.theater-panels figcaption {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.theater-credit {
+  max-width: 820px;
+  margin: 20px auto 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.voice-transcript:lang(ja),
+.commu-dialogue p:lang(ja) {
+  font-family:
+    "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+}
+@media (max-width: 700px) {
+  .commu-dialogue {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 22px 0;
+  }
+  .commu-dialogue p {
+    font-size: 15px;
+  }
+  .card-theater .voice-guide-heading h2 {
+    font-size: 23px;
+  }
+  .voice-controls {
+    gap: 8px;
+  }
+}

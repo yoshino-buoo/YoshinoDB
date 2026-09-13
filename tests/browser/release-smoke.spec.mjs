@@ -292,3 +292,101 @@ test("petit costume switches decoded poses, pauses offscreen and works in the ed
   await expect(preview).toHaveAttribute("data-pose", "1");
   expect(errors).toEqual([]);
 });
+
+test("card voice clips load on demand, pause reliably and yield to BGM on completion or navigation", async ({
+  page,
+}) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  // Use deterministic audio bytes while keeping the real cross-origin URL contract.
+  const rate = 8000,
+    samples = rate * 12;
+  const wav = Buffer.alloc(44 + samples * 2);
+  wav.write("RIFF", 0);
+  wav.writeUInt32LE(wav.length - 8, 4);
+  wav.write("WAVEfmt ", 8);
+  wav.writeUInt32LE(16, 16);
+  wav.writeUInt16LE(1, 20);
+  wav.writeUInt16LE(1, 22);
+  wav.writeUInt32LE(rate, 24);
+  wav.writeUInt32LE(rate * 2, 28);
+  wav.writeUInt16LE(2, 32);
+  wav.writeUInt16LE(16, 34);
+  wav.write("data", 36);
+  wav.writeUInt32LE(samples * 2, 40);
+  let requested = 0;
+  await page.route(
+    "https://patchwiki.biligame.com/images/imascg/**/*.mp3",
+    async (route) => {
+      requested++;
+      await route.fulfill({
+        contentType: "audio/wav",
+        body: wav,
+        headers: { "access-control-allow-origin": "*" },
+      });
+    },
+  );
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("./#entry/card-2323");
+  await expect(page.locator("#boot-screen")).toHaveCount(0, { timeout: 15000 });
+  await expect(page.locator("[data-voice-src]")).toHaveCount(72);
+  expect(requested).toBe(0);
+  await page.locator(".voice-group summary").first().click();
+  const first = page.locator("[data-voice-src]").nth(0),
+    second = page.locator("[data-voice-src]").nth(1);
+  const voice = page.locator("#voice-audio"),
+    bgm = page.locator("#bgm-audio");
+  await first.click();
+  await expect
+    .poll(() => voice.evaluate((a) => a.currentTime))
+    .toBeGreaterThan(0);
+  await expect(bgm).toHaveJSProperty("paused", true);
+  for (let i = 0; i < 3; i++) {
+    await first.click();
+    await expect(voice).toHaveJSProperty("paused", true);
+    await expect(first).toHaveAttribute("aria-pressed", "false");
+    await first.click();
+    await expect(voice).toHaveJSProperty("paused", false);
+    await expect(first).toHaveAttribute("aria-pressed", "true");
+  }
+  await second.click();
+  await expect(first).toHaveAttribute("aria-pressed", "false");
+  await expect(second).toHaveAttribute("aria-pressed", "true");
+  await expect
+    .poll(() => voice.evaluate((a) => a.currentTime))
+    .toBeGreaterThan(0);
+  await expect(voice).toHaveJSProperty(
+    "src",
+    await second.getAttribute("data-voice-src"),
+  );
+  await voice.evaluate((a) => (a.playbackRate = 8));
+  await expect(voice).toHaveJSProperty("ended", true);
+  await voice.evaluate((a) => (a.playbackRate = 1));
+  await expect.poll(() => bgm.evaluate((a) => a.paused)).toBe(false);
+  await first.click();
+  await expect(voice).toHaveJSProperty("paused", false);
+  await page.locator('header a[href="#songs"]').click();
+  await expect(voice).toHaveJSProperty("paused", true);
+  await expect(voice).not.toHaveAttribute("src");
+  await expect.poll(() => bgm.evaluate((a) => a.paused)).toBe(false);
+  await page.goto("./#entry/card-3883");
+  await page.locator('header [data-lang="zh"]').click();
+  await expect(page.locator(".commu-script")).toContainText("芳乃");
+  await expect(page.locator(".voice-translation")).toHaveCount(58);
+  await expect(page.locator(".theater-panels img").first()).toHaveAttribute(
+    "src",
+    /cingeki-739-1-zh\.jpg$/,
+  );
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  await page.goto("./#editor");
+  await page.locator("[data-category]").selectOption("cards");
+  await page.locator('[data-select="card-3883"]').click();
+  await page.locator('[data-tab="details"]').click();
+  await expect(page.locator("#edit-panel")).toContainText("特训剧情");
+  await expect(page.locator("#edit-panel")).toContainText("小剧场 WIDE☆");
+  expect(errors).toEqual([]);
+});

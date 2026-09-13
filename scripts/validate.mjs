@@ -1,6 +1,6 @@
 import { readFile, access } from "node:fs/promises";
 import { validateListening } from "../lib/listening.js";
-import { validateCatalog } from "../lib/data.js";
+import { validateCatalog, recordImages } from "../lib/data.js";
 const items = [];
 for (const file of ["catalog", "generated"]) {
   const data = validateCatalog(
@@ -8,10 +8,7 @@ for (const file of ["catalog", "generated"]) {
   );
   items.push(...data.items);
   for (const item of data.items) {
-    if (item.image) await access(`public/${item.image}`);
-    for (const art of item.gallery || []) await access(`public/${art.image}`);
-    for (const pose of item.card?.petit?.poses || [])
-      await access(`public/${pose.image}`);
+    for (const art of recordImages(item)) await access(`public/${art.image}`);
   }
   console.log(
     `${file}: ${data.items.length} valid records, ${data.items.filter((x) => x.image).length} with previews`,

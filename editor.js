@@ -1,4 +1,10 @@
-import { validateCatalog, KINDS, searchText, isHttps } from "./lib/data.js";
+import {
+  validateCatalog,
+  KINDS,
+  searchText,
+  isHttps,
+  recordImages,
+} from "./lib/data.js";
 import { createContentViews } from "./content.js";
 import {
   BASIC,
@@ -665,10 +671,12 @@ export function mountEditor(
           };
           a.setAttribute("aria-disabled", "true");
         });
-        area.querySelectorAll("[data-play],[data-part]").forEach((b) => {
-          b.disabled = true;
-          b.title = localT("動画の再生は公開ページで", "视频在公开页面播放");
-        });
+        area
+          .querySelectorAll("[data-play],[data-part],[data-voice-src]")
+          .forEach((b) => {
+            b.disabled = true;
+            b.title = localT("再生は公開ページで", "请在公开页面播放");
+          });
         area.querySelectorAll("[data-variant]").forEach(
           (button) =>
             (button.onclick = () => {
@@ -843,12 +851,12 @@ export function mountEditor(
       await imageLoad;
       const used = new Set(
         result.catalog.items
-          .flatMap((x) => [x.image, ...(x.gallery || []).map((a) => a.image)])
+          .flatMap((x) => recordImages(x).map((art) => art.image))
           .filter(Boolean),
       );
       const known = new Set(
         published.items
-          .flatMap((x) => [x.image, ...(x.gallery || []).map((a) => a.image)])
+          .flatMap((x) => recordImages(x).map((art) => art.image))
           .filter(Boolean),
       );
       for (const path of used)
@@ -858,9 +866,8 @@ export function mountEditor(
             signal: AbortSignal.timeout(5000),
           });
           if (!r.ok || !r.headers.get("content-type")?.startsWith("image/")) {
-            const item = result.catalog.items.find(
-              (x) =>
-                x.image === path || x.gallery?.some((a) => a.image === path),
+            const item = result.catalog.items.find((x) =>
+              recordImages(x).some((art) => art.image === path),
             );
             issues.push({
               id: item.id,
@@ -892,15 +899,10 @@ export function mountEditor(
           manifest = await (await fetch(`${base}assets/manifest.json`)).json();
         } catch {}
         for (const art of addedImages) {
-          const item = result.catalog.items.find(
-              (x) =>
-                x.image === art.path ||
-                x.gallery?.some((a) => a.image === art.path),
+          const item = result.catalog.items.find((x) =>
+              recordImages(x).some((info) => info.image === art.path),
             ),
-            info =
-              item.image === art.path
-                ? item
-                : item.gallery.find((a) => a.image === art.path);
+            info = recordImages(item).find((info) => info.image === art.path);
           manifest.push({
             image: art.path,
             imageSource: info.imageSource || "",
