@@ -1,6 +1,7 @@
 import { switchArtwork } from "./motion.js";
 import { relatedRecords, embedUrl } from "./lib/relations.js";
 import { renderVoiceGuide } from "./lib/voice-guide.js";
+import { renderPetitIdol } from "./lib/petit-idol.js";
 export function createContentViews({
   base,
   t,
@@ -148,7 +149,7 @@ export function createContentViews({
             : "",
         ].join("");
     const stats = statTable(c, mobamas);
-    return `<div class="card-detail-top ${mobamas ? "card-detail-mobamas" : ""}">${gallery(item)}<aside class="entry-summary"><span class="rarity-emblem">${esc(item.rarity || t("衣装", "服装"))}</span>${description(item)}${facts([...dateFact(item), [t("ゲーム", "游戏"), item.game === "deresute" ? t("スターライトステージ", "星光舞台") : mobamas ? t("シンデレラガールズ（モバマス）", "灰姑娘女孩（原作）") : item.game], [t("タイプ", "属性"), c.type], [mobamas ? t("初登場時の入手", "首次登场时的获取方式") : t("入手方法", "获取方式"), c.acquisition], [t("登場ガシャ・イベント", "登场卡池／活动"), c.pool]])}${tags(item)}</aside></div><div class="entry-columns">${section(mobamas ? t("特技", "特技") : t("特技・センター効果", "特技与队长效果"), skills)}${section(t("ステータス", "能力值"), stats ? `<p class="stats-caption">${mobamas ? t("初期値・特訓ボーナスを含まない", "初始数值，不含特训继承加成") : t("最大Lv・親愛度MAX", "最大等级・亲爱度 MAX")}</p>${stats}` : "")}</div>${extra(item)}${infoSections(item)}${voices(item)}${related(item, ["stories", "videos", "songs"])}`;
+    return `<div class="card-detail-top ${mobamas ? "card-detail-mobamas" : ""}">${gallery(item)}<aside class="entry-summary"><span class="rarity-emblem">${esc(item.rarity || t("衣装", "服装"))}</span>${description(item)}${facts([...dateFact(item), [t("ゲーム", "游戏"), item.game === "deresute" ? t("スターライトステージ", "星光舞台") : mobamas ? t("シンデレラガールズ（モバマス）", "灰姑娘女孩（原作）") : item.game], [t("タイプ", "属性"), c.type], [mobamas ? t("初登場時の入手", "首次登场时的获取方式") : t("入手方法", "获取方式"), c.acquisition], [t("登場ガシャ・イベント", "登场卡池／活动"), c.pool]])}${tags(item)}${!mobamas ? renderPetitIdol(c.petit, { base, t, esc }) : ""}</aside></div><div class="entry-columns">${section(mobamas ? t("特技", "特技") : t("特技・センター効果", "特技与队长效果"), skills)}${section(t("ステータス", "能力值"), stats ? `<p class="stats-caption">${mobamas ? t("初期値・特訓ボーナスを含まない", "初始数值，不含特训继承加成") : t("最大Lv・親愛度MAX", "最大等级・亲爱度 MAX")}</p>${stats}` : "")}</div>${extra(item)}${infoSections(item)}${voices(item)}${related(item, ["stories", "videos", "songs"])}`;
   }
   function profile(item = all().find((x) => x.kind === "profile")) {
     if (!item) return "";

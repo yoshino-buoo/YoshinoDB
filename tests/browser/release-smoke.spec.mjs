@@ -124,3 +124,74 @@ test("profile and card voice scenes render in both languages and open in the edi
   ).toBeVisible();
   expect(errors).toEqual([]);
 });
+
+test("petit costume switches decoded poses, pauses offscreen and works in the editor", async ({
+  page,
+}) => {
+  const errors = [];
+  const requests = new Set();
+  page.on("pageerror", (e) => errors.push(e.message));
+  page.on("request", (r) => {
+    if (r.url().includes("/petit-yoshino-")) requests.add(r.url());
+  });
+  await page.setViewportSize({ width: 1180, height: 820 });
+  await page.goto("./#entry/card-3611");
+  await expect(page.locator("#boot-screen")).toHaveCount(0, { timeout: 15000 });
+  const petit = page.locator("yoshino-petit");
+  await petit.scrollIntoViewIfNeeded();
+  await expect(petit).toHaveAttribute("data-ready", "true");
+  await expect(petit).toHaveAttribute("data-running", "true");
+  expect(requests.size).toBe(4);
+  expect(
+    [...requests].every((url) => /petit-yoshino-15-[1-4]\.png$/.test(url)),
+  ).toBe(true);
+  for (const pose of [1, 2, 3, 0]) {
+    await petit.locator("[data-petit-next]").click();
+    await expect(petit).toHaveAttribute("data-pose", String(pose));
+    await expect(petit.locator("img:not([hidden])")).toHaveCount(1);
+    expect(
+      await petit
+        .locator("img:not([hidden])")
+        .evaluate((i) => i.complete && i.naturalWidth > 0),
+    ).toBe(true);
+    await expect.poll(() => petit.evaluate((el) => el.busy)).toBe(false);
+  }
+  await petit.locator("[data-petit-pause]").click();
+  await expect(petit).toHaveAttribute("data-running", "false");
+  await petit.locator("[data-petit-next]").click();
+  await expect(petit).toHaveAttribute("data-pose", "1");
+  await petit.locator("[data-petit-pause]").click();
+  await expect(petit).toHaveAttribute("data-running", "true");
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await expect(petit).toHaveAttribute("data-running", "false");
+  await petit.scrollIntoViewIfNeeded();
+  await expect(petit).toHaveAttribute("data-running", "true");
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(petit).toHaveAttribute("data-running", "false");
+  await petit.locator("[data-petit-next]").click();
+  await expect(petit).toHaveAttribute("data-pose", "2");
+  await page.locator('header [data-lang="zh"]').click();
+  await expect(petit).toContainText("Q 版芳乃");
+  await petit.scrollIntoViewIfNeeded();
+  await expect(petit).toHaveAttribute("data-ready", "true");
+  const retired = await petit.elementHandle();
+  await page.locator('header a[href="#songs"]').click();
+  await expect(petit).toHaveCount(0);
+  expect(
+    await retired.evaluate(
+      (el) => el.controller === null && el.dataset.running === "false",
+    ),
+  ).toBe(true);
+  await page.goto("./#editor");
+  await page.locator("[data-category]").selectOption("cards");
+  await page.locator('[data-select="card-3611"]').click();
+  await page.locator('[data-tab="details"]').click();
+  await expect(page.locator("#edit-panel")).toContainText("Q 版芳乃");
+  await page.locator("[data-editor-preview]").click();
+  const preview = page.locator(".studio-preview-content yoshino-petit");
+  await preview.scrollIntoViewIfNeeded();
+  await expect(preview).toHaveAttribute("data-ready", "true");
+  await preview.locator("[data-petit-next]").click();
+  await expect(preview).toHaveAttribute("data-pose", "1");
+  expect(errors).toEqual([]);
+});

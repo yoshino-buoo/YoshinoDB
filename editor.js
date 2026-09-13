@@ -646,8 +646,13 @@ export function mountEditor(
         area.innerHTML = views.detail(working.id);
         document.title = title;
         area.querySelectorAll("img").forEach((img) => {
-          const path = img.getAttribute("src").slice(base.length);
-          if (pendingImages.has(path)) img.src = assetURL(path);
+          const src = img.getAttribute("src") || img.dataset.petitSrc;
+          if (!src) return;
+          const path = src.slice(base.length);
+          if (pendingImages.has(path)) {
+            img.src = assetURL(path);
+            if (img.dataset.petitSrc) img.dataset.petitSrc = img.src;
+          }
         });
         area.querySelectorAll("a[href]").forEach((a) => {
           const href = a.getAttribute("href");

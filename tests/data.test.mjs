@@ -86,3 +86,24 @@ test("gallery file paths cannot escape the assets directory", () => {
     }),
   );
 });
+
+test("petit costumes accept local poses and reject unsafe images or excessive sets", () => {
+  const card = { ...item, kind: "cards", game: "deresute", card: {} };
+  const petit = {
+    source: "https://wiki.biligame.com/imascg/依田芳乃",
+    poses: [{ image: "assets/petit-yoshino-15-1.png" }],
+  };
+  const check = (value) =>
+    validateCatalog({
+      version: 1,
+      items: [{ ...card, card: { petit: value } }],
+    });
+  assert.doesNotThrow(() => check(petit));
+  for (const invalid of [
+    { ...petit, poses: [{ image: "assets/../../private.png" }] },
+    { ...petit, poses: [{ image: "https://example.com/image.png" }] },
+    { ...petit, poses: Array(5).fill(petit.poses[0]) },
+    { ...petit, source: "javascript:alert(1)" },
+  ])
+    assert.throws(() => check(invalid), /Invalid petit idol/);
+});

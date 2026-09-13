@@ -10,6 +10,8 @@ for (const file of ["catalog", "generated"]) {
   for (const item of data.items) {
     if (item.image) await access(`public/${item.image}`);
     for (const art of item.gallery || []) await access(`public/${art.image}`);
+    for (const pose of item.card?.petit?.poses || [])
+      await access(`public/${pose.image}`);
   }
   console.log(
     `${file}: ${data.items.length} valid records, ${data.items.filter((x) => x.image).length} with previews`,

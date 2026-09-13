@@ -357,6 +357,148 @@
   max-width: 440px;
   justify-self: center;
 }
+.card-petit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 172px;
+  align-items: center;
+  min-height: 190px;
+  margin-top: 22px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+.card-petit[hidden] {
+  display: none;
+}
+.petit-caption h3 {
+  margin: 7px 0 3px;
+  font: 500 19px/1.5 var(--serif);
+}
+.petit-caption p {
+  margin: 0;
+  font-size: 11px;
+  color: var(--muted);
+}
+.petit-caption .entry-kicker {
+  font-size: 9px;
+  letter-spacing: 0.15em;
+}
+.petit-tools {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 12px;
+}
+[data-petit-count] {
+  color: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.1em;
+}
+.petit-pause {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--green);
+}
+.petit-pause svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+.petit-play-mark,
+.petit-pause[aria-pressed="true"] .petit-pause-mark {
+  display: none;
+}
+.petit-pause[aria-pressed="true"] .petit-play-mark {
+  display: block;
+}
+.petit-stage {
+  position: relative;
+  display: block;
+  width: 172px;
+  height: 182px;
+  padding: 0;
+  border: 0;
+  background: none;
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.petit-stage:focus-visible {
+  outline: 1px dashed var(--green);
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+.petit-idle,
+.petit-pose {
+  display: block;
+  width: 172px;
+  height: 172px;
+  transform-origin: 50% 85%;
+}
+.petit-idle {
+  animation: petit-sway 4.8s ease-in-out infinite;
+  animation-play-state: paused;
+}
+.card-petit[data-running="true"] .petit-idle {
+  animation-play-state: running;
+}
+.petit-pose {
+  position: relative;
+}
+.petit-pose img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+}
+.petit-pose img[hidden] {
+  display: none;
+}
+.petit-ground {
+  position: absolute;
+  left: 33%;
+  right: 33%;
+  bottom: 16px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #a7946440, #a7946400 72%);
+  opacity: 0;
+}
+.card-petit[data-ready="true"] .petit-ground {
+  opacity: 1;
+}
+@keyframes petit-sway {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1.5deg);
+  }
+  28% {
+    transform: translateY(-3px) rotate(1.5deg);
+  }
+  52% {
+    transform: translateY(0) rotate(1deg);
+  }
+  78% {
+    transform: translateY(-2px) rotate(-1.5deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .petit-idle {
+    animation: none;
+  }
+}
 .gallery-stage.mobamas-art img {
   aspect-ratio: 4 / 5;
 }

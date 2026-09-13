@@ -977,7 +977,29 @@
             "visual": 3318,
             "total": 13454
           }
-        ]
+        ],
+        "petit": {
+          "source": "https://wiki.biligame.com/imascg/依田芳乃",
+          "wikiIndex": 4,
+          "poses": [
+            {
+              "image": "assets/petit-yoshino-04-1.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/3/35/iorvvyv2svy0640n6fbhqwpvxgikr70.png"
+            },
+            {
+              "image": "assets/petit-yoshino-04-2.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/b/bd/eq06dv6ftgucudcogu7jhz0tg208ub9.png"
+            },
+            {
+              "image": "assets/petit-yoshino-04-3.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/f/f5/9yixrm5yc9y41ayjffnyw7v349sy88c.png"
+            },
+            {
+              "image": "assets/petit-yoshino-04-4.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/8/81/ibnig3spctvyxto9qn46a9pe73bso3m.png"
+            }
+          ]
+        }
       },
       "relatedIds": [
         "song-sakura"
@@ -1760,7 +1782,29 @@
             "visual": 4011,
             "total": 13454
           }
-        ]
+        ],
+        "petit": {
+          "source": "https://wiki.biligame.com/imascg/依田芳乃",
+          "wikiIndex": 7,
+          "poses": [
+            {
+              "image": "assets/petit-yoshino-07-1.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/7/70/278uf8iw9tz9qancpjhgsbafmynvlzl.png"
+            },
+            {
+              "image": "assets/petit-yoshino-07-2.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/4/44/mm7nh20p4bp96vkrt59ecgpauww7orr.png"
+            },
+            {
+              "image": "assets/petit-yoshino-07-3.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/f/f4/4cywlkojhhgfdk8fguz6msgzugn1iof.png"
+            },
+            {
+              "image": "assets/petit-yoshino-07-4.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/c/c4/4tdzaq57dmpn3papy4lkdvf3q17sh9o.png"
+            }
+          ]
+        }
       },
       "relatedIds": [
         "song-sunshine",
@@ -2607,7 +2651,29 @@
             "visual": 6174,
             "total": 13441
           }
-        ]
+        ],
+        "petit": {
+          "source": "https://wiki.biligame.com/imascg/依田芳乃",
+          "wikiIndex": 14,
+          "poses": [
+            {
+              "image": "assets/petit-yoshino-14-1.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/9/91/frh7tgehrs0k40ie7xry4t1k9is3hp8.png"
+            },
+            {
+              "image": "assets/petit-yoshino-14-2.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/0/0d/qcs9gauwijxrn8jait3borl07po6qst.png"
+            },
+            {
+              "image": "assets/petit-yoshino-14-3.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/d/dd/j5eo08te31gwqpruhkzlq9sdsjc7xtz.png"
+            },
+            {
+              "image": "assets/petit-yoshino-14-4.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/b/b2/qi95iy7h0f4ecxrn8iuy90dxr5jsxju.png"
+            }
+          ]
+        }
       },
       "relatedIds": [
         "song-kaitan"
@@ -4469,7 +4535,29 @@
             "visual": 7029,
             "total": 15463
           }
-        ]
+        ],
+        "petit": {
+          "source": "https://wiki.biligame.com/imascg/依田芳乃",
+          "wikiIndex": 1,
+          "poses": [
+            {
+              "image": "assets/petit-yoshino-01-1.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/e/ee/l8t1sc5f722ogwnzyt3m8gyt5crwhj4.png"
+            },
+            {
+              "image": "assets/petit-yoshino-01-2.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/2/22/1x6avfnt9c0aczni4nca298c6jgy2r0.png"
+            },
+            {
+              "image": "assets/petit-yoshino-01-3.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/e/e4/f9p751njf12muzrcw8xlpbvbau5h294.png"
+            },
+            {
+              "image": "assets/petit-yoshino-01-4.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/e/e5/shyl92jzev79l8ndouvad9inrmil0gs.png"
+            }
+          ]
+        }
       },
       "entities": [
         "わだつみの導き手"
@@ -5191,7 +5279,29 @@
             "visual": 4171,
             "total": 13173
           }
-        ]
+        ],
+        "petit": {
+          "source": "https://wiki.biligame.com/imascg/依田芳乃",
+          "wikiIndex": 2,
+          "poses": [
+            {
+              "image": "assets/petit-yoshino-02-1.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/8/8a/l1f4q2qleffrkp7o501xl01x12f895v.png"
+            },
+            {
+              "image": "assets/petit-yoshino-02-2.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/9/9e/hsma11dg3jek6o3p75cdwurbk3cyk4e.png"
+            },
+            {
+              "image": "assets/petit-yoshino-02-3.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/a/a0/e3a0mtmxwcdohiug5babeq07jgi4wc0.png"
+            },
+            {
+              "image": "assets/petit-yoshino-02-4.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/c/c7/ejew7bjxoclenuta211ctvtr027ucxf.png"
+            }
+          ]
+        }
       },
       "entities": [
         "湯浴みの踊子"
@@ -5913,7 +6023,29 @@
             "visual": 11641,
             "total": 15700
           }
-        ]
+        ],
+        "petit": {
+          "source": "https://wiki.biligame.com/imascg/依田芳乃",
+          "wikiIndex": 6,
+          "poses": [
+            {
+              "image": "assets/petit-yoshino-06-1.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/3/3c/gr8zery977f7irl3lth6rqfkw8res1s.png"
+            },
+            {
+              "image": "assets/petit-yoshino-06-2.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/6/66/s5qzyp0lvvhs7p6layl4wagqk8aqpbi.png"
+            },
+            {
+              "image": "assets/petit-yoshino-06-3.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/8/8b/kthfx7jnbtn3lx6y9cxne90kpnkz48o.png"
+            },
+            {
+              "image": "assets/petit-yoshino-06-4.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/c/cd/h2dcoi3cgcwm0ci1qew7f4ie6y2ms7x.png"
+            }
+          ]
+        }
       },
       "entities": [
         "うたかたの結び手"
@@ -6635,7 +6767,29 @@
             "visual": 4377,
             "total": 13552
           }
-        ]
+        ],
+        "petit": {
+          "source": "https://wiki.biligame.com/imascg/依田芳乃",
+          "wikiIndex": 8,
+          "poses": [
+            {
+              "image": "assets/petit-yoshino-08-1.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/0/0c/m0fzbbnxwpnzo27r4v2t6atwxxv1jea.png"
+            },
+            {
+              "image": "assets/petit-yoshino-08-2.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/4/47/49ti0c4tvvh4t9qt1ekgiolohs1dwwm.png"
+            },
+            {
+              "image": "assets/petit-yoshino-08-3.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/c/c6/rq1h4iihbf1lw918b9e4ch3d2pb74a1.png"
+            },
+            {
+              "image": "assets/petit-yoshino-08-4.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/f/f8/0xeji08wymvhuhpsth9zcpep8jpqwn0.png"
+            }
+          ]
+        }
       },
       "entities": [
         "水影のうなさか"
@@ -7357,7 +7511,29 @@
             "visual": 6074,
             "total": 13037
           }
-        ]
+        ],
+        "petit": {
+          "source": "https://wiki.biligame.com/imascg/依田芳乃",
+          "wikiIndex": 10,
+          "poses": [
+            {
+              "image": "assets/petit-yoshino-10-1.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/c/c7/qewbkaxyftyzrbxctpb6ljm2b2c53g8.png"
+            },
+            {
+              "image": "assets/petit-yoshino-10-2.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/d/db/b3z8ihppnna7i33zp228jqbjlyisrqc.png"
+            },
+            {
+              "image": "assets/petit-yoshino-10-3.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/9/95/5ktzyr9iuuz3saquujgo7jhw6vz8vyq.png"
+            },
+            {
+              "image": "assets/petit-yoshino-10-4.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/7/77/2nivz683s0uh5pkmnuetmp6jcn3548m.png"
+            }
+          ]
+        }
       },
       "entities": [
         "春光の少女"
@@ -10113,7 +10289,29 @@
             "visual": 4663,
             "total": 15680
           }
-        ]
+        ],
+        "petit": {
+          "source": "https://wiki.biligame.com/imascg/依田芳乃",
+          "wikiIndex": 3,
+          "poses": [
+            {
+              "image": "assets/petit-yoshino-03-1.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/e/e2/0bvz67z94hkufmreda3c3zbdxi44j8l.png"
+            },
+            {
+              "image": "assets/petit-yoshino-03-2.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/1/1b/1hnd4zhmnrk69kr0thj28eq40gutibe.png"
+            },
+            {
+              "image": "assets/petit-yoshino-03-3.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/d/de/la9ueoo9exnmg8a6b3eqr3jqmf8rj2x.png"
+            },
+            {
+              "image": "assets/petit-yoshino-03-4.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/4/44/spv2p9ddf9k508hnjzjeqvar1x80763.png"
+            }
+          ]
+        }
       },
       "entities": [
         "ことほぎの祈り"
@@ -10835,7 +11033,29 @@
             "visual": 5690,
             "total": 12419
           }
-        ]
+        ],
+        "petit": {
+          "source": "https://wiki.biligame.com/imascg/依田芳乃",
+          "wikiIndex": 5,
+          "poses": [
+            {
+              "image": "assets/petit-yoshino-05-1.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/9/92/s8xol42v40ifirfm004dpy22ac2yg2m.png"
+            },
+            {
+              "image": "assets/petit-yoshino-05-2.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/7/7d/5ryit43w56qun4bjz07mlf8w55sanc8.png"
+            },
+            {
+              "image": "assets/petit-yoshino-05-3.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/0/0d/irwb0x9as4eqzpka2ec0twotr6nhuwe.png"
+            },
+            {
+              "image": "assets/petit-yoshino-05-4.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/8/87/g4rihxfmytag6g4ui3qa2165ix1xa3s.png"
+            }
+          ]
+        }
       },
       "relatedIds": [
         "song-take-me"
@@ -11560,7 +11780,29 @@
             "visual": 7216,
             "total": 15664
           }
-        ]
+        ],
+        "petit": {
+          "source": "https://wiki.biligame.com/imascg/依田芳乃",
+          "wikiIndex": 9,
+          "poses": [
+            {
+              "image": "assets/petit-yoshino-09-1.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/8/8a/8i9cjyb0oyf3e658v8ruikk8ctuqyfk.png"
+            },
+            {
+              "image": "assets/petit-yoshino-09-2.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/9/94/r6vb0wsucd1evp385gjl9zbz9paqvs9.png"
+            },
+            {
+              "image": "assets/petit-yoshino-09-3.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/8/8b/12d8ymirxw54y1oewslxm8wkaf54xcr.png"
+            },
+            {
+              "image": "assets/petit-yoshino-09-4.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/d/dc/mabdv9o69bifnio64anwklu64139m1d.png"
+            }
+          ]
+        }
       },
       "entities": [
         "はるべと咲くや"
@@ -12282,7 +12524,29 @@
             "visual": 9,
             "total": 638
           }
-        ]
+        ],
+        "petit": {
+          "source": "https://wiki.biligame.com/imascg/依田芳乃",
+          "wikiIndex": 11,
+          "poses": [
+            {
+              "image": "assets/petit-yoshino-11-1.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/b/b6/mcgesv2zopdusbnqzsfl8kvoqj9mw5k.png"
+            },
+            {
+              "image": "assets/petit-yoshino-11-2.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/7/79/3rvodfeephxtngs2xgvo2c422s8gtba.png"
+            },
+            {
+              "image": "assets/petit-yoshino-11-3.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/4/49/992zx7g1vvcn6rgwdll64m8mf8p97rh.png"
+            },
+            {
+              "image": "assets/petit-yoshino-11-4.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/e/ec/m4oa0d98qmb7tzjeeq01sn552mq6mgi.png"
+            }
+          ]
+        }
       },
       "entities": [
         "風雅水鏡"
@@ -13004,7 +13268,29 @@
             "visual": 4205,
             "total": 13259
           }
-        ]
+        ],
+        "petit": {
+          "source": "https://wiki.biligame.com/imascg/依田芳乃",
+          "wikiIndex": 12,
+          "poses": [
+            {
+              "image": "assets/petit-yoshino-12-1.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/5/57/tl874ygiyl66yhs2o1mbzt8yix044e0.png"
+            },
+            {
+              "image": "assets/petit-yoshino-12-2.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/a/a7/fvaq6ao2v1j293cq3dmaw5jgv3hqgr0.png"
+            },
+            {
+              "image": "assets/petit-yoshino-12-3.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/7/71/jnkq0lbvlt0dpngpzswt8b4yv12bp1x.png"
+            },
+            {
+              "image": "assets/petit-yoshino-12-4.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/9/95/pl22d1co5931uq70rlkdbyhc5ekpg0x.png"
+            }
+          ]
+        }
       },
       "entities": [
         "黄昏の映し人"
@@ -13726,7 +14012,29 @@
             "visual": 3890,
             "total": 15690
           }
-        ]
+        ],
+        "petit": {
+          "source": "https://wiki.biligame.com/imascg/依田芳乃",
+          "wikiIndex": 13,
+          "poses": [
+            {
+              "image": "assets/petit-yoshino-13-1.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/f/fb/ckmisb8m7hvi95ye8z85b7zvtc4dvrt.png"
+            },
+            {
+              "image": "assets/petit-yoshino-13-2.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/f/f6/4y819f5dhnhiexrjdqsklt787jsl3xl.png"
+            },
+            {
+              "image": "assets/petit-yoshino-13-3.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/2/28/rhv7e5hbg5pkedv5xvkpactdtww5l52.png"
+            },
+            {
+              "image": "assets/petit-yoshino-13-4.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/e/ea/adij22d1p439fo95pp0yixi6d7ay4sw.png"
+            }
+          ]
+        }
       },
       "entities": [
         "渚の夏乙女"
@@ -14448,7 +14756,29 @@
             "visual": 4630,
             "total": 15664
           }
-        ]
+        ],
+        "petit": {
+          "source": "https://wiki.biligame.com/imascg/依田芳乃",
+          "wikiIndex": 15,
+          "poses": [
+            {
+              "image": "assets/petit-yoshino-15-1.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/c/cd/17ap3p6chrl4zk80tzvsexss16k5pqc.png"
+            },
+            {
+              "image": "assets/petit-yoshino-15-2.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/8/89/fh63idcmaj38rwp2kbci3prv3hpmxxq.png"
+            },
+            {
+              "image": "assets/petit-yoshino-15-3.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/c/c7/950x838rh36ichbr0k2wz3jai78aqqv.png"
+            },
+            {
+              "image": "assets/petit-yoshino-15-4.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/c/c9/iag6kevjl2cvolk04rp4257v47udowv.png"
+            }
+          ]
+        }
       },
       "entities": [
         "縁結日和"
@@ -15170,7 +15500,29 @@
             "visual": 6186,
             "total": 13440
           }
-        ]
+        ],
+        "petit": {
+          "source": "https://wiki.biligame.com/imascg/依田芳乃",
+          "wikiIndex": 16,
+          "poses": [
+            {
+              "image": "assets/petit-yoshino-16-1.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/5/5d/djx0sx0catri4tfeg40wiiop8ndip3c.png"
+            },
+            {
+              "image": "assets/petit-yoshino-16-2.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/3/3e/2fb5ip711bnloz4ty4gzyq7u1tytcms.png"
+            },
+            {
+              "image": "assets/petit-yoshino-16-3.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/4/45/ksjhzuzxlbtv1w14qrpbrcfx06gbxg2.png"
+            },
+            {
+              "image": "assets/petit-yoshino-16-4.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/6/6e/pkt3i2rw1219nyh3xf8h0mrhzovkntu.png"
+            }
+          ]
+        }
       },
       "relatedIds": [
         "song-pajamajama"
@@ -15895,7 +16247,29 @@
             "visual": 2735,
             "total": 15701
           }
-        ]
+        ],
+        "petit": {
+          "source": "https://wiki.biligame.com/imascg/依田芳乃",
+          "wikiIndex": 17,
+          "poses": [
+            {
+              "image": "assets/petit-yoshino-17-1.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/d/de/d8440q47o1puntpnj142819wllo98rd.png"
+            },
+            {
+              "image": "assets/petit-yoshino-17-2.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/6/6d/44o0svex7esgu3jxxvv8ttif0ugjn5o.png"
+            },
+            {
+              "image": "assets/petit-yoshino-17-3.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/8/86/270gn4t96bkqyewaiatnj4zmseof7gx.png"
+            },
+            {
+              "image": "assets/petit-yoshino-17-4.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/1/1f/8eldml4yp94nt8uat439yoas7q7zf1r.png"
+            }
+          ]
+        }
       },
       "entities": [
         "花霞のかぎろひ"
@@ -16617,7 +16991,29 @@
             "visual": 7890,
             "total": 15671
           }
-        ]
+        ],
+        "petit": {
+          "source": "https://wiki.biligame.com/imascg/依田芳乃",
+          "wikiIndex": 18,
+          "poses": [
+            {
+              "image": "assets/petit-yoshino-18-1.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/c/c5/6t7ci7spcgx0z40uy3w6j2gvdh15294.png"
+            },
+            {
+              "image": "assets/petit-yoshino-18-2.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/1/15/4whnq5lktcp758usxhfev0ncdeija89.png"
+            },
+            {
+              "image": "assets/petit-yoshino-18-3.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/b/b9/obo0d8omgyv51pgv2n1np6i7pg2pizk.png"
+            },
+            {
+              "image": "assets/petit-yoshino-18-4.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/a/a2/dwwoxhfblkcdq1ajaqmxw2ewjjdi8e0.png"
+            }
+          ]
+        }
       },
       "entities": [
         "ぬばたまに灯るは"
@@ -17339,7 +17735,29 @@
             "visual": 3291,
             "total": 13441
           }
-        ]
+        ],
+        "petit": {
+          "source": "https://wiki.biligame.com/imascg/依田芳乃",
+          "wikiIndex": 19,
+          "poses": [
+            {
+              "image": "assets/petit-yoshino-19-1.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/b/b0/3yfkcs9hravugy83xraxcnapwmyip64.png"
+            },
+            {
+              "image": "assets/petit-yoshino-19-2.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/6/62/b1z63en7lijw26oh8zyph50zfl3qy96.png"
+            },
+            {
+              "image": "assets/petit-yoshino-19-3.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/7/7e/1108l9m7e7sdpqdlfhle3axbgg220l2.png"
+            },
+            {
+              "image": "assets/petit-yoshino-19-4.png",
+              "imageSource": "https://patchwiki.biligame.com/images/imascg/c/cb/cvw0g2kzdo1tnixr4a54zun6c36jdx9.png"
+            }
+          ]
+        }
       },
       "relatedIds": [
         "enamoral"
