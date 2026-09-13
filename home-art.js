@@ -1,7 +1,8 @@
 // Small line drawings share the archive's ink and paper palette. Their moving
 // parts are separate from the entrance transforms on the containing links.
 export function homeBlossoms() {
-  const petal = '<path d="M0 2C-3 1-7-4-7-9C-7-18 7-18 7-9C7-4 3 1 0 2Z"/>';
+  const petal =
+    '<path d="M0 1C-1.6-3-3.2-10-1.8-15C-1.3-17 0-19 0-19S1.3-17 1.8-15C3.2-10 1.6-3 0 1Z"/>';
   const flower = [0, 72, 144, 216, 288]
     .map((angle) => `<g transform="rotate(${angle})">${petal}</g>`)
     .join("");
