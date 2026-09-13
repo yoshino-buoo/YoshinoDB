@@ -41,13 +41,13 @@ test("the audited card scenes and profile survive catalog validation and remain 
         stage.groups.reduce((n, g) => n + g.clips.length, 0),
         36,
       );
-      assert.ok(stage.paragraphs.every((p) => p.ja && p.zh));
+      assert.ok(stage.groups.every((g) => g.label.ja && g.label.zh));
     }
   }
   const profile = data.items.find((x) => x.kind === "profile");
   assert.ok(searchText(profile).includes("仙贝"));
   const seaside = cards.find((x) => x.id === "card-1529");
-  assert.ok(searchText(seaside).includes("水声"));
+  assert.ok(searchText(seaside).includes("亲爱度"));
   assert.ok(!searchText(seaside).includes(".mp3"));
   const mobamas = data.items.filter((x) => x.game === "mobamas");
   assert.equal(mobamas.length, 20);

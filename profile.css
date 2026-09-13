@@ -161,6 +161,16 @@
 .voice-links a:hover {
   background: rgb(91 124 112 / 11%);
 }
+.voice-links.has-transcripts {
+  grid-template-columns: 1fr;
+}
+.voice-transcript {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.9;
+  font-size: 15px;
+  margin: 14px 0;
+}
 .voice-excerpts {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

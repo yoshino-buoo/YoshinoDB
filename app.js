@@ -344,17 +344,10 @@ function render(filterState = null) {
         );
       const results = document.querySelector("#results");
       const paint = () => {
-        const illustrations = items.reduce(
-          (n, x) => n + (x.gallery?.length || 0),
-          0,
+        document.querySelector(".result-count").textContent = t(
+          `${items.length} 件の記録`,
+          `${items.length} 条记录`,
         );
-        document.querySelector(".result-count").textContent =
-          route === "cards"
-            ? t(
-                `${items.length} 組 · ${illustrations} 枚`,
-                `${items.length} 组 · ${illustrations} 张`,
-              )
-            : t(`${items.length} 件の記録`, `${items.length} 条记录`);
         document.querySelector("#results").innerHTML = items.length
           ? content.renderList(items, route)
           : `<div class="empty"><span>◇</span><h2>${t("該当する記録がありません", "没有找到匹配的记录")}</h2><p>${t("別のキーワードをお試しください。資料の追加もお待ちしています。", "试试其他关键词，也欢迎补充资料。")}</p><a href="#editor">${label("editor")} →</a></div>`;

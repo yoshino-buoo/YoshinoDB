@@ -52,7 +52,7 @@ test("card games stay separate and return to the selected game's filters", async
     count("mobamas"),
   );
   await expect(records).toHaveCount(count("mobamas"));
-  await expect(page.locator(".result-count")).toHaveText("20 組 · 40 枚");
+  await expect(page.locator(".result-count")).toHaveText("20 件の記録");
   await page.locator('[data-rarity="R"]').click();
   await expect(records).toHaveCount(count("mobamas", "R"));
   const art = records.first().locator(".record-cover");
@@ -84,7 +84,7 @@ test("profile and card voice scenes render in both languages and open in the edi
   await expect(page.locator("#boot-screen")).toHaveCount(0, { timeout: 15000 });
   await expect(
     page.locator(".profile-connections .profile-connection"),
-  ).toHaveCount(8);
+  ).toHaveCount(10);
   await expect(page.locator(".voice-links a")).toHaveCount(28);
   await page.locator('[data-lang="zh"]').click();
   await expect(page.locator(".profile-reading")).toContainText(
