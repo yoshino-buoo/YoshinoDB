@@ -459,6 +459,9 @@ try {
   const loaded = await Promise.allSettled(
     ["catalog", "generated"].map((name) =>
       fetch(`${base}data/${name}.json`, {
+        // Pages caches JSON for ten minutes. Revalidate mutable data so a new
+        // application bundle cannot silently render an older card catalog.
+        cache: "no-cache",
         signal: AbortSignal.timeout(12000),
       }).then(async (r) => {
         if (!r.ok) throw Error(r.status);

@@ -2,7 +2,11 @@ import config from "./playwright.config.mjs";
 
 const baseURL =
   process.env.YOSHINO_TEST_BASE_URL || "http://127.0.0.1:4273/YoshinoDB/";
-const testMatch = ["navigation.spec.mjs", "release-smoke.spec.mjs"];
+const testMatch = [
+  "navigation.spec.mjs",
+  "release-smoke.spec.mjs",
+  "catalog-cache.spec.mjs",
+];
 
 export default {
   ...config,
