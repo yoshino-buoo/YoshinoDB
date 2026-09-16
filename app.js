@@ -14,6 +14,10 @@ import {
 } from "./motion.js";
 const base = import.meta.env.BASE_URL;
 const app = document.querySelector("#app");
+const embeddedPreview =
+  window.parent !== window &&
+  new URLSearchParams(location.search).has("studio-preview");
+let previewEntryId, editorCleanup;
 let booting = true;
 const storage = {
   get(key) {
@@ -162,6 +166,7 @@ const listening = createListening({
   t,
   esc,
   onAudioStart: () => content.stopVideos(),
+  passive: embeddedPreview,
 });
 const content = createContentViews({
   base,
@@ -175,10 +180,17 @@ const content = createContentViews({
   record,
   cardVariant: () => cardVariant,
   musicPreview: listening.detail,
+  edit: embeddedPreview
+    ? (path) => ` data-edit-path="${esc(path)}"`
+    : undefined,
   onVideoStart: listening.videoStarted,
   onVideoStop: listening.videoStopped,
 });
-const detail = content.detail;
+const detail = (id) => {
+  const item = all().find((x) => x.id === id);
+  if (item) document.title = tr(item.title) + " · YoshinoDB";
+  return content.detail(id);
+};
 const navigation = createNavigation({
   captureView: () => {
     const form = app.querySelector(".list-controls");
@@ -252,9 +264,11 @@ function listing(route) {
 }
 
 function profile() {
-  return `${pageTitle("profile", "ABOUT YOSHINO")}${content.profile()}`;
+  return `${pageTitle("profile", "ABOUT YOSHINO")}${content.profile(previewEntryId ? all().find((x) => x.id === previewEntryId) : undefined)}`;
 }
 function render(filterState = null) {
+  editorCleanup?.();
+  editorCleanup = null;
   let route = location.hash.slice(1).split("?")[0] || "home";
   const entryId = route.startsWith("entry/") ? route.slice(6) : null;
   if (!names[route] && route !== "search" && !entryId) route = "home";
@@ -429,7 +443,7 @@ function render(filterState = null) {
   }
   content.bind(app);
   listening.bind(app);
-  if (!booting) {
+  if (!booting && !embeddedPreview) {
     animatePage(document.querySelector("main"));
     revealContent(document.querySelector("main"));
   }
@@ -461,7 +475,7 @@ function editor() {
   return pageTitle("editor", "CONTENT EDITOR") + `<div id="editor-ui"></div>`;
 }
 function bindEditor() {
-  mountEditor(document.querySelector("#editor-ui"), catalog, {
+  editorCleanup = mountEditor(document.querySelector("#editor-ui"), catalog, {
     lang,
     t,
     tr,
@@ -502,11 +516,23 @@ try {
     /* The archive and BGM remain usable if preview metadata is unavailable. */
   }
   render(navigation.initialView);
-  await openFirstPage(() => {
-    booting = false;
-    animatePage(document.querySelector("main"));
-    revealContent(document.querySelector("main"));
-  });
+  if (embeddedPreview) {
+    failFirstPage();
+    const { mountPreviewBridge } = await import("./lib/editor-preview.js");
+    mountPreviewBridge({
+      renderDraft(data) {
+        catalog = data.catalog;
+        previewEntryId = data.id;
+        lang = data.locale;
+        render();
+      },
+    });
+  } else
+    await openFirstPage(() => {
+      booting = false;
+      animatePage(document.querySelector("main"));
+      revealContent(document.querySelector("main"));
+    });
   navigation.ready();
 } catch {
   failFirstPage();

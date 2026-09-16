@@ -1,3 +1,218 @@
+.profile-page {
+  position: relative;
+}
+yoshino-profile-nav {
+  display: block;
+  position: sticky;
+  top: max(12px, env(safe-area-inset-top));
+  z-index: 15;
+  margin-bottom: 28px;
+}
+yoshino-profile-nav:empty {
+  display: none;
+}
+.profile-toc {
+  position: relative;
+  background: #faf8f2f5;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  box-shadow: 0 5px 22px #413d3809;
+}
+.profile-toc::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 2px;
+  width: var(--profile-progress, 0%);
+  background: var(--red);
+  border-radius: 2px;
+}
+.profile-toc-heading {
+  display: none;
+}
+.profile-toc-toggle {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 54px;
+  width: 100%;
+  padding: 10px 16px;
+  text-align: left;
+  background: transparent;
+}
+.profile-toc-label {
+  flex-shrink: 0;
+  font: 500 14px/1.6 var(--serif);
+  color: var(--red);
+  letter-spacing: .06em;
+}
+.profile-toc-current {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  color: var(--muted);
+}
+.profile-toc-count {
+  font-size: 10px;
+  white-space: nowrap;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.profile-toc-chevron {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-right: 1px solid var(--red);
+  border-bottom: 1px solid var(--red);
+  transform: translateY(-2px) rotate(45deg);
+}
+[data-open] .profile-toc-chevron {
+  transform: translateY(2px) rotate(225deg);
+}
+.profile-toc-list {
+  display: none;
+  list-style: none;
+  position: absolute;
+  inset: calc(100% + 8px) 0 auto;
+  margin: 0;
+  padding: 8px;
+  max-height: min(60vh, 520px);
+  max-height: min(60dvh, 520px, var(--profile-menu-space, 60dvh));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  box-shadow: 0 12px 30px #413d3814;
+}
+[data-open] .profile-toc-list {
+  display: block;
+}
+.profile-toc-list button {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  background: transparent;
+  border-left: 2px solid transparent;
+  text-align: left;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.profile-toc-list button:hover {
+  background: #5b7a7008;
+  color: var(--ink);
+}
+.profile-toc-list button[aria-current] {
+  border-left-color: var(--red);
+  color: var(--red);
+  background: #914d5309;
+}
+.profile-toc-number {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  opacity: .65;
+}
+.profile-toc-list button:focus-visible,
+.profile-toc-toggle:focus-visible {
+  outline-offset: -3px;
+}
+.profile-jump-target {
+  scroll-margin-top: 88px;
+}
+.profile-jump-target h2:focus-visible {
+  outline: 1px solid var(--green);
+  outline-offset: 6px;
+}
+@media (max-width: 380px) {
+  .profile-toc-toggle {
+    gap: 10px;
+    padding-inline: 12px;
+  }
+  .profile-toc-count {
+    display: none;
+  }
+}
+/* Only use the side margin when there is room for both the existing 900px
+   reading column and the contents. Tablet and small laptop widths stay compact. */
+@media (min-width: 1280px) {
+  .profile-page {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 900px) minmax(0, 1fr);
+  }
+  .profile-page > .profile-grid {
+    grid-area: 1 / 1 / 2 / -1;
+  }
+  .profile-page > .profile-reading {
+    grid-area: 2 / 2;
+    width: 100%;
+    min-width: 0;
+  }
+  .profile-page > .profile-reading > .entry-section:first-child {
+    margin-top: 0;
+  }
+  yoshino-profile-nav {
+    grid-area: 2 / 3;
+    position: static;
+    width: clamp(148px, calc((100vw - 900px) / 2 - 60px), 178px);
+    margin: 0 0 0 24px;
+    justify-self: start;
+    align-self: stretch;
+  }
+  .profile-toc {
+    position: sticky;
+    top: 28px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .profile-toc::after,
+  .profile-toc-toggle {
+    display: none;
+  }
+  .profile-toc-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0 0 16px 14px;
+  }
+  .profile-toc-heading small {
+    font-size: 8px;
+    color: var(--muted);
+    letter-spacing: .18em;
+  }
+  .profile-toc-list {
+    position: static;
+    display: block;
+    padding: 0;
+    max-height: calc(100vh - 130px);
+    max-height: calc(100dvh - 130px);
+    border: 0;
+    border-left: 1px solid var(--line);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .profile-toc-list button {
+    gap: 9px;
+    min-height: 36px;
+    padding: 8px 8px 8px 12px;
+    font-size: 11px;
+  }
+  .profile-jump-target {
+    scroll-margin-top: 32px;
+  }
+}
 .profile-intro {
   max-width: 45ch;
   color: var(--muted);

@@ -1,4 +1,209 @@
 /* A writing desk: familiar paper and ink, with quiet, practical controls. */
+.studio-live.studio-dialog {
+  width: calc(100vw - 24px);
+  max-width: none;
+  height: calc(100dvh - 24px);
+  max-height: none;
+  padding: 18px;
+  overflow: hidden;
+}
+.studio-live.studio-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+.studio-live > .studio-modal-head,
+.studio-live > .studio-preview-controls {
+  flex-shrink: 0;
+}
+.studio-live .studio-visual-layout {
+  flex: 1;
+  height: auto;
+  min-height: 0;
+}
+.studio-live .studio-modal-head {
+  margin-bottom: 8px;
+}
+.studio-live .studio-preview-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 12px;
+}
+.studio-live .studio-preview-controls > div {
+  display: flex;
+  gap: 4px;
+}
+.studio-live .studio-preview-controls label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+.studio-live button[aria-pressed="true"] {
+  background: #eee1c9;
+  border-color: #9c733f;
+  color: var(--red);
+}
+.studio-visual-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 16px;
+  height: calc(100% - 115px);
+}
+.studio-preview-stage {
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: #e5ddce;
+  border-radius: 5px;
+}
+.studio-preview-stage iframe {
+  display: block;
+  border: 0;
+  transform-origin: top left;
+  background: #fcf8ef;
+}
+.studio-preview-fields {
+  overflow: auto;
+  min-width: 0;
+  padding: 0 10px 30px 0;
+}
+.studio-preview-fields .studio-fields,
+.studio-preview-fields .studio-bilingual {
+  grid-template-columns: minmax(0, 1fr);
+}
+.studio-preview-fields [data-preview-status] {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.studio-template-copy {
+  margin-top: 24px;
+}
+.studio-template-copy summary {
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+.studio-publication {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  margin: 12px 0 24px;
+}
+.studio-publication p,
+.studio-connection-help {
+  font-size: 13px;
+  line-height: 1.8;
+}
+.studio-publication label {
+  display: block;
+  font-size: 13px;
+  margin: 14px 0;
+}
+.studio-publication [data-github-status] {
+  color: var(--red);
+}
+.studio-connection-help {
+  margin: 12px 0;
+}
+.studio-review-list {
+  margin: 16px 0;
+  max-height: 350px;
+  overflow: auto;
+}
+.studio-review-list details {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.studio-review-list summary {
+  cursor: pointer;
+  font-size: 14px;
+}
+.studio-review-list summary span {
+  color: var(--red);
+  margin-right: 8px;
+}
+.studio-review-list summary small {
+  color: var(--muted);
+}
+.studio-review-list dt {
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.studio-review-list dd {
+  margin: 5px 0;
+  font-size: 12px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.studio-review-list del,
+.studio-review-list ins {
+  display: block;
+  padding: 4px 8px;
+  text-decoration: none;
+}
+.studio-review-list del {
+  background: #f5e2df;
+  color: #834c46;
+}
+.studio-review-list ins {
+  background: #e7eddf;
+  color: #3e633e;
+}
+.studio-publish-success {
+  padding: 15px;
+  background: #e7eddf;
+}
+[data-template-list] {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+[data-template-list] button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+}
+[data-template-list] img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+[data-template-list] small {
+  display: block;
+  color: var(--muted);
+}
+.studio-kind-picker button span {
+  font-size: 11px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+@media (max-width: 800px) {
+  .studio-live.studio-dialog {
+    padding: 10px;
+    width: calc(100vw - 8px);
+    height: calc(100dvh - 8px);
+  }
+  .studio-visual-layout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(220px, 1fr) minmax(180px, 0.85fr);
+    height: calc(100% - 160px);
+    gap: 8px;
+  }
+  .studio-live .studio-preview-controls {
+    gap: 4px;
+  }
+  .studio-live .studio-preview-controls button {
+    padding: 6px 8px;
+  }
+  .studio-preview-fields {
+    border-top: 1px solid var(--line);
+    padding-top: 8px;
+  }
+}
 .studio {
   --desk-border: #d9d0bf;
   color: var(--ink);
@@ -953,4 +1158,12 @@
 .studio-preview-content[lang="zh-Hans"] {
   --serif: "Noto Serif SC", "Songti SC", "SimSun", serif;
   --sans: "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.studio-block-toolbar {
+  padding: 8px 16px 0;
+  text-align: right;
+}
+.studio-block-toolbar button {
+  font-size: 11px;
 }

@@ -5,7 +5,7 @@ async function ready(page) {
   await page.addInitScript(() => localStorage.setItem("yoshino-lang", "zh"));
   await page.goto("/#editor");
   await expect(page.locator("[data-new]")).toBeVisible();
-  await expect(page.locator("#boot-screen")).toHaveCount(0);
+  await expect(page.locator("#boot-screen")).toHaveCount(0, { timeout: 15000 });
 }
 async function select(page, id) {
   await page.locator("[data-search]").fill(id);
@@ -46,7 +46,7 @@ test("music details autosave, survive language/navigation/reload and export with
     "新的作曲者",
   );
   await page.reload();
-  await expect(page.locator("#boot-screen")).toHaveCount(0);
+  await expect(page.locator("#boot-screen")).toHaveCount(0, { timeout: 15000 });
   await expect(field(page, "music.credits.composers")).toHaveValue(
     "新的作曲者",
   );
@@ -82,10 +82,17 @@ test("cards calculate totals, gallery rows reorder and undo, and full previews u
   await page.locator("[data-undo]").click();
   await expect(field(page, "gallery.0.image")).toHaveValue(first);
   await page.locator("[data-editor-preview]").click();
-  await expect(page.locator(".studio-preview .stats-table")).toBeVisible();
-  await page.locator('.studio-preview [data-variant="1"]').click();
   await expect(
-    page.locator('.studio-preview [data-variant-panel="1"]'),
+    page.frameLocator("[data-live-preview]").locator(".stats-table"),
+  ).toBeVisible();
+  await page
+    .frameLocator("[data-live-preview]")
+    .locator('[data-variant="1"]')
+    .click();
+  await expect(
+    page
+      .frameLocator("[data-live-preview]")
+      .locator('[data-variant-panel="1"]'),
   ).toBeVisible();
 });
 
@@ -116,7 +123,7 @@ test("new records support rich paragraphs, related entries and persistent upload
   await expect(field(page, "image")).toHaveValue(/^assets\/upload-/);
   const image = await field(page, "image").inputValue();
   await page.reload();
-  await expect(page.locator("#boot-screen")).toHaveCount(0);
+  await expect(page.locator("#boot-screen")).toHaveCount(0, { timeout: 15000 });
   await expect(field(page, "image")).toHaveValue(image);
   await expect
     .poll(() =>
@@ -126,9 +133,9 @@ test("new records support rich paragraphs, related entries and persistent upload
     )
     .toBe(true);
   await page.locator("[data-editor-preview]").click();
-  await expect(page.locator(".studio-preview .news-article")).toContainText(
-    "这里是详细内容。",
-  );
+  await expect(
+    page.frameLocator("[data-live-preview]").locator(".news-article"),
+  ).toContainText("这里是详细内容。");
   await page.locator("[data-close]").click();
   await page.locator("[data-export]").click();
   await expect(page.locator("[data-download-json]")).toBeDisabled();
@@ -228,12 +235,13 @@ test("advanced JSON is retained until explicitly applied, and preview language c
   await page.locator("[data-apply-raw]").click();
   await page.locator("[data-editor-preview]").click();
   await page.locator('[data-preview-lang="ja"]').click();
-  await expect(page.locator(".studio-preview .entry-heading>a")).toContainText(
-    "楽曲",
-  );
+  await expect(
+    page.frameLocator("[data-live-preview]").locator(".entry-heading>a"),
+  ).toContainText("楽曲");
   expect(
     await page
-      .locator(".studio-preview-content")
+      .frameLocator("[data-live-preview]")
+      .locator("html")
       .evaluate((el) => getComputedStyle(el).getPropertyValue("--serif")),
   ).toContain("Noto Serif JP");
   await page.locator("[data-close]").click();

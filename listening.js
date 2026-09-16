@@ -1,4 +1,4 @@
-import { validateListening } from "./lib/listening.js";
+import { validateListening, appleTrackId } from "./lib/listening.js";
 import { isWikiAudio } from "./lib/voice-guide.js";
 
 const playIcon =
@@ -34,7 +34,14 @@ const savePreference = (key, value) => {
   } catch {}
 };
 
-export function createListening({ base, t, esc, onAudioStart }) {
+export function createListening({
+  base,
+  t,
+  esc,
+  onAudioStart,
+  passive = false,
+}) {
+  const renderedTracks = new Map();
   let tracks = {},
     previewRoot = null,
     voiceRoot = null,
@@ -87,6 +94,7 @@ export function createListening({ base, t, esc, onAudioStart }) {
     if (audio !== bgm) queueMicrotask(resumeBgm);
   }
   async function start(audio) {
+    if (passive) return;
     const s = state.get(audio),
       serial = ++s.serial;
     s.error = false;
@@ -137,6 +145,7 @@ export function createListening({ base, t, esc, onAudioStart }) {
     }
   }
   function resumeBgm() {
+    if (passive) return;
     if (
       !booted ||
       !bgmEnabled ||
@@ -180,7 +189,12 @@ export function createListening({ base, t, esc, onAudioStart }) {
   // A new visit starts at the beginning; only the ON/OFF preference persists.
 
   function detail(item) {
-    const track = tracks[item.id];
+    const hasMapping = Object.hasOwn(item.music || {}, "appleTrackUrl");
+    const trackId = appleTrackId(item.music?.appleTrackUrl);
+    const track = hasMapping
+      ? Object.values(tracks).find((x) => x.trackId === trackId)
+      : tracks[item.id];
+    renderedTracks.set(item.id, track);
     if (!track) return "";
     const version =
       track.version === "game"
@@ -194,6 +208,7 @@ export function createListening({ base, t, esc, onAudioStart }) {
     root.setAttribute("aria-label", t("背景音楽", "背景音乐"));
     root.innerHTML = `<button class="bgm-switch" data-bgm-toggle role="switch" aria-checked="${bgmEnabled}"><span class="audio-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>BGM</span><span class="bgm-switch-track" aria-hidden="true"><i></i></span></button>`;
     root.querySelector("[data-bgm-toggle]").onclick = () => {
+      if (passive) return;
       bgmEnabled = !bgmEnabled;
       savePreference("yoshino-bgm-enabled", bgmEnabled);
       state.get(bgm).error = false;
@@ -303,7 +318,7 @@ export function createListening({ base, t, esc, onAudioStart }) {
       preview.load();
       state.get(preview).error = false;
       previewId = next?.dataset.preview || null;
-      if (previewId) preview.src = tracks[previewId].previewUrl;
+      if (previewId) preview.src = renderedTracks.get(previewId).previewUrl;
     }
     previewRoot = next;
     if (next) {

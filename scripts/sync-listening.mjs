@@ -1,9 +1,14 @@
 import { readFile, writeFile, rename } from "node:fs/promises";
-import { previewFromResult, validateListening } from "../lib/listening.js";
+import {
+  previewFromResult,
+  validateListening,
+  songMappings,
+} from "../lib/listening.js";
 
 const read = async (path) => JSON.parse(await readFile(path, "utf8"));
 const config = await read("config/listening.json");
 const catalog = await read("public/data/catalog.json");
+config.tracks = songMappings(catalog, config.tracks);
 const target = "public/data/listening.json";
 const previous = await read(target).catch(() => ({ tracks: {} }));
 const tracks = {};

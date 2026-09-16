@@ -145,7 +145,7 @@ test("profile and card voice scenes render in both languages and open in the edi
   await expect(page.locator("#edit-panel")).toContainText("贴纸与动图");
   await page.locator("[data-editor-preview]").click();
   await expect(
-    page.locator(".studio-preview-content .profile-connections"),
+    page.frameLocator("[data-live-preview]").locator(".profile-connections"),
   ).toBeVisible();
   expect(errors).toEqual([]);
 });
@@ -308,7 +308,12 @@ test("petit costume switches decoded poses, pauses offscreen and works in the ed
   await page.locator('[data-tab="details"]').click();
   await expect(page.locator("#edit-panel")).toContainText("Q 版芳乃");
   await page.locator("[data-editor-preview]").click();
-  const preview = page.locator(".studio-preview-content yoshino-petit");
+  await expect(page.locator("[data-preview-status]")).toContainText(
+    "已自动保存",
+  );
+  const preview = page
+    .frameLocator("[data-live-preview]")
+    .locator("yoshino-petit");
   await preview.scrollIntoViewIfNeeded();
   await expect(preview).toHaveAttribute("data-ready", "true");
   await preview.locator("[data-petit-next]").click();

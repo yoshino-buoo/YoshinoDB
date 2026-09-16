@@ -1,4 +1,5 @@
 import { switchArtwork } from "./motion.js";
+import "./lib/profile-navigation.js";
 import { relatedRecords, embedUrl } from "./lib/relations.js";
 import { renderCardCommu } from "./lib/card-commu.js";
 import { renderVoiceGuide } from "./lib/voice-guide.js";
@@ -17,6 +18,7 @@ export function createContentViews({
   record,
   cardVariant = () => 0,
   musicPreview = () => "",
+  edit = () => "",
   onVideoStart = () => {},
   onVideoStop = () => {},
 }) {
@@ -33,22 +35,22 @@ export function createContentViews({
   };
   const localized = (value) =>
     Array.isArray(value) ? value.map(tr).join(t("・", "、")) : tr(value);
-  const facts = (rows) =>
-    `<dl class="fact-list">${rows
+  const facts = (rows, path = "") =>
+    `<dl class="fact-list"${path ? edit(path) : ""}>${rows
       .filter(
         (x) => x[1] !== undefined && x[1] !== null && localized(x[1]) !== "",
       )
       .map(
-        ([key, value]) =>
-          `<div><dt>${esc(key)}</dt><dd>${esc(localized(value))}</dd></div>`,
+        ([key, value, field]) =>
+          `<div${field ? edit(field) : ""}><dt>${esc(key)}</dt><dd>${esc(localized(value))}</dd></div>`,
       )
       .join("")}</dl>`;
-  const section = (heading, html, cls = "") =>
+  const section = (heading, html, cls = "", path = "") =>
     html
-      ? `<section class="entry-section ${cls}"><h2>${heading}</h2>${html}</section>`
+      ? `<section class="entry-section ${cls}"${path ? edit(path) : ""}><h2>${heading}</h2>${html}</section>`
       : "";
   const tags = (item) =>
-    `<div class="record-tags">${(item.tags || [])
+    `<div class="record-tags"${edit("tags")}>${(item.tags || [])
       .filter(
         (x) => !["bilibili", "youtube", "N", "R", "SR", "SSR"].includes(x),
       )
@@ -56,21 +58,44 @@ export function createContentViews({
       .join("")}</div>`;
   const description = (item) =>
     tr(item.description)
-      ? `<p class="entry-lead">${esc(tr(item.description))}</p>`
+      ? `<p class="entry-lead"${edit("description")}>${esc(tr(item.description))}</p>`
       : "";
   const extra = (item) =>
     Array.isArray(item.details) && item.details.length
-      ? facts(item.details.map((x) => [tr(x.label), x.value]))
+      ? facts(
+          item.details.map((x, i) => [
+            tr(x.label),
+            x.value,
+            `details.${i}.value`,
+          ]),
+          "details",
+        )
       : "";
   const source = (item) =>
-    `<div class="entry-source">${ext(item.source, t("掲載ページ", "相关页面"))}<span>${esc(item.sourceName)}</span>${item.reference ? ext(item.reference, t("公式サイト", "官方网站")) : ""}${item.card?.source && item.card.source !== item.source ? ext(item.card.source, t("カードデータ", "卡片数据")) : ""}${item.music?.sources?.[0]?.url && item.music.sources[0].url !== item.source ? ext(item.music.sources[0].url, t("CD情報", "唱片介绍")) : ""}</div>`;
+    `<div class="entry-source"${edit("source")}>${ext(item.source, t("掲載ページ", "相关页面"))}<span>${esc(item.sourceName)}</span>${item.reference ? ext(item.reference, t("公式サイト", "官方网站")) : ""}${item.card?.source && item.card.source !== item.source ? ext(item.card.source, t("カードデータ", "卡片数据")) : ""}${item.music?.sources?.[0]?.url && item.music.sources[0].url !== item.source ? ext(item.music.sources[0].url, t("CD情報", "唱片介绍")) : ""}</div>`;
   const infoSections = (item) =>
     (item.sections || [])
-      .map((s) =>
+      .map((s, i) =>
         section(
           esc(tr(s.title)),
-          (s.paragraphs || []).map((p) => `<p>${esc(tr(p))}</p>`).join("") +
-            (s.facts ? facts(s.facts.map((f) => [tr(f.label), f.value])) : ""),
+          (s.paragraphs || [])
+            .map(
+              (p, j) =>
+                `<p${edit(`sections.${i}.paragraphs.${j}`)}>${esc(tr(p))}</p>`,
+            )
+            .join("") +
+            (s.facts
+              ? facts(
+                  s.facts.map((f, j) => [
+                    tr(f.label),
+                    f.value,
+                    `sections.${i}.facts.${j}.value`,
+                  ]),
+                  `sections.${i}.facts`,
+                )
+              : ""),
+          "",
+          `sections.${i}`,
         ),
       )
       .join("");
@@ -96,6 +121,7 @@ export function createContentViews({
           [
             tr(item.dateLabel) || t("日付", "日期"),
             item.date.replaceAll("-", "."),
+            "date",
           ],
         ]
       : [];
@@ -116,7 +142,7 @@ export function createContentViews({
   function statTable(card, mobamas = false) {
     const versions = (mobamas ? card.mobamasStats : card.stats) || [];
     if (!versions.length) return "";
-    return `<div class="table-scroll"><table class="stats-table"><thead><tr><th>${t("ステータス", "能力值")}</th>${versions.map((v) => `<th>${esc(tr(v.label))}</th>`).join("")}</tr></thead><tbody>${(mobamas
+    return `<div class="table-scroll"><table class="stats-table"><thead><tr><th>${t("ステータス", "能力值")}</th>${versions.map((v, i) => `<th${edit(`card.${mobamas ? "mobamasStats" : "stats"}.${i}.label`)}>${esc(tr(v.label))}</th>`).join("")}</tr></thead><tbody>${(mobamas
       ? [
           ["cost", t("コスト", "Cost")],
           ["attack", t("初期攻", "初始攻击")],
@@ -133,7 +159,7 @@ export function createContentViews({
       .filter(([key]) => versions.some((v) => v[key] != null))
       .map(
         ([key, name]) =>
-          `<tr><th>${name}</th>${versions.map((v) => `<td>${v[key] != null ? esc(v[key]) : "—"}</td>`).join("")}</tr>`,
+          `<tr><th>${name}</th>${versions.map((v, i) => `<td${edit(`card.${mobamas ? "mobamasStats" : "stats"}.${i}.${key}`)}>${v[key] != null ? esc(v[key]) : "—"}</td>`).join("")}</tr>`,
       )
       .join("")}</tbody></table></div>`;
   }
@@ -156,13 +182,14 @@ export function createContentViews({
             : "",
         ].join("");
     const stats = statTable(c, mobamas);
-    return `<div class="card-detail-top ${mobamas ? "card-detail-mobamas" : ""}">${gallery(item)}<aside class="entry-summary"><span class="rarity-emblem">${esc(item.rarity || t("衣装", "服装"))}</span>${description(item)}${facts([...dateFact(item), [t("ゲーム", "游戏"), item.game === "deresute" ? t("スターライトステージ", "星光舞台") : mobamas ? t("シンデレラガールズ（モバマス）", "灰姑娘女孩（原作）") : item.game], [t("タイプ", "属性"), c.type], [mobamas ? t("初登場時の入手", "首次登场时的获取方式") : t("入手方法", "获取方式"), c.acquisition], [t("登場ガシャ・イベント", "登场卡池／活动"), c.pool]])}${tags(item)}${!mobamas ? renderPetitIdol(c.petit, { base, t, esc }) : ""}</aside></div><div class="entry-columns">${section(mobamas ? t("特技", "特技") : t("特技・センター効果", "特技与队长效果"), skills)}${section(t("ステータス", "能力值"), stats ? `<p class="stats-caption">${mobamas ? t("初期値・特訓ボーナスを含まない", "初始数值，不含特训继承加成") : t("最大Lv・親愛度MAX", "最大等级・亲爱度 MAX")}</p>${stats}` : "")}</div>${extra(item)}${infoSections(item)}${voices(item)}${renderCardCommu(item, { base, t, tr, esc, ext })}${related(item, ["stories", "videos", "songs"])}`;
+    return `<div class="card-detail-top ${mobamas ? "card-detail-mobamas" : ""}">${gallery(item)}<aside class="entry-summary"><span class="rarity-emblem">${esc(item.rarity || t("衣装", "服装"))}</span>${description(item)}${facts([...dateFact(item), [t("ゲーム", "游戏"), item.game === "deresute" ? t("スターライトステージ", "星光舞台") : mobamas ? t("シンデレラガールズ（モバマス）", "灰姑娘女孩（原作）") : item.game], [t("タイプ", "属性"), c.type, "card.type"], [mobamas ? t("初登場時の入手", "首次登场时的获取方式") : t("入手方法", "获取方式"), c.acquisition, "card.acquisition"], [t("登場ガシャ・イベント", "登场卡池／活动"), c.pool, "card.pool"]])}${tags(item)}${!mobamas ? renderPetitIdol(c.petit, { base, t, esc }) : ""}</aside></div><div class="entry-columns">${section(mobamas ? t("特技", "特技") : t("特技・センター効果", "特技与队长效果"), skills)}${section(t("ステータス", "能力值"), stats ? `<p class="stats-caption">${mobamas ? t("初期値・特訓ボーナスを含まない", "初始数值，不含特训继承加成") : t("最大Lv・親愛度MAX", "最大等级・亲爱度 MAX")}</p>${stats}` : "")}</div>${extra(item)}${infoSections(item)}${voices(item)}${renderCardCommu(item, { base, t, tr, esc, ext })}${related(item, ["stories", "videos", "songs"])}`;
   }
   function profile(item = all().find((x) => x.kind === "profile")) {
     if (!item) return "";
     const attribution = item.attribution;
     const connections = item.profile?.connections || [];
-    return `<div class="profile-grid"><div class="profile-art"><img src="${base}${esc(item.image || "assets/yoshino.png")}" alt="依田芳乃"></div><div><span class="eyebrow">YORITA YOSHINO</span><h2 class="profile-name">依田 芳乃</h2><p>${t("アイドルマスター シンデレラガールズ", "偶像大师 灰姑娘女孩")} · Passion</p><p class="profile-intro">${esc(tr(item.description))}</p>${extra(item)}${item.reference ? ext(item.reference, t("公式プロフィール", "官方人物介绍"), "text-link") : ""}</div></div><div class="profile-reading">${infoSections(item)}${section(t("結んできたご縁", "一路结下的缘分"), `<div class="profile-connections">${connections.map((c) => `<article class="profile-connection"><h3>${c.entryId ? `<a href="#entry/${esc(c.entryId)}">${esc(tr(c.name))} ↗</a>` : esc(tr(c.name))}</h3><small>${esc(tr(c.members))}</small><p>${esc(tr(c.description))}</p></article>`).join("")}</div>`)}${voices(item)}${renderProfileStickers(item.profile?.stickers, { base, t, tr, esc, ext })}${related(item, ["songs"])}${attribution ? `<div class="profile-attribution">${ext(attribution.url, esc(attribution.name))}<span>${esc(tr(attribution.note))}</span>${ext(attribution.licenseUrl, esc(attribution.license))}</div>` : ""}</div>`;
+    const identity = item.profile?.identity || {};
+    return `<div class="profile-page"><yoshino-profile-nav data-title="${t("目次", "本页目录")}" data-overview="${t("プロフィール", "基本资料")}"></yoshino-profile-nav><div class="profile-grid"><div class="profile-art"><img src="${base}${esc(item.image || "assets/yoshino.png")}" alt="${esc(tr(identity.imageAlt))}"></div><div><span class="eyebrow"${edit("profile.identity.romanized")}>${esc(identity.romanized)}</span><h2 class="profile-name"${edit("profile.identity.name")}>${esc(tr(identity.name))}</h2><p${edit("profile.identity.franchise")}>${esc(tr(identity.franchise))} · ${esc(identity.type)}</p><p class="profile-intro"${edit("description")}>${esc(tr(item.description))}</p>${extra(item)}${item.reference ? ext(item.reference, t("公式プロフィール", "官方人物介绍"), "text-link") : ""}</div></div><div class="profile-reading">${infoSections(item)}${section(t("結んできたご縁", "一路结下的缘分"), `<div class="profile-connections">${connections.map((c) => `<article class="profile-connection"><h3>${c.entryId ? `<a href="#entry/${esc(c.entryId)}">${esc(tr(c.name))} ↗</a>` : esc(tr(c.name))}</h3><small>${esc(tr(c.members))}</small><p>${esc(tr(c.description))}</p></article>`).join("")}</div>`)}${voices(item)}${renderProfileStickers(item.profile?.stickers, { base, t, tr, esc, ext })}${related(item, ["songs"])}${attribution ? `<div class="profile-attribution">${ext(attribution.url, esc(attribution.name))}<span>${esc(tr(attribution.note))}</span>${ext(attribution.licenseUrl, esc(attribution.license))}</div>` : ""}</div></div>`;
   }
   function musicDetail(item) {
     const music = item.music || {},
@@ -172,18 +199,18 @@ export function createContentViews({
       (x) => x.kind === "videos",
     );
     const tracks = album.tracks || [];
-    return `<div class="music-detail-top"><div class="album-art">${image(item)}<span>${esc(album.catalogNumber || "CINDERELLA GIRLS")}</span></div><div class="entry-summary"><span class="entry-kicker">${(item.tags || []).includes("cover") ? t("カバー曲", "翻唱曲") : (item.tags || []).includes("solo") ? t("ソロ曲", "个人曲") : t("ユニット・全体曲", "组合与全员曲")}</span>${description(item)}${musicPreview(item)}${facts([[t("歌唱", "演唱"), music.performers], [t("作詞", "作词"), credits.lyricists], [t("作曲", "作曲"), credits.composers], [t("編曲", "编曲"), credits.arrangers], ...dateFact(item)])}${media.length ? `<a class="source-button" href="#entry/${esc(media[0].id)}">▷ ${t("映像・試聴を見る", "观看 MV／试听")}</a>` : ""}</div></div>${album.title ? section(t("収録アルバム", "收录唱片"), `<div class="album-heading"><h3>${esc(album.title)}</h3><span>${esc(album.catalogNumber || "")} · ${esc(album.releaseDate || item.date)}</span></div>${tracks.length ? `<ol class="track-list">${tracks.map((track, i) => `<li class="${Number(track.number) === Number(album.trackNumber) ? "current-track" : ""}"><span class="track-number">${String(track.number || i + 1).padStart(2, "0")}</span><span>${esc(track.title)}</span>${Number(track.number) === Number(album.trackNumber) ? `<small>${t("この楽曲", "本曲")}</small>` : ""}</li>`).join("")}</ol>` : ""}`) : ""}${extra(item)}${infoSections(item)}${related(item, ["videos", "units", "stories", "news"])}`;
+    return `<div class="music-detail-top"><div class="album-art">${image(item)}<span>${esc(album.catalogNumber || "CINDERELLA GIRLS")}</span></div><div class="entry-summary"><span class="entry-kicker">${(item.tags || []).includes("cover") ? t("カバー曲", "翻唱曲") : (item.tags || []).includes("solo") ? t("ソロ曲", "个人曲") : t("ユニット・全体曲", "组合与全员曲")}</span>${description(item)}${musicPreview(item)}${facts([[t("歌唱", "演唱"), music.performers, "music.performers"], [t("作詞", "作词"), credits.lyricists, "music.credits.lyricists"], [t("作曲", "作曲"), credits.composers, "music.credits.composers"], [t("編曲", "编曲"), credits.arrangers, "music.credits.arrangers"], ...dateFact(item)])}${media.length ? `<a class="source-button" href="#entry/${esc(media[0].id)}">▷ ${t("映像・試聴を見る", "观看 MV／试听")}</a>` : ""}</div></div>${album.title ? section(t("収録アルバム", "收录唱片"), `<div class="album-heading"><h3>${esc(album.title)}</h3><span>${esc(album.catalogNumber || "")} · ${esc(album.releaseDate || item.date)}</span></div>${tracks.length ? `<ol class="track-list">${tracks.map((track, i) => `<li class="${Number(track.number) === Number(album.trackNumber) ? "current-track" : ""}"><span class="track-number">${String(track.number || i + 1).padStart(2, "0")}</span><span>${esc(track.title)}</span>${Number(track.number) === Number(album.trackNumber) ? `<small>${t("この楽曲", "本曲")}</small>` : ""}</li>`).join("")}</ol>` : ""}`) : ""}${extra(item)}${infoSections(item)}${related(item, ["videos", "units", "stories", "news"])}`;
   }
   function videoDetail(item) {
     const video = item.video || {};
     const parts = video.parts || [];
-    return `<div class="watch-layout"><div>${player(item)}<div class="watch-actions">${ext(item.source, t("配信元で見る", "在原站观看"), "source-button")}<span>${esc(video.duration || "")}${video.duration ? " · " : ""}${item.source.includes("bilibili.com") ? "Bilibili" : "YouTube"}</span></div>${description(item)}${parts.length > 1 ? section(t("分割動画", "分集"), `<ol class="chapter-list">${parts.map((part, i) => `<li><button data-part="${i + 1}" data-video="${esc(item.id)}"><span>${String(i + 1).padStart(2, "0")}</span><strong>${esc(tr(part.title))}</strong>${part.duration ? `<small>${esc(part.duration)}</small>` : ""}</button></li>`).join("")}</ol>`) : ""}</div><aside class="watch-info"><h2>${t("動画について", "视频信息")}</h2>${facts([[t("投稿者", "投稿者"), video.uploader || item.sourceName], ...dateFact(item), [t("長さ", "时长"), video.duration], [t("字幕", "字幕"), (item.tags || []).includes("zh") ? t("中国語字幕", "中文字幕") : ""], [t("シリーズ", "系列"), video.series]])}${tags(item)}${extra(item)}</aside></div>${infoSections(item)}${related(item, ["songs", "cards", "stories", "videos"])}`;
+    return `<div class="watch-layout"><div>${player(item)}<div class="watch-actions">${ext(item.source, t("配信元で見る", "在原站观看"), "source-button")}<span>${esc(video.duration || "")}${video.duration ? " · " : ""}${item.source.includes("bilibili.com") ? "Bilibili" : "YouTube"}</span></div>${description(item)}${parts.length > 1 ? section(t("分割動画", "分集"), `<ol class="chapter-list">${parts.map((part, i) => `<li><button data-part="${i + 1}" data-video="${esc(item.id)}"><span>${String(i + 1).padStart(2, "0")}</span><strong>${esc(tr(part.title))}</strong>${part.duration ? `<small>${esc(part.duration)}</small>` : ""}</button></li>`).join("")}</ol>`) : ""}</div><aside class="watch-info"><h2>${t("動画について", "视频信息")}</h2>${facts([[t("投稿者", "投稿者"), video.uploader || item.sourceName, "video.uploader"], ...dateFact(item), [t("長さ", "时长"), video.duration, "video.duration"], [t("字幕", "字幕"), (item.tags || []).includes("zh") ? t("中国語字幕", "中文字幕") : ""], [t("シリーズ", "系列"), video.series, "video.series"]])}${tags(item)}${extra(item)}</aside></div>${infoSections(item)}${related(item, ["songs", "cards", "stories", "videos"])}`;
   }
   function storyDetail(item) {
     const story = item.story || {};
     const playable = Boolean(embedUrl(item.source));
     const chapters = story.chapters || [];
-    return `<div class="story-detail-top"><div>${playable ? player(item) : image(item, "story-art")}${playable ? `<div class="watch-actions">${ext(item.source, t("配信元で見る", "在原站观看"), "text-link")}</div>` : ""}</div><div class="entry-summary"><span class="entry-kicker">${esc(tr(story.category) || t("コミュ", "剧情"))}</span>${description(item)}${facts([...dateFact(item), [t("ゲーム", "游戏"), story.game], [t("イベント期間", "活动期间"), story.period], [t("出演", "出演"), story.members], [t("シリーズ", "系列"), story.series]])}${tags(item)}</div></div>${chapters.length ? section(t("エピソード", "篇章"), `<ol class="chapter-list">${chapters.map((c, i) => `<li>${c.entryId ? `<a href="#entry/${esc(c.entryId)}">` : c.source ? `<a href="${esc(c.source)}" target="_blank" rel="noopener">` : "<div>"}<span>${String(i + 1).padStart(2, "0")}</span><strong>${esc(tr(c.title))}</strong>${c.entryId || c.source ? "<span>→</span></a>" : "</div>"}</li>`).join("")}</ol>`) : ""}${extra(item)}${infoSections(item)}${related(item, ["songs", "cards", "videos", "stories"])}`;
+    return `<div class="story-detail-top"><div>${playable ? player(item) : image(item, "story-art")}${playable ? `<div class="watch-actions">${ext(item.source, t("配信元で見る", "在原站观看"), "text-link")}</div>` : ""}</div><div class="entry-summary"><span class="entry-kicker">${esc(tr(story.category) || t("コミュ", "剧情"))}</span>${description(item)}${facts([...dateFact(item), [t("ゲーム", "游戏"), story.game, "story.game"], [t("イベント期間", "活动期间"), story.period, "story.period"], [t("出演", "出演"), story.members, "story.members"], [t("シリーズ", "系列"), story.series, "story.series"]])}${tags(item)}</div></div>${chapters.length ? section(t("エピソード", "篇章"), `<ol class="chapter-list">${chapters.map((c, i) => `<li>${c.entryId ? `<a href="#entry/${esc(c.entryId)}">` : c.source ? `<a href="${esc(c.source)}" target="_blank" rel="noopener">` : "<div>"}<span>${String(i + 1).padStart(2, "0")}</span><strong>${esc(tr(c.title))}</strong>${c.entryId || c.source ? "<span>→</span></a>" : "</div>"}</li>`).join("")}</ol>`) : ""}${extra(item)}${infoSections(item)}${related(item, ["songs", "cards", "videos", "stories"])}`;
   }
   function unitDetail(item) {
     const unit = item.unit || {};
@@ -208,7 +235,6 @@ export function createContentViews({
     const item = all().find((x) => x.id === id);
     if (!item)
       return `<div class="empty"><h1>${t("記録が見つかりません", "找不到这条记录")}</h1><a href="#home">${t("ホームへ", "返回首页")}</a></div>`;
-    document.title = tr(item.title) + " · YoshinoDB";
     const renderer = {
       cards: cardDetail,
       songs: musicDetail,
@@ -219,7 +245,7 @@ export function createContentViews({
       timeline: timelineDetail,
       profile,
     }[item.kind];
-    return `<div class="entry-heading"><a data-detail-back href="#${item.kind}${item.kind === "cards" && item.game ? `?game=${esc(item.game)}` : ""}">← ${label(item.kind)}</a><small>${item.kind.toUpperCase()}</small><h1>${title(item)}</h1></div><div class="typed-entry entry-${item.kind}" data-entry="${esc(item.id)}">${renderer(item)}${source(item)}</div>`;
+    return `<div class="entry-heading"><a data-detail-back href="#${item.kind}${item.kind === "cards" && item.game ? `?game=${esc(item.game)}` : ""}">← ${label(item.kind)}</a><small>${item.kind.toUpperCase()}</small><h1${edit("title")}>${title(item)}</h1></div><div class="typed-entry entry-${item.kind}" data-entry="${esc(item.id)}">${renderer(item)}${source(item)}</div>`;
   }
   function overview(kind, game) {
     if (kind === "search") return "";

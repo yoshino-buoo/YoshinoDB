@@ -2,23 +2,30 @@ import {
   validateCatalog,
   KINDS,
   searchText,
-  isHttps,
   recordImages,
 } from "./lib/data.js";
-import { createContentViews } from "./content.js";
 import {
-  BASIC,
-  DETAILS,
-  BODY,
-  IMAGES,
-  RELATED,
-  ADVANCED,
-} from "./lib/editor-schema.js";
+  PAGE_TEMPLATES,
+  fromTemplate,
+  duplicateRecord,
+} from "./lib/content-templates.js";
+import {
+  editorGroups,
+  fieldLocation,
+  emptyRow,
+  removableBlock,
+} from "./lib/editor-fields.js";
+import {
+  githubPublisher,
+  changedRecords,
+  changedFields,
+  REPOSITORY_URL,
+} from "./lib/editor-publish.js";
+import { DETAILS } from "./lib/editor-schema.js";
 import {
   materialize,
   getPath,
   setPath,
-  newRecord,
   entryIssues,
   validateEditorCatalog,
 } from "./lib/editor-data.js";
@@ -70,7 +77,8 @@ export function mountEditor(
     category = session.filters?.category || "all",
     changedOnly = session.filters?.changedOnly || false,
     working,
-    descriptors = new Map();
+    descriptors = new Map(),
+    previewState = null;
   const base = import.meta.env.BASE_URL,
     zh = t(false, true);
   const translated = (pair) => t(...pair);
@@ -90,11 +98,13 @@ export function mountEditor(
   };
   const assetURL = (path) => pendingImages.get(path)?.url || `${base}${path}`;
   root.className = "studio";
-  root.innerHTML = `<div class="studio-intro"><div><span class="studio-kicker">THE EDITOR'S DESK</span><p>${t("ひとつずつ、手帖に書き足して。", "把想珍藏的资料，一页页添进手帖。")}</p></div><div class="studio-tools"><button type="button" data-new class="primary">＋ ${t("新しい記録", "新建条目")}</button><button type="button" data-import class="secondary">${t("読み込む", "导入资料")}</button><button type="button" data-export class="secondary">${t("書き出して公開", "导出与发布")} ↗</button></div></div><div class="studio-save"><span id="editor-status" role="status" aria-live="polite"></span><button type="button" data-undo hidden>${t("直前の操作を戻す", "撤销上一步操作")}</button><span data-change-count></span></div><div class="studio-layout"><aside class="studio-library"><label class="studio-search">${t("記録を探す", "查找条目")}<input type="search" data-search placeholder="${t("タイトル・歌い手・品番…", "标题、演唱者、唱片编号…")}"></label><div class="studio-library-filters"><select data-category aria-label="${t("分類を絞る", "筛选分类")}"><option value="all">${t("すべての分類", "全部分类")}</option>${KINDS.map((k) => `<option value="${k}">${label(k)}</option>`).join("")}</select><label><input type="checkbox" data-changed>${t("編集中", "已修改")}</label></div><p data-list-count class="studio-note"></p><div class="studio-records" role="list" aria-label="${t("記録の一覧", "条目列表")}"></div></aside><section class="studio-workspace"><div data-working></div></section></div><dialog class="studio-dialog" data-modal></dialog><input type="file" data-import-file accept="application/json,.json" hidden>`;
+  root.innerHTML = `<div class="studio-intro"><div><span class="studio-kicker">THE EDITOR'S DESK</span><p>${t("テンプレートを選んで、ページを見ながら編集。", "选择页面模板，点选预览内容就能编辑。")}</p></div><div class="studio-tools"><button type="button" data-new class="primary">＋ ${t("新しい記録", "新建条目")}</button><button type="button" data-import class="secondary">${t("読み込む", "导入资料")}</button><button type="button" data-export class="secondary">${t("変更を確認して送信", "检查并提交")} ↗</button></div></div><div class="studio-save"><span id="editor-status" role="status" aria-live="polite"></span><button type="button" data-undo hidden>${t("直前の操作を戻す", "撤销上一步操作")}</button><span data-change-count></span></div><div class="studio-layout"><aside class="studio-library"><label class="studio-search">${t("記録を探す", "查找条目")}<input type="search" data-search placeholder="${t("タイトル・歌い手・品番…", "标题、演唱者、唱片编号…")}"></label><div class="studio-library-filters"><select data-category aria-label="${t("分類を絞る", "筛选分类")}"><option value="all">${t("すべての分類", "全部分类")}</option>${KINDS.map((k) => `<option value="${k}">${label(k)}</option>`).join("")}</select><label><input type="checkbox" data-changed>${t("編集中", "已修改")}</label></div><p data-list-count class="studio-note"></p><div class="studio-records" role="list" aria-label="${t("記録の一覧", "条目列表")}"></div></aside><section class="studio-workspace"><div data-working></div></section></div><dialog class="studio-dialog" data-modal></dialog><input type="file" data-import-file accept="application/json,.json" hidden>`;
   const say = (text, error = false) => {
     const status = root.querySelector("#editor-status");
     status.textContent = text;
     status.classList.toggle("has-error", error);
+    const previewStatus = root.querySelector("[data-preview-status]");
+    if (previewStatus) previewStatus.textContent = text;
   };
   function persist() {
     session.filters = { query, category, changedOnly };
@@ -115,6 +125,9 @@ export function mountEditor(
       `${Object.keys(session.changes).length} 条修改`,
     );
     root.querySelector("[data-undo]").hidden = !undo;
+    const previewUndo = root.querySelector("[data-preview-undo]");
+    if (previewUndo)
+      previewUndo.disabled = !undo || undo.selected !== session.selected;
   }
   function checkpoint() {
     undo = copy(session);
@@ -127,6 +140,26 @@ export function mountEditor(
         base: session.changes[working.id]?.base ?? copy(original || null),
         value: copy(working),
       };
+    persist();
+    previewState?.sync();
+  }
+  function adoptCatalog(next) {
+    const merged = materialize(next, session.changes);
+    if (!merged.conflicts.length) {
+      for (const id of Object.keys(session.changes)) {
+        const original = next.items.find((x) => x.id === id);
+        const value = merged.catalog.items.find((x) => x.id === id);
+        if (same(original, value)) delete session.changes[id];
+        else
+          session.changes[id] = {
+            base: copy(original || null),
+            value: copy(value || null),
+          };
+      }
+    }
+    catalog = next;
+    renderWorking();
+    list();
     persist();
   }
   function list() {
@@ -173,7 +206,7 @@ export function mountEditor(
     if (def.type === "rows")
       return `<div class="studio-rows studio-wide" data-rows="${esc(path)}"><div class="studio-row-heading"><h3>${esc(name)} <small>${value?.length || 0}</small></h3><button type="button" data-add="${esc(path)}" ${path === "gallery" && value?.length >= 10 ? "disabled" : ""}>＋ ${t("追加", "添加")}</button></div>${(value || []).map((row, i) => `<fieldset class="studio-row" data-row="${esc(path)}.${i}"><legend>${esc(name)} ${String(i + 1).padStart(2, "0")}</legend><div class="studio-row-actions"><button type="button" data-move="${esc(path)}" data-index="${i}" data-direction="-1" ${!i ? "disabled" : ""} aria-label="${t("上へ", "上移")}">↑</button><button type="button" data-move="${esc(path)}" data-index="${i}" data-direction="1" ${i === value.length - 1 ? "disabled" : ""} aria-label="${t("下へ", "下移")}">↓</button><button type="button" data-remove="${esc(path)}" data-index="${i}">${t("削除", "移除")}</button></div><div class="studio-fields">${def.fields.map((d) => field(d, `${path}.${i}`)).join("")}</div></fieldset>`).join("")}${!value?.length ? `<p class="studio-hint">${t("必要なときに追加できます。", "需要时点击添加。")}</p>` : ""}</div>`;
     if (def.type === "image")
-      return `<div class="studio-image-field studio-wide" data-field-group="${esc(path)}"><label>${esc(name)}${control("text", value, 'placeholder="assets/example.jpg"')}</label><div class="studio-image-choice"><div class="studio-image-preview" data-image-for="${esc(path)}">${value ? `<img src="${esc(assetURL(value))}" alt="${esc(name)}">` : `<span>${t("画像なし", "暂无图片")}</span>`}</div><div><button type="button" data-pick-image="${esc(path)}">${t("画像ライブラリ", "从素材库选择")}</button><button type="button" data-upload-image="${esc(path)}">${t("画像をアップロード", "上传新图片")}</button><p class="studio-hint">${t("PNG / JPG / WebP（スタンプは GIF も可）・8 MBまで。新しい画像は公開用パッケージに同梱します。", "PNG / JPG / WebP（贴纸另支持 GIF），最大 8 MB。新图片会随发布包一起导出。")}</p></div></div></div>`;
+      return `<div class="studio-image-field studio-wide" data-field-group="${esc(path)}"><strong>${esc(name)}</strong><details class="studio-image-path"><summary>${t("画像のパスを指定", "手动指定图片地址")}</summary><label>${esc(name)}${control("text", value, 'placeholder="assets/example.jpg"')}</label></details><div class="studio-image-choice"><div class="studio-image-preview" data-image-for="${esc(path)}">${value ? `<img src="${esc(assetURL(value))}" alt="${esc(name)}">` : `<span>${t("画像なし", "暂无图片")}</span>`}</div><div><button type="button" data-pick-image="${esc(path)}">${t("画像ライブラリ", "从素材库选择")}</button><button type="button" data-upload-image="${esc(path)}">${t("画像をアップロード", "上传新图片")}</button><p class="studio-hint">${t("PNG / JPG / WebP（スタンプは GIF も可）・8 MBまで。新しい画像は公開用パッケージに同梱します。", "PNG / JPG / WebP（贴纸另支持 GIF），最大 8 MB。新图片会随发布包一起导出。")}</p></div></div></div>`;
     if (def.type === "relations")
       return `<div class="studio-wide" data-field-group="${esc(path)}"><h3>${esc(name)}</h3><div class="studio-linked">${(
         value || []
@@ -201,14 +234,14 @@ export function mountEditor(
       return `<label class="${def.type === "textarea" ? "studio-wide" : ""}">${esc(name)}<textarea rows="3" ${attr}>${esc(Array.isArray(value) ? value.join("\n") : value || "")}</textarea>${def.type === "lines" ? `<small>${t("1行に1つ入力", "每行填写一项")}</small>` : ""}</label>`;
     if (def.type === "tags")
       return `<div class="studio-wide"><label>${esc(name)}${control("text", (value || []).join(", "), `placeholder="${t("カンマ区切り", "用逗号分隔")}"`)}</label><div class="studio-tag-suggestions">${({ cards: ["SSR", "SR", "deresute", "limited", "event"], songs: ["solo", "unit", "cover", "deresute"], stories: ["story", "event", "business", "memory", "zh"], videos: ["youtube", "bilibili", "mv", "live", "zh"], news: ["goods", "music", "live"], units: ["unit"], timeline: ["birthday", "music", "event"] }[working.kind] || []).map((tag) => `<button type="button" data-tag="${tag}" aria-pressed="${value?.includes(tag) || false}">${esc(tagLabel?.(tag) || tag)}</button>`).join("")}</div></div>`;
-    return `<label data-field-group="${esc(path)}">${esc(name)}${control(["url", "date", "number"].includes(def.type) ? def.type : "text", value, `${def.type === "number" ? 'min="0" step="1"' : ""} ${def.options ? `list="choices-${esc(path)}"` : ""}`)}${def.options ? `<datalist id="choices-${esc(path)}">${def.options.map((x) => `<option>${esc(x)}</option>`).join("")}</datalist>` : ""}</label>`;
+    return `<label data-field-group="${esc(path)}">${esc(name)}${control(["url", "date", "number"].includes(def.type) ? def.type : "text", value, `${def.type === "number" ? 'min="0" step="1"' : ""} ${def.options ? `list="choices-${esc(path)}"` : ""}`)}${def.hint ? `<small>${esc(translated(def.hint))}</small>` : ""}${def.options ? `<datalist id="choices-${esc(path)}">${def.options.map((x) => `<option>${esc(x)}</option>`).join("")}</datalist>` : ""}</label>`;
   }
   function blocks(defs) {
     return defs
       .filter((b) => !b.game || b.game === (working.game || "deresute"))
       .map(
         (b, i) =>
-          `<details class="studio-block" ${!b.folded ? "open" : ""}><summary>${esc(translated(b.label))}</summary><div class="studio-fields">${b.fields.map((d) => field(d)).join("")}</div></details>`,
+          `<details class="studio-block" ${!b.folded ? "open" : ""}><summary>${esc(translated(b.label))}</summary>${removableBlock(b, working) ? `<div class="studio-block-toolbar"><button type="button" data-clear-block="${removableBlock(b, working)}">${t("この部分を取り除く", "移除此部分")}</button></div>` : ""}<div class="studio-fields">${b.fields.map((d) => field(d)).join("")}</div></details>`,
       )
       .join("");
   }
@@ -223,6 +256,7 @@ export function mountEditor(
     ["advanced", t("管理", "管理")],
   ];
   function renderWorking() {
+    if (previewState) closeModal();
     working = items().find((x) => x.id === session.selected);
     if (!working) {
       session.selected = items()[0]?.id;
@@ -235,14 +269,14 @@ export function mountEditor(
     }
     if (!tabs().some(([id]) => id === session.tab)) session.tab = "basic";
     const conflict = currentData().conflicts.find((c) => c.id === working.id);
-    host.innerHTML = `<div class="studio-document-head"><div><small>${label(working.kind)} · ${esc(working.id)}</small><h2 data-edit-title>${esc(tr(working.title) || t("新しい記録", "新条目"))}</h2></div><button type="button" data-editor-preview class="primary">${t("ページを確認", "预览详情")} ↗</button></div>${conflict ? `<div class="studio-conflict"><strong>${t("公開データにも変更があります", "线上同一处资料也有更新")}</strong><p>${esc(conflict.paths.join(" · "))}</p><button data-resolve="local">${t("自分の編集を使う", "保留我的修改")}</button><button data-resolve="remote">${t("公開中の内容を使う", "使用线上版本")}</button></div>` : ""}<div class="studio-tabs" role="tablist" aria-label="${t("編集項目", "编辑分组")}">${tabs()
+    host.innerHTML = `<div class="studio-document-head"><div><small>${label(working.kind)}</small><h2 data-edit-title>${esc(tr(working.title) || t("新しい記録", "新条目"))}</h2></div><button type="button" data-editor-preview class="primary">${t("見ながら編集", "边看边编辑")} ↗</button></div>${conflict ? `<div class="studio-conflict"><strong>${t("公開データにも変更があります", "线上同一处资料也有更新")}</strong><p>${esc(conflict.paths.join(" · "))}</p><button data-resolve="local">${t("自分の編集を使う", "保留我的修改")}</button><button data-resolve="remote">${t("公開中の内容を使う", "使用线上版本")}</button></div>` : ""}<div class="studio-tabs" role="tablist" aria-label="${t("編集項目", "编辑分组")}">${tabs()
       .map(
         ([id, name]) =>
           `<button type="button" role="tab" id="edit-tab-${id}" aria-controls="edit-panel" data-tab="${id}" aria-selected="${session.tab === id}" tabindex="${session.tab === id ? 0 : -1}">${name}</button>`,
       )
       .join(
         "",
-      )}</div><form id="record-form" novalidate><div id="edit-panel" role="tabpanel" aria-labelledby="edit-tab-${session.tab}" tabindex="0"></div></form><div class="studio-action-rail"><button type="button" data-preview-bottom>${t("ページを確認", "预览详情")}</button><button type="button" data-export-bottom class="primary">${t("書き出して公開", "导出与发布")} ↗</button></div><div class="studio-document-actions"><button type="button" data-duplicate>${t("複製して新規作成", "复制为新条目")}</button><button type="button" data-reset>${t("この記録の編集を戻す", "还原此条修改")}</button><button type="button" data-delete class="studio-danger">${t("記録を削除", "删除条目")}</button></div>`;
+      )}</div><form id="record-form" novalidate><div id="edit-panel" role="tabpanel" aria-labelledby="edit-tab-${session.tab}" tabindex="0"></div></form><div class="studio-action-rail"><button type="button" data-preview-bottom>${t("見ながら編集", "边看边编辑")}</button><button type="button" data-export-bottom class="primary">${t("変更を確認して送信", "检查并提交")} ↗</button></div><div class="studio-document-actions"><button type="button" data-duplicate>${t("複製して新規作成", "复制为新条目")}</button><button type="button" data-reset>${t("この記録の編集を戻す", "还原此条修改")}</button><button type="button" data-delete class="studio-danger">${t("記録を削除", "删除条目")}</button></div>`;
     renderPanel();
     host.querySelectorAll("[data-tab]").forEach((button) => {
       button.onclick = () => {
@@ -275,17 +309,8 @@ export function mountEditor(
       root.querySelector("[data-export]").click();
     host.querySelector("[data-duplicate]").onclick = () => {
       checkpoint();
-      const id = newRecord(working.kind).id;
-      working = {
-        ...copy(working),
-        id,
-        title: {
-          ...working.title,
-          ja: `${working.title.ja}（コピー）`,
-          zh: `${working.title.zh || working.title.ja}（副本）`,
-        },
-      };
-      session.selected = id;
+      working = duplicateRecord(working);
+      session.selected = working.id;
       remember();
       renderWorking();
       list();
@@ -321,14 +346,7 @@ export function mountEditor(
   }
   function renderPanel() {
     descriptors = new Map();
-    const defs = {
-      basic: BASIC,
-      details: DETAILS[working.kind] || [],
-      body: BODY,
-      images: IMAGES,
-      related: RELATED,
-      advanced: ADVANCED,
-    }[session.tab];
+    const defs = editorGroups(working)[session.tab] || [];
     const panel = root.querySelector("#edit-panel");
     panel.innerHTML =
       blocks(defs) +
@@ -337,6 +355,7 @@ export function mountEditor(
         : "");
     panel.querySelectorAll("[data-field]").forEach((input) => {
       input.addEventListener("input", () => {
+        if (input.readOnly) return;
         const path = input.dataset.field,
           kind = input.dataset.type;
         let value = input.value;
@@ -382,6 +401,15 @@ export function mountEditor(
         list();
       });
     });
+    panel.querySelectorAll("[data-clear-block]").forEach(
+      (button) =>
+        (button.onclick = () => {
+          checkpoint();
+          setPath(working, button.dataset.clearBlock, undefined);
+          remember();
+          renderPanel();
+        }),
+    );
     panel.querySelectorAll("[data-add]").forEach(
       (button) =>
         (button.onclick = () => {
@@ -389,7 +417,7 @@ export function mountEditor(
           const path = button.dataset.add,
             definition = descriptors.get(path),
             rows = getPath(working, path) || [],
-            seed = copy(definition.seed);
+            seed = emptyRow(definition);
           if (path.endsWith("tracks")) seed.number = rows.length + 1;
           rows.push(seed);
           setPath(working, path, rows);
@@ -482,24 +510,48 @@ export function mountEditor(
       }
     });
   }
-  const modal = root.querySelector("[data-modal]");
+  const baseModal = root.querySelector("[data-modal]");
+  let modal = baseModal;
+  const dialogStack = [];
   let returnFocus;
   function closeModal() {
+    const restoredPreview = modal === baseModal && !!previewState;
+    if (restoredPreview) {
+      const state = previewState;
+      previewState = null;
+      state.cleanup();
+      root
+        .querySelector(".studio-action-rail")
+        .before(modal.querySelector("#record-form"));
+    }
     modal.close();
     modal.innerHTML = "";
+    if (dialogStack.length) {
+      modal.remove();
+      ({ modal, returnFocus } = dialogStack.pop());
+    }
+    if (restoredPreview) {
+      renderWorking();
+      list();
+    }
     returnFocus?.isConnected && returnFocus.focus({ preventScroll: true });
   }
   function openModal(title, html, cls = "") {
+    if (previewState && modal === baseModal) {
+      dialogStack.push({ modal, returnFocus: document.activeElement });
+      modal = document.createElement("dialog");
+      root.append(modal);
+    }
     returnFocus = document.activeElement;
     modal.className = `studio-dialog ${cls}`;
     modal.innerHTML = `<div class="studio-modal-head"><h2>${esc(title)}</h2><button type="button" data-close aria-label="${t("閉じる", "关闭")}">×</button></div>${html}`;
     modal.querySelector("[data-close]").onclick = closeModal;
+    modal.oncancel = (event) => {
+      event.preventDefault();
+      closeModal();
+    };
     if (!modal.open) modal.showModal();
   }
-  modal.addEventListener("cancel", (event) => {
-    event.preventDefault();
-    closeModal();
-  });
   function pickRelations() {
     openModal(
       t("関連する記録を選ぶ", "选择关联条目"),
@@ -610,8 +662,16 @@ export function mountEditor(
               "请选择 8 MB 以内的 PNG / JPG / WebP 图片。",
             ),
           );
-        const bitmap = await createImageBitmap(file);
-        bitmap.close();
+        const checkURL = URL.createObjectURL(file);
+        try {
+          const check = new Image();
+          check.src = checkURL;
+          await check.decode();
+          if (!check.naturalWidth)
+            throw Error(t("画像を読み込めません", "无法读取图片"));
+        } finally {
+          URL.revokeObjectURL(checkURL);
+        }
         const extension = {
             "image/png": "png",
             "image/jpeg": "jpg",
@@ -625,7 +685,8 @@ export function mountEditor(
         chooseImage(path, { image });
       } catch (error) {
         say(
-          t("画像を保存できません：", "图片保存失败：") + error.message,
+          t("画像を保存できません：", "图片保存失败：") +
+            (error?.message || t("画像を選び直してください", "请重新选择图片")),
           true,
         );
       }
@@ -633,93 +694,173 @@ export function mountEditor(
     input.click();
   }
   function preview() {
+    const form = root.querySelector("#record-form");
     openModal(
-      t("ページのプレビュー", "详情页预览"),
-      `<div class="studio-preview-controls"><span>${t("表示言語", "预览语言")}</span><button type="button" data-preview-lang="ja">日本語</button><button type="button" data-preview-lang="zh">简体中文</button></div><div class="studio-preview-content"></div>`,
-      "studio-preview",
+      t("見ながら編集", "边看边编辑"),
+      `<div class="studio-preview-controls"><div><button type="button" data-preview-lang="ja">日本語</button><button type="button" data-preview-lang="zh">简体中文</button></div><div><button type="button" data-preview-width="1280">${t("PC", "电脑")}</button><button type="button" data-preview-width="768">${t("タブレット", "平板")}</button><button type="button" data-preview-width="390">${t("スマートフォン", "手机")}</button></div><label><input type="checkbox" data-preview-select checked>${t("クリックして編集", "点选内容修改")}</label><button type="button" data-preview-undo ${!undo || undo.selected !== session.selected ? "disabled" : ""}>${t("操作を戻す", "撤销操作")}</button><button type="button" data-preview-publish class="primary">${t("変更を確認して送信", "检查并提交")}</button></div><div class="studio-visual-layout"><div class="studio-preview-stage"><iframe data-live-preview title="${t("公開ページのプレビュー", "主站页面实时预览")}"></iframe></div><aside class="studio-preview-fields"><p class="studio-note">${t("ページ上の文章や画像を選ぶと、ここで編集できます。", "点击预览中的文字或图片，在这里修改，页面会实时更新。")}</p><label>${t("編集する内容", "编辑内容")}<select data-preview-group>${tabs()
+        .map(([id, name]) => `<option value="${id}">${name}</option>`)
+        .join(
+          "",
+        )}</select></label><p data-preview-status role="status">${t("ページを読み込み中…", "正在加载主站预览…")}</p><div data-preview-fields></div></aside></div>`,
+      "studio-preview studio-live",
     );
-    const draw = (locale) => {
-      try {
-        const localT = (ja, cn) => (locale === "ja" ? ja : cn),
-          localTr = (v) =>
-            typeof v === "object" && v ? v[locale] || v.ja || "" : v || "";
-        const views = createContentViews({
-          base,
-          t: localT,
-          tr: localTr,
-          esc,
-          label: (k) => label(k, locale),
-          tagLabel: (k) => (tagLabel ? tagLabel(k, locale) : k),
-          all: items,
-          record: () => "",
-          ext: (url, text, cls = "") =>
-            `<a class="${cls}" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${text} ↗</a>`,
-        });
-        const title = document.title,
-          area = modal.querySelector(".studio-preview-content");
-        area.lang = locale === "ja" ? "ja" : "zh-Hans";
-        area.innerHTML = views.detail(working.id);
-        document.title = title;
-        area.querySelectorAll("img").forEach((img) => {
-          const src = img.getAttribute("src") || img.dataset.petitSrc;
-          if (!src) return;
-          const path = src.slice(base.length);
-          if (pendingImages.has(path)) {
-            img.src = assetURL(path);
-            if (img.dataset.petitSrc) img.dataset.petitSrc = img.src;
-          }
-        });
-        area.querySelectorAll("a[href]").forEach((a) => {
-          const href = a.getAttribute("href");
-          if (!href.startsWith("#") && !href.startsWith(base) && !isHttps(href))
-            a.removeAttribute("href");
-        });
-        area.querySelectorAll('[href^="#"]').forEach((a) => {
-          a.onclick = (e) => {
-            e.preventDefault();
-          };
-          a.setAttribute("aria-disabled", "true");
-        });
-        area
-          .querySelectorAll("[data-play],[data-part],[data-voice-src]")
-          .forEach((b) => {
-            b.disabled = true;
-            b.title = localT("再生は公開ページで", "请在公开页面播放");
-          });
-        area.querySelectorAll("[data-variant]").forEach(
-          (button) =>
-            (button.onclick = () => {
-              area
-                .querySelectorAll("[data-variant-panel]")
-                .forEach(
-                  (p) =>
-                    (p.hidden =
-                      p.dataset.variantPanel !== button.dataset.variant),
-                );
-              area
-                .querySelectorAll("[data-variant]")
-                .forEach((b) =>
-                  b.setAttribute("aria-pressed", String(b === button)),
-                );
-            }),
+    const dialog = modal,
+      frame = dialog.querySelector("iframe"),
+      stage = frame.parentElement;
+    dialog.querySelector("[data-preview-fields]").append(form);
+    dialog.querySelector("[data-preview-group]").value = session.tab;
+    let locale = zh ? "zh" : "ja",
+      timer,
+      ready = false,
+      width = 1280;
+    const status = (message) => {
+      dialog.querySelector("[data-preview-status]").textContent = message;
+    };
+    const send = () => {
+      if (!ready || !frame.isConnected) return;
+      frame.contentWindow.postMessage(
+        {
+          type: "yoshino:preview",
+          catalog: currentData().catalog,
+          id: working.id,
+          locale,
+          images: Object.fromEntries(
+            [...pendingImages].map(([path, art]) => [path, art.url]),
+          ),
+          select: dialog.querySelector("[data-preview-select]").checked,
+        },
+        location.origin,
+      );
+      dialog
+        .querySelectorAll("[data-preview-lang]")
+        .forEach((b) =>
+          b.setAttribute(
+            "aria-pressed",
+            String(b.dataset.previewLang === locale),
+          ),
         );
-        modal
-          .querySelectorAll("[data-preview-lang]")
-          .forEach((b) =>
-            b.setAttribute(
-              "aria-pressed",
-              String(b.dataset.previewLang === locale),
-            ),
-          );
-      } catch (error) {
-        modal.querySelector(".studio-preview-content").textContent =
-          t("資料を確認してください：", "请先检查资料：") + error.message;
+    };
+    const resize = () => {
+      const scale = Math.min(1, stage.clientWidth / width);
+      frame.style.width = `${width}px`;
+      frame.style.height = `${stage.clientHeight / scale}px`;
+      frame.style.transform = `scale(${scale})`;
+      dialog
+        .querySelectorAll("[data-preview-width]")
+        .forEach((b) =>
+          b.setAttribute(
+            "aria-pressed",
+            String(Number(b.dataset.previewWidth) === width),
+          ),
+        );
+    };
+    const receive = (event) => {
+      if (
+        event.origin !== location.origin ||
+        event.source !== frame.contentWindow
+      )
+        return;
+      if (event.data?.type === "yoshino:preview-ready") {
+        ready = true;
+        send();
+      }
+      if (event.data?.type === "yoshino:rendered")
+        status(
+          t(
+            "自動保存済み · 公開前のプレビュー",
+            "已自动保存 · 当前为发布前预览",
+          ),
+        );
+      if (event.data?.type === "yoshino:preview-error")
+        status(
+          t(
+            "未入力の項目をフォームで補ってください。",
+            "请在表单中补充尚未填写的内容。",
+          ),
+        );
+      if (event.data?.type !== "yoshino:select-field") return;
+      const path = event.data.path;
+      if (typeof path !== "string") return;
+      const fieldInfo = fieldLocation(working, path);
+      if (!fieldInfo) return;
+      session.tab = fieldInfo.tab;
+      dialog.querySelector("[data-preview-group]").value = session.tab;
+      renderPanel();
+      persist();
+      const escaped = CSS.escape(path);
+      const target =
+        form.querySelector(
+          `[data-field="${escaped}"][data-locale="${locale}"]`,
+        ) ||
+        form.querySelector(
+          `[data-field="${escaped}"], [data-rows="${escaped}"], [data-field-group="${escaped}"]`,
+        ) ||
+        [...form.querySelectorAll("[data-field]")].find((el) =>
+          el.dataset.field.startsWith(path + "."),
+        );
+      if (target) {
+        for (let el = target; el && el !== form; el = el.parentElement)
+          if (el.tagName === "DETAILS") el.open = true;
+        target.scrollIntoView({ block: "center" });
+        (target.matches("input,textarea,select")
+          ? target
+          : target.querySelector("input,textarea,button")
+        )?.focus({ preventScroll: true });
       }
     };
-    modal
-      .querySelectorAll("[data-preview-lang]")
-      .forEach((b) => (b.onclick = () => draw(b.dataset.previewLang)));
-    draw(zh ? "zh" : "ja");
+    const observer = new ResizeObserver(resize);
+    observer.observe(stage);
+    window.addEventListener("message", receive);
+    previewState = {
+      sync() {
+        clearTimeout(timer);
+        timer = setTimeout(send, 180);
+      },
+      cleanup() {
+        clearTimeout(timer);
+        window.removeEventListener("message", receive);
+        observer.disconnect();
+      },
+    };
+    dialog.querySelectorAll("[data-preview-lang]").forEach(
+      (b) =>
+        (b.onclick = () => {
+          locale = b.dataset.previewLang;
+          send();
+        }),
+    );
+    dialog.querySelectorAll("[data-preview-width]").forEach(
+      (b) =>
+        (b.onclick = () => {
+          width = Number(b.dataset.previewWidth);
+          resize();
+        }),
+    );
+    dialog.querySelector("[data-preview-select]").onchange = send;
+    dialog.querySelector("[data-preview-group]").onchange = (event) => {
+      session.tab = event.target.value;
+      renderPanel();
+      persist();
+    };
+    dialog.querySelector("[data-preview-undo]").onclick = () => {
+      if (!undo || undo.selected !== session.selected) return;
+      session = undo;
+      undo = null;
+      working = items().find((x) => x.id === session.selected);
+      dialog.querySelector("[data-preview-group]").value = session.tab;
+      renderPanel();
+      list();
+      persist();
+      previewState.sync();
+    };
+    dialog.querySelector("[data-preview-publish]").onclick = () => {
+      closeModal();
+      exportDraft();
+    };
+    const route =
+      working.kind === "profile" ? "profile" : `entry/${working.id}`;
+    frame.src = `${base}?studio-preview=1#${route}`;
+    resize();
   }
   async function removeRecord() {
     const references = items().filter(
@@ -778,24 +919,19 @@ export function mountEditor(
         (b.onclick = () => {
           const issue = issues[Number(b.dataset.issue)];
           session.selected = issue.id;
-          session.tab = /^(image|gallery)/.test(issue.path)
-            ? "images"
-            : /^(sections|details)/.test(issue.path)
-              ? "body"
-              : /^(relatedIds|entities)/.test(issue.path)
-                ? "related"
-                : /^(card|music|story|video|unit|rarity|game)/.test(issue.path)
-                  ? "details"
-                  : issue.path === "advanced"
-                    ? "advanced"
-                    : "basic";
+          session.tab =
+            fieldLocation(
+              items().find((x) => x.id === issue.id) || working,
+              issue.path,
+            )?.tab || "basic";
           closeModal();
           renderWorking();
           list();
           const inputs = [...root.querySelectorAll("[data-field]")],
             input =
               inputs.find((x) => x.dataset.field === issue.path) ||
-              inputs.find((x) => issue.path.startsWith(x.dataset.field));
+              inputs.find((x) => issue.path.startsWith(x.dataset.field)) ||
+              inputs.find((x) => x.dataset.field.startsWith(issue.path + "."));
           if (input) {
             for (let p = input.parentElement; p; p = p.parentElement)
               if (p.tagName === "DETAILS") p.open = true;
@@ -805,6 +941,82 @@ export function mountEditor(
           persist();
         }),
     );
+  }
+  function publicationMessage(error) {
+    return (
+      {
+        authentication: t(
+          "接続キーを確認してください。期限切れの場合は作り直してください。",
+          "连接密钥无效或已过期，请重新创建。",
+        ),
+        permission: t(
+          "YoshinoDB の Contents と Pull requests の書き込み権限が必要です。",
+          "请确认对 YoshinoDB 的 Contents 和 Pull requests 有写入权限。",
+        ),
+        network: t(
+          "通信が途切れました。同じボタンで再試行できます。",
+          "网络连接中断，可点击原按钮重试。",
+        ),
+        conflict: t(
+          "公開データにも変更があります。重複箇所を選んでから再確認してください。",
+          "线上同一处资料也有修改，请先处理冲突再提交。",
+        ),
+        stale: t(
+          "確認後に main が更新されました。この画面を閉じ、もう一度変更を確認してください。",
+          "确认后主站又有更新，请关闭此窗口并重新检查修改。",
+        ),
+        unchanged: t(
+          "この変更はすでに公開データに反映されています。",
+          "这些修改已包含在 GitHub 最新资料中，无需重复提交。",
+        ),
+        validation: t(
+          "未入力の項目があります。フォームを確認してください。",
+          "有未完成或无效字段，请返回表单检查。",
+        ),
+        image: t(
+          "画像を選び直してください。",
+          "图片格式或大小不正确，请重新选择。",
+        ),
+      }[error.code] ||
+      t(
+        "GitHub への送信に失敗しました。接続・権限を確認するか、公開用 ZIP を保存してください。",
+        "GitHub 提交失败，请检查连接与权限，或使用发布包导出。",
+      )
+    );
+  }
+  function renderChangeReview(changes) {
+    const value = (v) => {
+      if (v === undefined || v === null || v === "")
+        return t("（なし）", "（空）");
+      if (typeof v === "boolean")
+        return v ? t("はい", "是") : t("いいえ", "否");
+      if (Array.isArray(v)) return v.map(value).join(" · ");
+      if (typeof v === "object") return Object.values(v).map(value).join(" / ");
+      return String(v);
+    };
+    return `<div class="studio-review-list">${changes
+      .map((change) => {
+        const item = change.after || change.before;
+        const action = {
+          add: t("追加", "新增"),
+          edit: t("編集", "修改"),
+          delete: t("削除", "删除"),
+        }[change.action];
+        return `<details><summary><span>${action}</span> ${esc(tr(item.title))} <small>${label(item.kind)}</small></summary><dl>${changedFields(
+          change.before || {},
+          change.after || {},
+        )
+          .filter((x) => x.path !== "id")
+          .map((field) => {
+            const location = fieldLocation(item, field.path);
+            const name = location
+              ? translated(location.field.label)
+              : t("追加情報", "补充信息");
+            return `<div><dt>${esc(name)}${/\.ja$/.test(field.path) ? " · 日本語" : /\.zh$/.test(field.path) ? " · 简体中文" : ""}</dt><dd><del>${esc(value(field.before))}</del><ins>${esc(value(field.after))}</ins></dd></div>`;
+          })
+          .join("")}</dl></details>`;
+      })
+      .join("")}</div>`;
   }
   async function exportDraft() {
     const exportButton = root.querySelector("[data-export]");
@@ -816,7 +1028,7 @@ export function mountEditor(
           cache: "no-store",
           signal: AbortSignal.timeout(5000),
         });
-        if (response.ok) catalog = validateCatalog(await response.json());
+        if (response.ok) adoptCatalog(validateCatalog(await response.json()));
       } catch {}
       const rawId = Object.keys(session.rawDrafts || {}).find((id) =>
         items().some((x) => x.id === id),
@@ -931,6 +1143,137 @@ export function mountEditor(
         t("公開の準備ができました", "资料已检查，可以导出"),
         `<div class="studio-export-summary"><strong>${count}</strong><span>${t("件の変更", "条修改")}</span><strong>${addedImages.length}</strong><span>${t("枚の新しい画像", "张新图片")}</span></div><ol class="studio-publish-steps"><li>${t("公開用パッケージを保存して解凍します。", "下载并解压发布包。")}</li><li>${t("GitHub のアップロード画面へ public フォルダーごとドラッグします。", "将解压出的 public 文件夹整体拖入 GitHub 上传页。")}</li><li>${t("Commit changes を押すと、自動で検証・公開されます。", "点击 Commit changes，网站会自动校验并发布。")}</li></ol><div class="studio-modal-actions"><button type="button" data-download-package class="primary">${t("公開用 ZIP を保存", "下载发布包 ZIP")}</button><button type="button" data-download-json ${addedImages.length ? "disabled" : ""}>${t("JSON だけ保存", "仅下载 JSON")}</button></div><p class="studio-note">${t("公開は GitHub への反映後。下書きには新しい画像も保存されています。", "提交到 GitHub 后才会更新公开网站。新图片也已保存在本机草稿中。")}</p><div class="studio-publish-links"><a href="https://github.com/yoshino-buoo/YoshinoDB/upload/main" target="_blank" rel="noopener">${t("public フォルダーをアップロード", "上传 public 文件夹")} ↗</a><a href="https://github.com/yoshino-buoo/YoshinoDB/actions/workflows/pages.yml" target="_blank" rel="noopener">${t("公開の進み具合", "查看发布进度")} ↗</a></div>`,
       );
+      const exportDialog = modal;
+      const reviewPanel = document.createElement("section");
+      reviewPanel.className = "studio-publication";
+      let signature = JSON.stringify(session.changes);
+      const prior =
+        session.lastSubmission?.signature === signature
+          ? session.lastSubmission
+          : null;
+      reviewPanel.innerHTML = `<h3>${t("GitHub に変更を提案", "提交更新提案")}</h3><p>${t("変更を確認して PR を作成。チェック後に GitHub でマージすると、主サイトが自動更新されます。", "检查修改后创建 PR。检查通过后，在 GitHub 合并提案，主站会自动更新。")}</p>${renderChangeReview(changedRecords(catalog, result.catalog))}${prior ? `<p><a href="${esc(prior.url)}" target="_blank" rel="noopener">${t("この変更は送信済み：PR を開く", "这份修改已提交：查看 PR")} #${prior.number} ↗</a></p>` : `<form data-connect-github><label>${t("GitHub の接続キー", "GitHub 连接密钥")}<input type="password" data-github-token required autocomplete="off" placeholder="${t("接続キーを貼り付け", "粘贴连接密钥")}"></label><details class="studio-connection-help"><summary>${t("初めて接続する", "首次连接指南")}</summary><ol><li><a href="https://github.com/settings/personal-access-tokens/new?name=YoshinoDB+Editor&target_name=yoshino-buoo&contents=write&pull_requests=write" target="_blank" rel="noopener">${t("GitHub で接続キーを作る", "在 GitHub 创建连接密钥")} ↗</a></li><li>${t("Repository access は YoshinoDB のみ。Contents と Pull requests を Read and write にします。", "仓库选择 YoshinoDB；将 Contents 和 Pull requests 设为 Read and write。")}</li><li>${t("生成したキーをここに貼り付けます。キーは今回の接続中だけ使用し、保存しません。", "将生成的密钥粘贴到这里。密钥仅用于本次连接，不会写入草稿或文件。")}</li></ol></details><button type="submit" class="primary" ${count ? "" : "disabled"}>${t("接続して最新の変更を確認", "连接并核对最新资料")}</button></form>`}<div data-github-review></div><p data-github-status role="status" aria-live="polite"></p>`;
+      exportDialog.querySelector(".studio-modal-head").after(reviewPanel);
+      // ZIP export remains available for contributors without write access.
+      exportDialog
+        .querySelector(".studio-publish-steps")
+        .insertAdjacentHTML(
+          "beforebegin",
+          `<h3>${t("ファイルで渡す場合", "备用方式：导出文件")}</h3>`,
+        );
+      const connection = reviewPanel.querySelector("[data-connect-github]");
+      connection?.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const tokenInput = connection.querySelector("[data-github-token]");
+        const token = tokenInput.value.trim();
+        if (!token) return;
+        const status = reviewPanel.querySelector("[data-github-status]");
+        const connectButton = connection.querySelector("button[type=submit]");
+        connectButton.disabled = true;
+        const publisher = githubPublisher(token, {
+          onAttempt(attempt) {
+            session.pendingPublication = { ...attempt, signature };
+            persist();
+          },
+          onProgress(stage) {
+            status.textContent = {
+              reading: t(
+                "GitHub の最新資料を確認中…",
+                "正在读取 GitHub 最新资料…",
+              ),
+              uploading: t("変更と画像を送信中…", "正在提交修改和图片…"),
+              creating: t("提案を作成中…", "正在创建更新提案…"),
+            }[stage];
+          },
+        });
+        const failure = (error) => {
+          status.textContent = publicationMessage(error);
+          if (error.branch) {
+            const link = document.createElement("a");
+            link.href = `${REPOSITORY_URL}/compare/main...${error.branch}`;
+            link.target = "_blank";
+            link.rel = "noopener";
+            link.textContent = t(
+              " GitHub で送信状況を確認 ↗",
+              " 在 GitHub 查看提交状态 ↗",
+            );
+            status.append(link);
+          }
+        };
+        try {
+          const pending = session.pendingPublication;
+          const recovered = pending ? await publisher.recover(pending) : null;
+          if (recovered?.pr) {
+            session.lastSubmission = {
+              ...recovered.pr,
+              signature: pending.signature,
+            };
+            delete session.pendingPublication;
+            persist();
+            tokenInput.value = "";
+            connection.hidden = true;
+            reviewPanel.querySelector("[data-github-review]").innerHTML =
+              `<p>${t("前回の提案が見つかりました。重複して作成しません。", "已找回上次提交的提案，无需重复创建。")}</p><a href="${esc(recovered.pr.url)}" target="_blank" rel="noopener">PR #${recovered.pr.number} ↗</a>`;
+            status.textContent = t(
+              "編集中の内容はこのブラウザーに残っています。",
+              "当前草稿仍保留在此浏览器。",
+            );
+            return;
+          }
+          const review =
+            recovered?.review ||
+            (await publisher.review(copy(session.changes), [
+              ...pendingImages.values(),
+            ]));
+          if (review.recovered) signature = pending.signature;
+          else {
+            adoptCatalog(review.remote);
+            signature = JSON.stringify(session.changes);
+          }
+          tokenInput.value = "";
+          connection.hidden = true;
+          const host = reviewPanel.querySelector("[data-github-review]");
+          host.innerHTML = `<p>${t("GitHub の最新版と照合済み。以下の内容で提案を作成します。", "已与 GitHub 最新版本核对。请确认以下修改，再创建提案。")}</p>${renderChangeReview(review.changed)}<label>${t("変更の説明", "本次更新说明")}<input data-pr-title maxlength="200" value="${esc(t("資料を更新", "更新站点资料"))}"></label><button type="button" data-submit-pr class="primary">${t("確認して PR を作成", "确认修改并创建 PR")}</button>`;
+          status.textContent = t(
+            "まだ送信していません。確認ボタンで PR を作成します。",
+            "尚未提交，点击确认后创建 PR。",
+          );
+          host.querySelector("[data-submit-pr]").onclick = async () => {
+            const button = host.querySelector("[data-submit-pr]");
+            button.disabled = true;
+            try {
+              const pr = await publisher.submit(
+                review,
+                host.querySelector("[data-pr-title]").value,
+              );
+              session.lastSubmission = { ...pr, signature };
+              delete session.pendingPublication;
+              persist();
+              host.innerHTML = `<div class="studio-publish-success"><h3>${t("変更を提案しました", "更新提案已创建")}</h3><p>${t("チェック完了後に GitHub でマージすると公開されます。下書きはこのブラウザーにも残ります。", "GitHub 检查完成后，合并提案即可更新主站。草稿仍保留在此浏览器。")}</p><a href="${esc(pr.url)}" target="_blank" rel="noopener">${t("PR を確認する", "查看更新提案")} #${pr.number} ↗</a></div>`;
+              status.textContent = "";
+            } catch (error) {
+              failure(error);
+              button.disabled = error.code === "stale";
+            }
+          };
+        } catch (error) {
+          if (error.code === "conflict") {
+            closeModal();
+            adoptCatalog(error.catalog);
+            session.selected = error.conflicts[0].id;
+            renderWorking();
+            list();
+            say(publicationMessage(error), true);
+          } else if (error.code === "unchanged") {
+            status.textContent = publicationMessage(error);
+            connection.hidden = true;
+            tokenInput.value = "";
+            adoptCatalog(error.catalog);
+          } else {
+            failure(error);
+            connectButton.disabled = false;
+          }
+        }
+      });
       modal.querySelector("[data-download-package]").onclick = () =>
         download(zipFiles(files), `YoshinoDB-${date()}.zip`);
       modal.querySelector("[data-download-json]").onclick = () =>
@@ -976,23 +1319,54 @@ export function mountEditor(
   };
   root.querySelector("[data-new]").onclick = () => {
     openModal(
-      t("新しい記録", "新建条目"),
-      `<p>${t("追加する資料を選んでください。", "选择资料类型，展开对应的填写表单。")}</p><div class="studio-kind-picker">${KINDS.map((kind, i) => `<button type="button" data-new-kind="${kind}"><small>0${i + 1}</small><strong>${label(kind)}</strong><span>＋</span></button>`).join("")}</div>`,
+      t("テンプレートから始める", "从页面模板开始"),
+      `<p>${t("公開ページと同じテンプレートです。内容を入れるだけで、同じ見た目になります。", "这些模板直接使用主站现有排版，填写内容即可。也可以完整复用一张已有页面。")}</p><div class="studio-kind-picker">${PAGE_TEMPLATES.map((template, i) => `<button type="button" data-new-kind="${template.id}"><small>${String(i + 1).padStart(2, "0")}</small><strong>${translated(template.label)}</strong><span>${translated(template.hint)}</span></button>`).join("")}</div><details class="studio-template-copy"><summary>${t("既存のページをそのまま複製", "完整复用已有页面")}</summary><label>${t("ページを探す", "搜索页面")}<input type="search" data-template-search></label><div data-template-list></div></details>`,
     );
-    modal.querySelectorAll("[data-new-kind]").forEach(
-      (b) =>
-        (b.onclick = () => {
-          checkpoint();
-          working = newRecord(b.dataset.newKind);
-          session.selected = working.id;
-          session.tab = "basic";
-          remember();
-          closeModal();
-          renderWorking();
-          list();
-          root.querySelector('[data-field="title"][data-locale="ja"]').focus();
-        }),
-    );
+    const create = (value) => {
+      checkpoint();
+      working = value;
+      session.selected = working.id;
+      session.tab = "basic";
+      remember();
+      closeModal();
+      renderWorking();
+      list();
+      root.querySelector('[data-field="title"][data-locale="ja"]').focus();
+    };
+    modal
+      .querySelectorAll("[data-new-kind]")
+      .forEach(
+        (b) => (b.onclick = () => create(fromTemplate(b.dataset.newKind))),
+      );
+    const draw = () => {
+      const query = modal
+        .querySelector("[data-template-search]")
+        .value.toLowerCase();
+      modal.querySelector("[data-template-list]").innerHTML = items()
+        .filter(
+          (x) =>
+            !query || searchText(x).includes(query) || x.id.includes(query),
+        )
+        .slice(0, 30)
+        .map(
+          (x) =>
+            `<button type="button" data-copy-template="${esc(x.id)}">${x.image ? `<img src="${esc(assetURL(x.image))}" alt="" loading="lazy">` : ""}<span><small>${label(x.kind)}</small>${esc(tr(x.title))}</span></button>`,
+        )
+        .join("");
+      modal
+        .querySelectorAll("[data-copy-template]")
+        .forEach(
+          (b) =>
+            (b.onclick = () =>
+              create(
+                duplicateRecord(
+                  items().find((x) => x.id === b.dataset.copyTemplate),
+                ),
+              )),
+        );
+    };
+    modal.querySelector("[data-template-search]").oninput = draw;
+    draw();
   };
   root.querySelector("[data-export]").onclick = exportDraft;
   const importFile = root.querySelector("[data-import-file]");
@@ -1082,4 +1456,9 @@ export function mountEditor(
       };
     }
   } catch {}
+  return () => {
+    previewState?.cleanup();
+    previewState = null;
+    root.querySelectorAll("dialog[open]").forEach((dialog) => dialog.close());
+  };
 }
