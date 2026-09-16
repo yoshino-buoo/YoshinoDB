@@ -11,15 +11,6 @@
       "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/54/ee/40/54ee4063-439d-8365-1de9-e7fa1f21f87a/mzaf_296537343585985723.plus.aac.p.m4a",
       "storeUrl": "https://music.apple.com/jp/album/%E7%A5%88%E3%82%8A%E3%81%AE%E8%8A%B1/1440572054?i=1440572064&uo=4&app=itunes"
     },
-    "hibi": {
-      "trackId": 1670048683,
-      "title": "日々あどべんちゃーなのでしてー (GAME VERSION)",
-      "artist": "依田芳乃 (CV: 高田憂希)",
-      "album": "THE IDOLM@STER CINDERELLA GIRLS STARLIGHT MASTER GOLD RUSH! SERIES GAME VERSION SONG COLLECTION",
-      "version": "game",
-      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/da/3c/1d/da3c1d56-880e-9578-cff4-85249e91b199/mzaf_7576482666117456831.plus.aac.p.m4a",
-      "storeUrl": "https://music.apple.com/jp/album/%E6%97%A5%E3%80%85%E3%81%82%E3%81%A9%E3%81%B9%E3%82%93%E3%81%A1%E3%82%83%E3%83%BC%E3%81%AA%E3%81%AE%E3%81%A7%E3%81%97%E3%81%A6%E3%83%BC-game-version/1670048671?i=1670048683&uo=4&app=itunes"
-    },
     "song-sunshine": {
       "trackId": 1444715123,
       "title": "Sunshine See May (M@STER VERSION)",
@@ -55,6 +46,15 @@
       "version": "master",
       "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview112/v4/51/97/50/51975004-e75b-4461-9bec-ce5f95035a8f/mzaf_16970625894775479315.plus.aac.p.m4a",
       "storeUrl": "https://music.apple.com/jp/album/%E5%BB%BB%E8%AB%87%E8%A9%A3%E3%82%8A-m-ster-version/1656343273?i=1656343275&uo=4&app=itunes"
+    },
+    "hibi": {
+      "trackId": 1670048683,
+      "title": "日々あどべんちゃーなのでしてー (GAME VERSION)",
+      "artist": "依田芳乃 (CV: 高田憂希)",
+      "album": "THE IDOLM@STER CINDERELLA GIRLS STARLIGHT MASTER GOLD RUSH! SERIES GAME VERSION SONG COLLECTION",
+      "version": "game",
+      "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/da/3c/1d/da3c1d56-880e-9578-cff4-85249e91b199/mzaf_7576482666117456831.plus.aac.p.m4a",
+      "storeUrl": "https://music.apple.com/jp/album/%E6%97%A5%E3%80%85%E3%81%82%E3%81%A9%E3%81%B9%E3%82%93%E3%81%A1%E3%82%83%E3%83%BC%E3%81%AA%E3%81%AE%E3%81%A7%E3%81%97%E3%81%A6%E3%83%BC-game-version/1670048671?i=1670048683&uo=4&app=itunes"
     },
     "enamoral": {
       "trackId": 1787525467,
