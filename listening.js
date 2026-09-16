@@ -1,5 +1,7 @@
 import { validateListening, appleTrackId } from "./lib/listening.js";
 import { isWikiAudio } from "./lib/voice-guide.js";
+import { createShuffleCycle } from "./lib/shuffle.js";
+import bgmTracks from "./config/bgm.json";
 
 const playIcon =
   '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7z"/></svg>';
@@ -65,10 +67,10 @@ export function createListening({
   preview.preload = "none";
   voice.preload = "none";
   voice.volume = 0.85;
-  bgm.loop = true;
   bgm.volume = 0.22;
   preview.volume = storedVolume("yoshino-preview-volume", 0.65);
-  bgm.src = `${base}audio/hibi-instrumental.m4a`;
+  const nextBgm = createShuffleCycle(bgmTracks);
+  bgm.src = `${base}${nextBgm().file}`;
   // Media nodes live outside the route renderer. Only the BGM continues on navigation.
   document.body.append(bgm, preview, voice);
   const state = new Map([
@@ -186,7 +188,14 @@ export function createListening({
     audio.addEventListener("pause", () => queueMicrotask(resumeBgm));
     audio.addEventListener("ended", () => queueMicrotask(resumeBgm));
   }
-  // A new visit starts at the beginning; only the ON/OFF preference persists.
+  bgm.addEventListener("ended", () => {
+    if (!bgm.ended) return;
+    stop(bgm);
+    bgm.src = `${base}${nextBgm().file}`;
+    state.get(bgm).error = false;
+    resumeBgm();
+  });
+  // A new visit starts a fresh shuffle; only the ON/OFF preference persists.
 
   function detail(item) {
     const hasMapping = Object.hasOwn(item.music || {}, "appleTrackUrl");

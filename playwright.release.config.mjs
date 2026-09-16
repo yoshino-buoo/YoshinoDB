@@ -6,6 +6,7 @@ const testMatch = [
   "navigation.spec.mjs",
   "release-smoke.spec.mjs",
   "catalog-cache.spec.mjs",
+  "bgm.spec.mjs",
 ];
 
 export default {

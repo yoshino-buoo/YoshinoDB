@@ -59,7 +59,7 @@ async function ready(page, route = "home") {
 const playing = (page, id) =>
   page.locator(id).evaluate((el) => !el.paused && el.currentTime > 0);
 
-test("BGM is one default-on looping switch, persists across routes and remembers OFF", async ({
+test("shuffled BGM keeps one default-on switch, persists across routes and remembers OFF", async ({
   page,
 }) => {
   await ready(page);
@@ -73,7 +73,7 @@ test("BGM is one default-on looping switch, persists across routes and remembers
   );
   await expect(page.locator(".listening-dock button")).toHaveCount(1);
   await expect(page.locator(".listening-dock input")).toHaveCount(0);
-  expect(await page.locator("#bgm-audio").evaluate((el) => el.loop)).toBe(true);
+  expect(await page.locator("#bgm-audio").evaluate((el) => el.loop)).toBe(false);
   await page.locator("main h1").click();
   await expect.poll(() => playing(page, "#bgm-audio")).toBe(true);
   const before = await page.locator("#bgm-audio").evaluate((el) => {

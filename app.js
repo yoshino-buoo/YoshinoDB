@@ -1,6 +1,7 @@
 import { openFirstPage, failFirstPage } from "./loading.js";
 import { validateCatalog, KINDS, isHttps, searchText } from "./lib/data.js";
 import { createListening } from "./listening.js";
+import bgmTracks from "./config/bgm.json";
 import { directoryArt, homeBlossoms } from "./home-art.js";
 import { mountEditor } from "./editor.js";
 import { createContentViews } from "./content.js";
@@ -467,7 +468,7 @@ function sources() {
     ]
       .map(([n, u]) => `<p>${ext(u, n)}</p>`)
       .join("")}
-    <h2>${t("この場所に流れる音楽", "陪伴漫步的音乐")}</h2><p>日々あどべんちゃーなのでしてー · ${t("オリジナル・カラオケ", "原版伴奏")}<br>THE IDOLM@STER CINDERELLA GIRLS STARLIGHT MASTER GOLD RUSH! 12 パ・リ・ラ</p><p>${ext("https://cinderellagirls.idolmaster-official.jp/discography/cocc-17842/", t("CD のページへ", "唱片介绍"))}<br>℗ NIPPON COLUMBIA CO., LTD.</p><h2>${t("この手帖を育てる", "一起添上新的一页")}</h2><p>${t("好きなカードや動画、思い出のエピソード。おすすめや訂正をお待ちしています。", "喜欢的卡面、视频，或是难忘的小故事，都欢迎来补充。")}</p>${ext("https://github.com/yoshino-buoo/YoshinoDB/issues/new/choose", t("情報を寄せる", "补充内容"), "text-link")}</div>`
+    <h2>${t("この場所に流れる音楽", "陪伴漫步的音乐")}</h2><p>${t(`${bgmTracks.length}曲のオリジナル・カラオケを、順番を変えながら。`, `${bgmTracks.length} 首原版伴奏，随机轮流播放。`)}</p>${bgmTracks.map((track) => `<p>${esc(track.title)} · ${t("オリジナル・カラオケ", "原版伴奏")}<br>${esc(track.album)}<br>${ext(track.source, t("CD のページへ", "唱片介绍"))}</p>`).join("")}<p>℗ NIPPON COLUMBIA CO., LTD.</p><h2>${t("この手帖を育てる", "一起添上新的一页")}</h2><p>${t("好きなカードや動画、思い出のエピソード。おすすめや訂正をお待ちしています。", "喜欢的卡面、视频，或是难忘的小故事，都欢迎来补充。")}</p>${ext("https://github.com/yoshino-buoo/YoshinoDB/issues/new/choose", t("情報を寄せる", "补充内容"), "text-link")}</div>`
   );
 }
 

@@ -34,6 +34,8 @@ export default defineConfig({
         "editor.spec.mjs",
         "editor-visual.spec.mjs",
         "profile-navigation.spec.mjs",
+        "bgm.spec.mjs",
+        "listening.spec.mjs",
       ],
       use: { browserName: "webkit" },
     },

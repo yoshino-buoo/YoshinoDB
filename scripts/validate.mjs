@@ -30,14 +30,31 @@ for (const item of items) {
     if (!ids.has(id)) throw Error(`Broken relation: ${item.id} → ${id}`);
 }
 
+// This is an external metadata cache. Entries for removed songs are unused and
+// are pruned at the next sync; they must not prevent an editorial deletion.
 const previews = validateListening(
   JSON.parse(await readFile("public/data/listening.json", "utf8")),
 );
-// This is an external metadata cache. Entries for removed songs are unused and
-// are pruned at the next sync; they must not prevent an editorial deletion.
-await access("public/audio/hibi-instrumental.m4a");
+const bgmTracks = JSON.parse(await readFile("config/bgm.json", "utf8"));
+if (!Array.isArray(bgmTracks) || !bgmTracks.length)
+  throw Error("BGM playlist is empty");
+const bgmFiles = new Set();
+for (const track of bgmTracks) {
+  if (
+    !/^audio\/[a-z0-9-]+\.m4a$/.test(track.file || "") ||
+    bgmFiles.has(track.file) ||
+    !track.title ||
+    !track.album ||
+    !/^https:\/\/cinderellagirls\.idolmaster-official\.jp\//.test(
+      track.source || "",
+    )
+  )
+    throw Error("Invalid BGM track");
+  bgmFiles.add(track.file);
+  await access(`public/${track.file}`);
+}
 for (const lang of ["ja", "zh"])
   await access(`public/assets/providers/itunes-${lang}.svg`);
 console.log(
-  `listening: ${Object.keys(previews.tracks).length} song previews, BGM available`,
+  `listening: ${Object.keys(previews.tracks).length} song previews, ${bgmTracks.length} BGM tracks available`,
 );
