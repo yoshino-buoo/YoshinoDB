@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastAttempt": "2026-09-28T04:37:38.593Z",
+  "lastAttempt": "2026-09-29T04:36:07.786Z",
   "items": [
     {
       "id": "auto-636315de522a08cb",
@@ -31,41 +31,41 @@
       "id": "cg-news",
       "name": "シンデレラガールズ 公式ニュース",
       "status": "ok",
-      "checkedAt": "2026-09-28T04:37:38.593Z",
-      "lastSuccess": "2026-09-28T04:37:38.593Z",
+      "checkedAt": "2026-09-29T04:36:07.786Z",
+      "lastSuccess": "2026-09-29T04:36:07.786Z",
       "matches": 0
     },
     {
       "id": "columbia-news",
       "name": "日本コロムビア 公式ニュース",
       "status": "ok",
-      "checkedAt": "2026-09-28T04:37:38.593Z",
-      "lastSuccess": "2026-09-28T04:37:38.593Z",
+      "checkedAt": "2026-09-29T04:36:07.786Z",
+      "lastSuccess": "2026-09-29T04:36:07.786Z",
       "matches": 0
     },
     {
       "id": "imas-youtube",
       "name": "アイドルマスターチャンネル",
       "status": "error",
-      "checkedAt": "2026-09-28T04:37:38.593Z",
+      "checkedAt": "2026-09-29T04:36:07.786Z",
       "lastSuccess": "2026-09-16T16:07:16.237Z",
       "matches": 0,
-      "error": "HTTP 500"
+      "error": "HTTP 404"
     },
     {
       "id": "columbia-youtube",
       "name": "日本コロムビア 公式YouTube",
       "status": "error",
-      "checkedAt": "2026-09-28T04:37:38.593Z",
+      "checkedAt": "2026-09-29T04:36:07.786Z",
       "lastSuccess": "2026-09-16T16:07:16.237Z",
       "matches": 0,
-      "error": "HTTP 500"
+      "error": "HTTP 404"
     },
     {
       "id": "kokoro-bilibili",
       "name": "依田こころ · Bilibili",
       "status": "manual",
-      "checkedAt": "2026-09-28T04:37:38.593Z",
+      "checkedAt": "2026-09-29T04:36:07.786Z",
       "lastSuccess": null,
       "matches": 0
     }
