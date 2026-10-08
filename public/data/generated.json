@@ -1,7 +1,30 @@
 {
   "version": 1,
-  "lastAttempt": "2026-10-07T04:40:30.525Z",
+  "lastAttempt": "2026-10-08T04:39:17.752Z",
   "items": [
+    {
+      "id": "auto-3c1e75425133b52d",
+      "kind": "news",
+      "title": {
+        "ja": "日本コロムビア 2026-10-07 更新",
+        "zh": "日本哥伦比亚 2026-10-07 更新"
+      },
+      "description": {
+        "ja": "Sunshine See May",
+        "zh": "Sunshine See May"
+      },
+      "date": "2026-10-07",
+      "source": "https://columbia.jp/idolmaster/imasnews/261007.html",
+      "sourceName": "日本コロムビア 公式ニュース",
+      "sourceId": "columbia-news",
+      "official": true,
+      "tags": [
+        "columbia-news"
+      ],
+      "discoveredBy": "scheduled-sync",
+      "imageSource": "",
+      "previewStatus": "pending"
+    },
     {
       "id": "auto-636315de522a08cb",
       "kind": "news",
@@ -31,32 +54,35 @@
       "id": "cg-news",
       "name": "シンデレラガールズ 公式ニュース",
       "status": "ok",
-      "checkedAt": "2026-10-07T04:40:30.525Z",
-      "lastSuccess": "2026-10-07T04:40:30.525Z",
+      "checkedAt": "2026-10-08T04:39:17.752Z",
+      "lastSuccess": "2026-10-08T04:39:17.752Z",
       "matches": 0
     },
     {
       "id": "columbia-news",
       "name": "日本コロムビア 公式ニュース",
       "status": "ok",
-      "checkedAt": "2026-10-07T04:40:30.525Z",
-      "lastSuccess": "2026-10-07T04:40:30.525Z",
-      "matches": 0
+      "checkedAt": "2026-10-08T04:39:17.752Z",
+      "lastSuccess": "2026-10-08T04:39:17.752Z",
+      "matches": 1,
+      "imageWarnings": [
+        "auto-3c1e75425133b52d: Unrecognized thumbnail host"
+      ]
     },
     {
       "id": "imas-youtube",
       "name": "アイドルマスターチャンネル",
       "status": "error",
-      "checkedAt": "2026-10-07T04:40:30.525Z",
+      "checkedAt": "2026-10-08T04:39:17.752Z",
       "lastSuccess": "2026-10-04T08:52:34.093Z",
       "matches": 0,
-      "error": "HTTP 500"
+      "error": "HTTP 404"
     },
     {
       "id": "columbia-youtube",
       "name": "日本コロムビア 公式YouTube",
       "status": "error",
-      "checkedAt": "2026-10-07T04:40:30.525Z",
+      "checkedAt": "2026-10-08T04:39:17.752Z",
       "lastSuccess": "2026-10-04T08:52:34.093Z",
       "matches": 0,
       "error": "HTTP 404"
@@ -65,7 +91,7 @@
       "id": "kokoro-bilibili",
       "name": "依田こころ · Bilibili",
       "status": "manual",
-      "checkedAt": "2026-10-07T04:40:30.525Z",
+      "checkedAt": "2026-10-08T04:39:17.752Z",
       "lastSuccess": null,
       "matches": 0
     }
