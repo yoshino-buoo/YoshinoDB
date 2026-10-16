@@ -1,7 +1,30 @@
 {
   "version": 1,
-  "lastAttempt": "2026-10-15T09:14:16.607Z",
+  "lastAttempt": "2026-10-16T09:07:34.124Z",
   "items": [
+    {
+      "id": "auto-43b2a7efe3631404",
+      "kind": "news",
+      "title": {
+        "ja": "日本コロムビア 2026-10-16 更新",
+        "zh": "日本哥伦比亚 2026-10-16 更新"
+      },
+      "description": {
+        "ja": "Sunshine See May",
+        "zh": "Sunshine See May"
+      },
+      "date": "2026-10-16",
+      "source": "https://columbia.jp/idolmaster/imasnews/261016.html",
+      "sourceName": "日本コロムビア 公式ニュース",
+      "sourceId": "columbia-news",
+      "official": true,
+      "tags": [
+        "columbia-news"
+      ],
+      "discoveredBy": "scheduled-sync",
+      "imageSource": "",
+      "previewStatus": "pending"
+    },
     {
       "id": "auto-65f4ad732ae75aaf",
       "kind": "news",
@@ -77,18 +100,19 @@
       "id": "cg-news",
       "name": "シンデレラガールズ 公式ニュース",
       "status": "ok",
-      "checkedAt": "2026-10-15T09:14:16.607Z",
-      "lastSuccess": "2026-10-15T09:14:16.607Z",
+      "checkedAt": "2026-10-16T09:07:34.124Z",
+      "lastSuccess": "2026-10-16T09:07:34.124Z",
       "matches": 0
     },
     {
       "id": "columbia-news",
       "name": "日本コロムビア 公式ニュース",
       "status": "ok",
-      "checkedAt": "2026-10-15T09:14:16.607Z",
-      "lastSuccess": "2026-10-15T09:14:16.607Z",
-      "matches": 2,
+      "checkedAt": "2026-10-16T09:07:34.124Z",
+      "lastSuccess": "2026-10-16T09:07:34.124Z",
+      "matches": 3,
       "imageWarnings": [
+        "auto-43b2a7efe3631404: Unrecognized thumbnail host",
         "auto-65f4ad732ae75aaf: Unrecognized thumbnail host",
         "auto-3c1e75425133b52d: Unrecognized thumbnail host"
       ]
@@ -97,23 +121,23 @@
       "id": "imas-youtube",
       "name": "アイドルマスターチャンネル",
       "status": "ok",
-      "checkedAt": "2026-10-15T09:14:16.607Z",
-      "lastSuccess": "2026-10-15T09:14:16.607Z",
+      "checkedAt": "2026-10-16T09:07:34.124Z",
+      "lastSuccess": "2026-10-16T09:07:34.124Z",
       "matches": 0
     },
     {
       "id": "columbia-youtube",
       "name": "日本コロムビア 公式YouTube",
       "status": "ok",
-      "checkedAt": "2026-10-15T09:14:16.607Z",
-      "lastSuccess": "2026-10-15T09:14:16.607Z",
+      "checkedAt": "2026-10-16T09:07:34.124Z",
+      "lastSuccess": "2026-10-16T09:07:34.124Z",
       "matches": 0
     },
     {
       "id": "kokoro-bilibili",
       "name": "依田こころ · Bilibili",
       "status": "manual",
-      "checkedAt": "2026-10-15T09:14:16.607Z",
+      "checkedAt": "2026-10-16T09:07:34.124Z",
       "lastSuccess": null,
       "matches": 0
     }
