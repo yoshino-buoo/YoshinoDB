@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastAttempt": "2026-10-19T10:04:17.108Z",
+  "lastAttempt": "2026-10-20T09:31:11.924Z",
   "items": [
     {
       "id": "auto-43b2a7efe3631404",
@@ -100,16 +100,16 @@
       "id": "cg-news",
       "name": "シンデレラガールズ 公式ニュース",
       "status": "ok",
-      "checkedAt": "2026-10-19T10:04:17.108Z",
-      "lastSuccess": "2026-10-19T10:04:17.108Z",
+      "checkedAt": "2026-10-20T09:31:11.924Z",
+      "lastSuccess": "2026-10-20T09:31:11.924Z",
       "matches": 0
     },
     {
       "id": "columbia-news",
       "name": "日本コロムビア 公式ニュース",
       "status": "ok",
-      "checkedAt": "2026-10-19T10:04:17.108Z",
-      "lastSuccess": "2026-10-19T10:04:17.108Z",
+      "checkedAt": "2026-10-20T09:31:11.924Z",
+      "lastSuccess": "2026-10-20T09:31:11.924Z",
       "matches": 3,
       "imageWarnings": [
         "auto-43b2a7efe3631404: Unrecognized thumbnail host",
@@ -121,23 +121,23 @@
       "id": "imas-youtube",
       "name": "アイドルマスターチャンネル",
       "status": "ok",
-      "checkedAt": "2026-10-19T10:04:17.108Z",
-      "lastSuccess": "2026-10-19T10:04:17.108Z",
+      "checkedAt": "2026-10-20T09:31:11.924Z",
+      "lastSuccess": "2026-10-20T09:31:11.924Z",
       "matches": 0
     },
     {
       "id": "columbia-youtube",
       "name": "日本コロムビア 公式YouTube",
       "status": "ok",
-      "checkedAt": "2026-10-19T10:04:17.108Z",
-      "lastSuccess": "2026-10-19T10:04:17.108Z",
+      "checkedAt": "2026-10-20T09:31:11.924Z",
+      "lastSuccess": "2026-10-20T09:31:11.924Z",
       "matches": 0
     },
     {
       "id": "kokoro-bilibili",
       "name": "依田こころ · Bilibili",
       "status": "manual",
-      "checkedAt": "2026-10-19T10:04:17.108Z",
+      "checkedAt": "2026-10-20T09:31:11.924Z",
       "lastSuccess": null,
       "matches": 0
     }
