@@ -1,7 +1,53 @@
 {
   "version": 1,
-  "lastAttempt": "2026-10-30T10:56:24.366Z",
+  "lastAttempt": "2026-10-31T10:28:41.462Z",
   "items": [
+    {
+      "id": "auto-2f0d3f69e9372fb5",
+      "kind": "videos",
+      "title": {
+        "ja": "【アイドルマスター】「デレパの神曲」(歌：原紗友里＆青木瑠璃子 from CINDERELLA PARTY!)",
+        "zh": ""
+      },
+      "description": {
+        "ja": "",
+        "zh": ""
+      },
+      "date": "2026-10-30",
+      "source": "https://www.youtube.com/watch?v=1wwAWmYtTkM",
+      "sourceName": "日本コロムビア 公式YouTube",
+      "sourceId": "columbia-youtube",
+      "official": true,
+      "tags": [
+        "youtube"
+      ],
+      "discoveredBy": "scheduled-sync",
+      "imageSource": "https://i2.ytimg.com/vi/1wwAWmYtTkM/hqdefault.jpg",
+      "previewStatus": "pending"
+    },
+    {
+      "id": "auto-603887c5e38e50bf",
+      "kind": "news",
+      "title": {
+        "ja": "日本コロムビア 2026-10-30 更新",
+        "zh": "日本哥伦比亚 2026-10-30 更新"
+      },
+      "description": {
+        "ja": "Sunshine See May",
+        "zh": "Sunshine See May"
+      },
+      "date": "2026-10-30",
+      "source": "https://columbia.jp/idolmaster/imasnews/261030.html",
+      "sourceName": "日本コロムビア 公式ニュース",
+      "sourceId": "columbia-news",
+      "official": true,
+      "tags": [
+        "columbia-news"
+      ],
+      "discoveredBy": "scheduled-sync",
+      "imageSource": "",
+      "previewStatus": "pending"
+    },
     {
       "id": "auto-7d939b84107aeb80",
       "kind": "videos",
@@ -146,18 +192,19 @@
       "id": "cg-news",
       "name": "シンデレラガールズ 公式ニュース",
       "status": "ok",
-      "checkedAt": "2026-10-30T10:56:24.366Z",
-      "lastSuccess": "2026-10-30T10:56:24.366Z",
+      "checkedAt": "2026-10-31T10:28:41.462Z",
+      "lastSuccess": "2026-10-31T10:28:41.462Z",
       "matches": 0
     },
     {
       "id": "columbia-news",
       "name": "日本コロムビア 公式ニュース",
       "status": "ok",
-      "checkedAt": "2026-10-30T10:56:24.366Z",
-      "lastSuccess": "2026-10-30T10:56:24.366Z",
-      "matches": 4,
+      "checkedAt": "2026-10-31T10:28:41.462Z",
+      "lastSuccess": "2026-10-31T10:28:41.462Z",
+      "matches": 5,
       "imageWarnings": [
+        "auto-603887c5e38e50bf: Unrecognized thumbnail host",
         "auto-95647ddf84eaf47f: Unrecognized thumbnail host",
         "auto-43b2a7efe3631404: Unrecognized thumbnail host",
         "auto-65f4ad732ae75aaf: Unrecognized thumbnail host",
@@ -168,18 +215,19 @@
       "id": "imas-youtube",
       "name": "アイドルマスターチャンネル",
       "status": "ok",
-      "checkedAt": "2026-10-30T10:56:24.366Z",
-      "lastSuccess": "2026-10-30T10:56:24.366Z",
+      "checkedAt": "2026-10-31T10:28:41.462Z",
+      "lastSuccess": "2026-10-31T10:28:41.462Z",
       "matches": 0
     },
     {
       "id": "columbia-youtube",
       "name": "日本コロムビア 公式YouTube",
       "status": "ok",
-      "checkedAt": "2026-10-30T10:56:24.366Z",
-      "lastSuccess": "2026-10-30T10:56:24.366Z",
-      "matches": 1,
+      "checkedAt": "2026-10-31T10:28:41.462Z",
+      "lastSuccess": "2026-10-31T10:28:41.462Z",
+      "matches": 2,
       "imageWarnings": [
+        "auto-2f0d3f69e9372fb5: Unrecognized thumbnail host",
         "auto-7d939b84107aeb80: Unrecognized thumbnail host"
       ]
     },
@@ -187,7 +235,7 @@
       "id": "kokoro-bilibili",
       "name": "依田こころ · Bilibili",
       "status": "manual",
-      "checkedAt": "2026-10-30T10:56:24.366Z",
+      "checkedAt": "2026-10-31T10:28:41.462Z",
       "lastSuccess": null,
       "matches": 0
     }
