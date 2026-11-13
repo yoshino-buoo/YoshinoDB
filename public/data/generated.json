@@ -1,7 +1,76 @@
 {
   "version": 1,
-  "lastAttempt": "2026-11-12T12:58:05.973Z",
+  "lastAttempt": "2026-11-13T12:23:32.095Z",
   "items": [
+    {
+      "id": "auto-ad431116c84c2710",
+      "kind": "news",
+      "title": {
+        "ja": "日本コロムビア 2026-11-13 更新",
+        "zh": "日本哥伦比亚 2026-11-13 更新"
+      },
+      "description": {
+        "ja": "Sunshine See May",
+        "zh": "Sunshine See May"
+      },
+      "date": "2026-11-13",
+      "source": "https://columbia.jp/idolmaster/imasnews/261113.html",
+      "sourceName": "日本コロムビア 公式ニュース",
+      "sourceId": "columbia-news",
+      "official": true,
+      "tags": [
+        "columbia-news"
+      ],
+      "discoveredBy": "scheduled-sync",
+      "imageSource": "",
+      "previewStatus": "pending"
+    },
+    {
+      "id": "auto-ce1b5450e3457db3",
+      "kind": "videos",
+      "title": {
+        "ja": "【アイドルマスター】「バベル (GAME VERSION)」(歌：喜多日菜子)",
+        "zh": ""
+      },
+      "description": {
+        "ja": "",
+        "zh": ""
+      },
+      "date": "2026-11-13",
+      "source": "https://www.youtube.com/watch?v=w17DOBzEAIg",
+      "sourceName": "日本コロムビア 公式YouTube",
+      "sourceId": "columbia-youtube",
+      "official": true,
+      "tags": [
+        "youtube"
+      ],
+      "discoveredBy": "scheduled-sync",
+      "imageSource": "https://i4.ytimg.com/vi/w17DOBzEAIg/hqdefault.jpg",
+      "previewStatus": "pending"
+    },
+    {
+      "id": "auto-f14452cc8219fa97",
+      "kind": "videos",
+      "title": {
+        "ja": "【アイドルマスター】「あらかねの器」(歌：原涼子 from CINDERELLA PARTY!)",
+        "zh": ""
+      },
+      "description": {
+        "ja": "",
+        "zh": ""
+      },
+      "date": "2026-11-13",
+      "source": "https://www.youtube.com/watch?v=jwUN-OjOTm8",
+      "sourceName": "日本コロムビア 公式YouTube",
+      "sourceId": "columbia-youtube",
+      "official": true,
+      "tags": [
+        "youtube"
+      ],
+      "discoveredBy": "scheduled-sync",
+      "imageSource": "https://i3.ytimg.com/vi/jwUN-OjOTm8/hqdefault.jpg",
+      "previewStatus": "pending"
+    },
     {
       "id": "auto-1592d5fcc416ed87",
       "kind": "videos",
@@ -261,18 +330,19 @@
       "id": "cg-news",
       "name": "シンデレラガールズ 公式ニュース",
       "status": "ok",
-      "checkedAt": "2026-11-12T12:58:05.973Z",
-      "lastSuccess": "2026-11-12T12:58:05.973Z",
+      "checkedAt": "2026-11-13T12:23:32.095Z",
+      "lastSuccess": "2026-11-13T12:23:32.095Z",
       "matches": 0
     },
     {
       "id": "columbia-news",
       "name": "日本コロムビア 公式ニュース",
       "status": "ok",
-      "checkedAt": "2026-11-12T12:58:05.973Z",
-      "lastSuccess": "2026-11-12T12:58:05.973Z",
-      "matches": 6,
+      "checkedAt": "2026-11-13T12:23:32.095Z",
+      "lastSuccess": "2026-11-13T12:23:32.095Z",
+      "matches": 7,
       "imageWarnings": [
+        "auto-ad431116c84c2710: Unrecognized thumbnail host",
         "auto-5b17c20c07978511: Unrecognized thumbnail host",
         "auto-603887c5e38e50bf: Unrecognized thumbnail host",
         "auto-95647ddf84eaf47f: Unrecognized thumbnail host",
@@ -285,18 +355,20 @@
       "id": "imas-youtube",
       "name": "アイドルマスターチャンネル",
       "status": "ok",
-      "checkedAt": "2026-11-12T12:58:05.973Z",
-      "lastSuccess": "2026-11-12T12:58:05.973Z",
+      "checkedAt": "2026-11-13T12:23:32.095Z",
+      "lastSuccess": "2026-11-13T12:23:32.095Z",
       "matches": 0
     },
     {
       "id": "columbia-youtube",
       "name": "日本コロムビア 公式YouTube",
       "status": "ok",
-      "checkedAt": "2026-11-12T12:58:05.973Z",
-      "lastSuccess": "2026-11-12T12:58:05.973Z",
-      "matches": 4,
+      "checkedAt": "2026-11-13T12:23:32.095Z",
+      "lastSuccess": "2026-11-13T12:23:32.095Z",
+      "matches": 6,
       "imageWarnings": [
+        "auto-ce1b5450e3457db3: Unrecognized thumbnail host",
+        "auto-f14452cc8219fa97: Unrecognized thumbnail host",
         "auto-1592d5fcc416ed87: Unrecognized thumbnail host",
         "auto-f0c918ce2e78059d: Unrecognized thumbnail host",
         "auto-2f0d3f69e9372fb5: Unrecognized thumbnail host",
@@ -307,7 +379,7 @@
       "id": "kokoro-bilibili",
       "name": "依田こころ · Bilibili",
       "status": "manual",
-      "checkedAt": "2026-11-12T12:58:05.973Z",
+      "checkedAt": "2026-11-13T12:23:32.095Z",
       "lastSuccess": null,
       "matches": 0
     }
