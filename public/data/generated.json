@@ -1,7 +1,53 @@
 {
   "version": 1,
-  "lastAttempt": "2026-11-19T13:33:57.254Z",
+  "lastAttempt": "2026-11-20T13:15:25.485Z",
   "items": [
+    {
+      "id": "auto-9e15966f59f5aa65",
+      "kind": "videos",
+      "title": {
+        "ja": "【アイドルマスター】「S(mile)ING! (GAME VERSION)」(歌：関裕美)",
+        "zh": ""
+      },
+      "description": {
+        "ja": "",
+        "zh": ""
+      },
+      "date": "2026-11-20",
+      "source": "https://www.youtube.com/watch?v=MBCfFXzT0GA",
+      "sourceName": "日本コロムビア 公式YouTube",
+      "sourceId": "columbia-youtube",
+      "official": true,
+      "tags": [
+        "youtube"
+      ],
+      "discoveredBy": "scheduled-sync",
+      "imageSource": "https://i2.ytimg.com/vi/MBCfFXzT0GA/hqdefault.jpg",
+      "previewStatus": "pending"
+    },
+    {
+      "id": "auto-f893ac1134ea93fe",
+      "kind": "news",
+      "title": {
+        "ja": "日本コロムビア 2026-11-20 更新",
+        "zh": "日本哥伦比亚 2026-11-20 更新"
+      },
+      "description": {
+        "ja": "Sunshine See May",
+        "zh": "Sunshine See May"
+      },
+      "date": "2026-11-20",
+      "source": "https://columbia.jp/idolmaster/imasnews/261120.html",
+      "sourceName": "日本コロムビア 公式ニュース",
+      "sourceId": "columbia-news",
+      "official": true,
+      "tags": [
+        "columbia-news"
+      ],
+      "discoveredBy": "scheduled-sync",
+      "imageSource": "",
+      "previewStatus": "pending"
+    },
     {
       "id": "auto-ad431116c84c2710",
       "kind": "news",
@@ -330,18 +376,19 @@
       "id": "cg-news",
       "name": "シンデレラガールズ 公式ニュース",
       "status": "ok",
-      "checkedAt": "2026-11-19T13:33:57.254Z",
-      "lastSuccess": "2026-11-19T13:33:57.254Z",
+      "checkedAt": "2026-11-20T13:15:25.485Z",
+      "lastSuccess": "2026-11-20T13:15:25.485Z",
       "matches": 0
     },
     {
       "id": "columbia-news",
       "name": "日本コロムビア 公式ニュース",
       "status": "ok",
-      "checkedAt": "2026-11-19T13:33:57.254Z",
-      "lastSuccess": "2026-11-19T13:33:57.254Z",
-      "matches": 7,
+      "checkedAt": "2026-11-20T13:15:25.485Z",
+      "lastSuccess": "2026-11-20T13:15:25.485Z",
+      "matches": 8,
       "imageWarnings": [
+        "auto-f893ac1134ea93fe: Unrecognized thumbnail host",
         "auto-ad431116c84c2710: Unrecognized thumbnail host",
         "auto-5b17c20c07978511: Unrecognized thumbnail host",
         "auto-603887c5e38e50bf: Unrecognized thumbnail host",
@@ -355,18 +402,19 @@
       "id": "imas-youtube",
       "name": "アイドルマスターチャンネル",
       "status": "ok",
-      "checkedAt": "2026-11-19T13:33:57.254Z",
-      "lastSuccess": "2026-11-19T13:33:57.254Z",
+      "checkedAt": "2026-11-20T13:15:25.485Z",
+      "lastSuccess": "2026-11-20T13:15:25.485Z",
       "matches": 0
     },
     {
       "id": "columbia-youtube",
       "name": "日本コロムビア 公式YouTube",
       "status": "ok",
-      "checkedAt": "2026-11-19T13:33:57.254Z",
-      "lastSuccess": "2026-11-19T13:33:57.254Z",
-      "matches": 6,
+      "checkedAt": "2026-11-20T13:15:25.485Z",
+      "lastSuccess": "2026-11-20T13:15:25.485Z",
+      "matches": 7,
       "imageWarnings": [
+        "auto-9e15966f59f5aa65: Unrecognized thumbnail host",
         "auto-ce1b5450e3457db3: Unrecognized thumbnail host",
         "auto-f14452cc8219fa97: Unrecognized thumbnail host",
         "auto-1592d5fcc416ed87: Unrecognized thumbnail host",
@@ -379,7 +427,7 @@
       "id": "kokoro-bilibili",
       "name": "依田こころ · Bilibili",
       "status": "manual",
-      "checkedAt": "2026-11-19T13:33:57.254Z",
+      "checkedAt": "2026-11-20T13:15:25.485Z",
       "lastSuccess": null,
       "matches": 0
     }
